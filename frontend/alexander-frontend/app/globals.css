@@ -30,6 +30,15 @@
   animation: animateIn 0.3s ease 0.15s both;
 }
 
+input {
+  color: black;
+}
+
+button {
+  border: solid 1px white;
+  color: white;
+}
+
 @keyframes animateIn {
   from {
     opacity: 0;
