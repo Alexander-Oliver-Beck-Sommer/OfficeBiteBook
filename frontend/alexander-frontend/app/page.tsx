@@ -53,6 +53,8 @@ export default async function Home() {
     //     </p>
     //   </footer>
     // </div>
-    <h4>Welcome to the frontpage ┻━┻ ︵ ＼( °□° )／ ︵ ┻━┻</h4>
-  )
+    <section >
+      {/* <h1>Hello, World!</h1> */}
+    </section>
+  );
 }
