@@ -1,44 +1,18 @@
+import HamburgerButton from "./Buttons/HamburgerButton";
+
 export default function Header() {
   return (
-    // <div className="flex flex-col gap-16 items-center">
-    //   <div className="flex gap-8 justify-center items-center">
-    //     <a
-    //       href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-    //       target="_blank"
-    //       rel="noreferrer"
-    //     >
-    //       <SupabaseLogo />
-    //     </a>
-    //     <span className="border-l rotate-45 h-6" />
-    //     <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
-    //       <NextLogo />
-    //     </a>
-    //   </div>
-    //   <h1 className="sr-only">Supabase and Next.js Starter Template</h1>
-    //   <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center">
-    //     The fastest way to build apps with{' '}
-    //     <a
-    //       href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-    //       target="_blank"
-    //       className="font-bold hover:underline"
-    //       rel="noreferrer"
-    //     >
-    //       Supabase
-    //     </a>{' '}
-    //     and{' '}
-    //     <a
-    //       href="https://nextjs.org/"
-    //       target="_blank"
-    //       className="font-bold hover:underline"
-    //       rel="noreferrer"
-    //     >
-    //       Next.js
-    //     </a>
-    //   </p>
-    //   <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
-    // </div>
-    <header className="flex justify-center mx-4 md:mx-20">
-      <section className="border-2 justify-center border-sunset_orange w-full flex max-w-screen-xk h-20 "></section>
+    <header className="flex justify-center w-full px-16 md:px-48">
+      <section className="flex justify-between w-full max-w-screen-xl align-middle border-2 border-sunset_orange">
+        <div className="w-48 h-48 border-2 border-ghost_white"></div>
+        <HamburgerButton
+          showOn={"mobile-tablet"}
+          ariaLabel={"Open and close the navigation menu"}
+        />
+        <nav className="hidden h-48 border-2 border-ghost_white lg:block">
+          <p>Nav only shows in the header on desktop size!</p>
+        </nav>
+      </section>
     </header>
   );
 }
