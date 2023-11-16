@@ -23,34 +23,27 @@ const screens = (screen) => {
   }
 };
 
+const visibility = (visible) => {
+  return visible ? "opacity-75 visible" : "opacity-0 invisible";
+};
+
 type HamburgerButtonProps = {
-  ariaLabel: string; // Required. Write what purpose/role the component serves.
-  screen?: string; // Optional. Choose which screens the button should appear on.
+  visible: boolean; // Optional. Choose when the TransparentBackground component should fade in/out in terms of executed code.
+  screen: string; // Optional. Choose which screens the button should appear on.
   toggle: () => void; // Optional. Toggle that makes the component able to run and execute onClick-related events.
 };
 
-const HamburgerButton = ({
-  ariaLabel,
-  screen = "all",
-  toggle,
-}: HamburgerButtonProps) => {
-  if (!ariaLabel) {
-    throw new Error(
-      "Please describe what the HamburgerButton component does: ariaLabel={'Open and close navigation'}",
-    );
-  }
-
+const TransparentBackground = ({ visible = false, toggle, screen }) => {
+  const visibleValue = visibility(visible);
   const screenValue = screens(screen);
 
   return (
-    <button
-      className={`relative h-48 w-48 border-2 border-ghost_white ${screenValue}`}
-      aria-label={ariaLabel}
+    <div
+      className={`fixed inset-0 z-20 bg-dark_gunmetal transition-all duration-400 ease-in-out ${visibleValue} ${screenValue}`}
+      aria-hidden={!visible}
       onClick={toggle}
-    >
-      <div className="absolute top-20 h-4 w-full rounded bg-ghost_white"></div>
-    </button>
+    ></div>
   );
 };
 
-export default HamburgerButton;
+export default TransparentBackground;

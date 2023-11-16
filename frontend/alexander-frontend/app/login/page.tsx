@@ -53,10 +53,10 @@ export default function Login({
   };
 
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
+    <div className="gap-2 flex w-full flex-1 flex-col justify-center px-8 sm:max-w-md">
       <Link
         href="/"
-        className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
+        className="py-2 text-foreground bg-btn-background hover:bg-btn-background-hover group absolute left-8 top-8 flex items-center rounded-md px-4 text-sm no-underline"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@ export default function Login({
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
+          className="mr-2 group-hover:-translate-x-1 h-4 w-4 transition-transform"
         >
           <polyline points="15 18 9 12 15 6" />
         </svg>{" "}
@@ -76,14 +76,14 @@ export default function Login({
       </Link>
 
       <form
-        className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
+        className="animate-in gap-2 text-foreground flex w-full flex-1 flex-col justify-center"
         action={signIn}
       >
         <label className="text-md" htmlFor="email">
           Email
         </label>
         <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
+          className="py-2 mb-6 rounded-md border bg-inherit px-4"
           name="email"
           placeholder="you@example.com"
           required
@@ -92,23 +92,23 @@ export default function Login({
           Password
         </label>
         <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
+          className="py-2 mb-6 rounded-md border bg-inherit px-4"
           type="password"
           name="password"
           placeholder="••••••••"
           required
         />
-        <button className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2">
+        <button className="py-2 text-foreground mb-2 rounded-md bg-green-700 px-4">
           Sign In
         </button>
         <button
           formAction={signUp}
-          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
+          className="border-foreground/20 py-2 text-foreground mb-2 rounded-md border px-4"
         >
           Sign Up
         </button>
         {searchParams?.message && (
-          <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
+          <p className="bg-foreground/10 text-foreground mt-4 p-4 text-center">
             {searchParams.message}
           </p>
         )}

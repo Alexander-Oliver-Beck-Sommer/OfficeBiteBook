@@ -1,7 +1,7 @@
 import { GeistSans } from "geist/font";
 import "./globals.css";
 import localfont from "next/font/local";
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 
 const poppins = localfont({
   src: [
@@ -116,11 +116,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${poppins.variable}`}>
-      <body className="">
+      <body>
         <Header />
-        <main>
-          {children}
-        </main>
+        <main>{children}</main>
       </body>
     </html>
   );

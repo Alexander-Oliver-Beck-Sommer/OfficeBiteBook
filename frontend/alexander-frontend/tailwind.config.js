@@ -21,9 +21,6 @@ module.exports = {
       fontFamily: {
         poppins: ["var(--font-poppins)"],
       },
-      lineHeight: {
-        0: "0",
-      },
     },
     screens: {
       sm: "390px",
@@ -31,7 +28,14 @@ module.exports = {
       lg: "1024px",
       xl: "1440px",
     },
+    transitionDuration: {
+      400: "400ms",
+    },
     spacing: {
+      header_height: "5rem",
+      nav_closed: "0px",
+      nav_open: "80%",
+      0: "0rem",
       4: "0.25rem",
       8: "0.5rem",
       12: "0.75rem",

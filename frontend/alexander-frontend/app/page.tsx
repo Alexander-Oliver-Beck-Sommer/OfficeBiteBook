@@ -53,8 +53,13 @@ export default async function Home() {
     //     </p>
     //   </footer>
     // </div>
-    <section >
-      {/* <h1>Hello, World!</h1> */}
+    <section>
+      <p>
+        Ea fugiat sit proident culpa. Eiusmod cupidatat deserunt tempor sunt
+        laborum aliquip eiusmod aliquip magna qui commodo enim. Voluptate dolor
+        irure minim nisi adipisicing deserunt irure esse eiusmod ipsum do dolor
+        sint.
+      </p>
     </section>
   );
 }
