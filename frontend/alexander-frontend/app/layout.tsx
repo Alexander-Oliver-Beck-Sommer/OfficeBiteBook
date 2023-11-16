@@ -1,7 +1,7 @@
-import { GeistSans } from "geist/font";
 import "./globals.css";
 import localfont from "next/font/local";
 import Header from "@/components/Header/Header";
+import siteSettings from "@/data/siteSettings";
 
 const poppins = localfont({
   src: [
@@ -105,7 +105,7 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "OfficeBiteBook",
+  title: `${siteSettings.site_name}`,
   description: "Create and share delicious meals with your office!",
 };
 

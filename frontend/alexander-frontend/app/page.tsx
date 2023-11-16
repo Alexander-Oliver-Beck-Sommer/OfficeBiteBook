@@ -60,6 +60,7 @@ export default async function Home() {
         irure minim nisi adipisicing deserunt irure esse eiusmod ipsum do dolor
         sint.
       </p>
+      
     </section>
   );
 }
