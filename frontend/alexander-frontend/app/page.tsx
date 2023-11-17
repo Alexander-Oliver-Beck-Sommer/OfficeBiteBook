@@ -6,6 +6,9 @@
 // import Header from '@/components/Header'
 // import { cookies } from 'next/headers'
 
+import ShortContent from "@/components/Content/ShortContent";
+import WideContent from "@/components/Content/WideContent";
+
 export default async function Home() {
   // const cookieStore = cookies()
 
@@ -60,7 +63,12 @@ export default async function Home() {
         irure minim nisi adipisicing deserunt irure esse eiusmod ipsum do dolor
         sint.
       </p>
-      
+      <WideContent ariaLabel="This is a wide content component!">
+          <p>Wide Content!</p>
+      </WideContent>
+      <ShortContent ariaLabel="This a short content component">
+        <p>Short Content!</p>
+      </ShortContent>
     </section>
   );
 }
