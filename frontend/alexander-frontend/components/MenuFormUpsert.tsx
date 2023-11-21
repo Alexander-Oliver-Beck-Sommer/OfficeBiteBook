@@ -1,19 +1,19 @@
 "use client";
-import { FormEvent } from "react";
-import { supabase } from "@/components/supabaseClient";
+import { htmlFormEvent } from "react";
+import { supabase } from "@/components/Supabase/supabaseClient";
 
 export default function MenuUpsert() {
-  function handleMenuFormData(event: FormEvent) {
+  function handleMenuhtmlFormData(event: htmlFormEvent) {
     event.preventDefault();
-    const formData = new FormData(event.target as HTMLFormElement);
+    const htmlFormData = new htmlFormData(event.target as HTMLhtmlFormElement);
 
     const data = {
-      title: formData.get("title"),
-      start_date: formData.get("startDate"),
-      end_date: formData.get("endDate"),
-      menu_type_id: parseInt(formData.get("menuTypeID") as string, 10),
-      room_id: parseInt(formData.get("roomID") as string, 10),
-      published: formData.get("publishMenu") === "on",
+      title: htmlFormData.get("title"),
+      start_date: htmlFormData.get("startDate"),
+      end_date: htmlFormData.get("endDate"),
+      menu_type_id: parseInt(htmlFormData.get("menuTypeID") as string, 10),
+      room_id: parseInt(htmlFormData.get("roomID") as string, 10),
+      published: htmlFormData.get("publishMenu") === "on",
     };
 
     const insertMenu = async () => {
@@ -43,40 +43,40 @@ export default function MenuUpsert() {
   }
 
   return (
-    <form onSubmit={handleMenuFormData} class="form-example" id="MenuForm">
-      <div className="form-example">
-        <label for="title">Enter title: </label>
+    <htmlForm onSubmit={handleMenuhtmlFormData} className="htmlForm-example" id="MenuhtmlForm">
+      <div className="htmlForm-example">
+        <label htmlFor="title">Enter title: </label>
         <input type="text" name="title" id="title" required />
       </div>
-      <div className="form-example">
-        <label for="startDate">Enter start date: </label>
+      <div className="htmlForm-example">
+        <label htmlFor="startDate">Enter start date: </label>
         <input type="datetime-local" name="startDate" id="startDate" required />
       </div>
-      <div className="form-example">
-        <label for="endDate">Enter end date: </label>
+      <div className="htmlForm-example">
+        <label htmlFor="endDate">Enter end date: </label>
         <input type="datetime-local" name="endDate" id="endDate" required />
       </div>
-      <div className="form-example">
-        <label for="menuTypeID">Enter menu type ID: </label>
+      <div className="htmlForm-example">
+        <label htmlFor="menuTypeID">Enter menu type ID: </label>
         <input type="number" name="menuTypeID" id="menuTypeID" required />
       </div>
-      <div className="form-example">
-        <label for="roomID">Enter room ID: </label>
+      <div className="htmlForm-example">
+        <label htmlFor="roomID">Enter room ID: </label>
         <input type="number" name="roomID" id="roomID" required />
       </div>
-      <div className="form-example">
-        <label for="publishMenu">Unpublish / Publish </label>
+      <div className="htmlForm-example">
+        <label htmlFor="publishMenu">Unpublish / Publish </label>
         <input type="checkbox" name="publishMenu" id="publishMenu" />
       </div>
-      <div className="form-example">
-        <label for="submitForm">Create Menu (kind of...) 🥳 </label>
+      <div className="htmlForm-example">
+        <label htmlFor="submithtmlForm">Create Menu (kind of...) 🥳 </label>
         <input
           type="submit"
-          name="submitForm"
-          id="submitForm"
+          name="submithtmlForm"
+          id="submithtmlForm"
           value="Subscribe!"
         />
       </div>
-    </form>
+    </htmlForm>
   );
 }

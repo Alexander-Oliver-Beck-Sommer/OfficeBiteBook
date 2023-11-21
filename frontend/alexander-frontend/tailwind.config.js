@@ -21,6 +21,9 @@ module.exports = {
       fontFamily: {
         poppins: ["var(--font-poppins)"],
       },
+      lineHeight: {
+        150: "150%",
+      },
     },
     screens: {
       sm: "390px",

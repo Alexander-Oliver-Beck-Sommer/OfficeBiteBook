@@ -15,11 +15,9 @@ const ShortContent = ({ ariaLabel, children }: ShortContentProps) => {
   return (
     <section
       aria-label={ariaLabel}
-      className="flex w-full items-center justify-center border-2 border-sunset_orange"
+      className="flex w-full items-center justify-center"
     >
-      <section className="w-full max-w-screen-xl border-2 border-y-apple">
-        {children}
-      </section>
+      <section className="w-full max-w-screen-xl">{children}</section>
     </section>
   );
 };

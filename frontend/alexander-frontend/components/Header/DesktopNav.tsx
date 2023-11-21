@@ -11,11 +11,11 @@ type DesktopNavProps = {
 const DesktopNav = ({ style }: DesktopNavProps) => {
   return (
     <nav className={`hidden lg:block ${style}`}>
-      <ul className="gap-50 flex items-center">
+      <ul className="flex items-center gap-50">
         <li>
           <Link
             href={pageSettings.account.route}
-            className="gap-5 flex flex-col items-center justify-center"
+            className="flex flex-col items-center justify-center gap-5"
           >
             <MdPerson size={30} />
             <h3>{pageSettings.account.title_alt}</h3>
@@ -24,7 +24,7 @@ const DesktopNav = ({ style }: DesktopNavProps) => {
         <li>
           <Link
             href={pageSettings.settings.route}
-            className="gap-5 flex flex-col items-center justify-center"
+            className="flex flex-col items-center justify-center gap-5"
           >
             <MdSettings size={30} />
             <h3>{pageSettings.settings.title}</h3>
