@@ -36,6 +36,7 @@ module.exports = {
     },
     spacing: {
       header_height: "5rem",
+      calendar_bar_height: "4.688rem",
       nav_closed: "0px",
       nav_open: "80%",
       0: "0rem",
