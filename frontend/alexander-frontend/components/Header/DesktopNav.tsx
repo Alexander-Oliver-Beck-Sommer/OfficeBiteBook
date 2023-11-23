@@ -1,9 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { MdPerson, MdSettings, MdConstruction } from "react-icons/md";
+import { MdConstruction } from "react-icons/md";
 import Link from "next/link";
 import pageSettings from "@/data/pageSettings";
-import UserIcon from "../Icons/UserIcon";
+import UserIcon from "@/components/Icons/UserIcon";
+import SettingsIcon from "@/components/Icons/SettingsIcon";
+import LockIcon from "@/components/Icons/LockIcon";
 
 type DesktopNavProps = {
   style: string; // Optional. Functionality to add styling to the DesktopNav component if needed.
@@ -18,7 +20,7 @@ const DesktopNav = ({ style }: DesktopNavProps) => {
             href={pageSettings.account.route}
             className="flex flex-col items-center justify-center gap-5"
           >
-            <MdPerson size={30} />
+            <UserIcon className="h-30 w-30 fill-ghost_white" variant="filled" />
             <p>{pageSettings.account.title_alt}</p>
           </Link>
         </li>
@@ -27,7 +29,7 @@ const DesktopNav = ({ style }: DesktopNavProps) => {
             href={pageSettings.settings.route}
             className="flex flex-col items-center justify-center gap-5"
           >
-            <MdSettings size={30} />
+            <SettingsIcon className="h-30 w-30 fill-ghost_white" variant="filled" />
             <p>{pageSettings.settings.title}</p>
           </Link>
         </li>
@@ -36,15 +38,9 @@ const DesktopNav = ({ style }: DesktopNavProps) => {
             href="/calendar-test"
             className="flex flex-col items-center justify-center gap-5"
           >
-            <MdConstruction size={30} />
+            <LockIcon className="h-30 w-30 fill-ghost_white" variant="filled" />
             <p>Calendar Test</p>
           </Link>
-        </li>
-        <li>
-          <UserIcon
-            className="h-35 w-35 overflow-visible text-yellow-600"
-            variant="filled"
-          />
         </li>
       </ul>
     </nav>
