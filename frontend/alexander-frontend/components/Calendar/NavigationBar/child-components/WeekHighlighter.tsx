@@ -1,4 +1,5 @@
-// This component is used to higlight the current week in the real world, and not the chosen week in the calendar
+// This component is used to higlight the current week in the real world, and not the chosen week in the calendar.
+// Going into a new year, the week number will be reset to 1.
 
 function getCurrentWeekNumber() {
   const today = new Date();
@@ -11,7 +12,7 @@ export default function WeekHighlighter() {
   const weekNumber = getCurrentWeekNumber();
 
   return (
-    <h3>
+    <h3 aria-live="polite">
       <span className="font-normal">Currently: </span>
       Week {weekNumber}
     </h3>
