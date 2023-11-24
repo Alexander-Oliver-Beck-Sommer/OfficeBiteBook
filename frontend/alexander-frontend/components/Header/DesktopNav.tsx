@@ -1,11 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import { MdConstruction } from "react-icons/md";
 import Link from "next/link";
 import pageSettings from "@/data/pageSettings";
 import UserIcon from "@/components/Icons/UserIcon";
 import SettingsIcon from "@/components/Icons/SettingsIcon";
-import LockIcon from "@/components/Icons/LockIcon";
+import RobotIcon from "../Icons/RobotIcon";
 
 type DesktopNavProps = {
   style: string; // Optional. Functionality to add styling to the DesktopNav component if needed.
@@ -20,7 +19,10 @@ const DesktopNav = ({ style }: DesktopNavProps) => {
             href={pageSettings.account.route}
             className="flex flex-col items-center justify-center gap-5"
           >
-            <UserIcon className="h-30 w-30 fill-ghost_white" variant="filled" />
+            <UserIcon
+              className="h-30 w-30 fill-ghost_white"
+              variant="enabled"
+            />
             <p>{pageSettings.account.title_alt}</p>
           </Link>
         </li>
@@ -29,7 +31,10 @@ const DesktopNav = ({ style }: DesktopNavProps) => {
             href={pageSettings.settings.route}
             className="flex flex-col items-center justify-center gap-5"
           >
-            <SettingsIcon className="h-30 w-30 fill-ghost_white" variant="filled" />
+            <SettingsIcon
+              className="h-30 w-30 fill-ghost_white"
+              variant="enabled"
+            />
             <p>{pageSettings.settings.title}</p>
           </Link>
         </li>
@@ -38,7 +43,7 @@ const DesktopNav = ({ style }: DesktopNavProps) => {
             href="/calendar-test"
             className="flex flex-col items-center justify-center gap-5"
           >
-            <LockIcon className="h-30 w-30 fill-ghost_white" variant="filled" />
+            <RobotIcon className="h-30 w-30 fill-ghost_white" />
             <p>Calendar Test</p>
           </Link>
         </li>

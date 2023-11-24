@@ -2,16 +2,16 @@ import React from "react";
 
 interface SettingsIconProps {
   className?: string;
-  variant?: "outlined" | "filled";
+  variant?: "disabled" | "enabled";
 }
 
 const SettingsIcon: React.FC<SettingsIconProps> = ({
   className,
-  variant = "filled",
+  variant = "enabled",
 }) => {
   return (
     <>
-      {variant === "filled" ? (
+      {variant === "enabled" ? (
         <svg
           width="24"
           height="24"

@@ -2,16 +2,16 @@ import React from "react";
 
 interface LockIconProps {
   className?: string;
-  variant?: "outlined" | "filled";
+  variant?: "disabled" | "enabled";
 }
 
 const LockIcon: React.FC<LockIconProps> = ({
   className,
-  variant = "filled",
+  variant = "enabled",
 }) => {
   return (
     <>
-      {variant === "filled" ? (
+      {variant === "enabled" ? (
         <svg
           width="24"
           height="24"
