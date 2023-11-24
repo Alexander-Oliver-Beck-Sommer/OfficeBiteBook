@@ -6,6 +6,7 @@ import TransparentBackground from "../TransparentBackground";
 import DesktopNav from "./DesktopNav";
 import sitesettings from "@/data/siteSettings";
 import Link from "next/link";
+import Sidebar from "./Sidebar";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,6 +42,7 @@ export default function Header() {
         </section>
       </header>
       <MobileNav style={mobileNavClasses} />
+      <Sidebar path={"calendar-test"} />
       <TransparentBackground
         visible={isMenuOpen}
         screen={"mobile-tablet"}
