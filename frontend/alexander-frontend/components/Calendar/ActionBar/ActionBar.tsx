@@ -7,7 +7,7 @@ export default function ActionBar() {
     <section
       role="toolbar"
       aria-label="Calendar Mass Actions"
-      className="flex items-center justify-start gap-25 border-b border-davys_grey px-25 py-20"
+      className="flex items-center justify-start gap-25 border-b border-davys_grey px-35 py-20"
     >
       <VisibilityFlipper />
       <WeekLocker />
