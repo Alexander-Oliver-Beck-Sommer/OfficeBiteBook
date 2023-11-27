@@ -42,7 +42,7 @@ export default function Header() {
         </section>
       </header>
       <MobileNav style={mobileNavClasses} />
-      <Sidebar path={"calendar-test"} />
+      {/* <Sidebar path={"calendar-test"} /> */}
       <TransparentBackground
         visible={isMenuOpen}
         screen={"mobile-tablet"}

@@ -22,7 +22,12 @@ module.exports = {
         poppins: ["var(--font-poppins)"],
       },
       lineHeight: {
+        100: "100%",
         150: "150%",
+      },
+      gridTemplateColumns: {
+        2: "auto 1fr;",
+        7: "repeat(7, 1fr)",
       },
     },
     screens: {
@@ -39,6 +44,8 @@ module.exports = {
       calendar_bar_height: "4.688rem",
       nav_closed: "0px",
       nav_open: "80%",
+      sidebar_width: "4.688rem",
+      week_grid_borders: "1px",
       0: "0rem",
       4: "0.25rem",
       5: "0.313rem",

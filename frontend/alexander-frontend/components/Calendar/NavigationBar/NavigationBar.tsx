@@ -5,22 +5,27 @@ import WeekHighlighter from "./child-components/WeekHighlighter"; // Component f
 
 export default function NavigationBar() {
   return (
-    <section
-      role="toolbar"
-      aria-label="Week and Month View Actions"
-      className="flex items-center justify-start border-b border-davys_grey px-16 py-20"
-    >
-      <ul className="flex items-center justify-start gap-25">
-        <li>
-          <WeekFlipper />
-        </li>
-        <li>
-          <MonthFlipper />
-        </li>
-        <li>
-          <WeekHighlighter />
-        </li>
-      </ul>
+    <section className="flex">
+      <section className="w-sidebar_width bg-dark_gunmetal">
+
+      </section>
+      <section
+        role="toolbar"
+        aria-label="Week and Month View Actions"
+        className="flex items-center justify-start border-b border-davys_grey px-16 py-20"
+      >
+        <ul className="flex items-center justify-start gap-25">
+          <li>x
+            <WeekFlipper />
+          </li>
+          <li>
+            <MonthFlipper />
+          </li>
+          <li>
+            <WeekHighlighter />
+          </li>
+        </ul>
+      </section>
     </section>
   );
 }

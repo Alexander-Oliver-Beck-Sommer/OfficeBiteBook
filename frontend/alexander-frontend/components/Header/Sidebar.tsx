@@ -8,9 +8,9 @@ const Sidebar = ({ path }) => {
 
   if (pathname === pathValue) {
     return (
-      <nav className="text-red-500">
-        <h3>Navbar visible</h3>
-      </nav>
+      <section className="w-sidebar_width fixed bottom-0 top-0 bg-dark_gunmetal pt-header_height">
+        
+      </section>
     );
   } else {
     console.log(`The sidebar is currently set to only appear on ${pathValue}`);

@@ -5,9 +5,9 @@ import WeeklySchedule from "./WeeklySchedule/WeeklySchedule"; // The actual cale
 export default function CalendarUI() {
   return (
     <section aria-label="Calendar">
-      <NavigationBar />
-      <ActionBar />
-      {/* <WeeklySchedule /> */}
+      {/* <NavigationBar />
+      <ActionBar /> */}
+      <WeeklySchedule />
     </section>
   );
 }
