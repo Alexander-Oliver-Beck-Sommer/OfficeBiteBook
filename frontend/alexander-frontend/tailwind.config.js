@@ -28,6 +28,7 @@ module.exports = {
       gridTemplateColumns: {
         2: "auto 1fr;",
         7: "repeat(7, 1fr)",
+        8: "auto repeat(7, 1fr)",
       },
     },
     screens: {
@@ -46,6 +47,10 @@ module.exports = {
       nav_open: "80%",
       sidebar_width: "4.688rem",
       week_grid_borders: "1px",
+      week_grid_date: "4.063rem",
+      week_grid_details: "6.25rem",
+      week_grid_hours: "6.25rem",
+      week_grid_cells: "3.125rem",
       0: "0rem",
       4: "0.25rem",
       5: "0.313rem",
