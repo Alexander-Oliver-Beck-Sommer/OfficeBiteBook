@@ -30,6 +30,9 @@ module.exports = {
         7: "repeat(7, 1fr)",
         8: "auto repeat(7, 1fr)",
       },
+      gridTemplateRows: {
+        2: "auto 1fr;",
+      },
     },
     screens: {
       sm: "390px",

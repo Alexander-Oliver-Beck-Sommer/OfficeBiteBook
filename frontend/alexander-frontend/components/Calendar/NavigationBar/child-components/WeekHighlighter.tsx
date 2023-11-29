@@ -1,5 +1,4 @@
-// This component is used to higlight the current week in the real world, and not the chosen week in the calendar.
-// Going into a new year, the week number will be reset to 1.
+// This component has independent functionality as it is not related to the WeekFlipper component.
 
 function getCurrentWeekNumber() {
   const today = new Date();

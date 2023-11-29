@@ -44,11 +44,15 @@ const HamburgerButton = ({
 
   return (
     <button
-      className={`relative h-48 w-48 border-2 border-ghost_white ${screenValue}`}
+      className={`flex h-48 w-48 items-center justify-center ${screenValue}`}
       aria-label={ariaLabel}
       onClick={toggle}
     >
-      <div className="absolute top-20 h-4 w-full rounded bg-ghost_white"></div>
+      <div className="flex h-25  w-40 flex-col justify-between">
+        <div className="h-4 rounded bg-ghost_white"></div>
+        <div className="h-4 w-full rounded bg-ghost_white"></div>
+        <div className="h-4 w-full rounded bg-ghost_white"></div>
+      </div>
     </button>
   );
 };

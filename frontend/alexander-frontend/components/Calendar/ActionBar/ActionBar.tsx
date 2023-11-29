@@ -4,12 +4,12 @@ import WeekClearer from "./child-components/WeekClearer"; // Mass-action compone
 
 export default function ActionBar() {
   return (
-    <section className="flex">
+    <section className="grid grid-cols-2">
       <section className="w-sidebar_width bg-dark_gunmetal"></section>
       <section
         role="toolbar"
         aria-label="Calendar Mass Actions"
-        className="flex items-center justify-start gap-25 border-b border-davys_grey px-35 py-20"
+        className="flex w-full items-center justify-start gap-25 border-b border-davys_grey px-35 py-20"
       >
         <VisibilityFlipper />
         <WeekLocker />

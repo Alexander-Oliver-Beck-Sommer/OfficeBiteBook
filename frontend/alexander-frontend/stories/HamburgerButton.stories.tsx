@@ -11,7 +11,8 @@ type Story = StoryObj<HamburgerButton>;
 
 export const Primary: Story = {
   args: {
-    ariaLabel: "Label that describes what the Hamburger component does in terms of accessibility. ",
+    ariaLabel:
+      "Label that describes what the Hamburger component does in terms of accessibility. ",
     screen: "mobile-tablet",
   },
 };
