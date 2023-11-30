@@ -7,9 +7,18 @@ type DateCellProps = {
   lockToggle: () => void;
 };
 
-const DateCell = ({ dayName, dayDate, lockToggle }: DateCellProps) => {
+const DateCell = ({
+  dayName,
+  dayDate,
+  lockToggle,
+  isCurrentDay,
+}: DateCellProps) => {
+  const cellClass = isCurrentDay ? "border-rajah " : "border-transparent";
+
   return (
-    <section className="flex h-65 w-full items-center justify-between bg-gunmetal px-15 py-20">
+    <section
+      className={`flex h-65 w-full items-center justify-between border-t-currentDay bg-gunmetal px-15 py-20 ${cellClass}`}
+    >
       <div className="flex items-end gap-8">
         <h2 className="leading-100">{dayDate}</h2>
         <h5>{dayName}</h5>

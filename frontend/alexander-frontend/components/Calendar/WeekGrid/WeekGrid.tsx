@@ -15,11 +15,21 @@ const WeekGrid = ({
   const timeSlots = generateTimeSlots(settings.timeFormat);
   const weekDates = getWeekDates();
 
+  const today = new Date();
+  const isToday = (date) => {
+    return (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    );
+  };
+
   return (
     <>
       <ul className="grid grid-cols-8 gap-week_grid_borders bg-davys_grey">
         {Object.entries(settings.weekDays).map(([day, dayName], index) => {
           const date = weekDates[index];
+          const isCurrentDay = isToday(date);
 
           if (index === 0) {
             return (
@@ -43,7 +53,7 @@ const WeekGrid = ({
                 <li key={day} className="overflow-hidden">
                   <ul className="flex flex-col gap-week_grid_borders">
                     <li className="flex flex-col gap-week_grid_borders">
-                      <DateCell dayName={dayName} dayDate={date.getDate()} />
+                      <DateCell dayName={dayName} dayDate={date.getDate()} isCurrentDay={isCurrentDay} />
                       <AttendantsCell
                         acceptValue={1}
                         declineValue={1}
@@ -69,7 +79,7 @@ const WeekGrid = ({
               <li key={day} className="overflow-hidden">
                 <ul className="flex flex-col gap-week_grid_borders">
                   <li className="flex w-full flex-row flex-wrap gap-week_grid_borders">
-                    <DateCell dayName={dayName} dayDate={date.getDate()} />
+                    <DateCell dayName={dayName} dayDate={date.getDate()} isCurrentDay={isCurrentDay} />
                     <AttendantsCell
                       acceptValue={1}
                       declineValue={1}

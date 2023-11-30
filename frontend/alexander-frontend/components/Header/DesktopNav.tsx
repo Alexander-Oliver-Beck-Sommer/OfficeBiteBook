@@ -5,6 +5,7 @@ import pageSettings from "@/data/pageSettings";
 import UserIcon from "@/components/Icons/UserIcon";
 import SettingsIcon from "@/components/Icons/SettingsIcon";
 import RobotIcon from "../Icons/RobotIcon";
+import TimeIcon from "../Icons/TimeIcon";
 
 type DesktopNavProps = {
   style: string; // Optional. Functionality to add styling to the DesktopNav component if needed.
@@ -45,6 +46,15 @@ const DesktopNav = ({ style }: DesktopNavProps) => {
           >
             <RobotIcon className="h-30 w-30 fill-ghost_white" />
             <p>Calendar Test</p>
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/menu-modal-test"
+            className="flex flex-col items-center justify-center gap-5"
+          >
+            <TimeIcon className="h-30 w-30 fill-ghost_white" />
+            <p>Menu Modal Test</p>
           </Link>
         </li>
       </ul>

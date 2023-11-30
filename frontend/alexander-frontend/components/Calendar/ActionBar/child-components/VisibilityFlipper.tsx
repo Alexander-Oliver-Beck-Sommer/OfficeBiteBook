@@ -6,13 +6,13 @@ export default function VisibilityFlipper() {
       <li className="flex items-center">
         <button className="flex items-center gap-8">
           <h4>Publish</h4>
-          <VisibilityIcon className="h-25 w-25 fill-cool_grey" />
+          <VisibilityIcon className="h-25 w-25 fill-rajah" />
         </button>
       </li>
       <li className="flex items-center">
         <button className="flex items-center gap-8">
           <h4>Private</h4>
-          <VisibilityIcon className="h-25 w-25 fill-cool_grey" variant="disabled" />
+          <VisibilityIcon className="h-25 w-25 fill-rajah" variant="disabled" />
         </button>
       </li>
     </ul>

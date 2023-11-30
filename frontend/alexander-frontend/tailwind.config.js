@@ -6,6 +6,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      translate: {
+        "center-middle": "(-50%, 0)",
+      },
+      borderRadius: {
+        DEFAULT: "5px",
+      },
       colors: {
         dark_gunmetal: "#212529",
         gunmetal: "#2B3035",
@@ -18,8 +24,19 @@ module.exports = {
         sunset_orange: "#FE6257",
         rajah: "#FEB157",
       },
+      borderWidth: {
+        currentDay: "5px",
+        dashboardBorder: "3px",
+        menuModalBorder: "3px",
+      },
       fontFamily: {
         poppins: ["var(--font-poppins)"],
+      },
+      maxWidth: {
+        menuModalWidth: "90rem",
+      },
+      maxHeight: {
+        menuModalHeight: "46.875rem",
       },
       lineHeight: {
         100: "100%",
@@ -41,6 +58,7 @@ module.exports = {
       xl: "1440px",
     },
     transitionDuration: {
+      300: "300ms",
       400: "400ms",
     },
     spacing: {

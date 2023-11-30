@@ -27,13 +27,13 @@ const HourCell = ({
           value={fullValue}
           aria-label={fullLabel}
           onClick={fullToggle}
-          className="text-co h-week_grid_cells border-b border-dashed border-davys_grey outline-1 outline-transparent transition duration-400 ease-in-out hover:bg-davys_grey focus-visible:bg-davys_grey focus-visible:outline-ghost_white"
+          className="text-co h-week_grid_cells border-b border-dashed border-davys_grey outline-1 outline-transparent transition duration-400 ease-in-out hover:bg-davys_grey focus-visible:bg-davys_grey focus-visible:outline-rajah"
         ></button>
         <button
           value={halfValue}
           aria-label={halfLabel}
           onClick={halfToggle}
-          className="h-week_grid_cells outline-1 outline-transparent transition duration-400 ease-in-out hover:bg-davys_grey focus-visible:bg-davys_grey focus-visible:outline-ghost_white"
+          className="h-week_grid_cells outline-1 outline-transparent transition duration-400 ease-in-out hover:bg-davys_grey focus-visible:bg-davys_grey focus-visible:outline-rajah"
         ></button>
       </section>
     </li>

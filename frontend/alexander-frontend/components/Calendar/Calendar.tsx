@@ -5,7 +5,7 @@ import WeeklySchedule from "./WeeklySchedule/WeeklySchedule";
 import WeekGrid from "./WeekGrid/WeekGrid"; // The actual calendar (the grid of days and times).
 import useTimeCalculator from "@/hooks/useTimeCalculator";
 
-export default function CalendarUI() {
+export default function Calendar() {
   const {
     currentDate,
     setCurrentDate,

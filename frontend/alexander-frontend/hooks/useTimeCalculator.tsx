@@ -7,7 +7,7 @@ const useTimeCalculator = (locale = "da-DK") => {
 
   const generateTimeSlots = (timeFormat) => {
     const slots = [];
-    for (let hour = 0; hour < 24; hour++) {
+    for (let hour = 8; hour < 20; hour++) {
       let hourFormatted =
         timeFormat === "24-hour"
           ? hour.toString().padStart(2, "0")
@@ -40,7 +40,7 @@ const useTimeCalculator = (locale = "da-DK") => {
     });
     return weekDates;
   };
-  
+
   const getCurrentWeekNumber = () => {
     const firstDayOfYear = new Date(currentDate.getFullYear(), 0, 1);
     const pastDaysOfYear = (currentDate - firstDayOfYear) / 86400000;
