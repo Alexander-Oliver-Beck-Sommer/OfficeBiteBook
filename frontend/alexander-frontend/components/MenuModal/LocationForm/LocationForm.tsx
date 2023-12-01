@@ -5,6 +5,8 @@ import TextInput from "@/components/Inputs/TextInput";
 const LocationForm = () => {
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
 
   return (
     <ul className="grid grid-cols-2 gap-25">
@@ -13,35 +15,32 @@ const LocationForm = () => {
           type="location"
           placeholder="Write a location for the menu"
           name="Location"
-          label="Click to change the location of where the menu will take place"
+          label="Change or adjust the location where the menu will take place"
           onValueChange={setLocation}
         />
       </li>
       <li>
         <TextInput
           type="date"
-          placeholder="Select a date for the menu"
           name="Date"
-          label="Click to change the date when the menu will take place"
+          label="Change or adjust the date (DD/MM/YYYY) when the menu will take place"
           onValueChange={setDate}
         />
       </li>
       <li>
         <TextInput
           type="time"
-          placeholder="Write a location for the menu"
           name="Start Time"
-          label="Click to select a"
-          onValueChange={setLocation}
+          label="Change or adjust the time when the menu will start"
+          onValueChange={setStartTime}
         />
       </li>
       <li>
         <TextInput
           type="time"
-          placeholder="Select a date for the menu"
           name="End Time"
-          label="Click to change the date when the menu will take place"
-          onValueChange={setDate}
+          label="Change or adjust the time when the menu will end"
+          onValueChange={setEndTime}
         />
       </li>
     </ul>

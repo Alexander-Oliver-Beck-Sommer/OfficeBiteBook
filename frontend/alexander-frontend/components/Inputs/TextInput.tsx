@@ -70,12 +70,6 @@ const TextInput = ({
     );
   }
 
-  if (!placeholder) {
-    throw new Error(
-      "Please provide information what the TextInput component does: placeholder='Write a location for the menu!'",
-    );
-  }
-
   if (!name) {
     throw new Error(
       "Please provide a name for the TextInput component: name='Location'",
