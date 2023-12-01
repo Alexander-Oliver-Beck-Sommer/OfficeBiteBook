@@ -7,7 +7,11 @@ import HamburgerButton from "@/components/Buttons/HamburgerButton";
 import Dashboard from "../Dashboard/Dashboard";
 import TransparentBackground from "@/components/TransparentBackground";
 
-const NavigationBar = ({ currentDate, setCurrentDate, getCurrentWeekNumber }) => {
+const NavigationBar = ({
+  currentDate,
+  setCurrentDate,
+  getCurrentWeekNumber,
+}) => {
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
   const currentWeekNumber = getCurrentWeekNumber();
 
@@ -27,7 +31,7 @@ const NavigationBar = ({ currentDate, setCurrentDate, getCurrentWeekNumber }) =>
 
   return (
     <>
-      <section className="relative grid h-calendar_bar_height grid-cols-2">
+      <section className="grid-cols-autoX1 relative grid h-calendar_bar_height">
         <section
           className={`relative z-30 flex w-sidebar_width items-center justify-center border-y-[3px] border-l-[3px] border-r-0 bg-dark_gunmetal transition-all duration-400 ease-in-out ${sidebarStyling}`}
         >

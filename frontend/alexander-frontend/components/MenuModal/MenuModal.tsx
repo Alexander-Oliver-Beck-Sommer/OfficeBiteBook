@@ -1,20 +1,17 @@
-import TextInput from "../Inputs/TextInput";
+import React, { useState } from "react";
 import TransparentBackground from "../TransparentBackground";
 import MenuControls from "./MenuControls/MenuControls";
 import TitleBar from "./TitleBar/TitleBar";
+import LocationForm from "./LocationForm/LocationForm";
 
 const MenuModal = () => {
   return (
     <>
-      <section className="border-menuModalBorder max-w-menuModalWidth max-h-menuModalHeight absolute left-0 right-0 m-auto flex w-full flex-col overflow-auto rounded border-davys_grey bg-gunmetal px-50 py-50">
+      <section className="absolute left-0 right-0 m-auto flex max-h-menuModalHeight w-full max-w-menuModalWidth flex-col overflow-auto rounded border-menuModalBorder border-davys_grey bg-gunmetal px-50 py-50">
         <section className="flex flex-col gap-25">
           <TitleBar />
           <MenuControls />
-          <TextInput
-            placeholder="Write a location for the menu"
-            name="Location"
-            label="Click to change the location of where the menu will take place"
-          />
+          <LocationForm />
         </section>
       </section>
       <TransparentBackground />

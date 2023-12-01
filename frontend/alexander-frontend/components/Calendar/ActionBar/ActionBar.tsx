@@ -4,7 +4,7 @@ import WeekClearer from "./child-components/WeekClearer"; // Mass-action compone
 
 export default function ActionBar() {
   return (
-    <section className="grid grid-cols-2">
+    <section className="grid grid-cols-autoX1">
       <section className="w-sidebar_width bg-dark_gunmetal"></section>
       <section
         role="toolbar"
