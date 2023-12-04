@@ -36,7 +36,7 @@ const NavigationBar = ({
           className={`relative z-30 flex w-sidebar_width items-center justify-center border-y-[3px] border-l-[3px] border-r-0 bg-dark_gunmetal transition-all duration-400 ease-in-out ${sidebarStyling}`}
         >
           <HamburgerButton
-            ariaLabel={"Open and close the dashboard"}
+            label={"Open and close the dashboard"}
             toggle={toggleDashboard}
           />
         </section>

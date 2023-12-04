@@ -1,14 +1,12 @@
-"use client";
-import React, { useState } from "react";
 import Link from "next/link";
 import pageSettings from "@/data/pageSettings";
 import UserIcon from "@/components/Icons/UserIcon";
 import SettingsIcon from "@/components/Icons/SettingsIcon";
-import RobotIcon from "../Icons/RobotIcon";
-import TimeIcon from "../Icons/TimeIcon";
+import RobotIcon from "@/components/Icons/RobotIcon";
+import TimeIcon from "@/components/Icons/TimeIcon";
 
 type DesktopNavProps = {
-  style: string; // Optional. Functionality to add styling to the DesktopNav component if needed.
+  style: string; // Provide customisation for the nav, if needed.
 };
 
 const DesktopNav = ({ style }: DesktopNavProps) => {

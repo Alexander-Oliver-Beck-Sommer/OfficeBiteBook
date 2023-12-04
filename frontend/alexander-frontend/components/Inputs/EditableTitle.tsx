@@ -18,20 +18,20 @@ const headings = (heading) => {
 };
 
 type EditableTitleProps = {
-  label: string;
+  label: string; // Describe what the input does.
   placeholder: string;
   heading: string;
 };
 
 const EditableTitle = ({ label, placeholder, heading }: EditableTitleProps) => {
-  const selectedHeading = headings(heading);
+  const headingValue = headings(heading);
 
   return (
     <input
       type="text"
       placeholder={placeholder}
       aria-label={label}
-      className={`w-fit bg-transparent text-ghost_white placeholder:text-cool_grey placeholder:underline focus:outline-none ${selectedHeading}`}
+      className={`w-fit bg-transparent text-ghost_white placeholder:text-cool_grey placeholder:underline focus:outline-none ${headingValue}`}
     />
   );
 };

@@ -1,9 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import HamburgerButton from "../Buttons/HamburgerButton";
-import MobileNav from "./MobileNav";
-import TransparentBackground from "../TransparentBackground";
-import DesktopNav from "./DesktopNav";
+import React, { useState } from "react";
+import HamburgerButton from "@/components/Buttons/HamburgerButton";
+import MobileNav from "@/components/Header/MobileNav";
+import TransparentBackground from "@/components/TransparentBackground";
+import DesktopNav from "@/components/Header/DesktopNav";
 import sitesettings from "@/data/siteSettings";
 import Link from "next/link";
 
@@ -33,8 +33,8 @@ export default function Header() {
             <h2>{sitesettings.site_name}</h2>
           </Link>
           <HamburgerButton
-            screen={"mobile-tablet"}
-            ariaLabel={"Open and close the navigation menu"}
+            screen="mobile-tablet"
+            label="Open and close the navigation menu"
             toggle={toggleMenu}
           />
           <DesktopNav />
@@ -43,7 +43,7 @@ export default function Header() {
       <MobileNav style={mobileNavClasses} />
       <TransparentBackground
         visible={isMenuOpen}
-        screen={"mobile-tablet"}
+        screen="mobile-tablet"
         toggle={() => setIsMenuOpen(false)}
       />
     </>

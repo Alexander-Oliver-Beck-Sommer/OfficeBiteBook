@@ -1,28 +1,28 @@
 "use client";
 import React, { useRef } from "react";
-import TimeIcon from "../Icons/TimeIcon";
-import CalendarIcon from "../Icons/CalendarIcon";
-import LocationIcon from "../Icons/LocationIcon";
+import TimeIcon from "@/components/Icons/TimeIcon";
+import CalendarIcon from "@/components/Icons/CalendarIcon";
+import LocationIcon from "@/components/Icons/LocationIcon";
 
-const selectIcon = (type) => {
+const types = (type) => {
   switch (type) {
     case "date":
-      return <CalendarIcon className="h-24 w-24 fill-davys_grey" />;
+      return <CalendarIcon className="fill-davys_grey" />;
     case "time":
-      return <TimeIcon className="h-24 w-24 fill-davys_grey" />;
+      return <TimeIcon className="fill-davys_grey" />;
     case "location":
-      return <LocationIcon className="h-24 w-24 fill-davys_grey" />;
+      return <LocationIcon className="fill-davys_grey" />;
     default:
       return null;
   }
 };
 
 type TextInputProps = {
-  type: string;
-  label: string;
-  name: string;
-  placeholder: string;
-  onValueChange: (value: string) => void;
+  type: string; // Provide a type for the input.
+  label: string; // Describe what the input does.
+  name: string; // Provide a name for the input.
+  placeholder: string; // Provide a placeholder for the input.
+  onValueChange: (value: string) => void; // Provide a function to handle the input value.
 };
 
 const TextInput = ({
@@ -36,7 +36,7 @@ const TextInput = ({
 
   const [isFocused, setIsFocused] = React.useState(false);
 
-  const iconComponent = selectIcon(type);
+  const typeIcon = types(type);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onValueChange(event.target.value);
@@ -59,29 +59,23 @@ const TextInput = ({
   }`;
 
   if (!type) {
-    throw new Error(
-      "Please provide what type the TextInput component is: type='text'",
-    );
+    throw new Error("Provide a type for the input.");
   }
 
   if (!label) {
-    throw new Error(
-      "Please provide information what the TextInput component does: label='Click to edit the location where the menu will take place'",
-    );
+    throw new Error("Provide a label for the input.");
   }
 
   if (!name) {
-    throw new Error(
-      "Please provide a name for the TextInput component: name='Location'",
-    );
+    throw new Error("Provide a name for the input.");
   }
   return (
     <section className="relative flex flex-col gap-8">
-      <label htmlFor={name} className="flex w-fit items-end justify-start">
+      <label htmlFor={name} className="w-fit">
         <p
-          className={`origin-bottom-left  transition-all duration-300 ease-in-out ${labelFocus}`}
+          className={`origin-bottom-left transition-all duration-300 ease-in-out ${labelFocus}`}
         >
-          {name}*
+          {name}
         </p>
       </label>
       <div className="relative w-full overflow-hidden rounded border-2 border-davys_grey">
@@ -89,7 +83,7 @@ const TextInput = ({
           ref={inputRef}
           type={type}
           placeholder={placeholder}
-          className="h-fit w-full bg-dark_gunmetal px-15 py-15 text-ghost_white placeholder-opacity-100 outline-none transition-all duration-300 ease-in-out placeholder:text-cool_grey placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0"
+          className="w-full bg-dark_gunmetal p-16 text-ghost_white placeholder-opacity-100 outline-none transition-all duration-300 ease-in-out placeholder:text-cool_grey placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0"
           id={name}
           name={name}
           onBlur={handleBlur}
@@ -103,9 +97,9 @@ const TextInput = ({
           onBlur={handleBlur}
           onFocus={handleFocus}
           onClick={handleIconClick}
-          className="absolute bottom-0 right-0 top-0 flex w-60 cursor-auto items-center justify-center bg-dark_gunmetal outline-none"
+          className="absolute inset-y-0 right-0 flex w-60 cursor-auto items-center justify-center bg-dark_gunmetal"
         >
-          {iconComponent}
+          {typeIcon}
         </button>
       </div>
     </section>

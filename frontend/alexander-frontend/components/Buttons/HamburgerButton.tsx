@@ -1,5 +1,3 @@
-import React from "react";
-
 const screens = (screen) => {
   switch (screen) {
     case "mobile":
@@ -14,30 +12,20 @@ const screens = (screen) => {
       return "hidden xl:block";
     case "desktop-xl":
       return "hidden lg:block";
-    case "all":
-      return "";
     default:
-      throw new Error(
-        `Unknown value: ${screen}. Please use one of the already defined states, or add a new one manually.`,
-      );
+      return "";
   }
 };
 
 type HamburgerButtonProps = {
-  ariaLabel: string; // Required. Write what purpose/role the component serves.
-  screen?: string; // Optional. Choose which screens the button should appear on.
-  toggle: () => void; // Optional. Toggle that makes the component able to run and execute onClick-related events.
+  label: string; // Describe what the button does.
+  screen?: string; // Choose which screen size to display the button on
+  toggle: () => void; // Provide a function to toggle the button.
 };
 
-const HamburgerButton = ({
-  ariaLabel,
-  screen = "all",
-  toggle,
-}: HamburgerButtonProps) => {
-  if (!ariaLabel) {
-    throw new Error(
-      "Please describe what the HamburgerButton component does: ariaLabel={'Open and close navigation'}",
-    );
+const HamburgerButton = ({ label, screen, toggle }: HamburgerButtonProps) => {
+  if (!label) {
+    throw new Error("Provide a label for the button.");
   }
 
   const screenValue = screens(screen);
@@ -45,10 +33,10 @@ const HamburgerButton = ({
   return (
     <button
       className={`flex h-48 w-48 items-center justify-center ${screenValue}`}
-      aria-label={ariaLabel}
+      aria-label={label}
       onClick={toggle}
     >
-      <div className="flex h-25  w-40 flex-col justify-between">
+      <div className="flex h-25 w-40 flex-col justify-between">
         <div className="h-4 rounded bg-ghost_white"></div>
         <div className="h-4 w-full rounded bg-ghost_white"></div>
         <div className="h-4 w-full rounded bg-ghost_white"></div>
