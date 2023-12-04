@@ -4,6 +4,7 @@ import MenuControls from "./MenuControls/MenuControls";
 import TitleBar from "./TitleBar/TitleBar";
 import LocationForm from "./LocationForm/LocationForm";
 import CreateImportDish from "./CreateImportDish.tsx/CreateImportDish";
+import ActionButton from "../Buttons/ActionButton";
 
 const MenuModal = () => {
   return (
@@ -15,10 +16,20 @@ const MenuModal = () => {
           <LocationForm />
         </section>
         <CreateImportDish />
-        {/* <section className="flex items-center justify-end gap-10">
-          <button>Cancel</button>
-          <button>Create</button>
-        </section> */}
+        <section className="flex items-center justify-end gap-10">
+          <ActionButton
+            variant="outlined"
+            name="Cancel"
+            label="Click to cancel"
+            icon="cancel"
+          />
+          <ActionButton
+            variant="filled"
+            name="Accept"
+            label="Click to accept"
+            icon="check"
+          />
+        </section>
       </section>
       <TransparentBackground />
     </>

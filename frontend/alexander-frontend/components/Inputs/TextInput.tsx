@@ -102,7 +102,7 @@ const TextInput = ({
           onBlur={handleBlur}
           onFocus={handleFocus}
           onClick={handleIconClick}
-          className="absolute outline-none bottom-0 right-0 top-0 flex w-60 cursor-auto items-center justify-center bg-dark_gunmetal"
+          className="absolute bottom-0 right-0 top-0 flex w-60 cursor-auto items-center justify-center bg-dark_gunmetal outline-none"
         >
           {iconComponent}
         </button>
