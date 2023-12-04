@@ -5,6 +5,7 @@ import TitleBar from "./TitleBar/TitleBar";
 import LocationForm from "./LocationForm/LocationForm";
 import CreateImportDish from "./CreateImportDish.tsx/CreateImportDish";
 import ActionButton from "../Buttons/ActionButton";
+import Dish from "@/components/MenuModal/Dish/Dish";
 
 const MenuModal = () => {
   return (
@@ -15,6 +16,7 @@ const MenuModal = () => {
           <MenuControls />
           <LocationForm />
         </section>
+        <Dish />
         <CreateImportDish />
         <section className="flex items-center justify-end gap-10">
           <ActionButton

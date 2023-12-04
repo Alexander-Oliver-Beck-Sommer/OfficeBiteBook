@@ -1,5 +1,8 @@
+import AddIcon from "../Icons/AddIcon";
 import CancelIcon from "../Icons/CancelIcon";
 import CheckIcon from "../Icons/CheckIcon";
+import CycleIcon from "../Icons/CycleIcon";
+import DeleteIcon from "../Icons/DeleteIcon";
 
 const selectIcon = (icon) => {
   switch (icon) {
@@ -7,6 +10,12 @@ const selectIcon = (icon) => {
       return <CancelIcon variant="disabled" className="h-24 w-24" />;
     case "check":
       return <CheckIcon variant="disabled" className="h-24 w-24" />;
+    case "add":
+      return <AddIcon className="h-24 w-24" />;
+    case "cycle":
+      return <CycleIcon className="h-24 w-24" />;
+    case "delete":
+      return <DeleteIcon className="h-24 w-24" />;
     default:
       return null;
   }
@@ -15,20 +24,20 @@ const selectIcon = (icon) => {
 const selectVariant = (variant) => {
   switch (variant) {
     case "filled":
-      return "bg-davys_grey border-transparent";
+      return "bg-davys_grey border-transparent border-[3px] px-25 py-15 fill-ghost_white";
     case "outlined":
-      return "border-davys_grey";
+      return "border-davys_grey border-[3px] px-25 py-15 fill-ghost_white";
     default:
-      return "bg-davys_grey border-transparent";
+      return "fill-cool_grey";
   }
 };
 
 type ActionButtonsProps = {
-  icon: string; // Optional. Choose which type of icon you want to use.
-  variant: string; // Optional. Choose which type of styling the button should have.
-  label: string; // Required. Write what purpose/role the component serves.
-  name: string; // Required. Write a name that will be displayed on the button.
-  toggle: () => void; // Optional. Toggle that makes the component able to run and execute onClick-related events.
+  icon: string;
+  variant: string;
+  label: string;
+  name: string;
+  toggle: () => void;
 };
 
 const ActionButton = ({
@@ -44,7 +53,7 @@ const ActionButton = ({
   return (
     <button
       aria-label={label}
-      className={`flex items-center justify-center gap-8 rounded border-[3px] fill-ghost_white px-25 py-15 text-ghost_white ${variantStyle}`}
+      className={`flex items-center justify-center gap-8 rounded text-ghost_white ${variantStyle}`}
     >
       <h4>{name}</h4>
       {iconComponent}
