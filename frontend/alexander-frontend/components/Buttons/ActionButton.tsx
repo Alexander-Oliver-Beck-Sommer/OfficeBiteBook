@@ -3,6 +3,7 @@ import CancelIcon from "../Icons/CancelIcon";
 import CheckIcon from "../Icons/CheckIcon";
 import CycleIcon from "../Icons/CycleIcon";
 import DeleteIcon from "../Icons/DeleteIcon";
+import UploadIcon from "../Icons/UploadIcon";
 
 const selectIcon = (icon) => {
   switch (icon) {
@@ -16,6 +17,8 @@ const selectIcon = (icon) => {
       return <CycleIcon className="h-24 w-24" />;
     case "delete":
       return <DeleteIcon className="h-24 w-24" />;
+    case "upload":
+      return <UploadIcon className="h-24 w-24" />;
     default:
       return null;
   }
@@ -24,9 +27,9 @@ const selectIcon = (icon) => {
 const selectVariant = (variant) => {
   switch (variant) {
     case "filled":
-      return "bg-davys_grey border-transparent border-[3px] px-25 py-15 fill-ghost_white";
+      return "bg-davys_grey border-transparent border-[3px] px-20 py-10 fill-ghost_white";
     case "outlined":
-      return "border-davys_grey border-[3px] px-25 py-15 fill-ghost_white";
+      return "border-davys_grey border-[3px] px-20 py-10 fill-ghost_white";
     default:
       return "fill-cool_grey";
   }

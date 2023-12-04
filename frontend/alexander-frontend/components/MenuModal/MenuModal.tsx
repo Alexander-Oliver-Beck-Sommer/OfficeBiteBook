@@ -10,7 +10,7 @@ import Dish from "@/components/MenuModal/Dish/Dish";
 const MenuModal = () => {
   return (
     <>
-      <section className="absolute left-0 right-0 m-auto flex max-h-menuModalHeight w-full max-w-menuModalWidth flex-col gap-50 overflow-auto rounded border-menuModalBorder border-davys_grey bg-gunmetal px-50 py-50">
+      <section className="absolute left-0 right-0 m-auto flex max-h-menuModalHeight w-full max-w-menuModalWidth flex-col gap-75 overflow-auto rounded border-menuModalBorder border-davys_grey bg-gunmetal px-50 py-50">
         <section className="flex flex-col gap-25">
           <TitleBar />
           <MenuControls />

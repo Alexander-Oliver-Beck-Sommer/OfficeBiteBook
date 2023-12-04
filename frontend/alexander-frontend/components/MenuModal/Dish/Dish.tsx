@@ -1,13 +1,21 @@
+"use client";
 import React, { useState } from "react";
 import TextInput from "@/components/Inputs/TextInput";
 import ActionButton from "@/components/Buttons/ActionButton";
 import EditableTitle from "@/components/Inputs/EditableTitle";
+import TextArea from "@/components/Inputs/TextArea";
+import ChooseThumbnail from "./child-components/ChooseThumbnail";
 
 type DishProps = {
   label: string;
 };
 
 const Dish = ({ label }: DishProps) => {
+  const [title, setTitle] = useState("");
+  const [subTitle, setSubTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+
   return (
     <section aria-label={label} className="flex flex-col gap-24">
       <header className="flex items-center justify-between border-b-2 border-davys_grey pb-24">
@@ -38,8 +46,28 @@ const Dish = ({ label }: DishProps) => {
         </div>
       </header>
       <section className="grid grid-cols-2 gap-24">
-        <TextInput type="text" label="Click to change the title of the dish" name="Title" placeholder="Title"/>
-        <TextInput type="text" label="Click to change the subtitle of the dish" name="Subtitle" placeholder="Subtitle"/>
+        <TextInput
+          type="text"
+          label="Click to change the title of the dish"
+          name="Title"
+          placeholder="Title"
+          onValueChange={setTitle}
+        />
+        <TextInput
+          type="text"
+          label="Click to change the subtitle of the dish"
+          name="Subtitle"
+          placeholder="Subtitle"
+          onValueChange={setSubTitle}
+        />
+        <TextArea
+          rows="5"
+          label="Click to change the subtitle of the dish"
+          name="Description"
+          placeholder="Description"
+          onValueChange={setDescription}
+        />
+        <ChooseThumbnail />
       </section>
     </section>
   );

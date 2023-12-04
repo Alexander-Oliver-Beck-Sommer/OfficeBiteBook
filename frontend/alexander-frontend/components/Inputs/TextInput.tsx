@@ -18,10 +18,10 @@ const selectIcon = (type) => {
 };
 
 type TextInputProps = {
-  type: string; // Optional. Choose which type of input field you want to use.
-  label: string; // Required. Write what purpose/role the component serves.
-  name: string; // Required. Write a name for the input field and label.
-  placeholder: string; // Required. Write a placeholder for the input field.
+  type: string;
+  label: string;
+  name: string;
+  placeholder: string;
   onValueChange: (value: string) => void;
 };
 
@@ -98,6 +98,7 @@ const TextInput = ({
           onChange={handleChange}
         />
         <button
+          tabIndex="-1"
           aria-label={label}
           onBlur={handleBlur}
           onFocus={handleFocus}
