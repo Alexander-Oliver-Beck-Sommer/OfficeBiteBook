@@ -26,7 +26,7 @@ const NavigationBar = ({
   }`;
 
   const dashboardStyling = `${
-    isDashboardOpen ? "opacity-1 visible" : " opacity-0 invisible"
+    isDashboardOpen ? "opacity-100 visible" : " opacity-0 invisible"
   }`;
 
   return (

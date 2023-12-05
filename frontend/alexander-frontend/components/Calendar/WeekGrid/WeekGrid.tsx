@@ -4,7 +4,7 @@ import weekSettings from "@/data/weekSettings";
 import HourCell from "./child-components/HourCell";
 import DateCell from "./child-components/DateCell";
 import AttendantsCell from "./child-components/AttendantsCell";
-import MenuModal from "@/components/Modal/MenuModal/MenuModal";
+import MenuModal from "@/components/Modals/MenuModal/MenuModal";
 import TransparentBackground from "@/components/TransparentBackground";
 
 const WeekGrid = ({

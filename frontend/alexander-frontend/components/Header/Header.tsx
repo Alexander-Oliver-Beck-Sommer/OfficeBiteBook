@@ -15,7 +15,7 @@ export default function Header() {
   };
 
   const mobileNavClasses = `${
-    isMenuOpen ? "opacity-1 w-full visible" : "opacity-0 w-0 invisible"
+    isMenuOpen ? "opacity-100 w-full visible" : "opacity-0 w-0 invisible"
   }`;
   const mobileHeaderClasses = `${
     isMenuOpen

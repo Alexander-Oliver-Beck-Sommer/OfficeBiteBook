@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
-import MenuControls from "@/components/Modal/MenuModal/MenuControls/MenuControls";
-import TitleBar from "@/components/Modal/MenuModal/TitleBar/TitleBar";
-import LocationForm from "@/components/MenuModal/LocationForm/LocationForm";
 import ActionButton from "@/components/Buttons/ActionButton";
-import Dish from "@/components/Modal/MenuModal/Dish/Dish";
+import Dish from "@/components/Modals/MenuModal/Dish/Dish";
 import DishButton from "@/components/Buttons/DishButton";
 import TextInput from "@/components/Inputs/TextInput";
+import data from "@/data/MenuModal.js";
+import EditableTitle from "@/components/Inputs/EditableTitle";
+import CloseButton from "@/components/Buttons/CloseButton";
 
 const visibilities = (visible) => {
-  return visible ? "opacity-1 visible" : "opacity-0 invisible";
+  return visible ? "opacity-100 visible" : "opacity-0 invisible";
 };
 
 type MenuModalProps = {
@@ -18,6 +18,11 @@ type MenuModalProps = {
   startTime?: string;
   endTime?: string;
   toggle: () => void;
+  selectTemplate: () => void;
+  saveTemplate: () => void;
+  selectMenu: () => void;
+  saveMenu: () => void;
+  deleteMenu: () => void;
   createDish: () => void;
   importDish: () => void;
   cancel: () => void;
@@ -30,6 +35,11 @@ const MenuModal = ({
   date = "",
   startTime = "",
   endTime = "",
+  selectTemplate,
+  saveTemplate,
+  selectMenu,
+  saveMenu,
+  deleteMenu,
   toggle,
   createDish,
   importDish,
@@ -86,15 +96,66 @@ const MenuModal = ({
         className="flex max-h-menu w-full max-w-menu flex-col gap-76 overflow-y-auto overflow-x-hidden rounded border-2 border-davys_grey bg-gunmetal px-48 py-48"
       >
         <li className="flex flex-col gap-24">
-          <TitleBar />
-          <MenuControls />
-          <ul className="grid grid-cols-2 gap-25">
+          <header className="flex items-center justify-between gap-24">
+            <EditableTitle
+              heading="h1"
+              placeholder={data.header_section.title.placeholder}
+              label={data.header_section.title.label}
+            />
+            <CloseButton
+              label={data.header_section.close.label}
+              toggle={toggle}
+            />
+          </header>
+          <ul className="flex items-center gap-24 border-y-2 border-davys_grey py-16">
+            <li>
+              <ActionButton
+                icon="downArrow"
+                name={data.controls_section.select_template.name}
+                label={data.controls_section.select_template.label}
+                toggle={selectTemplate}
+              />
+            </li>
+            <li>
+              <ActionButton
+                icon="add"
+                name={data.controls_section.save_template.name}
+                label={data.controls_section.save_template.label}
+                toggle={saveTemplate}
+              />
+            </li>
+            <li>
+              <ActionButton
+                icon="downArrow"
+                name={data.controls_section.select_menu.name}
+                label={data.controls_section.select_menu.label}
+                toggle={selectMenu}
+              />
+            </li>
+            <li>
+              <ActionButton
+                icon="add"
+                name={data.controls_section.save_menu.name}
+                label={data.controls_section.save_menu.label}
+                toggle={saveMenu}
+              />
+            </li>
+            <li>
+              <ActionButton
+                icon="delete"
+                name={data.controls_section.delete_menu.name}
+                label={data.controls_section.delete_menu.label}
+                toggle={deleteMenu}
+              />
+            </li>
+          </ul>
+          <ul className="grid grid-cols-2 gap-24">
             <li>
               <TextInput
                 type="location"
-                placeholder="Write a location for the menu"
-                name="Location"
-                label="Change or adjust the location where the menu will take place"
+                placeholder={data.location_section.location.placeholder}
+                name={data.location_section.location.name}
+                label={data.location_section.location.label}
                 onValueChange={setLocationInput}
                 value={locationInput}
               />
@@ -102,8 +163,8 @@ const MenuModal = ({
             <li>
               <TextInput
                 type="date"
-                name="Date"
-                label="Change or adjust the date (DD/MM/YYYY) when the menu will take place"
+                name={data.location_section.date.name}
+                label={data.location_section.date.label}
                 onValueChange={setDateInput}
                 value={dateInput}
               />
@@ -111,8 +172,8 @@ const MenuModal = ({
             <li>
               <TextInput
                 type="time"
-                name="Start Time"
-                label="Change or adjust the time when the menu will start"
+                name={data.location_section.start_time.name}
+                label={data.location_section.start_time.label}
                 onValueChange={setStartTimeInput}
                 value={startTimeInput}
               />
@@ -120,8 +181,8 @@ const MenuModal = ({
             <li>
               <TextInput
                 type="time"
-                name="End Time"
-                label="Change or adjust the time when the menu will end"
+                name={data.location_section.end_time.name}
+                label={data.location_section.end_time.label}
                 onValueChange={setEndTimeInput}
                 value={endTimeInput}
               />
@@ -132,32 +193,32 @@ const MenuModal = ({
         <li className="grid grid-cols-2 gap-24">
           <DishButton
             icon="add"
-            name="Create Dish"
-            desc="Create a new dish from scratch"
-            label="Click to create a new dish from scratch"
+            name={data.dish_buttons.create.name}
+            desc={data.dish_buttons.create.desc}
+            label={data.dish_buttons.create.label}
             toggle={createDish}
           />
           <DishButton
             icon="inventory"
-            name="Import Dish"
-            desc="Import a dish from the archive"
-            label="Click to import a dish from the archive"
+            name={data.dish_buttons.import.name}
+            desc={data.dish_buttons.import.desc}
+            label={data.dish_buttons.import.label}
             toggle={importDish}
           />
         </li>
         <li className="flex items-center justify-end gap-12">
           <ActionButton
             variant="outlined"
-            name="Cancel"
-            label="Cancel and close the menu modal"
             icon="cancel"
+            name={data.menu_buttons.cancel.name}
+            label={data.menu_buttons.cancel.label}
             toggle={cancel}
           />
           <ActionButton
             variant="filled"
-            name="Accept"
-            label="Accept and close the menu modal"
             icon="check"
+            name={data.menu_buttons.accept.name}
+            label={data.menu_buttons.accept.label}
             toggle={accept}
           />
         </li>

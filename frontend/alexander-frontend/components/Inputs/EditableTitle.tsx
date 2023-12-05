@@ -18,7 +18,7 @@ const headings = (heading) => {
 };
 
 type EditableTitleProps = {
-  label: string; // Describe what the input does.
+  label: string;
   placeholder: string;
   heading: string;
 };

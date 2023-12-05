@@ -4,6 +4,7 @@ import CheckIcon from "@/components/Icons/CheckIcon";
 import CycleIcon from "@/components/Icons/CycleIcon";
 import DeleteIcon from "@/components/Icons/DeleteIcon";
 import UploadIcon from "@/components/Icons/UploadIcon";
+import DownArrowIcon from "../Icons/DownArrowIcon";
 
 const icons = (icon) => {
   switch (icon) {
@@ -12,11 +13,13 @@ const icons = (icon) => {
     case "check":
       return <CheckIcon variant="disabled" />;
     case "add":
-      return <AddIcon />;
+      return <AddIcon variant="disabled" />;
     case "cycle":
       return <CycleIcon />;
     case "delete":
       return <DeleteIcon />;
+    case "downArrow":
+      return <DownArrowIcon />;
     case "upload":
       return <UploadIcon />;
     default:
