@@ -40,12 +40,13 @@ export default function Header() {
           <DesktopNav />
         </section>
       </header>
-      <MobileNav style={mobileNavClasses} />
-      <TransparentBackground
+      <MobileNav
+        style={mobileNavClasses}
         visible={isMenuOpen}
         screen="mobile-tablet"
         toggle={() => setIsMenuOpen(false)}
       />
+      <TransparentBackground />
     </>
   );
 }

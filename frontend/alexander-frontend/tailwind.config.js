@@ -33,10 +33,10 @@ module.exports = {
         poppins: ["var(--font-poppins)"],
       },
       maxWidth: {
-        menuModalWidth: "90rem",
+        menu: "90rem",
       },
       maxHeight: {
-        menuModalHeight: "46.875rem",
+        menu: "46.875rem",
       },
       lineHeight: {
         100: "100%",

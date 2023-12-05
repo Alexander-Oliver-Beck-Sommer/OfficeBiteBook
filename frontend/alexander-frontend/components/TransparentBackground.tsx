@@ -1,11 +1,11 @@
 import React from "react";
 
-const visibility = (visible) => {
+const visibilities = (visible) => {
   return visible ? "opacity-75 visible" : "opacity-0 invisible";
 };
 
 const TransparentBackground = ({ visible = false, toggle }) => {
-  const visibleValue = visibility(visible);
+  const visibleValue = visibilities(visible);
 
   return (
     <div

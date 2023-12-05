@@ -17,7 +17,7 @@ const Dish = ({ label }: DishProps) => {
   const [thumbnail, setThumbnail] = useState("");
 
   return (
-    <section aria-label={label} className="flex flex-col gap-24">
+    <li aria-label={label} className="flex flex-col gap-24">
       <header className="flex items-center justify-between border-b-2 border-davys_grey pb-24">
         <div className="flex items-center gap-8">
           <h2 className="font-medium text-cool_grey">#1</h2>
@@ -69,7 +69,7 @@ const Dish = ({ label }: DishProps) => {
         />
         <ChooseThumbnail />
       </section>
-    </section>
+    </li>
   );
 };
 

@@ -46,15 +46,6 @@ const DesktopNav = ({ style }: DesktopNavProps) => {
             <p>Calendar Test</p>
           </Link>
         </li>
-        <li>
-          <Link
-            href="/menu-modal-test"
-            className="flex flex-col items-center justify-center gap-5"
-          >
-            <TimeIcon className="h-30 w-30 fill-ghost_white" />
-            <p>Menu Modal Test</p>
-          </Link>
-        </li>
       </ul>
     </nav>
   );

@@ -20,6 +20,7 @@ const types = (type) => {
 type TextInputProps = {
   type: string; // Provide a type for the input.
   label: string; // Describe what the input does.
+  value: string; // Provide a value for the input.
   name: string; // Provide a name for the input.
   placeholder: string; // Provide a placeholder for the input.
   onValueChange: (value: string) => void; // Provide a function to handle the input value.
@@ -28,6 +29,7 @@ type TextInputProps = {
 const TextInput = ({
   type,
   label,
+  value,
   name,
   placeholder,
   onValueChange,
@@ -90,6 +92,7 @@ const TextInput = ({
           onFocus={handleFocus}
           aria-label={label}
           onChange={handleChange}
+          value={value}
         />
         <button
           tabIndex="-1"
