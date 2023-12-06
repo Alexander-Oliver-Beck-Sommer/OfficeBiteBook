@@ -88,15 +88,15 @@ const MenuModal = ({
     <section
       aria-hidden={!visible}
       onClick={toggle}
-      className={`fixed inset-0 z-30 flex items-center justify-center transition-all duration-400 ease-in-out ${visibleValue}`}
+      className={`fixed inset-0 z-30 flex items-center justify-center transition-all duration-300 ease-in-out ${visibleValue}`}
     >
       <ul
         ref={scrollToTop}
         onClick={ignoreParentClick}
-        className="flex max-h-menu w-full max-w-menu_width flex-col gap-20 overflow-y-auto overflow-x-hidden rounded border-2 border-davys_grey bg-gunmetal px-12 py-12"
+        className="max-w-menu_width flex max-h-menu w-full flex-col gap-20 overflow-y-auto overflow-x-hidden rounded border-2 border-davys_grey bg-gunmetal px-12 py-12"
       >
-        <li className="flex flex-col gap-6">
-          <header className="flex items-center justify-between gap-6">
+        <li className="gap-6 flex flex-col">
+          <header className="gap-6 flex items-center justify-between">
             <EditableTitle
               heading="h1"
               placeholder={data.header_section.title.placeholder}
@@ -107,7 +107,7 @@ const MenuModal = ({
               toggle={toggle}
             />
           </header>
-          <ul className="flex items-center gap-6 border-y-2 border-davys_grey py-4">
+          <ul className="gap-6 flex items-center border-y-2 border-davys_grey py-4">
             <li>
               <ActionButton
                 icon="downArrow"
@@ -149,7 +149,7 @@ const MenuModal = ({
               />
             </li>
           </ul>
-          <ul className="grid grid-cols-2 gap-6">
+          <ul className="gap-6 grid grid-cols-2">
             <li>
               <TextInput
                 type="location"
@@ -190,7 +190,7 @@ const MenuModal = ({
           </ul>
         </li>
         <Dish />
-        <li className="grid grid-cols-2 gap-6">
+        <li className="gap-6 grid grid-cols-2">
           <DishButton
             icon="add"
             name={data.dish_buttons.create.name}
@@ -206,7 +206,7 @@ const MenuModal = ({
             toggle={importDish}
           />
         </li>
-        <li className="flex items-center justify-end gap-3">
+        <li className="gap-3 flex items-center justify-end">
           <ActionButton
             variant="outlined"
             icon="cancel"
