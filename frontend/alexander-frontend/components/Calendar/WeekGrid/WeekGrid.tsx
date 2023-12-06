@@ -37,7 +37,7 @@ const WeekGrid = ({
 
   return (
     <>
-      <ul className="relative grid grid-cols-autoX8 gap-week_grid_borders bg-davys_grey">
+      <ul className="grid-cols-autoX8 relative grid gap-week_grid_borders bg-davys_grey">
         {Object.entries(settings.weekDays).map(([day, dayName], index) => {
           const date = weekDates[index];
           const isCurrentDay = isToday(date);
@@ -45,16 +45,19 @@ const WeekGrid = ({
 
           if (index === 0) {
             return (
-              <>
-                <li className="w-sidebar_width bg-dark_gunmetal">
+              <React.Fragment key={`week-day-${day}`}>
+                <li
+                  key={`sidebar-${day}`}
+                  className="w-sidebar_width bg-dark_gunmetal"
+                >
                   <ul className="flex flex-col gap-week_grid_borders">
                     <li className="flex flex-col gap-week_grid_borders">
                       <section className="h-16"></section>
                       <section className="h-24"></section>
                     </li>
-                    {timeSlots.map((slot, index) => (
+                    {timeSlots.map((slot, slotIndex) => (
                       <li
-                        key={index}
+                        key={`sidebar-slots-${day}-${slotIndex}`}
                         className="flex h-24 w-full items-start justify-center"
                       >
                         <p>{slot.fullHour}</p>
@@ -62,7 +65,7 @@ const WeekGrid = ({
                     ))}
                   </ul>
                 </li>
-                <li key={day} className="overflow-hidden">
+                <li key={`first-day-${day}`} className="overflow-hidden">
                   <ul className="flex flex-col gap-week_grid_borders">
                     <li className="flex flex-col gap-week_grid_borders">
                       <DateCell
@@ -77,9 +80,9 @@ const WeekGrid = ({
                         guestValue={1}
                       />
                     </li>
-                    {timeSlots.map((slot, index) => (
+                    {timeSlots.map((slot, slotIndex) => (
                       <HourCell
-                        key={index}
+                        key={`first-day-hours-${day}-${slotIndex}`}
                         fullValue={slot.fullHour}
                         fullLabel={`Click and create a new menu at ${slot.fullHour}`}
                         fullToggle={() => toggleMenu(slot.fullHour, dateValue)}
@@ -91,11 +94,11 @@ const WeekGrid = ({
                     ))}
                   </ul>
                 </li>
-              </>
+              </React.Fragment>
             );
           } else {
             return (
-              <li key={day} className="overflow-hidden">
+              <li key={`rest-days-${day}`} className="overflow-hidden">
                 <ul className="flex flex-col gap-week_grid_borders">
                   <li className="flex w-full flex-row flex-wrap gap-week_grid_borders">
                     <DateCell
@@ -110,9 +113,9 @@ const WeekGrid = ({
                       guestValue={1}
                     />
                   </li>
-                  {timeSlots.map((slot, index) => (
+                  {timeSlots.map((slot, slotIndex) => (
                     <HourCell
-                      key={index}
+                      key={`rest-days-hours-${day}-${slotIndex}`}
                       fullValue={slot.fullHour}
                       fullLabel={`Click and create a new menu at ${slot.fullHour}`}
                       fullToggle={() => toggleMenu(slot.fullHour, dateValue)}

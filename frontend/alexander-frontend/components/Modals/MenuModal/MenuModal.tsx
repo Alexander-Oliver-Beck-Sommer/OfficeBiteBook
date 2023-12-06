@@ -25,7 +25,6 @@ type MenuModalProps = {
   deleteMenu: () => void;
   createDish: () => void;
   importDish: () => void;
-  cancel: () => void;
   accept: () => void;
 };
 
@@ -43,7 +42,6 @@ const MenuModal = ({
   toggle,
   createDish,
   importDish,
-  cancel,
   accept,
 }: MenuModalProps) => {
   const visibleValue = visibilities(visible);
@@ -212,7 +210,7 @@ const MenuModal = ({
             icon="cancel"
             name={data.menu_buttons.cancel.name}
             label={data.menu_buttons.cancel.label}
-            toggle={cancel}
+            toggle={toggle}
           />
           <ActionButton
             variant="filled"
