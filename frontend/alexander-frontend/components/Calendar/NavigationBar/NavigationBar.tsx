@@ -32,7 +32,7 @@ const NavigationBar = ({
     <>
       <section className="relative grid h-20 grid-cols-autoX1">
         <section
-          className={`relative z-30 flex w-sidebar_width items-center justify-center border-y-2 border-l-2 border-r-0 bg-dark_gunmetal transition-all duration-300 ease-in-out ${sidebarStyling}`}
+          className={`relative z-30 rounded-tl rounded-bl flex w-sidebar_width items-center justify-center border-y-2 border-l-2 border-r-0 bg-dark_gunmetal transition-all duration-300 ease-in-out ${sidebarStyling}`}
         >
           <HamburgerButton
             label={"Open and close the dashboard"}
