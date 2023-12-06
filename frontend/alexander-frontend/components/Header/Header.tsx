@@ -44,7 +44,7 @@ export default function Header() {
         screen="mobile-tablet"
         toggle={() => setIsMenuOpen(false)}
       />
-      <TransparentBackground />
+      <TransparentBackground visible={isMenuOpen} toggle={toggleMenu} />
     </>
   );
 }
