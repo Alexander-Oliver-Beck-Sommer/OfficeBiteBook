@@ -26,19 +26,17 @@ export default function Header() {
   return (
     <>
       <header
-        className={`relative z-30 flex h-header_height items-center justify-center bg-dark_gunmetal px-4 after:absolute after:bottom-0 after:right-0 after:box-content after:border-b-2 after:transition-all after:duration-300 after:ease-in-out after:content-[''] md:px-12 after:lg:hidden ${mobileHeaderClasses}`}
+        className={`relative z-30 flex h-header_height items-center justify-between bg-dark_gunmetal px-4 after:absolute after:bottom-0 after:right-0 after:box-content after:border-b-2 after:transition-all after:duration-300 after:ease-in-out after:content-[''] md:px-sidebar_width after:lg:hidden ${mobileHeaderClasses}`}
       >
-        <section className="flex w-full max-w-screen-xl items-center justify-between">
-          <Link href="/" onClick={() => setIsMenuOpen(false)}>
-            <h2>{sitesettings.site_name}</h2>
-          </Link>
-          <HamburgerButton
-            screen="mobile-tablet"
-            label="Open and close the navigation menu"
-            toggle={toggleMenu}
-          />
-          <DesktopNav />
-        </section>
+        <Link href="/" onClick={() => setIsMenuOpen(false)}>
+          <h2>{sitesettings.site_name}</h2>
+        </Link>
+        <HamburgerButton
+          screen="mobile-tablet"
+          label="Open and close the navigation menu"
+          toggle={toggleMenu}
+        />
+        <DesktopNav />
       </header>
       <MobileNav
         style={mobileNavClasses}

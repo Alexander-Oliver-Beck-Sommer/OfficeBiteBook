@@ -17,9 +17,9 @@ const DateCell = ({
 
   return (
     <section
-      className={`flex h-16 w-full items-center justify-between border-t-currentDay bg-gunmetal px-4 py-5 ${cellClass}`}
+      className={`flex h-16 w-full items-center justify-between border-t-4 bg-gunmetal px-4 py-5 ${cellClass}`}
     >
-      <div className="flex items-end gap-2">
+      <div className="gap-2 flex items-end">
         <h2 className="leading-none">{dayDate}</h2>
         <h5>{dayName}</h5>
       </div>
