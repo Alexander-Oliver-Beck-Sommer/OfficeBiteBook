@@ -5,13 +5,13 @@
 @layer base {
   :root {
     background: theme("colors.ghost_white");
-    color: theme("colors.dark_gunmetal");
+    color: theme("colors.eerie_black");
     letter-spacing: 0.2px;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      background: theme("colors.gunmetal");
+      background: theme("colors.raisin_black");
       color: theme("colors.ghost_white");
     }
   }

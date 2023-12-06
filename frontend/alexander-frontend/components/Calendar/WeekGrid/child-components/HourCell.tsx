@@ -18,21 +18,21 @@ const HourCell = ({
   dateValue,
 }: HourCellProps) => {
   return (
-    <li className="bg-onyx">
+    <li className="bg-dark_charcoal">
       <section className="grid h-24 grid-rows-2">
         <button
           value={fullValue}
           data-date={dateValue}
           aria-label={fullLabel}
           onClick={fullToggle}
-          className="border-b border-dashed border-davys_grey outline-1 outline-transparent transition duration-300 ease-in-out hover:bg-davys_grey focus-visible:bg-davys_grey focus-visible:outline-rajah"
+          className="focus-visible:outline-true_blue border-arsenic hover:bg-arsenic focus-visible:bg-arsenic border-b border-dashed outline-1 outline-transparent transition duration-300 ease-in-out"
         ></button>
         <button
           value={halfValue}
           data-date={dateValue}
           aria-label={halfLabel}
           onClick={halfToggle}
-          className="outline-1 outline-transparent transition duration-300 ease-in-out hover:bg-davys_grey focus-visible:bg-davys_grey focus-visible:outline-rajah"
+          className="focus-visible:outline-true_blue hover:bg-arsenic focus-visible:bg-arsenic outline-1 outline-transparent transition duration-300 ease-in-out"
         ></button>
       </section>
     </li>

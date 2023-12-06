@@ -20,7 +20,7 @@ const NavigationBar = ({
 
   const sidebarStyling = `${
     isDashboardOpen
-      ? "bg-gunmetal border-y-davys_grey border-l-davys_grey border-r-transparent"
+      ? "bg-raisin_black border-y-arsenic border-l-arsenic border-r-transparent"
       : "border-transparent"
   }`;
 
@@ -32,7 +32,7 @@ const NavigationBar = ({
     <>
       <section className="relative grid h-20 grid-cols-autoX1">
         <section
-          className={`relative z-30 rounded-tl rounded-bl flex w-sidebar_width items-center justify-center border-y-2 border-l-2 border-r-0 bg-dark_gunmetal transition-all duration-300 ease-in-out ${sidebarStyling}`}
+          className={`bg-eerie_black relative z-30 flex w-sidebar_width items-center justify-center rounded-bl rounded-tl border-y-2 border-l-2 border-r-0 transition-all duration-300 ease-in-out ${sidebarStyling}`}
         >
           <HamburgerButton
             label={"Open and close the dashboard"}
@@ -42,7 +42,7 @@ const NavigationBar = ({
         <section
           role="toolbar"
           aria-label="Week and Month View Actions"
-          className="flex w-full items-center justify-start border-b border-davys_grey px-4"
+          className="border-arsenic flex w-full items-center justify-start border-b px-4"
         >
           <ul className="gap-6 flex items-center justify-start">
             <li>

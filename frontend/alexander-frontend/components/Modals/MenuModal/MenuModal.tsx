@@ -91,7 +91,7 @@ const MenuModal = ({
       <ul
         ref={scrollToTop}
         onClick={ignoreParentClick}
-        className="max-w-menu_width flex max-h-menu w-full flex-col gap-20 overflow-y-auto overflow-x-hidden rounded border-2 border-davys_grey bg-gunmetal px-12 py-12"
+        className="max-w-menu_width bg-raisin_black border-arsenic flex max-h-menu w-full flex-col gap-20 overflow-y-auto overflow-x-hidden rounded border-2 px-12 py-12"
       >
         <li className="gap-6 flex flex-col">
           <header className="gap-6 flex items-center justify-between">
@@ -105,7 +105,7 @@ const MenuModal = ({
               toggle={toggle}
             />
           </header>
-          <ul className="gap-6 flex items-center border-y-2 border-davys_grey py-4">
+          <ul className="gap-6 border-arsenic flex items-center border-y-2 py-4">
             <li>
               <ActionButton
                 icon="downArrow"

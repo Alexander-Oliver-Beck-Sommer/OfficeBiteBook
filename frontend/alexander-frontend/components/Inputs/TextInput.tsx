@@ -7,11 +7,11 @@ import LocationIcon from "@/components/Icons/LocationIcon";
 const types = (type) => {
   switch (type) {
     case "date":
-      return <CalendarIcon className="fill-davys_grey" />;
+      return <CalendarIcon className="fill-arsenic" />;
     case "time":
-      return <TimeIcon className="fill-davys_grey" />;
+      return <TimeIcon className="fill-arsenic" />;
     case "location":
-      return <LocationIcon className="fill-davys_grey" />;
+      return <LocationIcon className="fill-arsenic" />;
     default:
       return null;
   }
@@ -80,12 +80,12 @@ const TextInput = ({
           {name}
         </p>
       </label>
-      <div className="relative w-full overflow-hidden rounded border-2 border-davys_grey">
+      <div className="border-arsenic relative w-full overflow-hidden rounded border-2">
         <input
           ref={inputRef}
           type={type}
           placeholder={placeholder}
-          className="w-full bg-dark_gunmetal p-4 text-ghost_white placeholder-opacity-100 outline-none transition-all duration-300 ease-in-out placeholder:text-cool_grey placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0"
+          className="bg-eerie_black w-full p-4 text-ghost_white placeholder-opacity-100 outline-none transition-all duration-300 ease-in-out placeholder:text-cool_grey placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0"
           id={name}
           name={name}
           onBlur={handleBlur}
@@ -100,7 +100,7 @@ const TextInput = ({
           onBlur={handleBlur}
           onFocus={handleFocus}
           onClick={handleIconClick}
-          className="absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-dark_gunmetal"
+          className="bg-eerie_black absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center"
         >
           {typeIcon}
         </button>

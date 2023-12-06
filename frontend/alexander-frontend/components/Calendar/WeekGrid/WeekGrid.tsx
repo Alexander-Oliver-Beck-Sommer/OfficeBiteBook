@@ -37,7 +37,7 @@ const WeekGrid = ({
 
   return (
     <>
-      <ul className="grid-cols-autoX8 relative grid gap-week_grid_borders bg-davys_grey">
+      <ul className="grid-cols-autoX8 bg-arsenic relative grid gap-week_grid_borders">
         {Object.entries(settings.weekDays).map(([day, dayName], index) => {
           const date = weekDates[index];
           const isCurrentDay = isToday(date);
@@ -48,7 +48,7 @@ const WeekGrid = ({
               <React.Fragment key={`week-day-${day}`}>
                 <li
                   key={`sidebar-${day}`}
-                  className="w-sidebar_width bg-dark_gunmetal"
+                  className="bg-eerie_black w-sidebar_width"
                 >
                   <ul className="flex flex-col gap-week_grid_borders">
                     <li className="flex flex-col gap-week_grid_borders">

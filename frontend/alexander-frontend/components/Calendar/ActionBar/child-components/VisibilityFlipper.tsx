@@ -2,17 +2,20 @@ import VisibilityIcon from "@/components/Icons/VisibilityIcon";
 
 export default function VisibilityFlipper() {
   return (
-    <ul className="flex items-center gap-6">
+    <ul className="gap-6 flex items-center">
       <li className="flex items-center">
-        <button className="flex items-center gap-2">
+        <button className="gap-2 flex items-center">
           <h4>Publish</h4>
-          <VisibilityIcon className="h-6 w-6 fill-rajah" />
+          <VisibilityIcon className="h-6 w-6 fill-true_blue" />
         </button>
       </li>
       <li className="flex items-center">
-        <button className="flex items-center gap-2">
+        <button className="gap-2 flex items-center">
           <h4>Private</h4>
-          <VisibilityIcon className="h-6 w-6 fill-rajah" variant="disabled" />
+          <VisibilityIcon
+            className="h-6 w-6 fill-true_blue"
+            variant="disabled"
+          />
         </button>
       </li>
     </ul>

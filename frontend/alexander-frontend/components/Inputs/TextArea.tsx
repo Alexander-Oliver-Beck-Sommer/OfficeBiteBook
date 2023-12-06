@@ -42,7 +42,7 @@ const TextArea = ({
     throw new Error("Provide a name for the textarea.");
   }
   return (
-    <section className="relative flex flex-col gap-2">
+    <section className="gap-2 relative flex flex-col">
       <label htmlFor={name} className="w-fit">
         <p
           className={`origin-bottom-left transition-all duration-300 ease-in-out ${labelFocus}`}
@@ -53,7 +53,7 @@ const TextArea = ({
       <textarea
         rows={rows}
         placeholder={placeholder}
-        className="resize-none rounded border-2 border-davys_grey bg-dark_gunmetal px-4 py-4 text-ghost_white placeholder-opacity-100 outline-none transition-all duration-300 ease-in-out placeholder:text-cool_grey placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0"
+        className="bg-eerie_black border-arsenic resize-none rounded border-2 px-4 py-4 text-ghost_white placeholder-opacity-100 outline-none transition-all duration-300 ease-in-out placeholder:text-cool_grey placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0"
         id={name}
         name={name}
         onBlur={handleBlur}

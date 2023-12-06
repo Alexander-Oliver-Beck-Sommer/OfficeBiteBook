@@ -7,19 +7,19 @@ export default function WeekLocker() {
       <li className="flex items-center">
         <button className="gap-2 flex items-center">
           <h4>Unlock</h4>
-          <LockIcon className="h-6 w-6 fill-rajah" variant="disabled" />
+          <LockIcon className="h-6 w-6 fill-true_blue" variant="disabled" />
         </button>
       </li>
       <li className="flex items-center">
         <button className="gap-2 flex items-center">
           <h4>Lock</h4>
-          <LockIcon className="h-6 w-6 fill-rajah" variant="enabled" />
+          <LockIcon className="h-6 w-6 fill-true_blue" variant="enabled" />
         </button>
       </li>
       <li className="flex items-center">
         <button className="gap-2 flex items-center">
           <h4>Lock Time</h4>
-          <TimeIcon className="h-6 w-6 fill-rajah" variant="enabled" />
+          <TimeIcon className="h-6 w-6 fill-true_blue" variant="enabled" />
         </button>
       </li>
       <li className="flex items-center">

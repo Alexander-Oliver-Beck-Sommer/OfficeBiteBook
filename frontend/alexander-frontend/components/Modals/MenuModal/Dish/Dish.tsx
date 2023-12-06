@@ -18,7 +18,7 @@ const Dish = ({ label }: DishProps) => {
 
   return (
     <li aria-label={label} className="gap-6 flex flex-col">
-      <header className="pb-6 flex items-center justify-between border-b-2 border-davys_grey">
+      <header className="pb-6 border-arsenic flex items-center justify-between border-b-2">
         <div className="gap-2 flex items-center">
           <h2 className="font-medium text-cool_grey">#1</h2>
           <EditableTitle

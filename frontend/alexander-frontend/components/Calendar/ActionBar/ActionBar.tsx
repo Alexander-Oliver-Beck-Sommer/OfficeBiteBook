@@ -5,11 +5,11 @@ import WeekClearer from "./child-components/WeekClearer";
 export default function ActionBar() {
   return (
     <section className="grid grid-cols-autoX1">
-      <section className="w-sidebar_width bg-dark_gunmetal"></section>
+      <section className="bg-eerie_black w-sidebar_width"></section>
       <section
         role="toolbar"
         aria-label="Calendar Mass Actions"
-        className="flex w-full items-center justify-start gap-6 border-b border-davys_grey px-9 py-5"
+        className="gap-6 px-9 border-arsenic flex w-full items-center justify-start border-b py-5"
       >
         <VisibilityFlipper />
         <WeekLocker />

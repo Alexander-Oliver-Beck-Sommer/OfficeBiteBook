@@ -4,7 +4,7 @@ import ImageIcon from "@/components/Icons/ImageIcon";
 const ChooseThumbnail = () => {
   return (
     <section className="flex">
-      <div className="flex aspect-square h-full items-center justify-center rounded border-2 border-davys_grey bg-dark_gunmetal">
+      <div className="bg-eerie_black border-arsenic flex aspect-square h-full items-center justify-center rounded border-2">
         <ImageIcon className="h-20 w-20 fill-cool_grey" />
       </div>
       <div className="flex items-center justify-center px-12">

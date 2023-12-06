@@ -26,7 +26,7 @@ const AttendantsCell = ({
   guestToggle,
 }: AttendantsCellProps) => {
   return (
-    <ul className="flex h-24 w-full items-center justify-between bg-gunmetal px-4 py-5">
+    <ul className="bg-raisin_black flex h-24 w-full items-center justify-between px-4 py-5">
       <li>
         <button
           className="gap-2 flex flex-col items-center"
