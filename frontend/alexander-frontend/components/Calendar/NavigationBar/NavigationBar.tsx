@@ -3,7 +3,7 @@ import WeekFlipper from "./child-components/WeekFlipper";
 import MonthFlipper from "./child-components/MonthFlipper";
 import WeekHighlighter from "./child-components/WeekHighlighter";
 import HamburgerButton from "@/components/Buttons/HamburgerButton";
-import Dashboard from "../Dashboard/Dashboard";
+import Dashboard from "@/components/Calendar/Dashboard/Dashboard";
 import TransparentBackground from "@/components/TransparentBackground";
 
 const NavigationBar = ({

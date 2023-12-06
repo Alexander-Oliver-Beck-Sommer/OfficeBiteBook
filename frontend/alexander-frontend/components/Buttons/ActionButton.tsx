@@ -30,11 +30,11 @@ const icons = (icon) => {
 const variants = (variant) => {
   switch (variant) {
     case "filled":
-      return "bg-arsenic border-transparent border-2 px-5 py-3 fill-ghost_white";
+      return "bg-arsenic border-transparent border-2 px-5 py-3 fill-ghost_white rounded";
     case "outlined":
-      return "border-arsenic border-2 px-5 py-3 fill-ghost_white";
+      return "border-arsenic border-2 px-5 py-3 fill-ghost_white rounded";
     default:
-      return "fill-true_blue";
+      return "fill-true_blue outline-offset-4";
   }
 };
 
@@ -67,7 +67,7 @@ const ActionButton = ({
     <button
       onClick={toggle}
       aria-label={label}
-      className={`gap-2 flex items-center justify-center rounded text-ghost_white ${variantValue}`}
+      className={`gap-2 flex items-center justify-center text-ghost_white ${variantValue}`}
     >
       <h4>{name}</h4>
       {iconValue}

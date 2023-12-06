@@ -16,6 +16,10 @@
     }
   }
 
+  button {
+    @apply outline outline-2 outline-transparent transition-all duration-300 ease-in-out focus-visible:outline-cool_grey;
+  }
+
   input {
     background-color: inherit;
   }

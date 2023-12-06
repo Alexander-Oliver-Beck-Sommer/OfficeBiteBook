@@ -13,8 +13,11 @@ const CloseButton = ({ toggle, label }: CloseButtonProps) => {
   }
 
   return (
-    <button aria-label={label} onClick={toggle}>
-      <CancelIcon className="h-12 w-12 fill-ghost_white" variant="disabled" />
+    <button className="rounded-full" aria-label={label} onClick={toggle}>
+      <CancelIcon
+        className="h-12 w-12 fill-ghost_white"
+        variant="disabled"
+      />
     </button>
   );
 };

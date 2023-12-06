@@ -44,7 +44,7 @@ module.exports = {
       apple: "#4CAF50",
       sunset_orange: "#FE6257",
       rajah: "#FEB157",
-      true_blue: "#007acc",
+      true_blue: "#008DEC",
       transparent: "transparent",
     },
   },

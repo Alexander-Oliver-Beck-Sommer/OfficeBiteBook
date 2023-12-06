@@ -18,7 +18,7 @@ export default function WeekLocker() {
       </li>
       <li className="flex items-center">
         <button className="gap-2 flex items-center">
-          <h4>Lock Time</h4>
+          <h4>Adjust Time</h4>
           <TimeIcon className="h-6 w-6 fill-true_blue" variant="enabled" />
         </button>
       </li>

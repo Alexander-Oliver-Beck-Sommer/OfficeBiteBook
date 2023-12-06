@@ -31,7 +31,7 @@ const EditableTitle = ({ label, placeholder, heading }: EditableTitleProps) => {
       type="text"
       placeholder={placeholder}
       aria-label={label}
-      className={`w-fit bg-transparent text-ghost_white placeholder:text-cool_grey placeholder:underline focus:outline-none ${headingValue}`}
+      className={`w-fit bg-transparent text-ghost_white placeholder-opacity-100 placeholder:text-cool_grey placeholder:underline placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus:outline-none focus-visible:placeholder:opacity-0 ${headingValue}`}
     />
   );
 };
