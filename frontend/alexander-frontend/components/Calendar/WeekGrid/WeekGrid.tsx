@@ -17,8 +17,12 @@ const WeekGrid = ({
   const timeSlots = generateTimeSlots(settings.timeFormat);
   const weekDates = getWeekDates();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [menuStartTime, setMenuStartTime] = useState("");
+  const [menuDate, setMenuDate] = useState("");
 
-  const toggleMenu = () => {
+  const toggleMenu = (startTime, date) => {
+    setMenuStartTime(startTime);
+    setMenuDate(date);
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -37,11 +41,7 @@ const WeekGrid = ({
         {Object.entries(settings.weekDays).map(([day, dayName], index) => {
           const date = weekDates[index];
           const isCurrentDay = isToday(date);
-          const dateValue = `${date.getDate().toString().padStart(2, "0")}-${(
-            date.getMonth() + 1
-          )
-            .toString()
-            .padStart(2, "0")}-${date.getFullYear()}`;
+          const dateValue = date.toISOString().split("T")[0];
 
           if (index === 0) {
             return (
@@ -82,10 +82,10 @@ const WeekGrid = ({
                         key={index}
                         fullValue={slot.fullHour}
                         fullLabel={`Click and create a new menu at ${slot.fullHour}`}
-                        fullToggle={toggleMenu}
+                        fullToggle={() => toggleMenu(slot.fullHour, dateValue)}
                         halfValue={slot.halfHour}
                         halfLabel={`Click and create a new menu at ${slot.halfHour}`}
-                        halfToggle={toggleMenu}
+                        halfToggle={() => toggleMenu(slot.halfHour, dateValue)}
                         dateValue={dateValue}
                       />
                     ))}
@@ -115,10 +115,10 @@ const WeekGrid = ({
                       key={index}
                       fullValue={slot.fullHour}
                       fullLabel={`Click and create a new menu at ${slot.fullHour}`}
-                      fullToggle={toggleMenu}
+                      fullToggle={() => toggleMenu(slot.fullHour, dateValue)}
                       halfValue={slot.halfHour}
                       halfLabel={`Click and create a new menu at ${slot.halfHour}`}
-                      halfToggle={toggleMenu}
+                      halfToggle={() => toggleMenu(slot.halfHour, dateValue)}
                       dateValue={dateValue}
                     />
                   ))}
@@ -127,7 +127,12 @@ const WeekGrid = ({
             );
           }
         })}
-        <MenuModal visible={isMenuOpen} toggle={() => setIsMenuOpen(false)} />
+        <MenuModal
+          date={menuDate}
+          startTime={menuStartTime}
+          visible={isMenuOpen}
+          toggle={() => setIsMenuOpen(false)}
+        />
         <TransparentBackground
           visible={isMenuOpen}
           toggle={() => setIsMenuOpen(false)}
