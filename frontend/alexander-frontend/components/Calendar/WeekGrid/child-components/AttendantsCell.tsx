@@ -26,47 +26,44 @@ const AttendantsCell = ({
   guestToggle,
 }: AttendantsCellProps) => {
   return (
-    <ul className="flex h-100 w-full items-center justify-between bg-gunmetal px-15 py-20">
+    <ul className="flex h-24 w-full items-center justify-between bg-gunmetal px-4 py-5">
       <li>
         <button
-          className="flex flex-col items-center gap-8"
+          className="gap-2 flex flex-col items-center"
           onClick={acceptToggle}
         >
           <h3>{acceptValue}</h3>
-          <CheckIcon className="h-30 w-30 fill-ghost_white" variant="enabled" />
+          <CheckIcon className="h-7 w-7 fill-ghost_white" variant="enabled" />
         </button>
       </li>
       <li>
         <button
-          className="flex flex-col items-center gap-8"
+          className="gap-2 flex flex-col items-center"
           onClick={declineToggle}
         >
           <h3>{declineValue}</h3>
-          <CancelIcon
-            className="h-30 w-30 fill-ghost_white"
-            variant="enabled"
-          />
+          <CancelIcon className="h-7 w-7 fill-ghost_white" variant="enabled" />
         </button>
       </li>
       <li>
         <button
-          className="flex flex-col items-center gap-8"
+          className="gap-2 flex flex-col items-center"
           onClick={pendingToggle}
         >
           <h3>{pendingValue}</h3>
           <QuestionIcon
-            className="h-30 w-30 fill-ghost_white"
+            className="h-7 w-7 fill-ghost_white"
             variant="enabled"
           />
         </button>
       </li>
       <li>
         <button
-          className="flex flex-col items-center gap-8"
+          className="gap-2 flex flex-col items-center"
           onClick={guestToggle}
         >
           <h3>{guestValue}</h3>
-          <GroupIcon className="h-30 w-30 fill-ghost_white" variant="enabled" />
+          <GroupIcon className="h-7 w-7 fill-ghost_white" variant="enabled" />
         </button>
       </li>
     </ul>

@@ -37,7 +37,7 @@ const WeekGrid = ({
 
   return (
     <>
-      <ul className="relative grid grid-cols-8 gap-week_grid_borders bg-davys_grey">
+      <ul className="relative grid grid-cols-autoX8 gap-week_grid_borders bg-davys_grey">
         {Object.entries(settings.weekDays).map(([day, dayName], index) => {
           const date = weekDates[index];
           const isCurrentDay = isToday(date);
@@ -49,13 +49,13 @@ const WeekGrid = ({
                 <li className="w-sidebar_width bg-dark_gunmetal">
                   <ul className="flex flex-col gap-week_grid_borders">
                     <li className="flex flex-col gap-week_grid_borders">
-                      <section className="h-65"></section>
-                      <section className="h-100"></section>
+                      <section className="h-16"></section>
+                      <section className="h-24"></section>
                     </li>
                     {timeSlots.map((slot, index) => (
                       <li
                         key={index}
-                        className="flex h-week_grid_hours w-full items-start justify-center"
+                        className="flex h-24 w-full items-start justify-center"
                       >
                         <p>{slot.fullHour}</p>
                       </li>

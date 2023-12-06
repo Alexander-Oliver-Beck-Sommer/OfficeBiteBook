@@ -93,10 +93,10 @@ const MenuModal = ({
       <ul
         ref={scrollToTop}
         onClick={ignoreParentClick}
-        className="flex max-h-menu w-full max-w-menu flex-col gap-76 overflow-y-auto overflow-x-hidden rounded border-2 border-davys_grey bg-gunmetal px-48 py-48"
+        className="flex max-h-menu w-full max-w-menu_width flex-col gap-20 overflow-y-auto overflow-x-hidden rounded border-2 border-davys_grey bg-gunmetal px-12 py-12"
       >
-        <li className="flex flex-col gap-24">
-          <header className="flex items-center justify-between gap-24">
+        <li className="flex flex-col gap-6">
+          <header className="flex items-center justify-between gap-6">
             <EditableTitle
               heading="h1"
               placeholder={data.header_section.title.placeholder}
@@ -107,7 +107,7 @@ const MenuModal = ({
               toggle={toggle}
             />
           </header>
-          <ul className="flex items-center gap-24 border-y-2 border-davys_grey py-16">
+          <ul className="flex items-center gap-6 border-y-2 border-davys_grey py-4">
             <li>
               <ActionButton
                 icon="downArrow"
@@ -149,7 +149,7 @@ const MenuModal = ({
               />
             </li>
           </ul>
-          <ul className="grid grid-cols-2 gap-24">
+          <ul className="grid grid-cols-2 gap-6">
             <li>
               <TextInput
                 type="location"
@@ -190,7 +190,7 @@ const MenuModal = ({
           </ul>
         </li>
         <Dish />
-        <li className="grid grid-cols-2 gap-24">
+        <li className="grid grid-cols-2 gap-6">
           <DishButton
             icon="add"
             name={data.dish_buttons.create.name}
@@ -206,7 +206,7 @@ const MenuModal = ({
             toggle={importDish}
           />
         </li>
-        <li className="flex items-center justify-end gap-12">
+        <li className="flex items-center justify-end gap-3">
           <ActionButton
             variant="outlined"
             icon="cancel"

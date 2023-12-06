@@ -1,8 +1,5 @@
-"use client";
-import React, { useState } from "react";
-
 type MobileNavProps = {
-  style: string; // Optional. Functionality to add styling to the MobileNav component if needed.
+  style: string;
 };
 
 const MobileNav = ({ style }: MobileNavProps) => {

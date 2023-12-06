@@ -16,16 +16,8 @@
     }
   }
 
-  .create-dish-clip-path {
-    clip-path: polygon(0 0, 100% 0, 100% 0, 65% 100%, 0 100%, 0% 50%);
-  }
-
-  .import-dish-clip-path {
-    clip-path: polygon(0 0, 100% 0, 100% 0, 100% 100%, 0 100%, 35% 0);
-  }
-
   input {
-    @apply text-stone-950;
+    background-color: inherit;
   }
 
   * {

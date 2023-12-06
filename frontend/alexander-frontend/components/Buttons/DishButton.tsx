@@ -4,20 +4,20 @@ import InventoryIcon from "../Icons/InventoryIcon";
 const icons = (icon) => {
   switch (icon) {
     case "add":
-      return <AddIcon className="h-48 w-48" />;
+      return <AddIcon className="h-12 w-12" />;
     case "inventory":
-      return <InventoryIcon className="h-48 w-48" />;
+      return <InventoryIcon className="h-12 w-12" />;
     default:
       return null;
   }
 };
 
 type DishButtonProps = {
-  icon: string; // Choose which icon to display.
-  name: string; // Provide a name for the button.
-  desc: string; // Provide a description for the button.
-  label: string; // Describe what the button does.
-  toggle: () => void; // Provide a function to toggle the button.
+  icon: string;
+  name: string;
+  desc: string;
+  label: string;
+  toggle: () => void;
 };
 
 const DishButton = ({ icon, name, desc, label, toggle }: DishButtonProps) => {
@@ -27,7 +27,7 @@ const DishButton = ({ icon, name, desc, label, toggle }: DishButtonProps) => {
     <button
       onClick={toggle}
       aria-label={label}
-      className="flex flex-col items-center justify-center gap-5 rounded border-2 border-davys_grey bg-dark_gunmetal fill-cool_grey px-20 py-35 text-cool_grey"
+      className="gap-1 py-9 flex flex-col items-center justify-center rounded border-2 border-davys_grey bg-dark_gunmetal fill-cool_grey px-5 text-cool_grey"
     >
       <h2>{name}</h2>
       <p>{desc}</p>

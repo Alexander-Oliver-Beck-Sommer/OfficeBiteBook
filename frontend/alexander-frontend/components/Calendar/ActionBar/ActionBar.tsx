@@ -1,6 +1,6 @@
-import VisibilityFlipper from "./child-components/VisibilityFlipper"; // Mass-action component for flipping the visibility on all days in the calendar between "visible" and "hidden"
-import WeekLocker from "./child-components/WeekLocker"; // Mass-action component that locks/unlocks the current week, switching all of the days to "locked" or "unlocked"
-import WeekClearer from "./child-components/WeekClearer"; // Mass-action component that clears the current week, removing all added menu items from the calendar
+import VisibilityFlipper from "./child-components/VisibilityFlipper";
+import WeekLocker from "./child-components/WeekLocker";
+import WeekClearer from "./child-components/WeekClearer";
 
 export default function ActionBar() {
   return (
@@ -9,7 +9,7 @@ export default function ActionBar() {
       <section
         role="toolbar"
         aria-label="Calendar Mass Actions"
-        className="flex w-full items-center justify-start gap-25 border-b border-davys_grey px-35 py-20"
+        className="flex w-full items-center justify-start gap-6 border-b border-davys_grey px-9 py-5"
       >
         <VisibilityFlipper />
         <WeekLocker />

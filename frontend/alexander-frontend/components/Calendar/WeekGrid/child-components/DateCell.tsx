@@ -17,14 +17,14 @@ const DateCell = ({
 
   return (
     <section
-      className={`flex h-65 w-full items-center justify-between border-t-currentDay bg-gunmetal px-15 py-20 ${cellClass}`}
+      className={`flex h-16 w-full items-center justify-between border-t-currentDay bg-gunmetal px-4 py-5 ${cellClass}`}
     >
-      <div className="flex items-end gap-8">
-        <h2 className="leading-100">{dayDate}</h2>
+      <div className="flex items-end gap-2">
+        <h2 className="leading-none">{dayDate}</h2>
         <h5>{dayName}</h5>
       </div>
       <button onClick={lockToggle}>
-        <LockIcon className="h-24 w-24 fill-ghost_white" variant="outlined" />
+        <LockIcon className="h-6 w-6 fill-ghost_white" variant="outlined" />
       </button>
     </section>
   );

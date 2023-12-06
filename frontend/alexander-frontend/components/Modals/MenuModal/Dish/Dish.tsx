@@ -17,9 +17,9 @@ const Dish = ({ label }: DishProps) => {
   const [thumbnail, setThumbnail] = useState("");
 
   return (
-    <li aria-label={label} className="flex flex-col gap-24">
-      <header className="flex items-center justify-between border-b-2 border-davys_grey pb-24">
-        <div className="flex items-center gap-8">
+    <li aria-label={label} className="gap-6 flex flex-col">
+      <header className="pb-6 flex items-center justify-between border-b-2 border-davys_grey">
+        <div className="gap-2 flex items-center">
           <h2 className="font-medium text-cool_grey">#1</h2>
           <EditableTitle
             placeholder="Edit Dish Name"
@@ -27,7 +27,7 @@ const Dish = ({ label }: DishProps) => {
             label="Click to change the name of the dish"
           />
         </div>
-        <div className="flex items-center gap-24">
+        <div className="gap-6 flex items-center">
           <ActionButton
             label="Save the dish to the archive"
             name="Archive"
@@ -45,7 +45,7 @@ const Dish = ({ label }: DishProps) => {
           />
         </div>
       </header>
-      <section className="grid grid-cols-2 gap-24">
+      <section className="gap-6 grid grid-cols-2">
         <TextInput
           type="text"
           label="Click to change the title of the dish"

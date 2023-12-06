@@ -26,7 +26,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`relative z-30 flex h-header_height items-center justify-center bg-dark_gunmetal px-16 after:absolute after:bottom-0 after:right-0 after:box-content after:border-b-2 after:transition-all after:duration-400 after:ease-in-out after:content-[''] md:px-48 after:lg:hidden ${mobileHeaderClasses}`}
+        className={`relative z-30 flex h-header_height items-center justify-center bg-dark_gunmetal px-4 after:absolute after:bottom-0 after:right-0 after:box-content after:border-b-2 after:transition-all after:duration-400 after:ease-in-out after:content-[''] md:px-12 after:lg:hidden ${mobileHeaderClasses}`}
       >
         <section className="flex w-full max-w-screen-xl items-center justify-between">
           <Link href="/" onClick={() => setIsMenuOpen(false)}>

@@ -18,12 +18,12 @@ const types = (type) => {
 };
 
 type TextInputProps = {
-  type: string; // Provide a type for the input.
-  label: string; // Describe what the input does.
-  value: string; // Provide a value for the input.
-  name: string; // Provide a name for the input.
-  placeholder: string; // Provide a placeholder for the input.
-  onValueChange: (value: string) => void; // Provide a function to handle the input value.
+  type: string;
+  label: string;
+  value: string;
+  name: string;
+  placeholder: string;
+  onValueChange: (value: string) => void;
 };
 
 const TextInput = ({
@@ -72,7 +72,7 @@ const TextInput = ({
     throw new Error("Provide a name for the input.");
   }
   return (
-    <section className="relative flex flex-col gap-8">
+    <section className="gap-2 relative flex flex-col">
       <label htmlFor={name} className="w-fit">
         <p
           className={`origin-bottom-left transition-all duration-300 ease-in-out ${labelFocus}`}
@@ -85,7 +85,7 @@ const TextInput = ({
           ref={inputRef}
           type={type}
           placeholder={placeholder}
-          className="w-full bg-dark_gunmetal p-16 text-ghost_white placeholder-opacity-100 outline-none transition-all duration-300 ease-in-out placeholder:text-cool_grey placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0"
+          className="w-full bg-dark_gunmetal p-4 text-ghost_white placeholder-opacity-100 outline-none transition-all duration-300 ease-in-out placeholder:text-cool_grey placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0"
           id={name}
           name={name}
           onBlur={handleBlur}
@@ -100,7 +100,7 @@ const TextInput = ({
           onBlur={handleBlur}
           onFocus={handleFocus}
           onClick={handleIconClick}
-          className="absolute inset-y-0 right-0 flex w-60 cursor-auto items-center justify-center bg-dark_gunmetal"
+          className="absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-dark_gunmetal"
         >
           {typeIcon}
         </button>

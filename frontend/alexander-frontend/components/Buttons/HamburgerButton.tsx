@@ -18,9 +18,9 @@ const screens = (screen) => {
 };
 
 type HamburgerButtonProps = {
-  label: string; // Describe what the button does.
-  screen?: string; // Choose which screen size to display the button on
-  toggle: () => void; // Provide a function to toggle the button.
+  label: string;
+  screen?: string;
+  toggle: () => void;
 };
 
 const HamburgerButton = ({ label, screen, toggle }: HamburgerButtonProps) => {
@@ -32,14 +32,14 @@ const HamburgerButton = ({ label, screen, toggle }: HamburgerButtonProps) => {
 
   return (
     <button
-      className={`flex h-48 w-48 items-center justify-center ${screenValue}`}
+      className={`flex h-12 w-12 items-center justify-center ${screenValue}`}
       aria-label={label}
       onClick={toggle}
     >
-      <div className="flex h-25 w-40 flex-col justify-between">
-        <div className="h-4 rounded bg-ghost_white"></div>
-        <div className="h-4 w-full rounded bg-ghost_white"></div>
-        <div className="h-4 w-full rounded bg-ghost_white"></div>
+      <div className="flex h-6 w-10 flex-col justify-between">
+        <div className="h-1 rounded bg-ghost_white"></div>
+        <div className="h-1 w-full rounded bg-ghost_white"></div>
+        <div className="h-1 w-full rounded bg-ghost_white"></div>
       </div>
     </button>
   );

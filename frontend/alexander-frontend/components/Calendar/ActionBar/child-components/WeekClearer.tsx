@@ -2,9 +2,9 @@ import DeleteIcon from "@/components/Icons/DeleteIcon";
 
 export default function WeekClearer() {
     return (
-        <button className="flex items-center gap-5">
+        <button className="flex items-center gap-1">
             <h4>Clear</h4>
-            <DeleteIcon className="h-25 w-25 fill-rajah" />
+            <DeleteIcon className="h-6 w-6 fill-rajah" />
         </button>
     )
 }

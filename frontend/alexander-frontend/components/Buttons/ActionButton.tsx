@@ -30,20 +30,20 @@ const icons = (icon) => {
 const variants = (variant) => {
   switch (variant) {
     case "filled":
-      return "bg-davys_grey border-transparent border-2 px-20 py-12 fill-ghost_white";
+      return "bg-davys_grey border-transparent border-2 px-5 py-3 fill-ghost_white";
     case "outlined":
-      return "border-davys_grey border-2 px-20 py-12 fill-ghost_white";
+      return "border-davys_grey border-2 px-5 py-3 fill-ghost_white";
     default:
       return "fill-cool_grey";
   }
 };
 
 type ActionButtonsProps = {
-  icon: string; // Choose which icon to display.
-  variant: string; // Choose which variant of the button to display.
-  label: string; // Describe what the button does.
-  name: string; // Provide a name for the button.
-  toggle: () => void; // Provide a function to toggle the button.
+  icon: string;
+  variant: string;
+  label: string;
+  name: string;
+  toggle: () => void;
 };
 
 const ActionButton = ({
@@ -67,7 +67,7 @@ const ActionButton = ({
     <button
       onClick={toggle}
       aria-label={label}
-      className={`flex items-center justify-center gap-8 rounded text-ghost_white ${variantValue}`}
+      className={`flex items-center justify-center gap-2 rounded text-ghost_white ${variantValue}`}
     >
       <h4>{name}</h4>
       {iconValue}

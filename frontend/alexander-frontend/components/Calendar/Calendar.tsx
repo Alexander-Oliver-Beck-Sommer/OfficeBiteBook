@@ -1,8 +1,8 @@
 "use client";
-import NavigationBar from "./NavigationBar/NavigationBar"; // Week picker, month selector, and current week showcaser.
-import ActionBar from "./ActionBar/ActionBar"; // Publish buttons, lock buttons, clear button, and lock time showcaser.
+import NavigationBar from "./NavigationBar/NavigationBar";
+import ActionBar from "./ActionBar/ActionBar";
 import WeeklySchedule from "./WeeklySchedule/WeeklySchedule";
-import WeekGrid from "./WeekGrid/WeekGrid"; // The actual calendar (the grid of days and times).
+import WeekGrid from "./WeekGrid/WeekGrid";
 import useTimeCalculator from "@/hooks/useTimeCalculator";
 
 export default function Calendar() {

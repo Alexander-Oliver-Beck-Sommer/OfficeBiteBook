@@ -1,8 +1,8 @@
 import React from "react";
 
 type ShortContentProps = {
-  ariaLabel: string; // Required. Write what purpose/role the component serves.
-  children: React.ReactNode; // Allows content to be inserted into the component.
+  ariaLabel: string;
+  children: React.ReactNode;
 };
 
 const ShortContent = ({ ariaLabel, children }: ShortContentProps) => {
