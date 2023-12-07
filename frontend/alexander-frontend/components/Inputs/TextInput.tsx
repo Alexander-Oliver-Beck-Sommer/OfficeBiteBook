@@ -72,7 +72,7 @@ const TextInput = ({
     throw new Error("Provide a name for the input.");
   }
   return (
-    <section className="gap-2 relative flex flex-col">
+    <section className="relative flex flex-col gap-4">
       <label htmlFor={name} className="w-fit">
         <p
           className={`origin-bottom-left transition-all duration-300 ease-in-out ${labelFocus}`}
@@ -80,12 +80,12 @@ const TextInput = ({
           {name}
         </p>
       </label>
-      <div className="border-arsenic relative w-full overflow-hidden rounded border-2">
+      <div className="relative w-full overflow-hidden rounded border-2 border-arsenic">
         <input
           ref={inputRef}
           type={type}
           placeholder={placeholder}
-          className="bg-eerie_black w-full p-4 text-ghost_white placeholder-opacity-100 outline-0 transition-all duration-300 ease-in-out placeholder:text-cool_grey placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0"
+          className="w-full bg-eerie_black p-4 text-ghost_white placeholder-opacity-100 outline-0 transition-all duration-300 ease-in-out placeholder:text-cool_grey placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0"
           id={name}
           name={name}
           onBlur={handleBlur}
@@ -100,7 +100,7 @@ const TextInput = ({
           onBlur={handleBlur}
           onFocus={handleFocus}
           onClick={handleIconClick}
-          className="bg-eerie_black absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center"
+          className="absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-eerie_black"
         >
           {typeIcon}
         </button>

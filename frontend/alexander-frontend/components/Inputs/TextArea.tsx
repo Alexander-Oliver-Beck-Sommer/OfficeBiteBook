@@ -6,6 +6,7 @@ type TextAreaProps = {
   rows: string;
   name: string;
   placeholder: string;
+  value: string;
   onValueChange: (value: string) => void;
 };
 
@@ -14,6 +15,7 @@ const TextArea = ({
   rows,
   name,
   placeholder,
+  value,
   onValueChange,
 }: TextAreaProps) => {
   const [isFocused, setIsFocused] = React.useState(false);
@@ -42,7 +44,7 @@ const TextArea = ({
     throw new Error("Provide a name for the textarea.");
   }
   return (
-    <section className="gap-2 relative flex flex-col">
+    <section className="relative flex flex-col gap-4">
       <label htmlFor={name} className="w-fit">
         <p
           className={`origin-bottom-left transition-all duration-300 ease-in-out ${labelFocus}`}
@@ -53,13 +55,14 @@ const TextArea = ({
       <textarea
         rows={rows}
         placeholder={placeholder}
-        className="bg-eerie_black border-arsenic resize-none rounded border-2 px-4 py-4 text-ghost_white placeholder-opacity-100 outline-none transition-all duration-300 ease-in-out placeholder:text-cool_grey placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0"
+        className="resize-none rounded border-2 border-arsenic bg-eerie_black px-4 py-4 text-ghost_white placeholder-opacity-100 outline-none transition-all duration-300 ease-in-out placeholder:text-cool_grey placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0"
         id={name}
         name={name}
         onBlur={handleBlur}
         onFocus={handleFocus}
         aria-label={label}
         onChange={handleChange}
+        value={value}
       ></textarea>
     </section>
   );

@@ -1,3 +1,5 @@
+import React from "react";
+
 const headings = (heading) => {
   switch (heading) {
     case "h1":
@@ -21,10 +23,21 @@ type EditableTitleProps = {
   label: string;
   placeholder: string;
   heading: string;
+  value: string;
+  onValueChange: (value: string) => void;
 };
 
-const EditableTitle = ({ label, placeholder, heading }: EditableTitleProps) => {
+const EditableTitle = ({
+  label,
+  placeholder,
+  heading,
+  value,
+  onValueChange,
+}: EditableTitleProps) => {
   const headingValue = headings(heading);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onValueChange(event.target.value);
+  };
 
   return (
     <input
@@ -32,6 +45,8 @@ const EditableTitle = ({ label, placeholder, heading }: EditableTitleProps) => {
       placeholder={placeholder}
       aria-label={label}
       className={`w-fit bg-transparent text-ghost_white placeholder-opacity-100 placeholder:text-cool_grey placeholder:underline placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus:outline-none focus-visible:placeholder:opacity-0 ${headingValue}`}
+      onChange={handleChange}
+      value={value}
     />
   );
 };
