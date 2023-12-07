@@ -1,10 +1,10 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
+import TitleClose from "@/components/Modals/MenuModal/TitleClose/TitleClose";
+import MenuOptions from "@/components/Modals/MenuModal/MenuOptions/MenuOptions";
+import LocationSettings from "@/components/Modals/MenuModal/LocationSettings/LocationSettings";
 import Dish from "@/components/Modals/MenuModal/Dish/Dish";
-import CreateImport from "./CreateImport/CreateImport";
-import CancelCreate from "./CancelCreate/CancelCreate";
-import TitleClose from "./TitleClose/TitleClose";
-import MenuOptions from "./MenuOptions/MenuOptions";
-import LocationSettings from "./LocationSettings/LocationSettings";
+import CreateImport from "@/components/Modals/MenuModal/CreateImport/CreateImport";
+import CancelCreate from "@/components/Modals/MenuModal/CancelCreate/CancelCreate";
 
 const visibilities = (visible) => {
   return visible ? "opacity-100 visible" : "opacity-0 invisible";

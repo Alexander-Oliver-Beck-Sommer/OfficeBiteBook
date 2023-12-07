@@ -27,7 +27,7 @@ const DishButton = ({ icon, name, desc, label, toggle }: DishButtonProps) => {
     <button
       onClick={toggle}
       aria-label={label}
-      className="gap-1 py-9 bg-eerie_black border-arsenic flex flex-col items-center justify-center rounded border-2 fill-cool_grey px-5 text-cool_grey"
+      className="flex flex-col items-center justify-center gap-2 rounded border-2 border-arsenic bg-eerie_black fill-arsenic px-5 py-9 text-cool_grey hover:bg-raisin_black hover:fill-cool_grey"
     >
       <h2>{name}</h2>
       <p>{desc}</p>

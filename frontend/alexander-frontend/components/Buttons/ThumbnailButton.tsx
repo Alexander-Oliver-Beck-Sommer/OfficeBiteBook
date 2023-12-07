@@ -19,7 +19,7 @@ const ThumbnailButton = ({ title }: ThumbnailButtonProps) => {
           <label
             role="button"
             htmlFor="dropzone-file"
-            className="flex h-full w-full cursor-pointer flex-col items-center justify-center gap-2 rounded border-2 border-arsenic bg-eerie_black fill-arsenic outline outline-2 outline-transparent transition-all duration-300 ease-in-out hover:bg-raisin_black focus-visible:outline-cool_grey"
+            className="flex h-full w-full cursor-pointer flex-col items-center justify-center gap-2 rounded border-2 border-arsenic bg-eerie_black fill-arsenic outline outline-2 outline-transparent transition-all duration-300 ease-in-out hover:bg-raisin_black hover:fill-cool_grey focus-visible:outline-cool_grey"
             tabIndex="0"
           >
             <UploadIcon className="h-14 w-14" />
