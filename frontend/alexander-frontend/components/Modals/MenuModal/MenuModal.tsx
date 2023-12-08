@@ -65,7 +65,7 @@ const MenuModal = ({
       <ul
         ref={scrollToTop}
         onClick={ignoreParentClick}
-        className="flex max-h-[80%] flex-col gap-20 overflow-y-auto overflow-x-hidden rounded border-2 border-arsenic bg-raisin_black px-12 py-12 lg:w-full w-11/12 lg:max-w-7xl"
+        className="flex max-h-[80%] w-11/12 flex-col gap-20 overflow-y-auto overflow-x-hidden rounded border-2 border-arsenic bg-raisin_black px-12 py-12 lg:w-full lg:max-w-7xl"
       >
         <li className="flex flex-col gap-6">
           <TitleClose closeMenu={toggle} />

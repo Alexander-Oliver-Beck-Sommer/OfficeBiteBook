@@ -4,11 +4,11 @@ import CloseButton from "@/components/Buttons/CloseButton";
 import data from "@/data/MenuModal.js";
 
 type TitleCloseProps = {
-  titleMenu: string;
+  titleMenu?: string;
   closeMenu: () => void;
 };
 
-const TitleClose = ({ titleMenu, closeMenu }: TitleCloseProps) => {
+const TitleClose = ({ titleMenu = "", closeMenu }: TitleCloseProps) => {
   const [titleMenuInput, setTitleMenuInput] = useState(titleMenu);
 
   const handleTitleMenuChange = (newValue) => {
