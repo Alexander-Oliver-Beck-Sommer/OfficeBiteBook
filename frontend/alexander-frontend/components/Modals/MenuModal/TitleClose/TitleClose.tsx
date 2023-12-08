@@ -6,13 +6,21 @@ import data from "@/data/MenuModal.js";
 type TitleCloseProps = {
   titleMenu?: string;
   closeMenu: () => void;
+  onTitleChange?: (newTitle: string) => void;
 };
 
-const TitleClose = ({ titleMenu = "", closeMenu }: TitleCloseProps) => {
+const TitleClose = ({
+  titleMenu = "",
+  closeMenu,
+  onTitleChange,
+}: TitleCloseProps) => {
   const [titleMenuInput, setTitleMenuInput] = useState(titleMenu);
 
-  const handleTitleMenuChange = (newValue) => {
+  const handleTitleMenuChange = (newValue: string) => {
     setTitleMenuInput(newValue);
+    if (onTitleChange) {
+      onTitleChange(newValue);
+    }
   };
 
   useEffect(() => {
@@ -25,7 +33,7 @@ const TitleClose = ({ titleMenu = "", closeMenu }: TitleCloseProps) => {
         heading="h1"
         placeholder={data.header_section.title.placeholder}
         label={data.header_section.title.label}
-        onValueChange={setTitleMenuInput}
+        onValueChange={handleTitleMenuChange}
         value={titleMenuInput}
       />
       <CloseButton label={data.header_section.close.label} toggle={closeMenu} />
