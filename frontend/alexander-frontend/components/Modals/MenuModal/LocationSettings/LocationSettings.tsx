@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import data from "@/data/MenuModal.js";
 import TextInput from "@/components/Inputs/TextInput";
 
@@ -8,6 +8,8 @@ type LocationSettingsProps = {
   startTime?: string;
   endTime?: string;
   onLocationChange?: (newLocation: string) => void;
+  onDateChange?: (newDate: string) => void;
+  onStartTimeChange?: (newStartTime: string) => void;
   onEndTimeChange?: (newEndTime: string) => void;
 };
 
@@ -17,12 +19,14 @@ const LocationSettings = ({
   startTime = "",
   endTime = "",
   onLocationChange,
+  onDateChange,
+  onStartTimeChange,
   onEndTimeChange,
 }: LocationSettingsProps) => {
   const [locationInput, setLocationInput] = useState(location);
-  const [endTimeInput, setEndTimeInput] = useState(endTime);
   const [dateInput, setDateInput] = useState(date);
   const [startTimeInput, setStartTimeInput] = useState(startTime);
+  const [endTimeInput, setEndTimeInput] = useState(endTime);
 
   const handleLocationChange = (newValue: string) => {
     setLocationInput(newValue);
@@ -31,19 +35,25 @@ const LocationSettings = ({
     }
   };
 
+  const handleDateChange = (newValue: string) => {
+    setDateInput(newValue);
+    if (onDateChange) {
+      onDateChange(newValue);
+    }
+  };
+
+  const handleStartTimeChange = (newValue: string) => {
+    setStartTimeInput(newValue);
+    if (onStartTimeChange) {
+      onStartTimeChange(newValue);
+    }
+  };
+
   const handleEndTimeChange = (newValue: string) => {
     setEndTimeInput(newValue);
     if (onEndTimeChange) {
       onEndTimeChange(newValue);
     }
-  };
-
-  const handleDateChange = (newValue) => {
-    setDateInput(newValue);
-  };
-
-  const handleStartTimeChange = (newValue) => {
-    setStartTimeInput(newValue);
   };
 
   useEffect(() => {
@@ -70,7 +80,7 @@ const LocationSettings = ({
           type="date"
           name={data.location_section.date.name}
           label={data.location_section.date.label}
-          onValueChange={setDateInput}
+          onValueChange={handleDateChange}
           value={dateInput}
         />
       </li>
@@ -79,7 +89,7 @@ const LocationSettings = ({
           type="time"
           name={data.location_section.start_time.name}
           label={data.location_section.start_time.label}
-          onValueChange={setStartTimeInput}
+          onValueChange={handleStartTimeChange}
           value={startTimeInput}
         />
       </li>

@@ -48,9 +48,9 @@ const MenuModal = ({
   const scrollToTop = useRef(null);
   const [menuTitle, setMenuTitle] = useState("");
   const [menuLocation, setMenuLocation] = useState("");
-  const [menuEndTime, setMenuEndTime] = useState("");
   const [menuDate, setMenuDate] = useState(date);
   const [menuStartTime, setMenuStartTime] = useState(startTime);
+  const [menuEndTime, setMenuEndTime] = useState("");
 
   useEffect(() => {
     setMenuDate(date);
@@ -70,6 +70,14 @@ const MenuModal = ({
 
   const onLocationChange = (newLocation: string) => {
     setMenuLocation(newLocation);
+  };
+
+  const onDateChange = (newDate: string) => {
+    setMenuDate(newDate);
+  };
+
+  const onStartTimeChange = (newStartTime: string) => {
+    setMenuStartTime(newStartTime);
   };
 
   const onEndTimeChange = (newEndTime: string) => {
@@ -94,7 +102,7 @@ const MenuModal = ({
       console.error("Error submitting data", error);
     }
 
-    toggle(); // Close the modal after submission
+    toggle();
   };
 
   return (
@@ -121,7 +129,9 @@ const MenuModal = ({
             location={location}
             onLocationChange={onLocationChange}
             date={date}
+            onDateChange={onDateChange}
             startTime={startTime}
+            onStartTimeChange={onStartTimeChange}
             endTime={endTime}
             onEndTimeChange={onEndTimeChange}
           />
