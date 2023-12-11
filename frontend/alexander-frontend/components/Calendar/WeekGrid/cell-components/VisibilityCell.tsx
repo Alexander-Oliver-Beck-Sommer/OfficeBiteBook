@@ -1,10 +1,10 @@
 import ToggleInput from "@/components/Inputs/ToggleInput";
 
-type PublishCellProps = {
+type VisibilityCellProps = {
   toggle: () => void;
 };
 
-const PublishCell = ({ toggle }: PublishCellProps) => {
+const VisibilityCell = ({ toggle }: VisibilityCellProps) => {
   return (
     <section className="flex h-14 w-full items-center justify-between bg-raisin_black px-4">
       <ToggleInput
@@ -17,4 +17,4 @@ const PublishCell = ({ toggle }: PublishCellProps) => {
   );
 };
 
-export default PublishCell;
+export default VisibilityCell;

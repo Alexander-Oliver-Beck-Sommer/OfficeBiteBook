@@ -1,6 +1,6 @@
 import ActionButton from "@/components/Buttons/ActionButton";
 
-const OptionsCell = () => {
+const SettingsCell = () => {
   return (
     <section className="flex h-12 w-full items-center justify-center bg-raisin_black fill-ghost_white px-4">
       <ActionButton
@@ -13,4 +13,4 @@ const OptionsCell = () => {
   );
 };
 
-export default OptionsCell;
+export default SettingsCell;

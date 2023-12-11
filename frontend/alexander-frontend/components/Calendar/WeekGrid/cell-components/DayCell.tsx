@@ -1,19 +1,19 @@
 import React from "react";
 import LockIcon from "@/components/Icons/LockIcon";
 
-type DateCellProps = {
+type DayCellProps = {
   dayName: string;
   dayDate: number;
   lockToggle: () => void;
 };
 
-const DateCell = ({
+const DayCell = ({
   dayName,
   dayDate,
   lockToggle,
   isCurrentDay,
-}: DateCellProps) => {
-  const cellClass = isCurrentDay ? "border-ghost_white " : "border-transparent";
+}: DayCellProps) => {
+  const cellClass = isCurrentDay ? "border-true_blue" : "border-transparent";
 
   return (
     <section
@@ -30,4 +30,4 @@ const DateCell = ({
   );
 };
 
-export default DateCell;
+export default DayCell;

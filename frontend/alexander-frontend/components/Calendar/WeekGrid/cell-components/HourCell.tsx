@@ -25,14 +25,14 @@ const HourCell = ({
           data-date={dateValue}
           aria-label={fullLabel}
           onClick={fullToggle}
-          className="focus-visible:outline-true_blue border-arsenic hover:bg-arsenic focus-visible:bg-arsenic border-b border-dashed outline-1 outline-transparent transition duration-300 ease-in-out"
+          className="border-b border-dashed border-arsenic outline-1 outline-transparent transition duration-300 ease-in-out hover:bg-arsenic focus-visible:bg-arsenic focus-visible:outline-true_blue"
         ></button>
         <button
           value={halfValue}
           data-date={dateValue}
           aria-label={halfLabel}
           onClick={halfToggle}
-          className="focus-visible:outline-true_blue hover:bg-arsenic focus-visible:bg-arsenic outline-1 outline-transparent transition duration-300 ease-in-out"
+          className="outline-1 outline-transparent transition duration-300 ease-in-out hover:bg-arsenic focus-visible:bg-arsenic focus-visible:outline-true_blue"
         ></button>
       </section>
     </li>

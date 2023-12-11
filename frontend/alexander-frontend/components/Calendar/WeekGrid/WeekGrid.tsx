@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import weekSettings from "@/data/weekSettings";
-import HourCell from "./child-components/HourCell";
-import DateCell from "./child-components/DateCell";
-import OptionsCell from "./child-components/OptionsCell";
-import PublishCell from "./child-components/PublishCell";
+import HourCell from "./cell-components/HourCell";
+import DayCell from "./cell-components/DayCell";
+import SettingsCell from "./cell-components/SettingsCell";
+import VisibilityCell from "./cell-components/VisibilityCell";
 import MenuModal from "@/components/Modals/MenuModal/MenuModal";
 import TransparentBackground from "@/components/TransparentBackground";
 
@@ -60,13 +60,13 @@ const WeekGrid = ({ generateTimeSlots, getWeekDates, settings }) => {
                 <li key={`week-day-${day}`} className="overflow-hidden">
                   <ul className="gap-grid flex flex-col">
                     <li className="gap-grid flex w-full flex-row flex-wrap">
-                      <DateCell
+                      <DayCell
                         dayName={dayName}
                         dayDate={date.getDate()}
                         isCurrentDay={isCurrentDay}
                       />
-                      <OptionsCell />
-                      <PublishCell />
+                      <SettingsCell />
+                      <VisibilityCell />
                     </li>
                     {timeSlots.map((slot, slotIndex) => (
                       <HourCell
