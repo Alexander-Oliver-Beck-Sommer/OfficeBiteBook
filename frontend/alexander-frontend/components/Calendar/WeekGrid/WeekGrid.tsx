@@ -6,6 +6,7 @@ import DateCell from "./child-components/DateCell";
 import AttendantsCell from "./child-components/AttendantsCell";
 import MenuModal from "@/components/Modals/MenuModal/MenuModal";
 import TransparentBackground from "@/components/TransparentBackground";
+import PublishCell from "./child-components/PublishCell";
 
 const WeekGrid = ({
   currentDate,
@@ -37,7 +38,7 @@ const WeekGrid = ({
 
   return (
     <>
-      <ul className="grid-cols-autoX8 bg-arsenic relative grid gap-week_grid_borders">
+      <ul className="relative grid grid-cols-autoX8 gap-week_grid_borders bg-arsenic">
         {Object.entries(settings.weekDays).map(([day, dayName], index) => {
           const date = weekDates[index];
           const isCurrentDay = isToday(date);
@@ -48,12 +49,13 @@ const WeekGrid = ({
               <React.Fragment key={`week-day-${day}`}>
                 <li
                   key={`sidebar-${day}`}
-                  className="bg-eerie_black w-sidebar_width"
+                  className="w-sidebar_width bg-eerie_black"
                 >
                   <ul className="flex flex-col gap-week_grid_borders">
                     <li className="flex flex-col gap-week_grid_borders">
                       <section className="h-16"></section>
                       <section className="h-24"></section>
+                      <section className="h-14"></section>
                     </li>
                     {timeSlots.map((slot, slotIndex) => (
                       <li
@@ -79,6 +81,7 @@ const WeekGrid = ({
                         pendingValue={1}
                         guestValue={1}
                       />
+                      <PublishCell />
                     </li>
                     {timeSlots.map((slot, slotIndex) => (
                       <HourCell
@@ -112,6 +115,7 @@ const WeekGrid = ({
                       pendingValue={1}
                       guestValue={1}
                     />
+                    <PublishCell />
                   </li>
                   {timeSlots.map((slot, slotIndex) => (
                     <HourCell

@@ -5,7 +5,7 @@ export default function VisibilityFlipper() {
     <ul className="gap-6 flex items-center">
       <li className="flex items-center">
         <button className="gap-2 flex items-center">
-          <h4>Publish</h4>
+          <h4>Visible</h4>
           <VisibilityIcon className="h-6 w-6 fill-true_blue" />
         </button>
       </li>
