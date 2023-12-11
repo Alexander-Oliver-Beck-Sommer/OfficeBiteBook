@@ -1,10 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
+import DayCell from "@/components/Calendar/WeekGrid/child-components/DayCell";
+import SettingsCell from "@/components/Calendar/WeekGrid/child-components/SettingsCell";
+import VisibilityCell from "@/components/Calendar/WeekGrid/child-components/VisibilityCell";
+import HourCell from "@/components/Calendar/WeekGrid/child-components/HourCell";
 import weekSettings from "@/data/weekSettings";
-import HourCell from "./cell-components/HourCell";
-import DayCell from "./cell-components/DayCell";
-import SettingsCell from "./cell-components/SettingsCell";
-import VisibilityCell from "./cell-components/VisibilityCell";
 import MenuModal from "@/components/Modals/MenuModal/MenuModal";
 import TransparentBackground from "@/components/TransparentBackground";
 
@@ -14,6 +14,14 @@ const WeekGrid = ({ generateTimeSlots, getWeekDates, settings }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuStartTime, setMenuStartTime] = useState("");
   const [menuDate, setMenuDate] = useState("");
+  const [dayVisibility, setDayVisibility] = useState({});
+
+  const handleVisibilityToggle = (day) => {
+    setDayVisibility((prevState) => ({
+      ...prevState,
+      [day]: !prevState[day],
+    }));
+  };
 
   const toggleMenu = (startTime, date) => {
     setMenuStartTime(startTime);
@@ -61,12 +69,14 @@ const WeekGrid = ({ generateTimeSlots, getWeekDates, settings }) => {
                   <ul className="gap-grid flex flex-col">
                     <li className="gap-grid flex w-full flex-row flex-wrap">
                       <DayCell
-                        dayName={dayName}
-                        dayDate={date.getDate()}
+                        day={dayName}
+                        date={date.getDate()}
                         isCurrentDay={isCurrentDay}
                       />
                       <SettingsCell />
-                      <VisibilityCell />
+                      <VisibilityCell
+                        toggle={() => handleVisibilityToggle(day)}
+                      />
                     </li>
                     {timeSlots.map((slot, slotIndex) => (
                       <HourCell
@@ -78,6 +88,7 @@ const WeekGrid = ({ generateTimeSlots, getWeekDates, settings }) => {
                         halfLabel={`Click and create a new menu at ${slot.halfHour}`}
                         halfToggle={() => toggleMenu(slot.halfHour, dateValue)}
                         dateValue={dateValue}
+                        isVisible={dayVisibility[day]}
                       />
                     ))}
                   </ul>
