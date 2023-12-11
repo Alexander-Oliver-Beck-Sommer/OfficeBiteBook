@@ -23,21 +23,22 @@ export default function WeekFlipper({
   };
 
   return (
-    <ul className="gap-1 flex items-center">
+    <ul className="flex items-center gap-1">
       <li className="flex items-center">
         <button aria-label="Go 1 week back" onClick={goBackOneWeek}>
-          <LeftArrowIcon className="h-9 w-9 fill-true_blue" />
+          <LeftArrowIcon className="h-6 w-6 fill-true_blue" />
         </button>
       </li>
       <li className="flex items-center">
-        <button className="gap-2 flex items-center">
-          <h3 className="font-normal">Week</h3>
-          <h3>{currentWeek}</h3>
+        <button className="flex items-center gap-2">
+          <h4 className="font-normal">
+            Week <span className="w-5 font-medium">{currentWeek}</span>
+          </h4>
         </button>
       </li>
       <li className="flex items-center">
         <button aria-label="Go 1 week forward" onClick={goForwardOneWeek}>
-          <RightArrowIcon className="h-9 w-9 fill-true_blue" />
+          <RightArrowIcon className="h-6 w-6 fill-true_blue" />
         </button>
       </li>
     </ul>

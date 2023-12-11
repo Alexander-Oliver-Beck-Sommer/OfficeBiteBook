@@ -9,7 +9,7 @@ module.exports = {
       spacing: {
         header_height: "5rem",
         sidebar_width: "5rem",
-        week_grid_borders: "1px",
+        grid: "1px",
       },
       fontFamily: {
         poppins: ["var(--font-poppins)"],

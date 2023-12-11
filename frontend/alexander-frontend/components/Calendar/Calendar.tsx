@@ -1,6 +1,5 @@
 "use client";
 import NavigationBar from "@/components/Calendar/NavigationBar/NavigationBar";
-import ActionBar from "@/components/Calendar/ActionBar/ActionBar";
 import WeeklySchedule from "@/components/Calendar/WeeklySchedule/WeeklySchedule";
 import WeekGrid from "@/components/Calendar/WeekGrid/WeekGrid";
 import useTimeCalculator from "@/hooks/useTimeCalculator";
@@ -22,7 +21,6 @@ export default function Calendar() {
         setCurrentDate={setCurrentDate}
         getCurrentWeekNumber={getCurrentWeekNumber}
       />
-      <ActionBar />
       <WeekGrid
         currentDate={currentDate}
         generateTimeSlots={generateTimeSlots}

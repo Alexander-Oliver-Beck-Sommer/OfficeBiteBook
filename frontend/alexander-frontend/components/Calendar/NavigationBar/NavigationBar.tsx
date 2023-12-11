@@ -5,6 +5,7 @@ import WeekHighlighter from "./child-components/WeekHighlighter";
 import HamburgerButton from "@/components/Buttons/HamburgerButton";
 import Dashboard from "@/components/Calendar/Dashboard/Dashboard";
 import TransparentBackground from "@/components/TransparentBackground";
+import DownArrowIcon from "@/components/Icons/DownArrowIcon";
 
 const NavigationBar = ({
   currentDate,
@@ -30,9 +31,9 @@ const NavigationBar = ({
 
   return (
     <>
-      <section className="relative grid h-20 grid-cols-autoX1">
+      <section className="relative grid h-16 grid-cols-autoX1">
         <section
-          className={`bg-eerie_black relative z-30 flex w-sidebar_width items-center justify-center rounded-bl rounded-tl border-y-2 border-l-2 border-r-0 transition-all duration-300 ease-in-out ${sidebarStyling}`}
+          className={`relative z-30 flex w-sidebar_width items-center justify-center rounded-bl rounded-tl border-y-2 border-l-2 border-r-0 bg-eerie_black transition-all duration-300 ease-in-out ${sidebarStyling}`}
         >
           <HamburgerButton
             label={"Open and close the dashboard"}
@@ -42,9 +43,9 @@ const NavigationBar = ({
         <section
           role="toolbar"
           aria-label="Week and Month View Actions"
-          className="border-arsenic flex w-full items-center justify-start border-b px-4"
+          className="flex w-full items-center justify-start border-b border-arsenic px-4"
         >
-          <ul className="gap-6 flex items-center justify-start">
+          <ul className="flex items-center justify-start gap-6">
             <li>
               <WeekFlipper
                 currentDate={currentDate}
@@ -55,9 +56,13 @@ const NavigationBar = ({
             <li>
               <MonthFlipper />
             </li>
-            <li>
-              <WeekHighlighter />
-            </li>
+            <button
+              className="flex items-center gap-1"
+              aria-label="Click and choose inbetween months and weeks"
+            >
+              <h4>Actions</h4>
+              <DownArrowIcon className="h-6 w-6 fill-true_blue" />
+            </button>
           </ul>
         </section>
       </section>

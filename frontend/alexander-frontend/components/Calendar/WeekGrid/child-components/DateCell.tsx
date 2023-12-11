@@ -13,13 +13,13 @@ const DateCell = ({
   lockToggle,
   isCurrentDay,
 }: DateCellProps) => {
-  const cellClass = isCurrentDay ? "border-true_blue " : "border-transparent";
+  const cellClass = isCurrentDay ? "border-ghost_white " : "border-transparent";
 
   return (
     <section
-      className={`flex h-16 w-full items-center justify-between border-t-4 bg-raisin_black px-4 py-5 ${cellClass}`}
+      className={`flex h-20 w-full items-center justify-between border-t-4 bg-raisin_black px-4 ${cellClass}`}
     >
-      <div className="flex items-end gap-2">
+      <div className="flex flex-col gap-2">
         <h2 className="leading-none">{dayDate}</h2>
         <h5>{dayName}</h5>
       </div>

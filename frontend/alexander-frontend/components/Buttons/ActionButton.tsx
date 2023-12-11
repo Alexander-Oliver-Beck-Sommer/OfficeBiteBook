@@ -5,6 +5,7 @@ import CycleIcon from "@/components/Icons/CycleIcon";
 import DeleteIcon from "@/components/Icons/DeleteIcon";
 import UploadIcon from "@/components/Icons/UploadIcon";
 import DownArrowIcon from "../Icons/DownArrowIcon";
+import SettingsIcon from "../Icons/SettingsIcon";
 
 const icons = (icon) => {
   switch (icon) {
@@ -22,6 +23,8 @@ const icons = (icon) => {
       return <DownArrowIcon />;
     case "upload":
       return <UploadIcon />;
+      case "settings":
+        return <SettingsIcon />;
     default:
       return null;
   }
@@ -34,11 +37,12 @@ const variants = (variant) => {
     case "outlined":
       return "border-arsenic border-2 px-5 py-3 fill-ghost_white rounded";
     default:
-      return "fill-true_blue outline-offset-4";
+      return "fill-cool_grey outline-offset-4";
   }
 };
 
 type ActionButtonsProps = {
+  style: string;
   icon: string;
   variant: string;
   label: string;
@@ -47,6 +51,7 @@ type ActionButtonsProps = {
 };
 
 const ActionButton = ({
+  style,
   icon,
   variant,
   label,
@@ -67,7 +72,7 @@ const ActionButton = ({
     <button
       onClick={toggle}
       aria-label={label}
-      className={`gap-2 flex items-center justify-center text-ghost_white ${variantValue}`}
+      className={`flex items-center justify-center gap-2 text-ghost_white ${variantValue} ${style}`}
     >
       <h4>{name}</h4>
       {iconValue}

@@ -11,9 +11,9 @@ export default function WeekHighlighter() {
   const weekNumber = getCurrentWeekNumber();
 
   return (
-    <h3 aria-live="polite">
+    <h4 aria-live="polite">
       <span className="font-normal">Currently: </span>
       Week {weekNumber}
-    </h3>
+    </h4>
   );
 }

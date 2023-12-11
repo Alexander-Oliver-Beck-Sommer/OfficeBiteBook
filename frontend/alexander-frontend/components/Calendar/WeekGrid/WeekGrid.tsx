@@ -3,18 +3,12 @@ import React, { useState } from "react";
 import weekSettings from "@/data/weekSettings";
 import HourCell from "./child-components/HourCell";
 import DateCell from "./child-components/DateCell";
-import AttendantsCell from "./child-components/AttendantsCell";
+import OptionsCell from "./child-components/OptionsCell";
+import PublishCell from "./child-components/PublishCell";
 import MenuModal from "@/components/Modals/MenuModal/MenuModal";
 import TransparentBackground from "@/components/TransparentBackground";
-import PublishCell from "./child-components/PublishCell";
 
-const WeekGrid = ({
-  currentDate,
-  generateTimeSlots,
-  getWeekDates,
-  settings,
-}) => {
-  const locale = navigator.language || "da-DK";
+const WeekGrid = ({ generateTimeSlots, getWeekDates, settings }) => {
   const timeSlots = generateTimeSlots(settings.timeFormat);
   const weekDates = getWeekDates();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,8 +21,8 @@ const WeekGrid = ({
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const today = new Date();
   const isToday = (date) => {
+    const today = new Date();
     return (
       date.getDate() === today.getDate() &&
       date.getMonth() === today.getMonth() &&
@@ -38,54 +32,45 @@ const WeekGrid = ({
 
   return (
     <>
-      <ul className="relative grid grid-cols-autoX8 gap-week_grid_borders bg-arsenic">
-        {Object.entries(settings.weekDays).map(([day, dayName], index) => {
-          const date = weekDates[index];
-          const isCurrentDay = isToday(date);
-          const dateValue = date.toISOString().split("T")[0];
-
-          if (index === 0) {
-            return (
-              <React.Fragment key={`week-day-${day}`}>
-                <li
-                  key={`sidebar-${day}`}
-                  className="w-sidebar_width bg-eerie_black"
-                >
-                  <ul className="flex flex-col gap-week_grid_borders">
-                    <li className="flex flex-col gap-week_grid_borders">
-                      <section className="h-16"></section>
-                      <section className="h-24"></section>
-                      <section className="h-14"></section>
-                    </li>
-                    {timeSlots.map((slot, slotIndex) => (
-                      <li
-                        key={`sidebar-slots-${day}-${slotIndex}`}
-                        className="flex h-24 w-full items-start justify-center"
-                      >
-                        <p>{slot.fullHour}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-                <li key={`first-day-${day}`} className="overflow-hidden">
-                  <ul className="flex flex-col gap-week_grid_borders">
-                    <li className="flex flex-col gap-week_grid_borders">
+      <ul className="gap-grid grid grid-cols-autoX1">
+        <li className="w-20 bg-eerie_black">
+          <ul className="gap-grid flex flex-col">
+            <li className="gap-grid flex flex-col">
+              <section className="h-20"></section>
+              <section className="h-12"></section>
+              <section className="h-14"></section>
+            </li>
+            {timeSlots.map((slot, slotIndex) => (
+              <li
+                key={`sidebar-slots-${slotIndex}`}
+                className="flex h-24 w-full items-start justify-center"
+              >
+                <p>{slot.fullHour}</p>
+              </li>
+            ))}
+          </ul>
+        </li>
+        <li className="bg-arsenic">
+          <ul className="gap-grid grid grid-cols-7">
+            {Object.entries(settings.weekDays).map(([day, dayName], index) => {
+              const date = weekDates[index];
+              const isCurrentDay = isToday(date);
+              const dateValue = date.toISOString().split("T")[0];
+              return (
+                <li key={`week-day-${day}`} className="overflow-hidden">
+                  <ul className="gap-grid flex flex-col">
+                    <li className="gap-grid flex w-full flex-row flex-wrap">
                       <DateCell
                         dayName={dayName}
                         dayDate={date.getDate()}
                         isCurrentDay={isCurrentDay}
                       />
-                      <AttendantsCell
-                        acceptValue={1}
-                        declineValue={1}
-                        pendingValue={1}
-                        guestValue={1}
-                      />
+                      <OptionsCell />
                       <PublishCell />
                     </li>
                     {timeSlots.map((slot, slotIndex) => (
                       <HourCell
-                        key={`first-day-hours-${day}-${slotIndex}`}
+                        key={`${day}-hours-${slotIndex}`}
                         fullValue={slot.fullHour}
                         fullLabel={`Click and create a new menu at ${slot.fullHour}`}
                         fullToggle={() => toggleMenu(slot.fullHour, dateValue)}
@@ -97,54 +82,21 @@ const WeekGrid = ({
                     ))}
                   </ul>
                 </li>
-              </React.Fragment>
-            );
-          } else {
-            return (
-              <li key={`rest-days-${day}`} className="overflow-hidden">
-                <ul className="flex flex-col gap-week_grid_borders">
-                  <li className="flex w-full flex-row flex-wrap gap-week_grid_borders">
-                    <DateCell
-                      dayName={dayName}
-                      dayDate={date.getDate()}
-                      isCurrentDay={isCurrentDay}
-                    />
-                    <AttendantsCell
-                      acceptValue={1}
-                      declineValue={1}
-                      pendingValue={1}
-                      guestValue={1}
-                    />
-                    <PublishCell />
-                  </li>
-                  {timeSlots.map((slot, slotIndex) => (
-                    <HourCell
-                      key={`rest-days-hours-${day}-${slotIndex}`}
-                      fullValue={slot.fullHour}
-                      fullLabel={`Click and create a new menu at ${slot.fullHour}`}
-                      fullToggle={() => toggleMenu(slot.fullHour, dateValue)}
-                      halfValue={slot.halfHour}
-                      halfLabel={`Click and create a new menu at ${slot.halfHour}`}
-                      halfToggle={() => toggleMenu(slot.halfHour, dateValue)}
-                      dateValue={dateValue}
-                    />
-                  ))}
-                </ul>
-              </li>
-            );
-          }
-        })}
-        <MenuModal
-          date={menuDate}
-          startTime={menuStartTime}
-          visible={isMenuOpen}
-          toggle={() => setIsMenuOpen(false)}
-        />
-        <TransparentBackground
-          visible={isMenuOpen}
-          toggle={() => setIsMenuOpen(false)}
-        />
+              );
+            })}
+          </ul>
+        </li>
       </ul>
+      <MenuModal
+        date={menuDate}
+        startTime={menuStartTime}
+        visible={isMenuOpen}
+        toggle={() => setIsMenuOpen(false)}
+      />
+      <TransparentBackground
+        visible={isMenuOpen}
+        toggle={() => setIsMenuOpen(false)}
+      />
     </>
   );
 };
