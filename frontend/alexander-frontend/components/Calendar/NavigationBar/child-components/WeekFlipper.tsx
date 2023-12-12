@@ -29,12 +29,9 @@ export default function WeekFlipper({
           <LeftArrowIcon className="h-6 w-6 fill-true_blue" />
         </button>
       </li>
-      <li className="flex items-center">
-        <button className="flex items-center gap-2">
-          <h4 className="font-normal">
-            Week <span className="w-5 font-medium">{currentWeek}</span>
-          </h4>
-        </button>
+      <li className="flex items-center justify-center gap-1">
+        <p className="font-normal">Week</p>
+        <h4 className="w-5 text-center font-semibold">{currentWeek}</h4>
       </li>
       <li className="flex items-center">
         <button aria-label="Go 1 week forward" onClick={goForwardOneWeek}>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import WeekFlipper from "./child-components/WeekFlipper";
-import MonthFlipper from "./child-components/MonthFlipper";
-import WeekHighlighter from "./child-components/WeekHighlighter";
+import WeekFlipper from "@/components/Calendar/NavigationBar/child-components/WeekFlipper";
+import MonthFlipper from "@/components/Calendar/NavigationBar/child-components/MonthFlipper";
+import WeekHighlighter from "@/components/Calendar/NavigationBar/child-components/WeekHighlighter";
 import HamburgerButton from "@/components/Buttons/HamburgerButton";
 import Dashboard from "@/components/Calendar/Dashboard/Dashboard";
 import TransparentBackground from "@/components/TransparentBackground";
@@ -40,12 +40,8 @@ const NavigationBar = ({
             toggle={toggleDashboard}
           />
         </section>
-        <section
-          role="toolbar"
-          aria-label="Week and Month View Actions"
-          className="flex w-full items-center justify-start border-b border-arsenic px-4"
-        >
-          <ul className="flex items-center justify-start gap-6">
+        <section className="flex items-center justify-between px-4 border-b border-arsenic">
+          <ul className="flex items-center gap-4">
             <li>
               <WeekFlipper
                 currentDate={currentDate}
@@ -56,13 +52,20 @@ const NavigationBar = ({
             <li>
               <MonthFlipper />
             </li>
-            <button
-              className="flex items-center gap-1"
-              aria-label="Click and choose inbetween months and weeks"
-            >
-              <h4>Actions</h4>
-              <DownArrowIcon className="h-6 w-6 fill-true_blue" />
-            </button>
+            <li>
+              <button
+                className="flex items-center gap-1"
+                aria-label="Click and choose inbetween months and weeks"
+              >
+                <h4>Actions</h4>
+                <DownArrowIcon className="h-6 w-6 fill-true_blue" />
+              </button>
+            </li>
+          </ul>
+          <ul className="flex items-center gap-4">
+            <li>
+              <WeekHighlighter/>
+            </li>
           </ul>
         </section>
       </section>

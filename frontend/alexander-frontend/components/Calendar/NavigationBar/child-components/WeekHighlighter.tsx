@@ -1,5 +1,3 @@
-// This component has independent functionality as it is not related to the WeekFlipper component.
-
 function getCurrentWeekNumber() {
   const today = new Date();
   const firstDayOfYear = new Date(today.getFullYear(), 0, 1);
@@ -11,9 +9,8 @@ export default function WeekHighlighter() {
   const weekNumber = getCurrentWeekNumber();
 
   return (
-    <h4 aria-live="polite">
-      <span className="font-normal">Currently: </span>
-      Week {weekNumber}
+    <h4 className="font-normal" aria-live="polite">
+      Currently: <span className="font-semibold">Week {weekNumber}</span>
     </h4>
   );
 }

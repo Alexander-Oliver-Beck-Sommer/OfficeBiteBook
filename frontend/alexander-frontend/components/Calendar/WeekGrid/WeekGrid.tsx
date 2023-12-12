@@ -40,10 +40,10 @@ const WeekGrid = ({ generateTimeSlots, getWeekDates, settings }) => {
 
   return (
     <>
-      <ul className="gap-grid grid grid-cols-autoX1">
+      <ul className="grid grid-cols-autoX1 gap-grid">
         <li className="w-20 bg-eerie_black">
-          <ul className="gap-grid flex flex-col">
-            <li className="gap-grid flex flex-col">
+          <ul className="flex flex-col gap-grid">
+            <li className="flex flex-col gap-grid">
               <section className="h-20"></section>
               <section className="h-12"></section>
               <section className="h-14"></section>
@@ -59,15 +59,15 @@ const WeekGrid = ({ generateTimeSlots, getWeekDates, settings }) => {
           </ul>
         </li>
         <li className="bg-arsenic">
-          <ul className="gap-grid grid grid-cols-7">
+          <ul className="grid grid-cols-7 gap-grid">
             {Object.entries(settings.weekDays).map(([day, dayName], index) => {
               const date = weekDates[index];
               const isCurrentDay = isToday(date);
               const dateValue = date.toISOString().split("T")[0];
               return (
                 <li key={`week-day-${day}`} className="overflow-hidden">
-                  <ul className="gap-grid flex flex-col">
-                    <li className="gap-grid flex w-full flex-row flex-wrap">
+                  <ul className="flex flex-col gap-grid">
+                    <li className="flex w-full flex-row flex-wrap gap-grid">
                       <DayCell
                         day={dayName}
                         date={date.getDate()}

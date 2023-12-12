@@ -1,6 +1,5 @@
 "use client";
 import NavigationBar from "@/components/Calendar/NavigationBar/NavigationBar";
-import WeeklySchedule from "@/components/Calendar/WeeklySchedule/WeeklySchedule";
 import WeekGrid from "@/components/Calendar/WeekGrid/WeekGrid";
 import useTimeCalculator from "@/hooks/useTimeCalculator";
 
