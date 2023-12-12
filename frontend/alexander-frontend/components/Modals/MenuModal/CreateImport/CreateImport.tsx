@@ -1,5 +1,6 @@
 import data from "@/data/MenuModal.js";
 import DishButton from "@/components/Buttons/DishButton";
+import ActionButton from "@/components/Buttons/ActionButton";
 
 type CreateImportProps = {
   createDish: () => void;
@@ -8,22 +9,24 @@ type CreateImportProps = {
 
 const CreateImport = ({ createDish, importDish }: CreateImportProps) => {
   return (
-    <li className="grid grid-cols-2 gap-6">
-      <DishButton
+    <>
+      <ActionButton
         icon="add"
-        name={data.dish_buttons.create.name}
-        desc={data.dish_buttons.create.desc}
-        label={data.dish_buttons.create.label}
+        name="Add"
+        variant="icon"
+        name="Add"
+        label={data.menu_buttons.accept.label}
         toggle={createDish}
       />
-      <DishButton
+      <ActionButton
         icon="inventory"
-        name={data.dish_buttons.import.name}
-        desc={data.dish_buttons.import.desc}
-        label={data.dish_buttons.import.label}
+        name="Import"
+        variant="icon"
+        name="Import"
+        label={data.menu_buttons.cancel.label}
         toggle={importDish}
       />
-    </li>
+    </>
   );
 };
 

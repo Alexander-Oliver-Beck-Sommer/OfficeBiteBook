@@ -1,15 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { supabase } from "@/components/Supabase/supabaseClient";
 import TitleClose from "@/components/Modals/MenuModal/TitleClose/TitleClose";
 import MenuOptions from "@/components/Modals/MenuModal/MenuOptions/MenuOptions";
 import LocationSettings from "@/components/Modals/MenuModal/LocationSettings/LocationSettings";
 import Dish from "@/components/Modals/MenuModal/Dish/Dish";
 import CreateImport from "@/components/Modals/MenuModal/CreateImport/CreateImport";
 import CancelCreate from "@/components/Modals/MenuModal/CancelCreate/CancelCreate";
-import { supabase } from "@/components/Supabase/supabaseClient";
-
-const visibilities = (visible) => {
-  return visible ? "opacity-100 visible" : "opacity-0 invisible";
-};
+import useMenuModal from "@/hooks/useMenuModal";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 type MenuModalProps = {
   visible: boolean;
@@ -18,14 +16,6 @@ type MenuModalProps = {
   startTime?: string;
   endTime?: string;
   toggle: () => void;
-  selectTemplate: () => void;
-  saveTemplate: () => void;
-  selectMenu: () => void;
-  saveMenu: () => void;
-  deleteMenu: () => void;
-  createDish: () => void;
-  importDish: () => void;
-  acceptMenu: () => void;
 };
 
 const MenuModal = ({
@@ -34,57 +24,27 @@ const MenuModal = ({
   date,
   startTime,
   endTime,
-  selectTemplate,
-  saveTemplate,
-  selectMenu,
-  saveMenu,
-  deleteMenu,
   toggle,
-  createDish,
-  importDish,
-  acceptMenu,
 }: MenuModalProps) => {
-  const visibleValue = visibilities(visible);
-  const scrollToTop = useRef(null);
-  const [menuTitle, setMenuTitle] = useState("");
-  const [menuLocation, setMenuLocation] = useState("");
-  const [menuDate, setMenuDate] = useState(date);
-  const [menuStartTime, setMenuStartTime] = useState(startTime);
-  const [menuEndTime, setMenuEndTime] = useState("");
+  const {
+    dishes,
+    menuTitle,
+    menuLocation,
+    menuDate,
+    menuStartTime,
+    menuEndTime,
+    createDish,
+    deleteDish,
+    onTitleChange,
+    onLocationChange,
+    onDateChange,
+    onStartTimeChange,
+    onEndTimeChange,
+    scrollToTop,
+    cancelMenu,
+  } = useMenuModal(date, startTime, visible, toggle);
 
-  useEffect(() => {
-    setMenuDate(date);
-    setMenuStartTime(startTime);
-    if (!visible && scrollToTop.current) {
-      scrollToTop.current.scrollTop = 0;
-    }
-  }, [visible, date, startTime]);
-
-  const ignoreParentClick = (event) => {
-    event.stopPropagation();
-  };
-
-  const onTitleChange = (newTitle: string) => {
-    setMenuTitle(newTitle);
-  };
-
-  const onLocationChange = (newLocation: string) => {
-    setMenuLocation(newLocation);
-  };
-
-  const onDateChange = (newDate: string) => {
-    setMenuDate(newDate);
-  };
-
-  const onStartTimeChange = (newStartTime: string) => {
-    setMenuStartTime(newStartTime);
-  };
-
-  const onEndTimeChange = (newEndTime: string) => {
-    setMenuEndTime(newEndTime);
-  };
-
-  const handleAcceptMenu = async () => {
+  const acceptMenu = async () => {
     try {
       const { data, error } = await supabase.from("menus").insert([
         {
@@ -97,49 +57,107 @@ const MenuModal = ({
       ]);
 
       if (error) throw error;
-      console.log("Data submitted successfully", data);
+      toast.success("Menu saved successfully!");
     } catch (error) {
-      console.error("Error submitting data", error);
+      toast.error("Menu could not be saved.");
     }
-
     toggle();
   };
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (visible) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
+      }
+    }
+
+    return () => {
+      if (typeof window !== "undefined") {
+        document.body.style.overflow = "";
+      }
+    };
+  }, [visible]);
+
   return (
+    // <section
+    //   aria-hidden={!visible}
+    //   onClick={toggle}
+    //   className={`fixed inset-0 z-50 flex items-center justify-center transition-all duration-300 ease-in-out ${
+    //     visible ? "visible opacity-100" : "invisible opacity-0"
+    //   }`}
+    // >
+    //   <ul
+    //     ref={scrollToTop}
+    //     onClick={(event) => event.stopPropagation()}
+    //     className="flex max-h-[80%] w-11/12 flex-col gap-20 overflow-y-auto overflow-x-hidden rounded border-2 border-arsenic bg-raisin_black px-12 py-12 lg:w-full lg:max-w-7xl"
+    //   >
+    //     <li className="flex flex-col gap-6">
+    //       <TitleClose closeMenu={toggle} onTitleChange={onTitleChange} />
+    //       <MenuOptions />
+    //       <LocationSettings
+    //         location={location}
+    //         onLocationChange={onLocationChange}
+    //         date={date}
+    //         onDateChange={onDateChange}
+    //         startTime={startTime}
+    //         onStartTimeChange={onStartTimeChange}
+    //         endTime={endTime}
+    //         onEndTimeChange={onEndTimeChange}
+    //       />
+    //     </li>
+    //     {dishes.map((dish) => (
+    //       <Dish
+    //         key={dish.id}
+    //         dishCount={dishes.indexOf(dish) + 1}
+    //         deleteToggle={() => deleteDish(dish.id)}
+    //       />
+    //     ))}
+    //     <CreateImport createDish={createDish} />
+    //     <CancelCreate cancelMenu={cancelMenu} acceptMenu={acceptMenu} />
+    //   </ul>
+    // </section>
     <section
       aria-hidden={!visible}
-      onClick={toggle}
-      className={`fixed inset-0 z-30 flex items-center justify-center transition-all duration-300 ease-in-out ${visibleValue}`}
+      className={`fixed inset-0 z-50 flex transition-all duration-300 ease-in-out ${
+        visible ? "visible opacity-100" : "invisible opacity-0"
+      } `}
     >
-      <ul
-        ref={scrollToTop}
-        onClick={ignoreParentClick}
-        className="flex max-h-[80%] w-11/12 flex-col gap-20 overflow-y-auto overflow-x-hidden rounded border-2 border-arsenic bg-raisin_black px-12 py-12 lg:w-full lg:max-w-7xl"
-      >
-        <li className="flex flex-col gap-6">
-          <TitleClose closeMenu={toggle} onTitleChange={onTitleChange} />
-          <MenuOptions
-            selectTemplate={selectTemplate}
-            saveTemplate={saveTemplate}
-            selectMenu={selectMenu}
-            saveMenu={saveMenu}
-            deleteMenu={deleteMenu}
-          />
-          <LocationSettings
-            location={location}
-            onLocationChange={onLocationChange}
-            date={date}
-            onDateChange={onDateChange}
-            startTime={startTime}
-            onStartTimeChange={onStartTimeChange}
-            endTime={endTime}
-            onEndTimeChange={onEndTimeChange}
-          />
-        </li>
-        <Dish dishCount={1} />
-        <CreateImport createDish={createDish} importDish={importDish} />
-        <CancelCreate cancelMenu={toggle} acceptMenu={handleAcceptMenu} />
-      </ul>
+      <div className="relative flex h-full w-full items-center justify-center px-10 py-10 lg:px-12 lg:py-12">
+        <section
+          className="absolute inset-0 z-40 cursor-pointer bg-eerie_black opacity-95 transition-all duration-300 ease-in-out hover:bg-raisin_black"
+          onClick={toggle}
+        ></section>
+        <section className="relative z-50 grid h-full w-full max-w-screen-xl grid-rows-auto1Xauto overflow-hidden rounded border-2 border-arsenic bg-eerie_black">
+          <header className="flex items-center justify-between bg-raisin_black px-6 py-4">
+            <TitleClose closeMenu={toggle} onTitleChange={onTitleChange} />
+          </header>
+          <div className="flex overflow-y-auto overflow-x-hidden">
+            <ul className="pattern-boxes pattern-blue-500 pattern-bg-white pattern-size-6 pattern-opacity-20 flex w-2/6 flex-col gap-5 border-y-2 border-eerie_black bg-raisin_black px-6 py-4">
+              <LocationSettings
+                location={location}
+                onLocationChange={onLocationChange}
+                date={date}
+                onDateChange={onDateChange}
+                startTime={startTime}
+                onStartTimeChange={onStartTimeChange}
+                endTime={endTime}
+                onEndTimeChange={onEndTimeChange}
+              />
+            </ul>
+            <section></section>
+          </div>
+          <footer className="flex items-center justify-between bg-raisin_black px-6 py-4">
+            <div className="flex gap-5">
+              <CreateImport createDish={createDish} />
+            </div>
+            <div className="flex gap-5">
+              <CancelCreate cancel={cancelMenu} accept={acceptMenu} />
+            </div>
+          </footer>
+        </section>
+      </div>
     </section>
   );
 };

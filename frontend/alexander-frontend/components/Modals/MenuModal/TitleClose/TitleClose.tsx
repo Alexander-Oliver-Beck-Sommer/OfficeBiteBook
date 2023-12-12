@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import EditableTitle from "@/components/Inputs/EditableTitle";
 import CloseButton from "@/components/Buttons/CloseButton";
 import data from "@/data/MenuModal.js";
+import ActionButton from "@/components/Buttons/ActionButton";
 
 type TitleCloseProps = {
   titleMenu?: string;
@@ -28,16 +29,45 @@ const TitleClose = ({
   }, [titleMenu]);
 
   return (
-    <header className="flex items-center justify-between gap-6">
+    <>
       <EditableTitle
-        heading="h1"
+        heading="h2"
         placeholder={data.header_section.title.placeholder}
         label={data.header_section.title.label}
         onValueChange={handleTitleMenuChange}
         value={titleMenuInput}
       />
-      <CloseButton label={data.header_section.close.label} toggle={closeMenu} />
-    </header>
+      <div className="flex gap-5">
+        <ActionButton
+          icon="menu"
+          variant="icon"
+          name="Add"
+          label={data.menu_buttons.accept.label}
+          toggle={closeMenu}
+        />
+        <ActionButton
+          icon="template"
+          variant="icon"
+          name="Menu Templates"
+          label={data.menu_buttons.accept.label}
+          toggle={closeMenu}
+        />
+        <ActionButton
+          icon="clean"
+          variant="icon"
+          name="Clean"
+          label={data.menu_buttons.accept.label}
+          toggle={closeMenu}
+        />
+        <ActionButton
+          icon="delete"
+          variant="icon"
+          name="Delete"
+          label={data.menu_buttons.cancel.label}
+          toggle={closeMenu}
+        />
+      </div>
+    </>
   );
 };
 

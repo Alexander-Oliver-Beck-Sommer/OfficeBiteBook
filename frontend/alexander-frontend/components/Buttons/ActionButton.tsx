@@ -6,6 +6,10 @@ import DeleteIcon from "@/components/Icons/DeleteIcon";
 import UploadIcon from "@/components/Icons/UploadIcon";
 import DownArrowIcon from "../Icons/DownArrowIcon";
 import SettingsIcon from "../Icons/SettingsIcon";
+import InventoryIcon from "../Icons/InventoryIcon";
+import TemplateIcon from "../Icons/TemplateIcon";
+import MenuIcon from "../Icons/MenuIcon";
+import CleanIcon from "../Icons/CleanIcon";
 
 const icons = (icon) => {
   switch (icon) {
@@ -18,13 +22,21 @@ const icons = (icon) => {
     case "cycle":
       return <CycleIcon />;
     case "delete":
-      return <DeleteIcon />;
+      return <DeleteIcon variant="outlined" />;
     case "downArrow":
       return <DownArrowIcon />;
     case "upload":
       return <UploadIcon />;
-      case "settings":
-        return <SettingsIcon />;
+    case "settings":
+      return <SettingsIcon />;
+    case "inventory":
+      return <InventoryIcon />;
+    case "template":
+      return <TemplateIcon variant="outlined" />;
+    case "menu":
+      return <MenuIcon variant="outlined" />;
+    case "clean":
+      return <CleanIcon variant="outlined" />;
     default:
       return null;
   }
@@ -35,7 +47,9 @@ const variants = (variant) => {
     case "filled":
       return "bg-arsenic border-transparent border-2 px-5 py-3 fill-ghost_white rounded";
     case "outlined":
-      return "border-arsenic border-2 px-5 py-3 fill-ghost_white rounded";
+      return "border-arsenic bg-eerie_black border-2 px-5 py-3 fill-ghost_white rounded hover:bg-arsenic";
+    case "icon":
+      return "border-arsenic bg-eerie_black border-2 px-3 py-3 fill-ghost_white rounded hover:bg-arsenic";
     default:
       return "fill-cool_grey outline-offset-4";
   }
@@ -74,7 +88,7 @@ const ActionButton = ({
       aria-label={label}
       className={`flex items-center justify-center gap-2 text-ghost_white ${variantValue} ${style}`}
     >
-      <h4>{name}</h4>
+      {variant !== "icon" && <h4>{name}</h4>}
       {iconValue}
     </button>
   );

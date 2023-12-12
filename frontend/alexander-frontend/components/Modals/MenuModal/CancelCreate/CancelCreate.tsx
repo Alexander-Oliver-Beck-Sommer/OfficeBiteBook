@@ -2,28 +2,28 @@ import data from "@/data/MenuModal.js";
 import ActionButton from "@/components/Buttons/ActionButton";
 
 type CancelCreateProps = {
-  cancelMenu: () => void;
-  acceptMenu: () => void;
+  cancel: () => void;
+  accept: () => void;
 };
 
-const CancelCreate = ({ cancelMenu, acceptMenu }: CancelCreateProps) => {
+const CancelCreate = ({ cancel, accept }: CancelCreateProps) => {
   return (
-    <li className="flex items-center justify-end gap-3">
+    <>
       <ActionButton
         variant="outlined"
         icon="cancel"
         name={data.menu_buttons.cancel.name}
         label={data.menu_buttons.cancel.label}
-        toggle={cancelMenu}
+        toggle={cancel}
       />
       <ActionButton
-        variant="filled"
+        variant="outlined"
         icon="check"
         name={data.menu_buttons.accept.name}
         label={data.menu_buttons.accept.label}
-        toggle={acceptMenu}
+        toggle={accept}
       />
-    </li>
+    </>
   );
 };
 

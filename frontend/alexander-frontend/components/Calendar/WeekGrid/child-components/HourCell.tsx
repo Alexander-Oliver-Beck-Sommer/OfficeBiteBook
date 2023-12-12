@@ -9,7 +9,6 @@ type HourCellProps = {
 };
 
 const HourCell = ({
-  isVisible,
   dateValue,
   fullValue,
   fullLabel,
@@ -19,7 +18,7 @@ const HourCell = ({
   halfToggle,
 }: HourCellProps) => {
   return (
-    <li className={`${isVisible ? "bg-dark_charcoal" : "bg-raisin_black"}`}>
+    <li className="bg-dark_charcoal">
       <section className="grid h-24 grid-rows-2">
         <button
           value={fullValue}

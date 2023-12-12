@@ -15,7 +15,7 @@ const CloseButton = ({ toggle, label }: CloseButtonProps) => {
   return (
     <button className="rounded-full" aria-label={label} onClick={toggle}>
       <CancelIcon
-        className="h-12 w-12 fill-ghost_white"
+        className="h-8 w-8 fill-ghost_white"
         variant="disabled"
       />
     </button>

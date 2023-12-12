@@ -14,14 +14,6 @@ const WeekGrid = ({ generateTimeSlots, getWeekDates, settings }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuStartTime, setMenuStartTime] = useState("");
   const [menuDate, setMenuDate] = useState("");
-  const [dayVisibility, setDayVisibility] = useState({});
-
-  const handleVisibilityToggle = (day) => {
-    setDayVisibility((prevState) => ({
-      ...prevState,
-      [day]: !prevState[day],
-    }));
-  };
 
   const toggleMenu = (startTime, date) => {
     setMenuStartTime(startTime);
@@ -74,9 +66,7 @@ const WeekGrid = ({ generateTimeSlots, getWeekDates, settings }) => {
                         isCurrentDay={isCurrentDay}
                       />
                       <SettingsCell />
-                      <VisibilityCell
-                        toggle={() => handleVisibilityToggle(day)}
-                      />
+                      <VisibilityCell />
                     </li>
                     {timeSlots.map((slot, slotIndex) => (
                       <HourCell
@@ -88,7 +78,6 @@ const WeekGrid = ({ generateTimeSlots, getWeekDates, settings }) => {
                         halfLabel={`Click and create a new menu at ${slot.halfHour}`}
                         halfToggle={() => toggleMenu(slot.halfHour, dateValue)}
                         dateValue={dateValue}
-                        isVisible={dayVisibility[day]}
                       />
                     ))}
                   </ul>
@@ -104,10 +93,10 @@ const WeekGrid = ({ generateTimeSlots, getWeekDates, settings }) => {
         visible={isMenuOpen}
         toggle={() => setIsMenuOpen(false)}
       />
-      <TransparentBackground
+      {/* <TransparentBackground
         visible={isMenuOpen}
         toggle={() => setIsMenuOpen(false)}
-      />
+      /> */}
     </>
   );
 };

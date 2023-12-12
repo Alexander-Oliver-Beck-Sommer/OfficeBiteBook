@@ -1,7 +1,9 @@
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 import localfont from "next/font/local";
 import Header from "@/components/Header/Header";
 import siteSettings from "@/data/siteSettings";
+import { ToastContainer, toast } from "react-toastify";
 
 const poppins = localfont({
   src: [
@@ -119,6 +121,18 @@ export default function RootLayout({
       <body>
         <Header />
         <main>{children}</main>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable={false}
+          pauseOnHover={false}
+          theme="dark"
+        />
       </body>
     </html>
   );

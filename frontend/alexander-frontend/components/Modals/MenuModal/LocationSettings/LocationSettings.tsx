@@ -64,7 +64,7 @@ const LocationSettings = ({
   }, [location, date, startTime, endTime]);
 
   return (
-    <ul className="grid grid-cols-2 gap-6">
+    <>
       <li>
         <TextInput
           type="location"
@@ -102,7 +102,7 @@ const LocationSettings = ({
           value={endTimeInput}
         />
       </li>
-    </ul>
+    </>
   );
 };
 

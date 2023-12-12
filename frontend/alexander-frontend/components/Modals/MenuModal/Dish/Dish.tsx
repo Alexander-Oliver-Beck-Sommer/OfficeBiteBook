@@ -72,16 +72,19 @@ const Dish = ({
             label="Save the dish to the archive"
             name="Archive"
             icon="add"
+            toggle={archiveToggle}
           />
           <ActionButton
             label="Replace with dish from archive"
             name="Replace"
             icon="cycle"
+            toggle={replaceToggle}
           />
           <ActionButton
             label="Delete dish from menu"
             name="Delete"
             icon="delete"
+            toggle={deleteToggle}
           />
         </div>
       </header>
