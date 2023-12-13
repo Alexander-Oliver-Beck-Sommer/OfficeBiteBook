@@ -27,6 +27,19 @@ const useMenuModal = (initialDate, initialStartTime, visible, toggle) => {
     setDishes(dishes.filter((dish) => dish.id !== dishId));
   };
 
+  const clearAllDishes = () => {
+    if (dishes.length === 0) {
+      toast.warn("No dishes to remove");
+    } else if (
+      window.confirm(
+        "Are you sure you want to remove all dishes? All changes will be lost.",
+      )
+    ) {
+      toast.success("All dishes removed");
+      setDishes([]);
+    }
+  };
+
   const cancelMenu = () => {
     if (
       window.confirm(
@@ -52,6 +65,7 @@ const useMenuModal = (initialDate, initialStartTime, visible, toggle) => {
     menuStartTime,
     menuEndTime,
     createDish,
+    clearAllDishes,
     deleteDish,
     onTitleChange,
     onLocationChange,

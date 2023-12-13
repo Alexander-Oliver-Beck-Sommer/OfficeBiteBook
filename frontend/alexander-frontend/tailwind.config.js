@@ -23,11 +23,12 @@ module.exports = {
       gridTemplateColumns: {
         autoX1: "auto 1fr;",
         autoX8: "auto repeat(7, 1fr)",
+        "30X70": "30% 70%",
       },
       gridTemplateRows: {
         autoX1: "auto 1fr;",
         "1Xauto": "auto 1fr;",
-        "auto1Xauto": "auto 1fr auto;",
+        auto1Xauto: "auto 1fr auto;",
       },
     },
     screens: {
@@ -38,6 +39,7 @@ module.exports = {
     },
     colors: {
       eerie_black: "#1E1E1E",
+      strange_black: "#202020",
       raisin_black: "#252526",
       dark_charcoal: "#2d2d30",
       arsenic: "#3E3E42",

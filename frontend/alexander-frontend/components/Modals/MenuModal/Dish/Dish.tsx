@@ -61,7 +61,7 @@ const Dish = ({
   }, [title, sub, desc, thumb]);
 
   return (
-    <li aria-label={titleInput} className="flex flex-col gap-6">
+    <li aria-label={titleInput} className="flex flex-col gap-6 px-6 py-4">
       <header className="flex items-center justify-between border-b-2 border-arsenic pb-6">
         <div className="flex items-center gap-2">
           <h2 className="font-medium text-cool_grey">#{dishCount}</h2>

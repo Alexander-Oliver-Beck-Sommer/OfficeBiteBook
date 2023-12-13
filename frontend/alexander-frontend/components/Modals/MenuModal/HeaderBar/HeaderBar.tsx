@@ -5,9 +5,14 @@ import data from "@/data/MenuModal.js";
 type HeaderBarProps = {
   title?: string;
   deleteToggle: () => void;
+  cleanToggle: () => void;
 };
 
-const HeaderBar = ({ title = "", deleteToggle }: HeaderBarProps) => {
+const HeaderBar = ({
+  title = "",
+  deleteToggle,
+  cleanToggle,
+}: HeaderBarProps) => {
   const [titleMenuInput, setTitleMenuInput] = useState(title);
 
   useEffect(() => {
@@ -39,13 +44,15 @@ const HeaderBar = ({ title = "", deleteToggle }: HeaderBarProps) => {
           toggle={deleteToggle}
         />
         <ActionButton
+          title="Clear and remove all dishes"
           icon="clean"
           variant="icon"
           name="Clean"
           label={data.menu_buttons.accept.label}
-          toggle={deleteToggle}
+          toggle={cleanToggle}
         />
         <ActionButton
+          title="Delete the menu and all dishes"
           icon="delete"
           variant="icon"
           name="Delete"

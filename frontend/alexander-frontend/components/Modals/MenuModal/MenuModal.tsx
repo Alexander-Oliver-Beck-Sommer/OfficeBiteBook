@@ -37,6 +37,7 @@ const MenuModal = ({
     menuEndTime,
     createDish,
     deleteDish,
+    clearAllDishes,
     onTitleChange,
     onLocationChange,
     onDateChange,
@@ -94,15 +95,19 @@ const MenuModal = ({
     >
       <div className="relative flex h-full w-full items-center justify-center px-10 py-10 lg:px-12 lg:py-12">
         <section
-          className="absolute inset-0 z-40 cursor-pointer bg-eerie_black opacity-95 transition-all duration-300 ease-in-out hover:bg-raisin_black"
+          className="hover:bg-strange_black absolute inset-0 z-40 cursor-pointer bg-eerie_black opacity-95 transition-all duration-300 ease-in-out"
           onClick={toggle}
         ></section>
-        <section className="relative z-50 grid h-full w-full max-w-screen-xl grid-rows-auto1Xauto overflow-auto rounded border-2 border-arsenic bg-eerie_black">
+        <section className="relative z-50 grid h-full w-full max-w-screen-xl grid-rows-auto1Xauto overflow-y-auto rounded border-2 border-arsenic bg-eerie_black">
           <header className="flex items-center justify-between bg-raisin_black px-6 py-4">
-            <HeaderBar deleteToggle={toggle} title={menuTitle} />
+            <HeaderBar
+              deleteToggle={toggle}
+              title={menuTitle}
+              cleanToggle={clearAllDishes}
+            />
           </header>
-          <div className="flex">
-            <ul className="pattern-boxes pattern-blue-500 pattern-bg-white pattern-size-6 pattern-opacity-20 flex w-4/12 flex-col gap-5 border-y-2 border-eerie_black bg-raisin_black px-6 py-4">
+          <section className="grid-cols-30X70 grid">
+            <ul className="flex flex-col gap-5 border-y-2 border-eerie_black bg-raisin_black px-6 py-4">
               <LocationSettings
                 title={menuTitle}
                 onTitleChange={onTitleChange}
@@ -116,8 +121,18 @@ const MenuModal = ({
                 onEndTimeChange={onEndTimeChange}
               />
             </ul>
-            <section></section>
-          </div>
+            <div className="pattern relative overflow-auto">
+              <ul className="absolute inset-0">
+                {dishes.map((dish) => (
+                  <Dish
+                    key={dish.id}
+                    dishCount={dishes.indexOf(dish) + 1}
+                    deleteToggle={() => deleteDish(dish.id)}
+                  />
+                ))}
+              </ul>
+            </div>
+          </section>
           <footer className="flex items-center justify-between bg-raisin_black px-6 py-4">
             <div className="flex gap-5">
               <CreateImport createDish={createDish} />

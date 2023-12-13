@@ -84,4 +84,22 @@
   *::-webkit-scrollbar-thumb:active {
     @apply bg-cool_grey;
   }
+
+  .pattern {
+    background: repeating-linear-gradient(
+        90deg,
+        #202020 0,
+        #202020 3%,
+        transparent 0,
+        transparent 50%
+      ),
+      repeating-linear-gradient(
+        180deg,
+        #202020 0,
+        #202020 3%,
+        transparent 0,
+        transparent 50%
+      );
+    @apply bg-eerie_black bg-[length:3em_3em];
+  }
 }

@@ -1,7 +1,7 @@
 import React from "react";
 
 const visibilities = (visible) => {
-  return visible ? "opacity-90 visible blur" : "opacity-0 invisible blur-0";
+  return visible ? "opacity-90 visible" : "opacity-0 invisible";
 };
 
 const TransparentBackground = ({ visible = false, toggle }) => {

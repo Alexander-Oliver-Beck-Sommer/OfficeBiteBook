@@ -61,6 +61,7 @@ type ActionButtonsProps = {
   variant: string;
   label: string;
   name: string;
+  title: string;
   toggle: () => void;
 };
 
@@ -71,6 +72,7 @@ const ActionButton = ({
   label,
   name,
   toggle,
+  title,
 }: ActionButtonsProps) => {
   if (!label) {
     throw new Error("Provide a label for the button.");
@@ -84,6 +86,7 @@ const ActionButton = ({
 
   return (
     <button
+      title={title}
       onClick={toggle}
       aria-label={label}
       className={`flex items-center justify-center gap-2 text-ghost_white ${variantValue} ${style}`}
