@@ -9,6 +9,11 @@ export default {
     },
   },
   location_section: {
+    title: {
+      name: "Title",
+      placeholder: "Write a title for the menu",
+      label: "Change or adjust the title of the menu",
+    },
     location: {
       name: "Location",
       placeholder: "Write a location for the menu",

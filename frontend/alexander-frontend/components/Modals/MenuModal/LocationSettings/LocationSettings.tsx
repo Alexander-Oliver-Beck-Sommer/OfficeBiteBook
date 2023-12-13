@@ -3,10 +3,12 @@ import data from "@/data/MenuModal.js";
 import TextInput from "@/components/Inputs/TextInput";
 
 type LocationSettingsProps = {
+  title?: string;
   location?: string;
   date?: string;
   startTime?: string;
   endTime?: string;
+  onTitleChange?: (newTitle: string) => void;
   onLocationChange?: (newLocation: string) => void;
   onDateChange?: (newDate: string) => void;
   onStartTimeChange?: (newStartTime: string) => void;
@@ -14,19 +16,29 @@ type LocationSettingsProps = {
 };
 
 const LocationSettings = ({
+  title = "",
   location = "",
   date = "",
   startTime = "",
   endTime = "",
+  onTitleChange,
   onLocationChange,
   onDateChange,
   onStartTimeChange,
   onEndTimeChange,
 }: LocationSettingsProps) => {
+  const [titleInput, setTitleInput] = useState(title);
   const [locationInput, setLocationInput] = useState(location);
   const [dateInput, setDateInput] = useState(date);
   const [startTimeInput, setStartTimeInput] = useState(startTime);
   const [endTimeInput, setEndTimeInput] = useState(endTime);
+
+  const handleTitleChange = (newValue: string) => {
+    setTitleInput(newValue);
+    if (onTitleChange) {
+      onTitleChange(newValue);
+    }
+  };
 
   const handleLocationChange = (newValue: string) => {
     setLocationInput(newValue);
@@ -57,14 +69,25 @@ const LocationSettings = ({
   };
 
   useEffect(() => {
+    setTitleInput(title);
     setLocationInput(location);
     setDateInput(date);
     setStartTimeInput(startTime);
     setEndTimeInput(endTime);
-  }, [location, date, startTime, endTime]);
+  }, [title, location, date, startTime, endTime]);
 
   return (
     <>
+      <li>
+        <TextInput
+          type="title"
+          placeholder={data.location_section.title.placeholder}
+          name={data.location_section.title.name}
+          label={data.location_section.title.label}
+          onValueChange={handleTitleChange}
+          value={titleInput}
+        />
+      </li>
       <li>
         <TextInput
           type="location"

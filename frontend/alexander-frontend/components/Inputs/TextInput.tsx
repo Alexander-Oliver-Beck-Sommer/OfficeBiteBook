@@ -3,15 +3,18 @@ import React, { useRef } from "react";
 import TimeIcon from "@/components/Icons/TimeIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
 import LocationIcon from "@/components/Icons/LocationIcon";
+import TitleIcon from "@/components/Icons/TitleIcon";
 
 const types = (type) => {
   switch (type) {
     case "date":
-      return <CalendarIcon className="fill-arsenic" />;
+      return <CalendarIcon />;
     case "time":
-      return <TimeIcon className="fill-arsenic" />;
+      return <TimeIcon />;
     case "location":
-      return <LocationIcon className="fill-arsenic" />;
+      return <LocationIcon />;
+    case "title":
+      return <TitleIcon />;
     default:
       return null;
   }
@@ -100,7 +103,7 @@ const TextInput = ({
           onBlur={handleBlur}
           onFocus={handleFocus}
           onClick={handleIconClick}
-          className="absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-eerie_black"
+          className="absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-eerie_black fill-arsenic"
         >
           {typeIcon}
         </button>

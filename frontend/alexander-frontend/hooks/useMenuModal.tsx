@@ -33,7 +33,7 @@ const useMenuModal = (initialDate, initialStartTime, visible, toggle) => {
         "Are you sure you want to cancel? All changes will be lost.",
       )
     ) {
-      toast.info("Menu scrapped");
+      toast.warn("Menu scrapped");
       toggle();
     }
   };

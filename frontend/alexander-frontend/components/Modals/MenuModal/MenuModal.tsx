@@ -1,5 +1,5 @@
 import { supabase } from "@/components/Supabase/supabaseClient";
-import TitleClose from "@/components/Modals/MenuModal/TitleClose/TitleClose";
+import HeaderBar from "@/components/Modals/MenuModal/HeaderBar/HeaderBar";
 import MenuOptions from "@/components/Modals/MenuModal/MenuOptions/MenuOptions";
 import LocationSettings from "@/components/Modals/MenuModal/LocationSettings/LocationSettings";
 import Dish from "@/components/Modals/MenuModal/Dish/Dish";
@@ -11,6 +11,7 @@ import { useEffect } from "react";
 
 type MenuModalProps = {
   visible: boolean;
+  title?: string;
   location?: string;
   date?: string;
   startTime?: string;
@@ -20,6 +21,7 @@ type MenuModalProps = {
 
 const MenuModal = ({
   visible = false,
+  title,
   location,
   date,
   startTime,
@@ -56,12 +58,15 @@ const MenuModal = ({
         },
       ]);
 
-      if (error) throw error;
-      toast.success("Menu saved successfully!");
+      if (error) {
+        throw error;
+      } else {
+        toast.success("Menu saved");
+        toggle();
+      }
     } catch (error) {
-      toast.error("Menu could not be saved.");
+      toast.error("Menu couldn't be saved");
     }
-    toggle();
   };
 
   useEffect(() => {
@@ -81,43 +86,6 @@ const MenuModal = ({
   }, [visible]);
 
   return (
-    // <section
-    //   aria-hidden={!visible}
-    //   onClick={toggle}
-    //   className={`fixed inset-0 z-50 flex items-center justify-center transition-all duration-300 ease-in-out ${
-    //     visible ? "visible opacity-100" : "invisible opacity-0"
-    //   }`}
-    // >
-    //   <ul
-    //     ref={scrollToTop}
-    //     onClick={(event) => event.stopPropagation()}
-    //     className="flex max-h-[80%] w-11/12 flex-col gap-20 overflow-y-auto overflow-x-hidden rounded border-2 border-arsenic bg-raisin_black px-12 py-12 lg:w-full lg:max-w-7xl"
-    //   >
-    //     <li className="flex flex-col gap-6">
-    //       <TitleClose closeMenu={toggle} onTitleChange={onTitleChange} />
-    //       <MenuOptions />
-    //       <LocationSettings
-    //         location={location}
-    //         onLocationChange={onLocationChange}
-    //         date={date}
-    //         onDateChange={onDateChange}
-    //         startTime={startTime}
-    //         onStartTimeChange={onStartTimeChange}
-    //         endTime={endTime}
-    //         onEndTimeChange={onEndTimeChange}
-    //       />
-    //     </li>
-    //     {dishes.map((dish) => (
-    //       <Dish
-    //         key={dish.id}
-    //         dishCount={dishes.indexOf(dish) + 1}
-    //         deleteToggle={() => deleteDish(dish.id)}
-    //       />
-    //     ))}
-    //     <CreateImport createDish={createDish} />
-    //     <CancelCreate cancelMenu={cancelMenu} acceptMenu={acceptMenu} />
-    //   </ul>
-    // </section>
     <section
       aria-hidden={!visible}
       className={`fixed inset-0 z-50 flex transition-all duration-300 ease-in-out ${
@@ -129,13 +97,15 @@ const MenuModal = ({
           className="absolute inset-0 z-40 cursor-pointer bg-eerie_black opacity-95 transition-all duration-300 ease-in-out hover:bg-raisin_black"
           onClick={toggle}
         ></section>
-        <section className="relative z-50 grid h-full w-full max-w-screen-xl grid-rows-auto1Xauto overflow-hidden rounded border-2 border-arsenic bg-eerie_black">
+        <section className="relative z-50 grid h-full w-full max-w-screen-xl grid-rows-auto1Xauto overflow-auto rounded border-2 border-arsenic bg-eerie_black">
           <header className="flex items-center justify-between bg-raisin_black px-6 py-4">
-            <TitleClose closeMenu={toggle} onTitleChange={onTitleChange} />
+            <HeaderBar deleteToggle={toggle} title={menuTitle} />
           </header>
-          <div className="flex overflow-y-auto overflow-x-hidden">
-            <ul className="pattern-boxes pattern-blue-500 pattern-bg-white pattern-size-6 pattern-opacity-20 flex w-2/6 flex-col gap-5 border-y-2 border-eerie_black bg-raisin_black px-6 py-4">
+          <div className="flex">
+            <ul className="pattern-boxes pattern-blue-500 pattern-bg-white pattern-size-6 pattern-opacity-20 flex w-4/12 flex-col gap-5 border-y-2 border-eerie_black bg-raisin_black px-6 py-4">
               <LocationSettings
+                title={menuTitle}
+                onTitleChange={onTitleChange}
                 location={location}
                 onLocationChange={onLocationChange}
                 date={date}
