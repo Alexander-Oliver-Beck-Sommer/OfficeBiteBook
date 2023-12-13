@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import data from "@/data/MenuModal.js";
 import TextInput from "@/components/Inputs/TextInput";
 
-type LocationSettingsProps = {
+type MenuSettingsProps = {
   title?: string;
   location?: string;
   date?: string;
@@ -15,7 +15,7 @@ type LocationSettingsProps = {
   onEndTimeChange?: (newEndTime: string) => void;
 };
 
-const LocationSettings = ({
+const MenuSettings = ({
   title = "",
   location = "",
   date = "",
@@ -26,7 +26,7 @@ const LocationSettings = ({
   onDateChange,
   onStartTimeChange,
   onEndTimeChange,
-}: LocationSettingsProps) => {
+}: MenuSettingsProps) => {
   const [titleInput, setTitleInput] = useState(title);
   const [locationInput, setLocationInput] = useState(location);
   const [dateInput, setDateInput] = useState(date);
@@ -77,7 +77,7 @@ const LocationSettings = ({
   }, [title, location, date, startTime, endTime]);
 
   return (
-    <>
+    <ul className="flex flex-col gap-5 border-y-2 border-eerie_black bg-raisin_black px-6 py-4">
       <li>
         <TextInput
           type="title"
@@ -125,8 +125,8 @@ const LocationSettings = ({
           value={endTimeInput}
         />
       </li>
-    </>
+    </ul>
   );
 };
 
-export default LocationSettings;
+export default MenuSettings;

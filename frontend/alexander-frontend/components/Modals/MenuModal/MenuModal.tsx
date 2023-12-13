@@ -1,13 +1,11 @@
 import { supabase } from "@/components/Supabase/supabaseClient";
-import HeaderBar from "@/components/Modals/MenuModal/HeaderBar/HeaderBar";
-import MenuOptions from "@/components/Modals/MenuModal/MenuOptions/MenuOptions";
-import LocationSettings from "@/components/Modals/MenuModal/LocationSettings/LocationSettings";
-import Dish from "@/components/Modals/MenuModal/Dish/Dish";
-import CreateImport from "@/components/Modals/MenuModal/CreateImport/CreateImport";
-import CancelCreate from "@/components/Modals/MenuModal/CancelCreate/CancelCreate";
-import useMenuModal from "@/hooks/useMenuModal";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import HeaderBar from "@/components/Modals/MenuModal/HeaderBar/HeaderBar";
+import MenuSettings from "@/components/Modals/MenuModal/MenuSettings/MenuSettings";
+import Dish from "@/components/Modals/MenuModal/Dish/Dish";
+import FooterBar from "@/components/Modals/MenuModal/FooterBar/FooterBar";
+import useMenuModal from "@/hooks/useMenuModal";
 
 type MenuModalProps = {
   visible: boolean;
@@ -98,31 +96,31 @@ const MenuModal = ({
           className="hover:bg-strange_black absolute inset-0 z-40 cursor-pointer bg-eerie_black opacity-95 transition-all duration-300 ease-in-out"
           onClick={toggle}
         ></section>
-        <section className="relative z-50 grid h-full w-full max-w-screen-xl grid-rows-auto1Xauto overflow-y-auto rounded border-2 border-arsenic bg-eerie_black">
-          <header className="flex items-center justify-between bg-raisin_black px-6 py-4">
-            <HeaderBar
-              deleteToggle={toggle}
-              title={menuTitle}
-              cleanToggle={clearAllDishes}
-            />
-          </header>
+        <section
+          className={`relative z-50 grid h-full w-full max-w-screen-xl grid-rows-auto1Xauto overflow-y-auto rounded border-2 border-arsenic bg-eerie_black ${
+            visible ? "animate-fade-up animate-ease-in-out" : ""
+          } `}
+        >
+          <HeaderBar
+            deleteToggle={toggle}
+            title={menuTitle}
+            cleanToggle={clearAllDishes}
+          />
           <section className="grid-cols-30X70 grid">
-            <ul className="flex flex-col gap-5 border-y-2 border-eerie_black bg-raisin_black px-6 py-4">
-              <LocationSettings
-                title={menuTitle}
-                onTitleChange={onTitleChange}
-                location={location}
-                onLocationChange={onLocationChange}
-                date={date}
-                onDateChange={onDateChange}
-                startTime={startTime}
-                onStartTimeChange={onStartTimeChange}
-                endTime={endTime}
-                onEndTimeChange={onEndTimeChange}
-              />
-            </ul>
+            <MenuSettings
+              title={menuTitle}
+              onTitleChange={onTitleChange}
+              location={location}
+              onLocationChange={onLocationChange}
+              date={date}
+              onDateChange={onDateChange}
+              startTime={startTime}
+              onStartTimeChange={onStartTimeChange}
+              endTime={endTime}
+              onEndTimeChange={onEndTimeChange}
+            />
             <div className="pattern relative overflow-auto">
-              <ul className="absolute inset-0">
+              <ul className="absolute inset-0 flex flex-col items-center gap-5 px-6 py-4">
                 {dishes.map((dish) => (
                   <Dish
                     key={dish.id}
@@ -133,14 +131,11 @@ const MenuModal = ({
               </ul>
             </div>
           </section>
-          <footer className="flex items-center justify-between bg-raisin_black px-6 py-4">
-            <div className="flex gap-5">
-              <CreateImport createDish={createDish} />
-            </div>
-            <div className="flex gap-5">
-              <CancelCreate cancel={cancelMenu} accept={acceptMenu} />
-            </div>
-          </footer>
+          <FooterBar
+            cancelMenu={cancelMenu}
+            createDish={createDish}
+            acceptMenu={acceptMenu}
+          />
         </section>
       </div>
     </section>

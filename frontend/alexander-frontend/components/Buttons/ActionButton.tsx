@@ -50,6 +50,8 @@ const variants = (variant) => {
       return "border-arsenic bg-eerie_black border-2 px-5 py-3 fill-ghost_white rounded hover:bg-arsenic";
     case "icon":
       return "border-arsenic bg-eerie_black border-2 px-3 py-3 fill-ghost_white rounded hover:bg-arsenic";
+    case "icon-circle":
+      return "px-3 py-3 fill-ghost_white rounded hover:bg-arsenic";
     default:
       return "fill-cool_grey outline-offset-4";
   }
@@ -91,7 +93,7 @@ const ActionButton = ({
       aria-label={label}
       className={`flex items-center justify-center gap-2 text-ghost_white ${variantValue} ${style}`}
     >
-      {variant !== "icon" && <h4>{name}</h4>}
+      {variant !== "icon" && variant !== "icon-circle" && <h4>{name}</h4>}
       {iconValue}
     </button>
   );

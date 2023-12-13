@@ -20,47 +20,53 @@ const HeaderBar = ({
   }, [title]);
 
   return (
-    <>
-      <div className="flex gap-5">
-        {titleMenuInput === "" ? (
-          <h2 className="text-cool_grey">Unnamed Menu</h2>
-        ) : (
-          <h2>{titleMenuInput}</h2>
-        )}
-      </div>
-      <div className="flex gap-5">
-        <ActionButton
-          icon="menu"
-          variant="icon"
-          name="Add"
-          label={data.menu_buttons.accept.label}
-          toggle={deleteToggle}
-        />
-        <ActionButton
-          icon="template"
-          variant="icon"
-          name="Menu Templates"
-          label={data.menu_buttons.accept.label}
-          toggle={deleteToggle}
-        />
-        <ActionButton
-          title="Clear and remove all dishes"
-          icon="clean"
-          variant="icon"
-          name="Clean"
-          label={data.menu_buttons.accept.label}
-          toggle={cleanToggle}
-        />
-        <ActionButton
-          title="Delete the menu and all dishes"
-          icon="delete"
-          variant="icon"
-          name="Delete"
-          label={data.menu_buttons.cancel.label}
-          toggle={deleteToggle}
-        />
-      </div>
-    </>
+    <header className="flex items-center justify-between bg-raisin_black px-6 py-4">
+      {titleMenuInput === "" ? (
+        <h2 className="text-cool_grey">Unnamed Menu</h2>
+      ) : (
+        <h2>{titleMenuInput}</h2>
+      )}
+      <ul className="flex gap-5">
+        <li>
+          <ActionButton
+            icon="menu"
+            variant="icon"
+            name="Add"
+            label={data.menu_buttons.accept.label}
+            toggle={deleteToggle}
+          />
+        </li>
+        <li>
+          <ActionButton
+            icon="template"
+            variant="icon"
+            name="Menu Templates"
+            label={data.menu_buttons.accept.label}
+            toggle={deleteToggle}
+          />
+        </li>
+        <li>
+          <ActionButton
+            title="Clear and remove all dishes"
+            icon="clean"
+            variant="icon"
+            name="Clean"
+            label={data.menu_buttons.accept.label}
+            toggle={cleanToggle}
+          />
+        </li>
+        <li>
+          <ActionButton
+            title="Delete the menu and all dishes"
+            icon="delete"
+            variant="icon"
+            name="Delete"
+            label={data.menu_buttons.cancel.label}
+            toggle={deleteToggle}
+          />
+        </li>
+      </ul>
+    </header>
   );
 };
 
