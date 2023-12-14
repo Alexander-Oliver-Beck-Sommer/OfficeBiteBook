@@ -2,17 +2,17 @@ import data from "@/data/MenuModal.js";
 import ActionButton from "@/components/Buttons/ActionButton";
 
 type FooterBarProps = {
-  cancelMenu: () => void;
-  acceptMenu: () => void;
-  createDish: () => void;
-  importDish: () => void;
+  footerBarCreateDish: () => void;
+  footerBarImportDish: () => void;
+  footerBarCancelMenu: () => void;
+  footerBarAcceptMenu: () => void;
 };
 
 const FooterBar = ({
-  cancelMenu,
-  acceptMenu,
-  createDish,
-  importDish,
+  footerBarCreateDish,
+  footerBarImportDish,
+  footerBarCancelMenu,
+  footerBarAcceptMenu,
 }: FooterBarProps) => {
   return (
     <footer className="flex items-center justify-between bg-raisin_black px-6 py-4">
@@ -22,9 +22,10 @@ const FooterBar = ({
             icon="add"
             name="Add"
             variant="icon"
+            title="Add a new dish"
             name="Add"
             label={data.menu_buttons.accept.label}
-            toggle={createDish}
+            toggle={footerBarCreateDish}
           />
         </li>
         <li>
@@ -32,9 +33,10 @@ const FooterBar = ({
             icon="inventory"
             name="Import"
             variant="icon"
+            title="Import a dish from the archive"
             name="Import"
             label={data.menu_buttons.cancel.label}
-            toggle={importDish}
+            toggle={footerBarImportDish}
           />
         </li>
       </ul>
@@ -43,18 +45,20 @@ const FooterBar = ({
           <ActionButton
             variant="outlined"
             icon="cancel"
+            title="Cancel the menu without saving"
             name={data.menu_buttons.cancel.name}
             label={data.menu_buttons.cancel.label}
-            toggle={cancelMenu}
+            toggle={footerBarCancelMenu}
           />
         </li>
         <li>
           <ActionButton
             variant="outlined"
             icon="check"
+            title="Accept the and save menu"
             name={data.menu_buttons.accept.name}
             label={data.menu_buttons.accept.label}
-            toggle={acceptMenu}
+            toggle={footerBarAcceptMenu}
           />
         </li>
       </ul>

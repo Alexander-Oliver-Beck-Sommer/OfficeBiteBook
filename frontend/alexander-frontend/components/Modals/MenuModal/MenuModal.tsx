@@ -80,13 +80,6 @@ const MenuModal = ({
             menuVisible ? "animate-fade-up animate-ease-in-out" : ""
           } `}
         >
-          {/* The HeaderBar component contains:
-              - Entered menu title
-              - Menu archive and save button
-              - Template archive and save button
-              - Clear all dishes button
-              - Delete menu button
-          */}
           <HeaderBar
             deleteToggle={toggle}
             title={menuTitle}
@@ -121,9 +114,9 @@ const MenuModal = ({
             </div>
           </section>
           <FooterBar
-            cancelMenu={cancelMenu}
-            createDish={createDish}
-            acceptMenu={acceptMenu}
+            footerBarCreateDish={createDish}
+            footerBarCancelMenu={cancelMenu}
+            footerBarAcceptMenu={acceptMenu}
           />
         </section>
       </div>
