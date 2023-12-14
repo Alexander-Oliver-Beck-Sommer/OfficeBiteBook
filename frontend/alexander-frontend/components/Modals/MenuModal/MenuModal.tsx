@@ -43,6 +43,8 @@ const MenuModal = ({
     onEndTimeChange,
     scrollToTop,
     cancelMenu,
+    toggleDish,
+    expandedDish,
   } = useMenuModal(date, startTime, visible, toggle);
 
   const acceptMenu = async () => {
@@ -93,7 +95,7 @@ const MenuModal = ({
     >
       <div className="relative flex h-full w-full items-center justify-center px-10 py-10 lg:px-12 lg:py-12">
         <section
-          className="hover:bg-strange_black absolute inset-0 z-40 cursor-pointer bg-eerie_black opacity-95 transition-all duration-300 ease-in-out"
+          className="absolute inset-0 z-40 cursor-pointer bg-eerie_black opacity-95 transition-all duration-300 ease-in-out hover:bg-strange_black"
           onClick={toggle}
         ></section>
         <section
@@ -106,7 +108,7 @@ const MenuModal = ({
             title={menuTitle}
             cleanToggle={clearAllDishes}
           />
-          <section className="grid-cols-30X70 grid">
+          <section className="grid grid-cols-30X70">
             <MenuSettings
               title={menuTitle}
               onTitleChange={onTitleChange}
@@ -119,12 +121,14 @@ const MenuModal = ({
               endTime={endTime}
               onEndTimeChange={onEndTimeChange}
             />
-            <div className="pattern relative overflow-auto">
-              <ul className="absolute inset-0 flex flex-col items-center gap-5 px-6 py-4">
+            <div className="pattern relative overflow-scroll">
+              <ul className="absolute inset-0 flex flex-col gap-8 px-8 py-8">
                 {dishes.map((dish) => (
                   <Dish
                     key={dish.id}
                     dishCount={dishes.indexOf(dish) + 1}
+                    isDishOpen={expandedDish === dish.id}
+                    toggleDish={() => toggleDish(dish.id)}
                     deleteToggle={() => deleteDish(dish.id)}
                   />
                 ))}

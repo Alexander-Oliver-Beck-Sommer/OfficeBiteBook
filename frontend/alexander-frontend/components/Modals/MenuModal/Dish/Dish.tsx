@@ -31,14 +31,19 @@ const Dish = ({
   archiveToggle,
   replaceToggle,
   deleteToggle,
+  isDishOpen,
+  toggleDish,
 }: DishProps) => {
   const [titleInput, setTitleInput] = useState(title);
   const [subInput, setSubInput] = useState(sub);
   const [descInput, setDescInput] = useState(desc);
   const [thumbInput, setThumbInput] = useState(thumb);
-  const [isDishOpen, setIsDishOpen] = useState(false);
 
-  const openDishStyle = `${isDishOpen ? "h-16 " : "h-0"}`;
+  const openDishStyle = `${
+    isDishOpen
+      ? "grid-rows-[1fr] visible opacity-100"
+      : "grid-rows-[0fr] invisible opacity-0"
+  }`;
 
   const dishToggle = () => {
     setIsDishOpen(!isDishOpen);
@@ -68,65 +73,14 @@ const Dish = ({
   }, [title, sub, desc, thumb]);
 
   return (
-    // <li aria-label={titleInput} className="flex flex-col gap-6 px-6 py-4">
-    //   <header className="flex items-center justify-between border-b-2 border-arsenic pb-6">
-    //     <div className="flex items-center gap-2">
-    //       <h2 className="font-medium text-cool_grey">#{dishCount}</h2>
-    //       <h3>{titleInput}</h3>
-    //     </div>
-    //     <div className="flex items-center gap-6">
-    //       <ActionButton
-    //         label="Save the dish to the archive"
-    //         name="Archive"
-    //         icon="add"
-    //         toggle={archiveToggle}
-    //       />
-    //       <ActionButton
-    //         label="Replace with dish from archive"
-    //         name="Replace"
-    //         icon="cycle"
-    //         toggle={replaceToggle}
-    //       />
-    //       <ActionButton
-    //         label="Delete dish from menu"
-    //         name="Delete"
-    //         icon="delete"
-    //         toggle={deleteToggle}
-    //       />
-    //     </div>
-    //   </header>
-    //   <section className="grid grid-cols-2 gap-6">
-    //     <TextInput
-    //       type="text"
-    //       label="Click to change the title of the dish"
-    //       name="Title"
-    //       placeholder="Title"
-    //       onValueChange={setTitleInput}
-    //       value={titleInput}
-    //     />
-    //     <TextInput
-    //       type="text"
-    //       label="Click to change the subtitle of the dish"
-    //       name="Subtitle"
-    //       placeholder="Subtitle"
-    //       onValueChange={setSubInput}
-    //       value={subInput}
-    //     />
-    //     <TextArea
-    //       rows="5"
-    //       label="Click to change the subtitle of the dish"
-    //       name="Description"
-    //       placeholder="Description"
-    //       onValueChange={setDescInput}
-    //       value={descInput}
-    //     />
-    //     <ThumbnailButton title="Thumbnail (optional)" />
-    //   </section>
-    // </li>
-    <li aria-label={titleInput} className="animate-fade-up animate-ease-in-out grid w-full grid-rows-autoX1 overflow-hidden rounded border-2 border-arsenic bg-eerie_black">
+    <li
+      aria-label={titleInput}
+      className="grid w-full flex-shrink-0 animate-fade-up grid-rows-autoX1 overflow-hidden rounded border-2 border-arsenic bg-eerie_black animate-ease-in-out"
+    >
       <section className="flex items-center justify-between pl-3">
-        <div className="flex">
-          <h3 className="font-medium text-cool_grey">#{dishCount}</h3>
+        <div className="flex items-center gap-3">
+          <h3 className="font-semibold">#{dishCount}</h3>
+          <p className="text-cool_grey">{titleInput}</p>
         </div>
         <div className="flex">
           <ActionButton
@@ -151,7 +105,7 @@ const Dish = ({
             name="Hh"
           />
           <ActionButton
-            toggle={dishToggle}
+            toggle={toggleDish}
             icon="downArrow"
             label="Expand and collapse the dish"
             variant="icon-circle"
@@ -160,9 +114,45 @@ const Dish = ({
         </div>
       </section>
       <section
-        className={`bg-strange_black transition-all duration-300 ease-in-out ${openDishStyle}`}
+        className={`grid bg-raisin_black transition-all duration-300 ease-in-out ${openDishStyle}`}
       >
-        <div className="w-full py-4 px-6"></div>
+        <div className="overflow-hidden">
+          <ul className="grid w-full grid-cols-2 gap-6 p-6">
+            <li>
+              <TextInput
+                type="text"
+                label="Click to change the title of the dish"
+                name="Title"
+                placeholder="Title"
+                onValueChange={setTitleInput}
+                value={titleInput}
+              />
+            </li>
+            <li>
+              <TextInput
+                type="text"
+                label="Click to change the subtitle of the dish"
+                name="Subtitle"
+                placeholder="Subtitle"
+                onValueChange={setSubInput}
+                value={subInput}
+              />
+            </li>
+            <li>
+              <TextArea
+                rows="5"
+                label="Click to change the subtitle of the dish"
+                name="Description"
+                placeholder="Description"
+                onValueChange={setDescInput}
+                value={descInput}
+              />
+            </li>
+            <li>
+              <ThumbnailButton title="Thumbnail" />
+            </li>
+          </ul>
+        </div>
       </section>
     </li>
   );

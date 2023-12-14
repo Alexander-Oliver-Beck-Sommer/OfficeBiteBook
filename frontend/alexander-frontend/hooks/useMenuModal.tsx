@@ -9,6 +9,7 @@ const useMenuModal = (initialDate, initialStartTime, visible, toggle) => {
   const [menuStartTime, setMenuStartTime] = useState(initialStartTime);
   const [menuEndTime, setMenuEndTime] = useState("");
   const scrollToTop = useRef(null);
+  const [expandedDish, setExpandedDish] = useState(null);
 
   useEffect(() => {
     setMenuDate(initialDate);
@@ -37,6 +38,14 @@ const useMenuModal = (initialDate, initialStartTime, visible, toggle) => {
     ) {
       toast.success("All dishes removed");
       setDishes([]);
+    }
+  };
+
+  const toggleDish = (dishId) => {
+    if (expandedDish === dishId) {
+      setExpandedDish(null);
+    } else {
+      setExpandedDish(dishId);
     }
   };
 
@@ -74,6 +83,8 @@ const useMenuModal = (initialDate, initialStartTime, visible, toggle) => {
     onEndTimeChange,
     scrollToTop,
     cancelMenu,
+    expandedDish,
+    toggleDish,
   };
 };
 
