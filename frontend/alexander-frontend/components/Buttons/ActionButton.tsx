@@ -35,7 +35,7 @@ const icons = (icon) => {
       return <TemplateIcon variant="outlined" />;
     case "menu":
       return <MenuIcon variant="outlined" />;
-    case "clean":
+    case "clear":
       return <CleanIcon variant="outlined" />;
     default:
       return null;

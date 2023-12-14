@@ -26,6 +26,7 @@ const MenuSettings = ({
   onDateChange,
   onStartTimeChange,
   onEndTimeChange,
+  validationState,
 }: MenuSettingsProps) => {
   const [titleInput, setTitleInput] = useState(title);
   const [locationInput, setLocationInput] = useState(location);
@@ -81,6 +82,7 @@ const MenuSettings = ({
       <li>
         <TextInput
           type="title"
+          isInvalid={!validationState.title}
           placeholder={data.location_section.title.placeholder}
           name={data.location_section.title.name}
           label={data.location_section.title.label}
@@ -91,6 +93,7 @@ const MenuSettings = ({
       <li>
         <TextInput
           type="location"
+          isInvalid={!validationState.location}
           placeholder={data.location_section.location.placeholder}
           name={data.location_section.location.name}
           label={data.location_section.location.label}
@@ -101,6 +104,7 @@ const MenuSettings = ({
       <li>
         <TextInput
           type="date"
+          isInvalid={!validationState.date}
           name={data.location_section.date.name}
           label={data.location_section.date.label}
           onValueChange={handleDateChange}
@@ -110,6 +114,7 @@ const MenuSettings = ({
       <li>
         <TextInput
           type="time"
+          isInvalid={!validationState.startTime}
           name={data.location_section.start_time.name}
           label={data.location_section.start_time.label}
           onValueChange={handleStartTimeChange}
@@ -119,6 +124,7 @@ const MenuSettings = ({
       <li>
         <TextInput
           type="time"
+          isInvalid={!validationState.endTime}
           name={data.location_section.end_time.name}
           label={data.location_section.end_time.label}
           onValueChange={handleEndTimeChange}

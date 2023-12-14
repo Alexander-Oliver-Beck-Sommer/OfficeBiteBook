@@ -90,7 +90,7 @@ const WeekGrid = ({ generateTimeSlots, getWeekDates, settings }) => {
       <MenuModal
         date={menuDate}
         startTime={menuStartTime}
-        visible={isMenuOpen}
+        menuVisible={isMenuOpen}
         toggle={() => setIsMenuOpen(false)}
       />
       {/* <TransparentBackground

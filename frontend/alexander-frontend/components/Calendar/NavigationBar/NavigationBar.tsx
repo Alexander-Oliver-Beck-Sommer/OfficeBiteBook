@@ -40,7 +40,7 @@ const NavigationBar = ({
             toggle={toggleDashboard}
           />
         </section>
-        <section className="flex items-center justify-between px-4 border-b border-arsenic">
+        <section className="flex items-center justify-between border-b border-arsenic px-4">
           <ul className="flex items-center gap-4">
             <li>
               <WeekFlipper
@@ -64,7 +64,7 @@ const NavigationBar = ({
           </ul>
           <ul className="flex items-center gap-4">
             <li>
-              <WeekHighlighter/>
+              <WeekHighlighter />
             </li>
           </ul>
         </section>

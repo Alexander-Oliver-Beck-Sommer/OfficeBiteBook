@@ -1,78 +1,55 @@
-import { supabase } from "@/components/Supabase/supabaseClient";
-import { toast } from "react-toastify";
 import { useEffect } from "react";
 import HeaderBar from "@/components/Modals/MenuModal/HeaderBar/HeaderBar";
 import MenuSettings from "@/components/Modals/MenuModal/MenuSettings/MenuSettings";
 import Dish from "@/components/Modals/MenuModal/Dish/Dish";
 import FooterBar from "@/components/Modals/MenuModal/FooterBar/FooterBar";
-import useMenuModal from "@/hooks/useMenuModal";
+import useMenuModal from "@/hooks/useMenuModal"; // <== This is where the magic happens
 
 type MenuModalProps = {
-  visible: boolean;
   title?: string;
   location?: string;
   date?: string;
   startTime?: string;
   endTime?: string;
+  menuVisible: boolean;
   toggle: () => void;
 };
 
 const MenuModal = ({
-  visible = false,
   title,
   location,
   date,
   startTime,
   endTime,
+  menuVisible = false,
   toggle,
 }: MenuModalProps) => {
   const {
-    dishes,
     menuTitle,
+    onTitleChange,
     menuLocation,
+    onLocationChange,
     menuDate,
+    onDateChange,
     menuStartTime,
+    onStartTimeChange,
     menuEndTime,
+    onEndTimeChange,
+    dishes,
+    clearAllDishes,
     createDish,
     deleteDish,
-    clearAllDishes,
-    onTitleChange,
-    onLocationChange,
-    onDateChange,
-    onStartTimeChange,
-    onEndTimeChange,
-    scrollToTop,
-    cancelMenu,
     toggleDish,
     expandedDish,
-  } = useMenuModal(date, startTime, visible, toggle);
+    validationState,
+    cancelMenu,
+    acceptMenu,
+  } = useMenuModal(date, startTime, menuVisible, toggle);
 
-  const acceptMenu = async () => {
-    try {
-      const { data, error } = await supabase.from("menus").insert([
-        {
-          menu_title: menuTitle,
-          menu_location: menuLocation,
-          menu_date: menuDate,
-          menu_start_time: menuStartTime,
-          menu_end_time: menuEndTime,
-        },
-      ]);
-
-      if (error) {
-        throw error;
-      } else {
-        toast.success("Menu saved");
-        toggle();
-      }
-    } catch (error) {
-      toast.error("Menu couldn't be saved");
-    }
-  };
-
+  // This useEffect hook is used to disable scrolling when the modal is open
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (visible) {
+      if (menuVisible) {
         document.body.style.overflow = "hidden";
       } else {
         document.body.style.overflow = "";
@@ -84,13 +61,13 @@ const MenuModal = ({
         document.body.style.overflow = "";
       }
     };
-  }, [visible]);
+  }, [menuVisible]);
 
   return (
     <section
-      aria-hidden={!visible}
+      aria-hidden={!menuVisible}
       className={`fixed inset-0 z-50 flex transition-all duration-300 ease-in-out ${
-        visible ? "visible opacity-100" : "invisible opacity-0"
+        menuVisible ? "visible opacity-100" : "invisible opacity-0"
       } `}
     >
       <div className="relative flex h-full w-full items-center justify-center px-10 py-10 lg:px-12 lg:py-12">
@@ -100,13 +77,20 @@ const MenuModal = ({
         ></section>
         <section
           className={`relative z-50 grid h-full w-full max-w-screen-xl grid-rows-auto1Xauto overflow-y-auto rounded border-2 border-arsenic bg-eerie_black ${
-            visible ? "animate-fade-up animate-ease-in-out" : ""
+            menuVisible ? "animate-fade-up animate-ease-in-out" : ""
           } `}
         >
+          {/* The HeaderBar component contains:
+              - Entered menu title
+              - Menu archive and save button
+              - Template archive and save button
+              - Clear all dishes button
+              - Delete menu button
+          */}
           <HeaderBar
             deleteToggle={toggle}
             title={menuTitle}
-            cleanToggle={clearAllDishes}
+            clearToggle={clearAllDishes}
           />
           <section className="grid grid-cols-30X70">
             <MenuSettings
@@ -120,6 +104,7 @@ const MenuModal = ({
               onStartTimeChange={onStartTimeChange}
               endTime={endTime}
               onEndTimeChange={onEndTimeChange}
+              validationState={validationState}
             />
             <div className="pattern relative overflow-scroll">
               <ul className="absolute inset-0 flex flex-col gap-8 px-8 py-8">
