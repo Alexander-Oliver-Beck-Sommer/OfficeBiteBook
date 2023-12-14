@@ -105,9 +105,9 @@ const MenuModal = ({
                   <Dish
                     key={dish.id}
                     dishCount={dishes.indexOf(dish) + 1}
-                    isDishOpen={expandedDish === dish.id}
-                    toggleDish={() => toggleDish(dish.id)}
-                    deleteToggle={() => deleteDish(dish.id)}
+                    dishOpen={expandedDish === dish.id}
+                    dishDelete={() => deleteDish(dish.id)}
+                    dishExpand={() => toggleDish(dish.id)}
                   />
                 ))}
               </ul>

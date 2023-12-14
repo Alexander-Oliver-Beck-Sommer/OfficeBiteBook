@@ -1,76 +1,68 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import TextInput from "@/components/Inputs/TextInput";
 import ActionButton from "@/components/Buttons/ActionButton";
-import EditableTitle from "@/components/Inputs/EditableTitle";
 import TextArea from "@/components/Inputs/TextArea";
-import ImageIcon from "@/components/Icons/ImageIcon";
 import ThumbnailButton from "@/components/Buttons/ThumbnailButton";
 
 type DishProps = {
-  dishCount: number;
-  title?: string;
-  sub?: string;
-  desc?: string;
-  thumb?: string;
-  thumbAlt?: string;
-  thumbToggle: () => void;
-  archiveToggle: () => void;
-  replaceToggle: () => void;
-  deleteToggle: () => void;
+  dishCount?: number;
+  dishTitle?: string;
+  dishSubtitle?: string;
+  dishDescription?: string;
+  dishThumbnail?: string;
+  dishArchive?: () => void;
+  dishReplace?: () => void;
+  dishDelete?: () => void;
+  dishOpen?: boolean;
+  dishExpand?: () => void;
 };
 
 const Dish = ({
   dishCount,
-  title = "",
-  sub = "",
-  desc = "",
-  thumb = "",
-  thumbAlt = "",
-  thumbToggle,
-  archiveToggle,
-  replaceToggle,
-  deleteToggle,
-  isDishOpen,
-  toggleDish,
+  dishTitle = "",
+  dishSubtitle = "",
+  dishDescription = "",
+  dishThumbnail = "",
+  dishArchive,
+  dishReplace,
+  dishDelete,
+  dishOpen,
+  dishExpand,
 }: DishProps) => {
-  const [titleInput, setTitleInput] = useState(title);
-  const [subInput, setSubInput] = useState(sub);
-  const [descInput, setDescInput] = useState(desc);
-  const [thumbInput, setThumbInput] = useState(thumb);
+  const [titleInput, setTitleInput] = useState(dishTitle);
+  const [subtitleInput, setSubtitleInput] = useState(dishSubtitle);
+  const [descriptionInput, setDescriptionInput] = useState(dishDescription);
+  const [thumbnailInput, setThumbnailInput] = useState(dishThumbnail);
 
-  const openDishStyle = `${
-    isDishOpen
+  const dishOpenStyle = `${
+    dishOpen
       ? "grid-rows-[1fr] visible opacity-100"
       : "grid-rows-[0fr] invisible opacity-0"
   }`;
-
-  const dishToggle = () => {
-    setIsDishOpen(!isDishOpen);
-  };
 
   const handleTitleChange = (newValue) => {
     setTitleInput(newValue);
   };
 
-  const handleSubChange = (newValue) => {
-    setSubInput(newValue);
+  const handleSubtitleChange = (newValue) => {
+    setSubtitleInput(newValue);
   };
 
-  const handleDescChange = (newValue) => {
-    setDescInput(newValue);
+  const handleDescriptionChange = (newValue) => {
+    setDescriptionInput(newValue);
   };
 
-  const handleThumbChange = (newValue) => {
-    setThumbInput(newValue);
+  const handleThumbnailChange = (newValue) => {
+    setThumbnailInput(newValue);
   };
 
   useEffect(() => {
-    setTitleInput(title);
-    setSubInput(sub);
-    setDescInput(desc);
-    setThumbInput(thumb);
-  }, [title, sub, desc, thumb]);
+    setTitleInput(dishTitle);
+    setSubtitleInput(dishSubtitle);
+    setDescriptionInput(dishDescription);
+    setThumbnailInput(dishThumbnail);
+  }, [dishTitle, dishSubtitle, dishDescription, dishThumbnail]);
 
   return (
     <li
@@ -84,37 +76,41 @@ const Dish = ({
         </div>
         <div className="flex">
           <ActionButton
-            toggle={dishToggle}
+            toggle={dishArchive}
             icon="inventory"
-            label="Clean"
+            label="Click to save the dish to the archive"
             variant="icon-circle"
-            name="Hh"
+            title="Save the dish to the archive"
+            name="Save"
           />
           <ActionButton
-            toggle={dishToggle}
+            toggle={dishReplace}
             icon="cycle"
-            label="Clean"
+            label="Click to replace the dish with a dish from the archive"
             variant="icon-circle"
-            name="Hh"
+            title="Replace the dish with a dish from the archive"
+            name="Replace"
           />
           <ActionButton
-            toggle={deleteToggle}
+            toggle={dishDelete}
             icon="delete"
-            label="Clean"
+            label="Click to delete the dish from the menu"
             variant="icon-circle"
-            name="Hh"
+            title="Delete the dish from the menu"
+            name="Delete"
           />
           <ActionButton
-            toggle={toggleDish}
+            toggle={dishExpand}
             icon="downArrow"
-            label="Expand and collapse the dish"
+            label="Click to expand and collapse the dish"
             variant="icon-circle"
-            name="Expand and collapse"
+            title="Expand and collapse the dish"
+            name="Expand/Collapse"
           />
         </div>
       </section>
       <section
-        className={`grid bg-raisin_black transition-all duration-300 ease-in-out ${openDishStyle}`}
+        className={`grid bg-raisin_black transition-all duration-300 ease-in-out ${dishOpenStyle}`}
       >
         <div className="overflow-hidden">
           <ul className="grid w-full grid-cols-2 gap-6 p-6">
@@ -134,8 +130,8 @@ const Dish = ({
                 label="Click to change the subtitle of the dish"
                 name="Subtitle"
                 placeholder="Subtitle"
-                onValueChange={setSubInput}
-                value={subInput}
+                onValueChange={setSubtitleInput}
+                value={subtitleInput}
               />
             </li>
             <li>
@@ -144,8 +140,8 @@ const Dish = ({
                 label="Click to change the subtitle of the dish"
                 name="Description"
                 placeholder="Description"
-                onValueChange={setDescInput}
-                value={descInput}
+                onValueChange={setDescriptionInput}
+                value={descriptionInput}
               />
             </li>
             <li>
