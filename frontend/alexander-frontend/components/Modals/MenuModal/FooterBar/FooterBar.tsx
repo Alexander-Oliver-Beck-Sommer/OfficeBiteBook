@@ -55,7 +55,7 @@ const FooterBar = ({
           <ActionButton
             variant="outlined"
             icon="check"
-            title="Accept the and save menu"
+            title="Accept and save menu"
             name={data.menu_buttons.accept.name}
             label={data.menu_buttons.accept.label}
             toggle={footerBarAcceptMenu}

@@ -81,9 +81,9 @@ const MenuModal = ({
           } `}
         >
           <HeaderBar
-            deleteToggle={toggle}
-            title={menuTitle}
-            clearToggle={clearAllDishes}
+            headerBarTitle={menuTitle}
+            headerBarClear={clearAllDishes}
+            headerBarDelete={toggle}
           />
           <section className="grid grid-cols-30X70">
             <MenuSettings
