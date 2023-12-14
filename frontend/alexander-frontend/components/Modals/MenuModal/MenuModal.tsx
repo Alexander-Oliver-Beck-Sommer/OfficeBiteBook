@@ -87,17 +87,17 @@ const MenuModal = ({
           />
           <section className="grid grid-cols-30X70">
             <MenuSettings
-              title={menuTitle}
-              onTitleChange={onTitleChange}
-              location={location}
-              onLocationChange={onLocationChange}
-              date={date}
-              onDateChange={onDateChange}
-              startTime={startTime}
-              onStartTimeChange={onStartTimeChange}
-              endTime={endTime}
-              onEndTimeChange={onEndTimeChange}
-              validationState={validationState}
+              menuSettingsTitle={menuTitle}
+              menuSettingsTitleChange={onTitleChange}
+              menuSettingsLocation={location}
+              menuSettingsLocationChange={onLocationChange}
+              menuSettingsDate={date}
+              menuSettingsDateChange={onDateChange}
+              menuSettingsStartTime={startTime}
+              menuSettingsStartTimeChange={onStartTimeChange}
+              menuSettingsEndTime={endTime}
+              menuSettingsEndTimeChange={onEndTimeChange}
+              menuSettingsValidation={validationState}
             />
             <div className="pattern relative overflow-scroll">
               <ul className="absolute inset-0 flex flex-col gap-8 px-8 py-8">
