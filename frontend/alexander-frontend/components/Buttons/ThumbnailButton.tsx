@@ -25,8 +25,8 @@ const ThumbnailButton = ({ title }: ThumbnailButtonProps) => {
 
       const img = new Image();
       img.onload = () => {
-        if (img.width > 800 || img.height > 800) {
-          toast.warn("Image resolution is over 800x800");
+        if (img.width > 1600 || img.height > 1600) {
+          toast.warn("Image resolution is over 1600x1600");
           toast.info(
             "Try cropping the image to a smaller size, or use a different image",
           );
@@ -65,7 +65,7 @@ const ThumbnailButton = ({ title }: ThumbnailButtonProps) => {
           >
             <UploadIcon className="h-14 w-14" />
             <h5>Click to Upload</h5>
-            <p className="text-xs">PNG or JPG (MAX. 800x800)</p>
+            <p className="text-xs">PNG or JPG (MAX. 1600x1600)</p>
             <input
               id="dropzone-file"
               accept="image/png, image/jpeg"
