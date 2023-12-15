@@ -8,9 +8,13 @@ import ThumbnailButton from "@/components/Buttons/ThumbnailButton";
 type DishProps = {
   dishCount?: number;
   dishTitle?: string;
+  dishTitleChange?: (newTitle: string) => void;
   dishSubtitle?: string;
+  dishSubtitleChange?: (newSubtitle: string) => void;
   dishDescription?: string;
+  dishDescriptionChange?: (newDescription: string) => void;
   dishThumbnail?: string;
+  dishThumbnailChange?: (newThumbnail: string) => void;
   dishArchive?: () => void;
   dishReplace?: () => void;
   dishDelete?: () => void;
@@ -21,9 +25,13 @@ type DishProps = {
 const Dish = ({
   dishCount,
   dishTitle = "",
+  dishTitleChange,
   dishSubtitle = "",
+  dishSubtitleChange,
   dishDescription = "",
+  dishDescriptionChange,
   dishThumbnail = "",
+  dishThumbnailChange,
   dishArchive,
   dishReplace,
   dishDelete,
@@ -41,20 +49,32 @@ const Dish = ({
       : "grid-rows-[0fr] invisible opacity-0"
   }`;
 
-  const handleTitleChange = (newValue) => {
+  const handleTitleChange = (newValue: string) => {
     setTitleInput(newValue);
+    if (dishTitleChange) {
+      dishTitleChange(newValue);
+    }
   };
 
-  const handleSubtitleChange = (newValue) => {
+  const handleSubtitleChange = (newValue: string) => {
     setSubtitleInput(newValue);
+    if (dishSubtitleChange) {
+      dishSubtitleChange(newValue);
+    }
   };
 
-  const handleDescriptionChange = (newValue) => {
+  const handleDescriptionChange = (newValue: string) => {
     setDescriptionInput(newValue);
+    if (dishDescriptionChange) {
+      dishDescriptionChange(newValue);
+    }
   };
 
-  const handleThumbnailChange = (newValue) => {
+  const handleThumbnailChange = (newValue: string) => {
     setThumbnailInput(newValue);
+    if (dishThumbnailChange) {
+      dishThumbnailChange(newValue);
+    }
   };
 
   useEffect(() => {
@@ -120,7 +140,7 @@ const Dish = ({
                 label="Click to change the title of the dish"
                 name="Title"
                 placeholder="Title"
-                onValueChange={setTitleInput}
+                onValueChange={handleTitleChange}
                 value={titleInput}
               />
             </li>
@@ -130,7 +150,7 @@ const Dish = ({
                 label="Click to change the subtitle of the dish"
                 name="Subtitle"
                 placeholder="Subtitle"
-                onValueChange={setSubtitleInput}
+                onValueChange={handleSubtitleChange}
                 value={subtitleInput}
               />
             </li>
@@ -140,7 +160,7 @@ const Dish = ({
                 label="Click to change the subtitle of the dish"
                 name="Description"
                 placeholder="Description"
-                onValueChange={setDescriptionInput}
+                onValueChange={handleDescriptionChange}
                 value={descriptionInput}
               />
             </li>

@@ -35,6 +35,14 @@ const MenuModal = ({
     onStartTimeChange,
     menuEndTime,
     onEndTimeChange,
+    dishTitle,
+    onDishTitleChange,
+    dishSubtitle,
+    onDishSubtitleChange,
+    dishDescription,
+    onDishDescriptionChange,
+    dishThumbnail,
+    onDishThumbnailChange,
     dishes,
     clearAllDishes,
     createDish,
@@ -44,6 +52,7 @@ const MenuModal = ({
     validationState,
     cancelMenu,
     acceptMenu,
+    updateDish,
   } = useMenuModal(date, startTime, menuVisible, toggle);
 
   // This useEffect hook is used to disable scrolling when the modal is open
@@ -105,6 +114,22 @@ const MenuModal = ({
                   <Dish
                     key={dish.id}
                     dishCount={dishes.indexOf(dish) + 1}
+                    dishTitle={dish.title}
+                    dishTitleChange={(newTitle) =>
+                      updateDish(dish.id, { title: newTitle })
+                    }
+                    dishSubtitle={dish.subtitle}
+                    dishSubtitleChange={(newSubtitle) =>
+                      updateDish(dish.id, { subtitle: newSubtitle })
+                    }
+                    dishDescription={dish.description}
+                    dishDescriptionChange={(newDescription) =>
+                      updateDish(dish.id, { description: newDescription })
+                    }
+                    dishThumbnail={dish.thumbnail}
+                    dishThumbnailChange={(newThumbnail) =>
+                      updateDish(dish.id, { thumbnail: newThumbnail })
+                    }
                     dishOpen={expandedDish === dish.id}
                     dishDelete={() => deleteDish(dish.id)}
                     dishExpand={() => toggleDish(dish.id)}

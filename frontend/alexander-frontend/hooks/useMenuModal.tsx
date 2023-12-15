@@ -15,6 +15,17 @@ const useMenuModal = (initialDate, initialStartTime, menuVisible, toggle) => {
   const onStartTimeChange = (newStartTime) => setMenuStartTime(newStartTime);
   const [menuEndTime, setMenuEndTime] = useState("");
   const onEndTimeChange = (newEndTime) => setMenuEndTime(newEndTime);
+  const [dishTitle, setDishTitle] = useState("");
+  const onDishTitleChange = (newDishTitle) => setDishTitle(newDishTitle);
+  const [dishSubtitle, setDishSubtitle] = useState("");
+  const onDishSubtitleChange = (newDishSubtitle) =>
+    setDishSubtitle(newDishSubtitle);
+  const [dishDescription, setDishDescription] = useState("");
+  const onDishDescriptionChange = (newDishDescription) =>
+    setDishDescription(newDishDescription);
+  const [dishThumbnail, setDishThumbnail] = useState("");
+  const onDishThumbnailChange = (newDishThumbnail) =>
+    setDishThumbnail(newDishThumbnail);
   const [validationState, setValidationState] = useState({
     title: true,
     location: true,
@@ -30,8 +41,22 @@ const useMenuModal = (initialDate, initialStartTime, menuVisible, toggle) => {
 
   // Function to create a new dish. Each dish has a unique ID.
   const createDish = () => {
-    const newDish = { id: Date.now() };
+    const newDish = {
+      id: Date.now(),
+      title: "",
+      subtitle: "",
+      description: "",
+      thumbnail: "",
+    };
     setDishes([...dishes, newDish]);
+  };
+
+  const updateDish = (dishId, updatedFields) => {
+    setDishes(
+      dishes.map((dish) => {
+        return dish.id === dishId ? { ...dish, ...updatedFields } : dish;
+      }),
+    );
   };
 
   // Function to delete dishes individually.
@@ -109,36 +134,52 @@ const useMenuModal = (initialDate, initialStartTime, menuVisible, toggle) => {
 
   // Function to accept the menu and save it to the database.
   const acceptMenu = async () => {
-    // Check if the menu is valid before anything else.
     if (!validateMenu()) {
       return;
     }
 
-    // Great - if the above check passed, we can save the menu to the database.
     try {
-      // We grab the table "menus" and insert our data respectively into each of the columns.
-      const { error } = await supabase.from("menus").insert([
-        {
-          menu_title: menuTitle,
-          menu_location: menuLocation,
-          menu_date: menuDate,
-          menu_start_time: menuStartTime,
-          menu_end_time: menuEndTime,
-        },
-      ]);
+      // Insert the menu
+      const { data: menuData, error: menuError } = await supabase
+        .from("menus")
+        .insert([
+          {
+            menu_title: menuTitle,
+            menu_location: menuLocation,
+            menu_date: menuDate,
+            menu_start_time: menuStartTime,
+            menu_end_time: menuEndTime,
+          },
+        ])
+        .select();
 
-      // Did an error occur? If so, throw it.
-      if (error) {
-        throw error;
-      }
-      // If not, let the user know the menu was saved and close the modal.
-      else {
-        toast.success("Menu saved");
-        toggle();
-      }
+      if (menuError) throw menuError;
+
+      // An automatic UUID is generated from supabase. We want to use it to associate the dishes with the menu.
+      const menuId = menuData[0].menu_id;
+
+      const dishInsertPromises = dishes.map((dish) => {
+        return supabase.from("dishes").insert([
+          {
+            menu_id: menuId,
+            dish_title: dish.title,
+            dish_subtitle: dish.subtitle,
+            dish_description: dish.description,
+            dish_thumbnail: dish.thumbnail,
+          },
+        ]);
+      });
+
+      // Wait for all dish inserts to complete
+      const results = await Promise.all(dishInsertPromises);
+      results.forEach((result) => {
+        if (result.error) throw result.error;
+      });
+
+      toast.success("Changes saved and inserted into the database");
+      toggle();
     } catch (error) {
-      // This catch block will return if the user tries to submit a menu without any necessary data.
-      toast.error("Menu couldn't be saved");
+      toast.error("Error saving menu: " + error.message);
     }
   };
 
@@ -153,6 +194,14 @@ const useMenuModal = (initialDate, initialStartTime, menuVisible, toggle) => {
     onStartTimeChange,
     menuEndTime,
     onEndTimeChange,
+    dishTitle,
+    onDishTitleChange,
+    dishSubtitle,
+    onDishSubtitleChange,
+    dishDescription,
+    onDishDescriptionChange,
+    dishThumbnail,
+    onDishThumbnailChange,
     dishes,
     clearAllDishes,
     createDish,
@@ -162,6 +211,7 @@ const useMenuModal = (initialDate, initialStartTime, menuVisible, toggle) => {
     validationState,
     cancelMenu,
     acceptMenu,
+    updateDish,
   };
 };
 
