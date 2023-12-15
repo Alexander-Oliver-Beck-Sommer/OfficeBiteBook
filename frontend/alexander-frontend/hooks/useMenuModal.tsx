@@ -129,6 +129,7 @@ const useMenuModal = (initialDate, initialStartTime, menuVisible, toggle) => {
     ) {
       toast.warn("Menu scrapped");
       toggle();
+      resetForm();
     }
   };
 
@@ -178,9 +179,27 @@ const useMenuModal = (initialDate, initialStartTime, menuVisible, toggle) => {
 
       toast.success("Changes saved and inserted into the database");
       toggle();
+      resetForm();
     } catch (error) {
       toast.error("Error saving menu: " + error.message);
     }
+  };
+
+  // Function to reset all fields
+  const resetForm = () => {
+    setMenuTitle("");
+    setMenuLocation("");
+    setMenuDate(initialDate);
+    setMenuStartTime(initialStartTime);
+    setMenuEndTime("");
+    setDishes([]);
+    setValidationState({
+      title: true,
+      location: true,
+      date: true,
+      startTime: true,
+      endTime: true,
+    });
   };
 
   return {
