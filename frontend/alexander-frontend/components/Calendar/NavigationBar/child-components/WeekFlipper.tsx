@@ -1,11 +1,15 @@
 import LeftArrowIcon from "@/components/Icons/LeftArrowIcon";
 import RightArrowIcon from "@/components/Icons/RightArrowIcon";
 
+type WeekFlipperProps = {
+  setCurrentDate: (updateFunction: (prevDate: Date) => Date) => void;
+  currentWeek: number;
+};
+
 export default function WeekFlipper({
   setCurrentDate,
-  currentDate,
   currentWeek,
-}) {
+}: WeekFlipperProps) {
   const goBackOneWeek = () => {
     setCurrentDate((prev) => {
       const newDate = new Date(prev);

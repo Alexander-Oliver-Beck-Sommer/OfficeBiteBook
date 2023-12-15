@@ -1,10 +1,10 @@
 import ToggleInput from "@/components/Inputs/ToggleInput";
 
 type VisibilityCellProps = {
-  toggle: () => void;
+  toggle?: () => void;
 };
 
-const VisibilityCell = ({ toggle }: VisibilityCellProps) => {
+const VisibilityCell = ({ toggle = () => {} }: VisibilityCellProps) => {
   return (
     <section className="flex h-14 w-full items-center justify-between bg-raisin_black px-4">
       <ToggleInput

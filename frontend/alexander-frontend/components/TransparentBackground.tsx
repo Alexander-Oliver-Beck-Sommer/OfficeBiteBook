@@ -1,10 +1,18 @@
 import React from "react";
 
-const visibilities = (visible) => {
+type TransparentBackgroundProps = {
+  visible?: boolean;
+  toggle?: () => void;
+};
+
+const visibilities = (visible: boolean) => {
   return visible ? "opacity-90 visible" : "opacity-0 invisible";
 };
 
-const TransparentBackground = ({ visible = false, toggle }) => {
+const TransparentBackground = ({
+  visible = false,
+  toggle = () => {},
+}: TransparentBackgroundProps) => {
   const visibleValue = visibilities(visible);
 
   return (

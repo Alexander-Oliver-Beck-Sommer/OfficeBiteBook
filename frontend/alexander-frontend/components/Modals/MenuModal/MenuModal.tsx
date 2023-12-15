@@ -16,13 +16,13 @@ type MenuModalProps = {
 };
 
 const MenuModal = ({
-  title,
-  location,
-  date,
-  startTime,
-  endTime,
+  title = "",
+  location = "",
+  date = "",
+  startTime = "",
+  endTime = "",
   menuVisible = false,
-  toggle,
+  toggle = () => {},
 }: MenuModalProps) => {
   const {
     menuTitle,

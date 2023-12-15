@@ -8,20 +8,41 @@ import weekSettings from "@/data/weekSettings";
 import MenuModal from "@/components/Modals/MenuModal/MenuModal";
 import TransparentBackground from "@/components/TransparentBackground";
 
-const WeekGrid = ({ generateTimeSlots, getWeekDates, settings }) => {
+type TimeSlot = {
+  fullHour: string;
+  halfHour: string;
+};
+
+type Settings = {
+  timeFormat: string;
+  country: string;
+  weekDays: string[];
+};
+
+type WeekGridProps = {
+  generateTimeSlots: (timeFormat: string) => TimeSlot[];
+  getWeekDates: () => Date[];
+  settings: Settings;
+};
+
+const WeekGrid: React.FC<WeekGridProps> = ({
+  generateTimeSlots,
+  getWeekDates,
+  settings,
+}) => {
   const timeSlots = generateTimeSlots(settings.timeFormat);
   const weekDates = getWeekDates();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuStartTime, setMenuStartTime] = useState("");
   const [menuDate, setMenuDate] = useState("");
 
-  const toggleMenu = (startTime, date) => {
+  const toggleMenu = (startTime: string, date: string) => {
     setMenuStartTime(startTime);
     setMenuDate(date);
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const isToday = (date) => {
+  const isToday = (date: Date) => {
     const today = new Date();
     return (
       date.getDate() === today.getDate() &&
@@ -93,10 +114,6 @@ const WeekGrid = ({ generateTimeSlots, getWeekDates, settings }) => {
         menuVisible={isMenuOpen}
         toggle={() => setIsMenuOpen(false)}
       />
-      {/* <TransparentBackground
-        visible={isMenuOpen}
-        toggle={() => setIsMenuOpen(false)}
-      /> */}
     </>
   );
 };

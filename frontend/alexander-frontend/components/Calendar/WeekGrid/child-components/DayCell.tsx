@@ -1,12 +1,18 @@
 import LockIcon from "@/components/Icons/LockIcon";
 
 type DayCellProps = {
-  day: string;
-  date: number;
-  toggle: () => void;
+  day?: string;
+  date?: number;
+  toggle?: () => void;
+  isCurrentDay: boolean;
 };
 
-const DayCell = ({ day, date, toggle, isCurrentDay }: DayCellProps) => {
+const DayCell = ({
+  day = "",
+  date,
+  toggle = () => {},
+  isCurrentDay,
+}: DayCellProps) => {
   const style = isCurrentDay ? "border-true_blue" : "border-transparent";
 
   return (

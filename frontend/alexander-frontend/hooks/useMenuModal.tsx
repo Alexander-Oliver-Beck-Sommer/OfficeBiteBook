@@ -2,29 +2,52 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { supabase } from "@/components/Supabase/supabaseClient";
 
-const useMenuModal = (initialDate, initialStartTime, menuVisible, toggle) => {
-  const [dishes, setDishes] = useState([]);
-  const [expandedDish, setExpandedDish] = useState(null);
+type Dish = {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  thumbnail: string;
+};
+
+type UpdatedDishFields = {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  thumbnail?: string;
+};
+
+const useMenuModal = (
+  initialDate: string,
+  initialStartTime: string,
+  menuVisible: boolean,
+  toggle: () => void,
+) => {
+  const [dishes, setDishes] = useState<Dish[]>([]);
+  const [expandedDish, setExpandedDish] = useState<number | null>(null);
   const [menuTitle, setMenuTitle] = useState("");
-  const onTitleChange = (newTitle) => setMenuTitle(newTitle);
+  const onTitleChange = (newTitle: string) => setMenuTitle(newTitle);
   const [menuLocation, setMenuLocation] = useState("");
-  const onLocationChange = (newLocation) => setMenuLocation(newLocation);
+  const onLocationChange = (newLocation: string) =>
+    setMenuLocation(newLocation);
   const [menuDate, setMenuDate] = useState(initialDate);
-  const onDateChange = (newDate) => setMenuDate(newDate);
+  const onDateChange = (newDate: string) => setMenuDate(newDate);
   const [menuStartTime, setMenuStartTime] = useState(initialStartTime);
-  const onStartTimeChange = (newStartTime) => setMenuStartTime(newStartTime);
+  const onStartTimeChange = (newStartTime: string) =>
+    setMenuStartTime(newStartTime);
   const [menuEndTime, setMenuEndTime] = useState("");
-  const onEndTimeChange = (newEndTime) => setMenuEndTime(newEndTime);
+  const onEndTimeChange = (newEndTime: string) => setMenuEndTime(newEndTime);
   const [dishTitle, setDishTitle] = useState("");
-  const onDishTitleChange = (newDishTitle) => setDishTitle(newDishTitle);
+  const onDishTitleChange = (newDishTitle: string) =>
+    setDishTitle(newDishTitle);
   const [dishSubtitle, setDishSubtitle] = useState("");
-  const onDishSubtitleChange = (newDishSubtitle) =>
+  const onDishSubtitleChange = (newDishSubtitle: string) =>
     setDishSubtitle(newDishSubtitle);
   const [dishDescription, setDishDescription] = useState("");
-  const onDishDescriptionChange = (newDishDescription) =>
+  const onDishDescriptionChange = (newDishDescription: string) =>
     setDishDescription(newDishDescription);
   const [dishThumbnail, setDishThumbnail] = useState("");
-  const onDishThumbnailChange = (newDishThumbnail) =>
+  const onDishThumbnailChange = (newDishThumbnail: string) =>
     setDishThumbnail(newDishThumbnail);
   const [validationState, setValidationState] = useState({
     title: true,
@@ -41,7 +64,7 @@ const useMenuModal = (initialDate, initialStartTime, menuVisible, toggle) => {
 
   // Function to create a new dish. Each dish has a unique ID.
   const createDish = () => {
-    const newDish = {
+    const newDish: Dish = {
       id: Date.now(),
       title: "",
       subtitle: "",
@@ -51,7 +74,7 @@ const useMenuModal = (initialDate, initialStartTime, menuVisible, toggle) => {
     setDishes([...dishes, newDish]);
   };
 
-  const updateDish = (dishId, updatedFields) => {
+  const updateDish = (dishId: number, updatedFields: UpdatedDishFields) => {
     setDishes(
       dishes.map((dish) => {
         return dish.id === dishId ? { ...dish, ...updatedFields } : dish;
@@ -60,7 +83,7 @@ const useMenuModal = (initialDate, initialStartTime, menuVisible, toggle) => {
   };
 
   // Function to delete dishes individually.
-  const deleteDish = (dishId) => {
+  const deleteDish = (dishId: number) => {
     setDishes(dishes.filter((dish) => dish.id !== dishId));
   };
 
@@ -80,8 +103,7 @@ const useMenuModal = (initialDate, initialStartTime, menuVisible, toggle) => {
     }
   };
 
-  // Function to have only dishes open and only keep one open at a time.
-  const toggleDish = (dishId) => {
+  const toggleDish = (dishId: number) => {
     if (expandedDish === dishId) {
       setExpandedDish(null);
     } else {

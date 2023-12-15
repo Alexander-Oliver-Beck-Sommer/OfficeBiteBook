@@ -2,21 +2,21 @@
 import React from "react";
 
 type TextAreaProps = {
-  label: string;
-  rows: string;
-  name: string;
-  placeholder: string;
-  value: string;
+  label?: string;
+  rows: number;
+  name?: string;
+  placeholder?: string;
+  value?: string;
   onValueChange: (value: string) => void;
 };
 
 const TextArea = ({
-  label,
+  label = "",
   rows,
-  name,
-  placeholder,
-  value,
-  onValueChange,
+  name = "",
+  placeholder = "",
+  value = "",
+  onValueChange = () => {},
 }: TextAreaProps) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -36,13 +36,6 @@ const TextArea = ({
     isFocused ? "scale-75 text-cool_grey" : "scale-100 text-ghost_white"
   }`;
 
-  if (!label) {
-    throw new Error("Provide a label for the textarea.");
-  }
-
-  if (!name) {
-    throw new Error("Provide a name for the textarea.");
-  }
   return (
     <section className="relative flex flex-col gap-4">
       <label htmlFor={name} className="w-fit">

@@ -11,7 +11,7 @@ import TemplateIcon from "../Icons/TemplateIcon";
 import MenuIcon from "../Icons/MenuIcon";
 import CleanIcon from "../Icons/CleanIcon";
 
-const icons = (icon) => {
+const icons = (icon: string) => {
   switch (icon) {
     case "cancel":
       return <CancelIcon variant="disabled" />;
@@ -42,15 +42,15 @@ const icons = (icon) => {
   }
 };
 
-const variants = (variant) => {
+const variants = (variant: string) => {
   switch (variant) {
     case "filled":
       return "bg-arsenic border-transparent border-2 px-5 py-3 fill-ghost_white rounded";
     case "outlined":
       return "border-arsenic bg-eerie_black border-2 px-5 py-3 fill-ghost_white rounded hover:bg-arsenic";
-    case "icon":
+    case "icon-border":
       return "border-arsenic bg-eerie_black border-2 px-3 py-3 fill-ghost_white rounded hover:bg-arsenic";
-    case "icon-circle":
+    case "icon":
       return "px-3 py-3 fill-ghost_white rounded hover:bg-arsenic";
     default:
       return "fill-cool_grey outline-offset-4";
@@ -58,31 +58,24 @@ const variants = (variant) => {
 };
 
 type ActionButtonsProps = {
-  style: string;
-  icon: string;
-  variant: string;
-  label: string;
-  name: string;
-  title: string;
-  toggle: () => void;
+  style?: string;
+  icon?: string;
+  variant?: string;
+  label?: string;
+  name?: string;
+  title?: string;
+  toggle?: () => void;
 };
 
 const ActionButton = ({
-  style,
-  icon,
-  variant,
-  label,
-  name,
-  toggle,
-  title,
+  style = "",
+  icon = "",
+  variant = "",
+  label = "",
+  name = "",
+  toggle = () => {},
+  title = "",
 }: ActionButtonsProps) => {
-  if (!label) {
-    throw new Error("Provide a label for the button.");
-  }
-  if (!name) {
-    throw new Error("Provide a name for the button.");
-  }
-
   const iconValue = icons(icon);
   const variantValue = variants(variant);
 
@@ -93,7 +86,7 @@ const ActionButton = ({
       aria-label={label}
       className={`flex items-center justify-center gap-2 text-ghost_white ${variantValue} ${style}`}
     >
-      {variant !== "icon" && variant !== "icon-circle" && <h4>{name}</h4>}
+      {variant !== "icon" && variant !== "icon-border" && <h4>{name}</h4>}
       {iconValue}
     </button>
   );

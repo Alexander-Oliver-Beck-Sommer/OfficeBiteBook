@@ -7,11 +7,15 @@ import Dashboard from "@/components/Calendar/Dashboard/Dashboard";
 import TransparentBackground from "@/components/TransparentBackground";
 import DownArrowIcon from "@/components/Icons/DownArrowIcon";
 
+type NavigationBarProps = {
+  setCurrentDate: (updateFunction: (prevDate: Date) => Date) => void;
+  getCurrentWeekNumber: () => number;
+};
+
 const NavigationBar = ({
-  currentDate,
   setCurrentDate,
   getCurrentWeekNumber,
-}) => {
+}: NavigationBarProps) => {
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
   const currentWeekNumber = getCurrentWeekNumber();
 
@@ -36,6 +40,7 @@ const NavigationBar = ({
           className={`relative z-30 flex w-sidebar_width items-center justify-center rounded-bl rounded-tl border-y-2 border-l-2 border-r-0 bg-eerie_black transition-all duration-300 ease-in-out ${sidebarStyling}`}
         >
           <HamburgerButton
+            screen="all"
             label={"Open and close the dashboard"}
             toggle={toggleDashboard}
           />
@@ -44,7 +49,6 @@ const NavigationBar = ({
           <ul className="flex items-center gap-4">
             <li>
               <WeekFlipper
-                currentDate={currentDate}
                 setCurrentDate={setCurrentDate}
                 currentWeek={currentWeekNumber}
               />

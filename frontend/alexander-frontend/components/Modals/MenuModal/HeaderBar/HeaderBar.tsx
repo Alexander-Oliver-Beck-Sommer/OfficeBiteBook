@@ -34,7 +34,7 @@ const HeaderBar = ({
         <li>
           <ActionButton
             icon="menu"
-            variant="icon"
+            variant="icon-border"
             title="Save or import a menu from the archive"
             name="Add"
             label={data.menu_buttons.accept.label}
@@ -44,7 +44,7 @@ const HeaderBar = ({
         <li>
           <ActionButton
             icon="template"
-            variant="icon"
+            variant="icon-border"
             title="Save or import a menu template from the archive"
             name="Menu Templates"
             label={data.menu_buttons.accept.label}
@@ -54,7 +54,7 @@ const HeaderBar = ({
         <li>
           <ActionButton
             icon="clear"
-            variant="icon"
+            variant="icon-border"
             title="Clear all dishes from the menu"
             name="clear"
             label={data.menu_buttons.accept.label}
@@ -64,7 +64,7 @@ const HeaderBar = ({
         <li>
           <ActionButton
             icon="delete"
-            variant="icon"
+            variant="icon-border"
             title="Delete the menu and all its dishes"
             name="Delete"
             label={data.menu_buttons.cancel.label}

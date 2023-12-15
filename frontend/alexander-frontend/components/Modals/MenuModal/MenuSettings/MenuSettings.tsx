@@ -2,6 +2,14 @@ import { useEffect, useState } from "react";
 import data from "@/data/MenuModal.js";
 import TextInput from "@/components/Inputs/TextInput";
 
+type ValidationState = {
+  title: boolean;
+  location: boolean;
+  date: boolean;
+  startTime: boolean;
+  endTime: boolean;
+};
+
 type MenuSettingsProps = {
   menuSettingsTitle?: string;
   menuSettingsTitleChange?: (newTitle: string) => void;
@@ -13,7 +21,7 @@ type MenuSettingsProps = {
   menuSettingsStartTimeChange?: (newStartTime: string) => void;
   menuSettingsEndTime?: string;
   menuSettingsEndTimeChange?: (newEndTime: string) => void;
-  menuSettingsValidation?: boolean;
+  menuSettingsValidation?: ValidationState;
 };
 
 const MenuSettings = ({
@@ -89,7 +97,7 @@ const MenuSettings = ({
       <li>
         <TextInput
           type="title"
-          isInvalid={!menuSettingsValidation.title}
+          isInvalid={!menuSettingsValidation?.title ?? true}
           placeholder={data.location_section.title.placeholder}
           name={data.location_section.title.name}
           label={data.location_section.title.label}
@@ -100,7 +108,7 @@ const MenuSettings = ({
       <li>
         <TextInput
           type="location"
-          isInvalid={!menuSettingsValidation.location}
+          isInvalid={!menuSettingsValidation?.location ?? true}
           placeholder={data.location_section.location.placeholder}
           name={data.location_section.location.name}
           label={data.location_section.location.label}
@@ -111,7 +119,7 @@ const MenuSettings = ({
       <li>
         <TextInput
           type="date"
-          isInvalid={!menuSettingsValidation.date}
+          isInvalid={!menuSettingsValidation?.date ?? true}
           name={data.location_section.date.name}
           label={data.location_section.date.label}
           onValueChange={handleDateChange}
@@ -121,7 +129,7 @@ const MenuSettings = ({
       <li>
         <TextInput
           type="time"
-          isInvalid={!menuSettingsValidation.startTime}
+          isInvalid={!menuSettingsValidation?.startTime ?? true}
           name={data.location_section.start_time.name}
           label={data.location_section.start_time.label}
           onValueChange={handleStartTimeChange}
@@ -131,7 +139,7 @@ const MenuSettings = ({
       <li>
         <TextInput
           type="time"
-          isInvalid={!menuSettingsValidation.endTime}
+          isInvalid={!menuSettingsValidation?.endTime ?? true}
           name={data.location_section.end_time.name}
           label={data.location_section.end_time.label}
           onValueChange={handleEndTimeChange}

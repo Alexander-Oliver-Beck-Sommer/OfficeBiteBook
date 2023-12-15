@@ -5,18 +5,14 @@ import SettingsIcon from "@/components/Icons/SettingsIcon";
 import TimeIcon from "@/components/Icons/TimeIcon";
 import CalendarIcon from "../Icons/CalendarIcon";
 
-type DesktopNavProps = {
-  style: string;
-};
-
-const DesktopNav = ({ style }: DesktopNavProps) => {
+const DesktopNav = () => {
   return (
-    <nav className={`hidden lg:block ${style}`}>
+    <nav className="hidden lg:block">
       <ul className="flex items-center gap-12">
         <li>
           <Link
             href="/calendar-test"
-            className="gap-1 flex flex-col items-center justify-center"
+            className="flex flex-col items-center justify-center gap-1"
           >
             <CalendarIcon className="h-7 w-7 fill-ghost_white" />
             <p>Calendar</p>

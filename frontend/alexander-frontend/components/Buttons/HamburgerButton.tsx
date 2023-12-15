@@ -1,4 +1,4 @@
-const screens = (screen) => {
+const screens = (screen: string) => {
   switch (screen) {
     case "mobile":
       return "md:hidden";
@@ -18,16 +18,16 @@ const screens = (screen) => {
 };
 
 type HamburgerButtonProps = {
-  label: string;
+  label?: string;
   screen?: string;
-  toggle: () => void;
+  toggle?: () => void;
 };
 
-const HamburgerButton = ({ label, screen, toggle }: HamburgerButtonProps) => {
-  if (!label) {
-    throw new Error("Provide a label for the button.");
-  }
-
+const HamburgerButton = ({
+  label = "",
+  screen = "",
+  toggle = () => {},
+}: HamburgerButtonProps) => {
   const screenValue = screens(screen);
 
   return (

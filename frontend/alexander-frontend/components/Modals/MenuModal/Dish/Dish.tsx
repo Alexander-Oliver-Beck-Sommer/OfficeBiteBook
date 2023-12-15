@@ -99,7 +99,7 @@ const Dish = ({
             toggle={dishArchive}
             icon="inventory"
             label="Click to save the dish to the archive"
-            variant="icon-circle"
+            variant="icon"
             title="Save the dish to the archive"
             name="Save"
           />
@@ -107,7 +107,7 @@ const Dish = ({
             toggle={dishReplace}
             icon="cycle"
             label="Click to replace the dish with a dish from the archive"
-            variant="icon-circle"
+            variant="icon"
             title="Replace the dish with a dish from the archive"
             name="Replace"
           />
@@ -115,7 +115,7 @@ const Dish = ({
             toggle={dishDelete}
             icon="delete"
             label="Click to delete the dish from the menu"
-            variant="icon-circle"
+            variant="icon"
             title="Delete the dish from the menu"
             name="Delete"
           />
@@ -123,7 +123,7 @@ const Dish = ({
             toggle={dishExpand}
             icon="downArrow"
             label="Click to expand and collapse the dish"
-            variant="icon-circle"
+            variant="icon"
             title="Expand and collapse the dish"
             name="Expand/Collapse"
           />
@@ -156,7 +156,7 @@ const Dish = ({
             </li>
             <li>
               <TextArea
-                rows="5"
+                rows={5}
                 label="Click to change the subtitle of the dish"
                 name="Description"
                 placeholder="Description"

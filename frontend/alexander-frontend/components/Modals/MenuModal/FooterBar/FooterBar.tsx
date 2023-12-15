@@ -2,17 +2,17 @@ import data from "@/data/MenuModal.js";
 import ActionButton from "@/components/Buttons/ActionButton";
 
 type FooterBarProps = {
-  footerBarCreateDish: () => void;
-  footerBarImportDish: () => void;
-  footerBarCancelMenu: () => void;
-  footerBarAcceptMenu: () => void;
+  footerBarCreateDish?: () => void;
+  footerBarImportDish?: () => void;
+  footerBarCancelMenu?: () => void;
+  footerBarAcceptMenu?: () => void;
 };
 
 const FooterBar = ({
-  footerBarCreateDish,
-  footerBarImportDish,
-  footerBarCancelMenu,
-  footerBarAcceptMenu,
+  footerBarCreateDish = () => {},
+  footerBarImportDish = () => {},
+  footerBarCancelMenu = () => {},
+  footerBarAcceptMenu = () => {},
 }: FooterBarProps) => {
   return (
     <footer className="flex items-center justify-between bg-raisin_black px-6 py-4">
@@ -20,8 +20,7 @@ const FooterBar = ({
         <li>
           <ActionButton
             icon="add"
-            name="Add"
-            variant="icon"
+            variant="icon-border"
             title="Add a new dish"
             name="Add"
             label={data.menu_buttons.accept.label}
@@ -31,8 +30,7 @@ const FooterBar = ({
         <li>
           <ActionButton
             icon="inventory"
-            name="Import"
-            variant="icon"
+            variant="icon-border"
             title="Import a dish from the archive"
             name="Import"
             label={data.menu_buttons.cancel.label}

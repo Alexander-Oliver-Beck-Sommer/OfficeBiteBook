@@ -16,12 +16,10 @@ export default function Calendar() {
   return (
     <section aria-label="Calendar">
       <NavigationBar
-        currentDate={currentDate}
         setCurrentDate={setCurrentDate}
         getCurrentWeekNumber={getCurrentWeekNumber}
       />
       <WeekGrid
-        currentDate={currentDate}
         generateTimeSlots={generateTimeSlots}
         getWeekDates={getWeekDates}
         settings={settings}

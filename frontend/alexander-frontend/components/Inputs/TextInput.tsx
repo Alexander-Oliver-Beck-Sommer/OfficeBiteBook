@@ -5,7 +5,7 @@ import CalendarIcon from "@/components/Icons/CalendarIcon";
 import LocationIcon from "@/components/Icons/LocationIcon";
 import TitleIcon from "@/components/Icons/TitleIcon";
 
-const types = (type) => {
+const types = (type: string) => {
   switch (type) {
     case "date":
       return <CalendarIcon />;
@@ -21,23 +21,23 @@ const types = (type) => {
 };
 
 type TextInputProps = {
-  type: string;
-  label: string;
-  value: string;
-  name: string;
-  placeholder: string;
+  type?: string;
+  label?: string;
+  value?: string;
+  name?: string;
+  placeholder?: string;
   isInvalid?: boolean;
   onValueChange: (value: string) => void;
 };
 
 const TextInput = ({
-  type,
-  label,
-  value,
-  name,
-  placeholder,
+  type = "",
+  label = "",
+  value = "",
+  name = "",
+  placeholder = "",
   isInvalid = false,
-  onValueChange,
+  onValueChange = () => {},
 }: TextInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -110,7 +110,7 @@ const TextInput = ({
           value={value}
         />
         <button
-          tabIndex="-1"
+          tabIndex={-1}
           aria-label={label}
           onBlur={handleBlur}
           onFocus={handleFocus}

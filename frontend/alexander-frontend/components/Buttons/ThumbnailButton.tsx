@@ -4,10 +4,10 @@ import UploadIcon from "../Icons/UploadIcon";
 import { toast } from "react-toastify";
 
 type ThumbnailButtonProps = {
-  title: string;
+  title?: string;
 };
 
-const ThumbnailButton = ({ title }: ThumbnailButtonProps) => {
+const ThumbnailButton = ({ title = "" }: ThumbnailButtonProps) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -61,7 +61,7 @@ const ThumbnailButton = ({ title }: ThumbnailButtonProps) => {
             role="button"
             htmlFor="dropzone-file"
             className="flex h-full w-full cursor-pointer flex-col items-center justify-center gap-2 rounded border-2 border-arsenic bg-eerie_black fill-arsenic outline outline-2 outline-transparent transition-all duration-300 ease-in-out hover:bg-raisin_black hover:fill-cool_grey focus-visible:outline-cool_grey"
-            tabIndex="0"
+            tabIndex={1}
           >
             <UploadIcon className="h-14 w-14" />
             <h5>Click to Upload</h5>

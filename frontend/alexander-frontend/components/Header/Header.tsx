@@ -26,7 +26,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`bg-eerie_black relative z-30 flex h-header_height items-center justify-between px-4 after:absolute after:bottom-0 after:right-0 after:box-content after:border-b-2 after:transition-all after:duration-300 after:ease-in-out after:content-[''] md:px-sidebar_width after:lg:hidden ${mobileHeaderClasses}`}
+        className={`relative z-30 flex h-header_height items-center justify-between bg-eerie_black px-4 after:absolute after:bottom-0 after:right-0 after:box-content after:border-b-2 after:transition-all after:duration-300 after:ease-in-out after:content-[''] md:px-sidebar_width after:lg:hidden ${mobileHeaderClasses}`}
       >
         <Link href="/" onClick={() => setIsMenuOpen(false)}>
           <h2>{sitesettings.site_name}</h2>
@@ -38,12 +38,7 @@ export default function Header() {
         />
         <DesktopNav />
       </header>
-      <MobileNav
-        style={mobileNavClasses}
-        visible={isMenuOpen}
-        screen="mobile-tablet"
-        toggle={() => setIsMenuOpen(false)}
-      />
+      <MobileNav style={mobileNavClasses} visible={isMenuOpen} />
       <TransparentBackground visible={isMenuOpen} toggle={toggleMenu} />
     </>
   );
