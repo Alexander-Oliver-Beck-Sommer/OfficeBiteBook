@@ -75,10 +75,10 @@ const WeekGrid: React.FC<WeekGridProps> = ({
 
   return (
     <>
-      <ul className="grid grid-cols-autoX1 gap-grid">
+      <ul className="grid grid-cols-autoX1">
         <li className="w-20 bg-eerie_black">
-          <ul className="flex flex-col gap-grid">
-            <li className="flex flex-col gap-grid">
+          <ul className="flex flex-col">
+            <li className="flex flex-col">
               <section className="h-20"></section>
               <section className="h-12"></section>
               <section className="h-14"></section>
