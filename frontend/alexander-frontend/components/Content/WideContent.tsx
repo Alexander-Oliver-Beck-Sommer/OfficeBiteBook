@@ -1,20 +1,17 @@
 import React from "react";
 
 type WideContentProps = {
-  ariaLabel: string;
+  ariaLabel?: string;
   children: React.ReactNode;
 };
 
-const WideContent = ({ ariaLabel, children }: WideContentProps) => {
-  if (!ariaLabel) {
-    throw new Error(
-      "Please declare a landmark for the WideContent component in terms of accessibility for screen readers: ariaLabel='Landmark Name Here'",
-    );
-  }
-
+const WideContent = ({ ariaLabel = "", children }: WideContentProps) => {
   return (
-    <section aria-label={ariaLabel} className="border-2 border-sunset_orange w-full flex justify-center items-center">
-        {children}
+    <section
+      aria-label={ariaLabel}
+      className="flex w-full items-center justify-center border-2 border-sunset_orange"
+    >
+      {children}
     </section>
   );
 };

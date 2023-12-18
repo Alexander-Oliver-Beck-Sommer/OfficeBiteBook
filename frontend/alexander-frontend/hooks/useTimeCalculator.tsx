@@ -1,11 +1,27 @@
 import { useState, useEffect } from "react";
-import weekSettings from "@/data/weekSettings";
+import rawWeekSettings from "@/data/weekSettings";
 
-const useTimeCalculator = (locale = "da-DK") => {
-  const settings = weekSettings[locale] || weekSettings["da-DK"];
+type LocaleSettings = {
+  country: string;
+  weekDays: string[];
+  timeFormat: TimeFormat; // Ensure this matches the type in WeekGrid
+};
+
+type TimeFormat = "24-hour" | "12-hour";
+
+type WeekSettings = {
+  [key: string]: LocaleSettings;
+};
+
+// Explicitly type weekSettings as WeekSettings
+const weekSettings: WeekSettings = rawWeekSettings as WeekSettings;
+
+const useTimeCalculator = (locale: string = "da-DK") => {
+  const settings: LocaleSettings =
+    weekSettings[locale] || weekSettings["da-DK"];
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  const generateTimeSlots = (timeFormat) => {
+  const generateTimeSlots = (timeFormat: TimeFormat) => {
     const slots = [];
     for (let hour = 8; hour < 20; hour++) {
       let hourFormatted =
@@ -43,7 +59,8 @@ const useTimeCalculator = (locale = "da-DK") => {
 
   const getCurrentWeekNumber = () => {
     const firstDayOfYear = new Date(currentDate.getFullYear(), 0, 1);
-    const pastDaysOfYear = (currentDate - firstDayOfYear) / 86400000;
+    const pastDaysOfYear =
+      (currentDate.getTime() - firstDayOfYear.getTime()) / 86400000;
     return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
   };
 

@@ -13,14 +13,16 @@ type TimeSlot = {
   halfHour: string;
 };
 
+type TimeFormat = "24-hour" | "12-hour";
+
 type Settings = {
-  timeFormat: string;
+  timeFormat: TimeFormat; // Use TimeFormat instead of string
   country: string;
   weekDays: string[];
 };
 
 type WeekGridProps = {
-  generateTimeSlots: (timeFormat: string) => TimeSlot[];
+  generateTimeSlots: (timeFormat: TimeFormat) => TimeSlot[];
   getWeekDates: () => Date[];
   settings: Settings;
 };

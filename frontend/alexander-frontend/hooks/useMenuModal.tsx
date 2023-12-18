@@ -122,7 +122,13 @@ const useMenuModal = (
       endTime: !!menuEndTime,
     };
 
-    const fieldsToValidate = [
+    type ValidationKeys = keyof typeof validation;
+    type FieldValidation = {
+      key: ValidationKeys;
+      message: string;
+    };
+
+    const fieldsToValidate: FieldValidation[] = [
       { key: "title", message: "Title required" },
       { key: "location", message: "Location required" },
       { key: "date", message: "Date required" },
@@ -203,7 +209,12 @@ const useMenuModal = (
       toggle();
       resetForm();
     } catch (error) {
-      toast.error("Error saving menu: " + error.message);
+      if (error instanceof Error) {
+        toast.error("Error saving menu: " + error.message);
+      } else {
+        // Handle cases where error might not be an instance of Error
+        toast.error("Error saving menu: An unexpected error occurred");
+      }
     }
   };
 

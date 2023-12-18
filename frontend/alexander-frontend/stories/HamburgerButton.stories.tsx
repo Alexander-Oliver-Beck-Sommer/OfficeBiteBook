@@ -7,11 +7,11 @@ const meta: Meta<typeof HamburgerButton> = {
   component: HamburgerButton,
 };
 
-type Story = StoryObj<HamburgerButton>;
+type Story = StoryObj<typeof HamburgerButton>;
 
 export const Primary: Story = {
   args: {
-    ariaLabel:
+    label:
       "Label that describes what the Hamburger component does in terms of accessibility. ",
     screen: "mobile-tablet",
   },

@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 
 type ToggleInputProps = {
-  label: string;
+  label?: string;
   trueValue: string;
   falseValue: string;
-  toggle: () => void;
+  toggle?: () => void;
 };
 
 const ToggleInput = ({
-  label,
+  label = "",
   trueValue,
   falseValue,
-  toggle,
+  toggle = () => {},
 }: ToggleInputProps) => {
   const [isChecked, setIsChecked] = useState(false);
 

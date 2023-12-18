@@ -1,11 +1,11 @@
 import React from "react";
 
 type ShortContentProps = {
-  ariaLabel: string;
+  ariaLabel?: string;
   children: React.ReactNode;
 };
 
-const ShortContent = ({ ariaLabel, children }: ShortContentProps) => {
+const ShortContent = ({ ariaLabel = "", children }: ShortContentProps) => {
   if (!ariaLabel) {
     throw new Error(
       "Please declare a landmark for the ShortContent component in terms of accessibility for screen readers: ariaLabel='Landmark Name Here'",

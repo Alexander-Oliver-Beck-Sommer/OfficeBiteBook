@@ -7,6 +7,6 @@ export default {
   "en-GB": {
     country: "United Kingdom",
     weekDays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-    timeFormat: "12h-hour",
+    timeFormat: "12-hour",
   },
 };
