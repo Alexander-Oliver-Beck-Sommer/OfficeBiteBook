@@ -20,6 +20,7 @@ type Settings = {
 };
 
 type Menu = {
+  menu_title: string;
   menu_date: string;
   menu_start_time: string;
   menu_end_time: string;
@@ -64,6 +65,7 @@ const WeekGrid: React.FC<WeekGridProps> = ({
       const date = menu.menu_date.split("T")[0];
       if (!acc[date]) acc[date] = [];
       acc[date].push({
+        title: menu.menu_title,
         startTime: menu.menu_start_time,
         endTime: menu.menu_end_time,
       });
