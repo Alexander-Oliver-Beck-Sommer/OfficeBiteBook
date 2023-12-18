@@ -2,16 +2,16 @@ import React from "react";
 
 interface GroupIconProps {
   className?: string;
-  variant?: "disabled" | "enabled";
+  variant?: "outlined" | "filled";
 }
 
 const GroupIcon: React.FC<GroupIconProps> = ({
   className,
-  variant = "enabled",
+  variant = "filled",
 }) => {
   return (
     <>
-      {variant === "enabled" ? (
+      {variant === "filled" ? (
         <svg
           width="24"
           height="24"

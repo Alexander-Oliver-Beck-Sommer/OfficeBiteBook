@@ -2,16 +2,16 @@ import React from "react";
 
 interface UserIconProps {
   className?: string;
-  variant?: "disabled" | "enabled";
+  variant?: "outlined" | "filled";
 }
 
 const UserIcon: React.FC<UserIconProps> = ({
   className,
-  variant = "enabled",
+  variant = "filled",
 }) => {
   return (
     <>
-      {variant === "enabled" ? (
+      {variant === "filled" ? (
         <svg
           width="24"
           height="24"

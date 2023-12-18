@@ -2,16 +2,16 @@ import React from "react";
 
 interface InfoIconProps {
   className?: string;
-  variant?: "disabled" | "enabled";
+  variant?: "outlined" | "filled";
 }
 
 const InfoIcon: React.FC<InfoIconProps> = ({
   className,
-  variant = "enabled",
+  variant = "filled",
 }) => {
   return (
     <>
-      {variant === "enabled" ? (
+      {variant === "filled" ? (
         <svg
           width="24"
           height="24"

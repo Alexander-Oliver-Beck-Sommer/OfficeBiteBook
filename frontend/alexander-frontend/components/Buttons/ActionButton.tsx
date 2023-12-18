@@ -14,11 +14,11 @@ import CleanIcon from "../Icons/CleanIcon";
 const icons = (icon: string) => {
   switch (icon) {
     case "cancel":
-      return <CancelIcon variant="disabled" />;
+      return <CancelIcon variant="outlined" />;
     case "check":
-      return <CheckIcon variant="disabled" />;
+      return <CheckIcon variant="outlined" />;
     case "add":
-      return <AddIcon variant="disabled" />;
+      return <AddIcon variant="outlined" />;
     case "cycle":
       return <CycleIcon />;
     case "delete":

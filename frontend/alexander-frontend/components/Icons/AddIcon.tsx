@@ -2,16 +2,13 @@ import React from "react";
 
 interface AddIconProps {
   className?: string;
-  variant?: "disabled" | "enabled";
+  variant?: "outlined" | "filled";
 }
 
-const AddIcon: React.FC<AddIconProps> = ({
-  className,
-  variant = "enabled",
-}) => {
+const AddIcon: React.FC<AddIconProps> = ({ className, variant = "filled" }) => {
   return (
     <>
-      {variant === "enabled" ? (
+      {variant === "filled" ? (
         <svg
           width="24"
           height="24"
