@@ -176,9 +176,18 @@ const WeekGrid: React.FC<WeekGridProps> = ({
                               menu.menu_end_time,
                             )}px`,
                           }}
-                          className="absolute left-0 w-11/12 rounded border-l-4 border-l-true_blue bg-eerie_black"
+                          className="absolute left-0 flex w-11/12 flex-col justify-between  overflow-auto rounded border-l-4 border-l-true_blue bg-eerie_black p-2"
                         >
-                          <p>{menu.menu_title}</p>
+                          <div>
+                            <h4>{menu.menu_title}</h4>
+                            <p className="pt-1 text-sm">
+                              {menu.menu_start_time} - {menu.menu_end_time}
+                            </p>
+                          </div>
+
+                          <div>
+                            <p className="text-sm">{menu.menu_location}</p>
+                          </div>
                         </section>
                       ))}
                     </li>

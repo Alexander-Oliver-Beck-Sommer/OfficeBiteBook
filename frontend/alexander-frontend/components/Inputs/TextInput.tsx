@@ -54,7 +54,11 @@ const TextInput = ({
   const typeIcon = types(type);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onValueChange(event.target.value);
+    let timeValue = event.target.value;
+    if (type === "time") {
+      timeValue = timeValue.substring(0, 5);
+    }
+    onValueChange(timeValue);
   };
 
   const handleIconClick = () => {
