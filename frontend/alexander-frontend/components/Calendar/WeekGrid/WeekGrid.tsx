@@ -1,5 +1,5 @@
-"use client";
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
+import { supabase } from "@/components/Supabase/supabaseClient";
 import DayCell from "@/components/Calendar/WeekGrid/child-components/DayCell";
 import SettingsCell from "@/components/Calendar/WeekGrid/child-components/SettingsCell";
 import VisibilityCell from "@/components/Calendar/WeekGrid/child-components/VisibilityCell";
@@ -30,26 +30,35 @@ type WeekGridProps = {
   generateTimeSlots: (timeFormat: TimeFormat) => TimeSlot[];
   getWeekDates: () => Date[];
   settings: Settings;
-  menus: Menu[];
 };
 
 const WeekGrid: React.FC<WeekGridProps> = ({
   generateTimeSlots,
   getWeekDates,
   settings,
-  menus,
 }) => {
   const timeSlots = generateTimeSlots(settings.timeFormat);
   const weekDates = getWeekDates();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuStartTime, setMenuStartTime] = useState("");
   const [menuDate, setMenuDate] = useState("");
+  const [menus, setMenus] = useState([]);
 
-  const toggleMenu = (startTime: string, date: string) => {
-    setMenuStartTime(startTime);
-    setMenuDate(date);
-    setIsMenuOpen(!isMenuOpen);
-  };
+  useEffect(() => {
+    const fetchMenus = async () => {
+      try {
+        let { data: menusData, error } = await supabase
+          .from("menus")
+          .select("*");
+        if (error) throw error;
+        setMenus(menusData);
+      } catch (error) {
+        console.error("Error fetching menus:", error);
+      }
+    };
+
+    fetchMenus();
+  }, []);
 
   const isToday = (date: Date) => {
     const today = new Date();
@@ -60,18 +69,37 @@ const WeekGrid: React.FC<WeekGridProps> = ({
     );
   };
 
-  const menuMap = useMemo(() => {
-    return menus.reduce((acc, menu) => {
-      const date = menu.menu_date.split("T")[0];
-      if (!acc[date]) acc[date] = [];
-      acc[date].push({
-        title: menu.menu_title,
-        startTime: menu.menu_start_time,
-        endTime: menu.menu_end_time,
-      });
-      return acc;
-    }, {});
-  }, [menus]);
+  const toggleMenu = (startTime: string, date: string) => {
+    setMenuStartTime(startTime);
+    setMenuDate(date);
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const calculateTopPosition = (startTime) => {
+    const baseTime = new Date();
+    baseTime.setHours(8, 0, 0);
+
+    const menuTime = new Date();
+    const [hours, minutes] = startTime.split(":");
+    menuTime.setHours(parseInt(hours), parseInt(minutes), 0);
+
+    const halfHourCount = (menuTime - baseTime) / (1000 * 60 * 30);
+    return halfHourCount * 48;
+  };
+
+  const calculateHeight = (startTime, endTime) => {
+    const [startHours, startMinutes] = startTime.split(":").map(Number);
+    const [endHours, endMinutes] = endTime.split(":").map(Number);
+
+    const startDate = new Date();
+    startDate.setHours(startHours, startMinutes, 0);
+
+    const endDate = new Date();
+    endDate.setHours(endHours, endMinutes, 0);
+
+    const halfHourCount = (endDate - startDate) / (1000 * 60 * 30);
+    return halfHourCount * 48;
+  };
 
   return (
     <>
@@ -99,7 +127,9 @@ const WeekGrid: React.FC<WeekGridProps> = ({
               const dayName = settings.weekDays[index];
               const isCurrentDay = isToday(date);
               const dateValue = date.toISOString().split("T")[0];
-              const dayMenus = menuMap[dateValue] || [];
+              const dayMenus = menus.filter((menu) =>
+                menu.menu_date.startsWith(dateValue),
+              );
 
               return (
                 <li
@@ -116,40 +146,8 @@ const WeekGrid: React.FC<WeekGridProps> = ({
                       <SettingsCell />
                       <VisibilityCell />
                     </li>
-                    {timeSlots.map((slot, slotIndex) => {
-                      const fullCard = dayMenus.some((menu) => {
-                        const menuStart = new Date(
-                          `${dateValue}T${menu.startTime}`,
-                        ).getTime();
-                        const menuEnd = new Date(
-                          `${dateValue}T${menu.endTime}`,
-                        ).getTime();
-                        const slotTime = new Date(
-                          `${dateValue}T${slot.fullHour}`,
-                        ).getTime();
-
-                        return slotTime >= menuStart && slotTime < menuEnd;
-                      });
-
-                      const halfCard = dayMenus.some((menu) => {
-                        const menuStart = new Date(
-                          `${dateValue}T${menu.startTime}`,
-                        ).getTime();
-                        const menuEnd = new Date(
-                          `${dateValue}T${menu.endTime}`,
-                        ).getTime();
-                        const slotTime = new Date(
-                          `${dateValue}T${slot.halfHour}`,
-                        ).getTime();
-
-                        return (
-                          slotTime < menuEnd &&
-                          (slotTime >= menuStart ||
-                            slot.fullHour === menu.startTime)
-                        );
-                      });
-
-                      return (
+                    <li className="relative flex flex-col border-t border-t-arsenic bg-dark_charcoal">
+                      {timeSlots.map((slot, slotIndex) => (
                         <HourCell
                           key={`${dayName}-hours-${slotIndex}`}
                           dateValue={dateValue}
@@ -158,16 +156,32 @@ const WeekGrid: React.FC<WeekGridProps> = ({
                           fullToggle={() =>
                             toggleMenu(slot.fullHour, dateValue)
                           }
-                          fullCard={fullCard}
                           halfValue={slot.halfHour}
                           halfLabel={`Click and create a new menu at ${slot.halfHour}`}
                           halfToggle={() =>
                             toggleMenu(slot.halfHour, dateValue)
                           }
-                          halfCard={halfCard}
                         />
-                      );
-                    })}
+                      ))}
+                      {dayMenus.map((menu, menuIndex) => (
+                        <section
+                          key={`menu-card-${menuIndex}`}
+                          aria-label="card"
+                          style={{
+                            top: `${calculateTopPosition(
+                              menu.menu_start_time,
+                            )}px`,
+                            height: `${calculateHeight(
+                              menu.menu_start_time,
+                              menu.menu_end_time,
+                            )}px`,
+                          }}
+                          className="absolute left-0 w-11/12 rounded border-l-4 border-l-true_blue bg-eerie_black"
+                        >
+                          <p>{menu.menu_title}</p>
+                        </section>
+                      ))}
+                    </li>
                   </ul>
                 </li>
               );

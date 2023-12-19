@@ -1,9 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
 import NavigationBar from "@/components/Calendar/NavigationBar/NavigationBar";
 import WeekGrid from "@/components/Calendar/WeekGrid/WeekGrid";
 import useTimeCalculator from "@/hooks/useTimeCalculator";
-import { supabase } from "../Supabase/supabaseClient";
 
 export default function Calendar() {
   const {
@@ -15,24 +13,6 @@ export default function Calendar() {
     settings,
   } = useTimeCalculator();
 
-  const [menus, setMenus] = useState([]);
-
-  useEffect(() => {
-    const fetchMenus = async () => {
-      try {
-        let { data: menusData, error } = await supabase
-          .from("menus")
-          .select("*");
-        if (error) throw error;
-        setMenus(menusData);
-      } catch (error) {
-        console.error("Error fetching menus:", error);
-      }
-    };
-
-    fetchMenus();
-  }, []);
-
   return (
     <section aria-label="Calendar">
       <NavigationBar
@@ -43,7 +23,6 @@ export default function Calendar() {
         generateTimeSlots={generateTimeSlots}
         getWeekDates={getWeekDates}
         settings={settings}
-        menus={menus}
       />
     </section>
   );
