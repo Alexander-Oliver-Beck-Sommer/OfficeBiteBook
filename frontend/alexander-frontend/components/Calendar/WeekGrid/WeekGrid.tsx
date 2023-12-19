@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { supabase } from "@/components/Supabase/supabaseClient";
+import useWeekGrid from "@/hooks/useWeekGrid";
 import DayCell from "@/components/Calendar/WeekGrid/child-components/DayCell";
 import SettingsCell from "@/components/Calendar/WeekGrid/child-components/SettingsCell";
 import VisibilityCell from "@/components/Calendar/WeekGrid/child-components/VisibilityCell";
@@ -19,87 +18,30 @@ type Settings = {
   weekDays: string[];
 };
 
-type Menu = {
-  menu_title: string;
-  menu_date: string;
-  menu_start_time: string;
-  menu_end_time: string;
-};
-
 type WeekGridProps = {
   generateTimeSlots: (timeFormat: TimeFormat) => TimeSlot[];
   getWeekDates: () => Date[];
   settings: Settings;
 };
 
-const WeekGrid: React.FC<WeekGridProps> = ({
+const WeekGrid = ({
   generateTimeSlots,
   getWeekDates,
   settings,
-}) => {
+}: WeekGridProps) => {
+  const {
+    menus,
+    calculateTopPosition,
+    calculateHeight,
+    isMenuOpen,
+    toggleMenu,
+    menuStartTime,
+    menuDate,
+    isToday,
+  } = useWeekGrid();
+
   const timeSlots = generateTimeSlots(settings.timeFormat);
   const weekDates = getWeekDates();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [menuStartTime, setMenuStartTime] = useState("");
-  const [menuDate, setMenuDate] = useState("");
-  const [menus, setMenus] = useState([]);
-
-  useEffect(() => {
-    const fetchMenus = async () => {
-      try {
-        let { data: menusData, error } = await supabase
-          .from("menus")
-          .select("*");
-        if (error) throw error;
-        setMenus(menusData);
-      } catch (error) {
-        console.error("Error fetching menus:", error);
-      }
-    };
-
-    fetchMenus();
-  }, []);
-
-  const isToday = (date: Date) => {
-    const today = new Date();
-    return (
-      date.getDate() === today.getDate() &&
-      date.getMonth() === today.getMonth() &&
-      date.getFullYear() === today.getFullYear()
-    );
-  };
-
-  const toggleMenu = (startTime: string, date: string) => {
-    setMenuStartTime(startTime);
-    setMenuDate(date);
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const calculateTopPosition = (startTime) => {
-    const baseTime = new Date();
-    baseTime.setHours(8, 0, 0);
-
-    const menuTime = new Date();
-    const [hours, minutes] = startTime.split(":");
-    menuTime.setHours(parseInt(hours), parseInt(minutes), 0);
-
-    const halfHourCount = (menuTime - baseTime) / (1000 * 60 * 30);
-    return halfHourCount * 48;
-  };
-
-  const calculateHeight = (startTime, endTime) => {
-    const [startHours, startMinutes] = startTime.split(":").map(Number);
-    const [endHours, endMinutes] = endTime.split(":").map(Number);
-
-    const startDate = new Date();
-    startDate.setHours(startHours, startMinutes, 0);
-
-    const endDate = new Date();
-    endDate.setHours(endHours, endMinutes, 0);
-
-    const halfHourCount = (endDate - startDate) / (1000 * 60 * 30);
-    return halfHourCount * 48;
-  };
 
   return (
     <>
@@ -176,7 +118,7 @@ const WeekGrid: React.FC<WeekGridProps> = ({
                               menu.menu_end_time,
                             )}px`,
                           }}
-                          className="absolute left-0 flex w-11/12 flex-col justify-between  overflow-auto rounded border-l-4 border-l-true_blue bg-eerie_black p-2"
+                          className="absolute left-0 flex w-11/12 flex-col justify-between overflow-auto rounded border-l-4 border-l-true_blue bg-eerie_black p-2"
                         >
                           <div>
                             <h4>{menu.menu_title}</h4>
