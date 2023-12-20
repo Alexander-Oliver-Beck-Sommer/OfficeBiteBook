@@ -3,8 +3,8 @@ import SettingsCell from "@/components/Calendar/WeekGrid/child-components/Settin
 import VisibilityCell from "@/components/Calendar/WeekGrid/child-components/VisibilityCell";
 import HourCell from "@/components/Calendar/WeekGrid/child-components/HourCell";
 import MenuModal from "@/components/Modals/MenuModal/MenuModal";
-import useWeekGrid from "@/hooks/useWeekGrid"; // This is where the magic happens
 import CardButton from "@/components/Buttons/CardButton";
+import useWeekGrid from "@/hooks/useWeekGrid"; // This is where the magic happens
 
 type TimeSlot = {
   fullHour: string;
