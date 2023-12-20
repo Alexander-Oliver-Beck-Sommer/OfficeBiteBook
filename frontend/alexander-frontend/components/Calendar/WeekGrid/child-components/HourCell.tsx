@@ -24,14 +24,14 @@ const HourCell = ({
         data-date={hourCellDateValue}
         aria-label={hourCellFullLabel}
         onClick={hourCellFullToggle}
-        className="h-12 border-b border-dashed border-arsenic outline-1 outline-transparent transition duration-300 ease-in-out hover:bg-arsenic focus-visible:bg-arsenic focus-visible:outline-true_blue"
+        className="h-12 cursor-default border-b border-dashed border-arsenic outline-1 outline-transparent transition duration-300 ease-in-out hover:bg-arsenic focus-visible:bg-arsenic focus-visible:outline-apple"
       ></button>
       <button
         value={hourCellHalfValue}
         data-date={hourCellDateValue}
         aria-label={hourCellHalfLabel}
         onClick={hourCellHalfToggle}
-        className="h-12 border-b border-arsenic outline-1 outline-transparent transition duration-300 ease-in-out hover:bg-arsenic focus-visible:bg-arsenic focus-visible:outline-true_blue"
+        className="h-12 cursor-default border-b border-arsenic outline-1 outline-transparent transition duration-300 ease-in-out hover:bg-arsenic focus-visible:bg-arsenic focus-visible:outline-apple"
       ></button>
     </>
   );

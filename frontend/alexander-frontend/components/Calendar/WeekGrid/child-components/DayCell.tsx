@@ -13,7 +13,7 @@ const DayCell = ({
   toggle = () => {},
   isCurrentDay,
 }: DayCellProps) => {
-  const style = isCurrentDay ? "border-true_blue" : "border-transparent";
+  const style = isCurrentDay ? "border-apple" : "border-transparent";
 
   return (
     <section

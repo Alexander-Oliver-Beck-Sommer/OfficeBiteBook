@@ -62,7 +62,7 @@ const NavigationBar = ({
                 aria-label="Click and choose inbetween months and weeks"
               >
                 <h4>Actions</h4>
-                <DownArrowIcon className="h-6 w-6 fill-true_blue" />
+                <DownArrowIcon className="h-6 w-6 fill-apple" />
               </button>
             </li>
           </ul>

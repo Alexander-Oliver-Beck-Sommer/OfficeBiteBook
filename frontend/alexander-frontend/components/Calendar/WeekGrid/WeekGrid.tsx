@@ -4,6 +4,7 @@ import VisibilityCell from "@/components/Calendar/WeekGrid/child-components/Visi
 import HourCell from "@/components/Calendar/WeekGrid/child-components/HourCell";
 import MenuModal from "@/components/Modals/MenuModal/MenuModal";
 import useWeekGrid from "@/hooks/useWeekGrid"; // This is where the magic happens
+import CardButton from "@/components/Buttons/CardButton";
 
 type TimeSlot = {
   fullHour: string;
@@ -111,10 +112,15 @@ const WeekGrid = ({
                         />
                       ))}
                       {dayMenus.map((menu, menuIndex) => (
-                        <section
+                        <CardButton
                           key={`menu-card-${menuIndex}`}
-                          aria-label={menu.menu_title}
-                          style={{
+                          cardButtonTitle={menu.menu_title}
+                          cardButtonStartTime={menu.menu_start_time}
+                          cardButtonEndTime={menu.menu_end_time}
+                          cardButtonLocation={menu.menu_location}
+                          cardButtonLabel={`Click to open the menu for ${menu.menu_title}`}
+                          cardButtonToggle={() => openMenuWithDetails(menu)}
+                          cardButtonStyle={{
                             top: `${calculateTopPosition(
                               menu.menu_start_time,
                             )}px`,
@@ -123,20 +129,7 @@ const WeekGrid = ({
                               menu.menu_end_time,
                             )}px`,
                           }}
-                          onClick={() => openMenuWithDetails(menu)}
-                          className="absolute left-0 flex w-11/12 flex-col justify-between overflow-auto rounded border-l-4 border-l-true_blue bg-eerie_black p-2"
-                        >
-                          <div>
-                            <h4>{menu.menu_title}</h4>
-                            <p className="pt-1 text-sm">
-                              {menu.menu_start_time} - {menu.menu_end_time}
-                            </p>
-                          </div>
-
-                          <div>
-                            <p className="text-sm">{menu.menu_location}</p>
-                          </div>
-                        </section>
+                        />
                       ))}
                     </li>
                   </ul>
