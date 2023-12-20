@@ -1,9 +1,9 @@
-import useWeekGrid from "@/hooks/useWeekGrid";
 import DayCell from "@/components/Calendar/WeekGrid/child-components/DayCell";
 import SettingsCell from "@/components/Calendar/WeekGrid/child-components/SettingsCell";
 import VisibilityCell from "@/components/Calendar/WeekGrid/child-components/VisibilityCell";
 import HourCell from "@/components/Calendar/WeekGrid/child-components/HourCell";
 import MenuModal from "@/components/Modals/MenuModal/MenuModal";
+import useWeekGrid from "@/hooks/useWeekGrid"; // This is where the magic happens
 
 type TimeSlot = {
   fullHour: string;
@@ -34,6 +34,7 @@ const WeekGrid = ({
     calculateTopPosition,
     calculateHeight,
     isMenuOpen,
+    setIsMenuOpen,
     toggleMenu,
     menuStartTime,
     menuDate,
@@ -92,15 +93,15 @@ const WeekGrid = ({
                       {timeSlots.map((slot, slotIndex) => (
                         <HourCell
                           key={`${dayName}-hours-${slotIndex}`}
-                          dateValue={dateValue}
-                          fullValue={slot.fullHour}
-                          fullLabel={`Click and create a new menu at ${slot.fullHour}`}
-                          fullToggle={() =>
+                          hourCellDateValue={dateValue}
+                          hourCellFullValue={slot.fullHour}
+                          hourCellFullLabel={`Click and create a new menu at ${slot.fullHour}`}
+                          hourCellFullToggle={() =>
                             toggleMenu(slot.fullHour, dateValue)
                           }
-                          halfValue={slot.halfHour}
-                          halfLabel={`Click and create a new menu at ${slot.halfHour}`}
-                          halfToggle={() =>
+                          hourCellHalfValue={slot.halfHour}
+                          hourCellHalfLabel={`Click and create a new menu at ${slot.halfHour}`}
+                          hourCellHalfToggle={() =>
                             toggleMenu(slot.halfHour, dateValue)
                           }
                         />
@@ -108,7 +109,7 @@ const WeekGrid = ({
                       {dayMenus.map((menu, menuIndex) => (
                         <section
                           key={`menu-card-${menuIndex}`}
-                          aria-label="card"
+                          aria-label={menu.menu_title}
                           style={{
                             top: `${calculateTopPosition(
                               menu.menu_start_time,

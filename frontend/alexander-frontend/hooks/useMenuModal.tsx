@@ -155,7 +155,6 @@ const useMenuModal = (
         "Are you sure you want to cancel? All changes will be lost.",
       )
     ) {
-      toast.warn("Menu scrapped");
       toggle();
       resetForm();
     }

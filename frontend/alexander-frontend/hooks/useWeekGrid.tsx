@@ -74,6 +74,7 @@ const useWeekGrid = () => {
     calculateTopPosition,
     calculateHeight,
     isMenuOpen,
+    setIsMenuOpen,
     toggleMenu,
     menuStartTime,
     menuDate,
