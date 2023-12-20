@@ -41,7 +41,7 @@ const TextInput = ({
   textInputRequired = false,
   textInputValueChange = () => {},
 }: TextInputProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputField = useRef<HTMLInputElement>(null);
 
   const invalidText = textInputValid ? "text-sunset_orange" : "";
 
@@ -67,7 +67,7 @@ const TextInput = ({
   };
 
   const textInputIconClick = () => {
-    inputRef.current?.focus();
+    inputField.current?.focus();
   };
 
   const textInputFocus = () => {
@@ -106,7 +106,7 @@ const TextInput = ({
         className={`relative w-full overflow-hidden rounded border-2  border-arsenic transition-all duration-300 ease-in-out ${invalidBorder}`}
       >
         <input
-          ref={inputRef}
+          ref={inputField}
           type={textInputType}
           placeholder={textInputPlaceholder}
           className={`w-full bg-eerie_black p-4 text-ghost_white placeholder-opacity-100 outline-0 transition-all duration-300 ease-in-out placeholder:text-cool_grey ${invalidPlaceholder} placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0`}
