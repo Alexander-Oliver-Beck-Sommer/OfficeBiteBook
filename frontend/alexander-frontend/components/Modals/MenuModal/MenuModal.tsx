@@ -6,23 +6,23 @@ import FooterBar from "@/components/Modals/MenuModal/FooterBar/FooterBar";
 import useMenuModal from "@/hooks/useMenuModal"; // <== This is where the magic happens
 
 type MenuModalProps = {
-  title?: string;
-  location?: string;
-  date?: string;
-  startTime?: string;
-  endTime?: string;
-  menuVisible: boolean;
-  toggle: () => void;
+  menuModalTitle?: string;
+  menuModalLocation?: string;
+  menuModalDate?: string;
+  menuModalStartTime?: string;
+  menuModalEndTime?: string;
+  menuModalVisibility: boolean;
+  menuModalToggle: () => void;
 };
 
 const MenuModal = ({
-  title = "",
-  location = "",
-  date = "",
-  startTime = "",
-  endTime = "",
-  menuVisible = false,
-  toggle = () => {},
+  menuModalTitle = "",
+  menuModalLocation = "",
+  menuModalDate = "",
+  menuModalStartTime = "",
+  menuModalEndTime = "",
+  menuModalVisibility = false,
+  menuModalToggle = () => {},
 }: MenuModalProps) => {
   const {
     menuTitle,
@@ -53,12 +53,12 @@ const MenuModal = ({
     cancelMenu,
     acceptMenu,
     updateDish,
-  } = useMenuModal(date, startTime, menuVisible, toggle);
+  } = useMenuModal(menuModalDate, menuModalStartTime, menuModalVisibility, menuModalToggle);
 
   // This useEffect hook is used to disable scrolling when the modal is open
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (menuVisible) {
+      if (menuModalVisibility) {
         document.body.style.overflow = "hidden";
       } else {
         document.body.style.overflow = "";
@@ -70,13 +70,13 @@ const MenuModal = ({
         document.body.style.overflow = "";
       }
     };
-  }, [menuVisible]);
+  }, [menuModalVisibility]);
 
   return (
     <section
-      aria-hidden={!menuVisible}
+      aria-hidden={!menuModalVisibility}
       className={`fixed inset-0 z-50 flex transition-all duration-300 ease-in-out ${
-        menuVisible ? "visible opacity-100" : "invisible opacity-0"
+        menuModalVisibility ? "visible opacity-100" : "invisible opacity-0"
       } `}
     >
       <div className="relative flex h-full w-full items-center justify-center px-10 py-10 lg:px-12 lg:py-12">
@@ -86,25 +86,25 @@ const MenuModal = ({
         ></section>
         <section
           className={`relative z-50 grid h-full w-full max-w-screen-xl grid-rows-auto1Xauto overflow-y-auto rounded border-2 border-arsenic bg-eerie_black ${
-            menuVisible ? "animate-fade-up animate-ease-in-out" : ""
+            menuModalVisibility ? "animate-fade-up animate-ease-in-out" : ""
           } `}
         >
           <HeaderBar
             headerBarTitle={menuTitle}
             headerBarClear={clearAllDishes}
-            headerBarDelete={toggle}
+            headerBarDelete={menuModalToggle}
           />
           <section className="grid grid-cols-30X70">
             <MenuSettings
-              menuSettingsTitle={title}
+              menuSettingsTitle={menuModalTitle}
               menuSettingsTitleChange={onTitleChange}
-              menuSettingsLocation={location}
+              menuSettingsLocation={menuModalLocation}
               menuSettingsLocationChange={onLocationChange}
-              menuSettingsDate={date}
+              menuSettingsDate={menuModalDate}
               menuSettingsDateChange={onDateChange}
-              menuSettingsStartTime={startTime}
+              menuSettingsStartTime={menuModalStartTime}
               menuSettingsStartTimeChange={onStartTimeChange}
-              menuSettingsEndTime={endTime}
+              menuSettingsEndTime={menuModalEndTime}
               menuSettingsEndTimeChange={onEndTimeChange}
               menuSettingsValidation={validationState}
             />

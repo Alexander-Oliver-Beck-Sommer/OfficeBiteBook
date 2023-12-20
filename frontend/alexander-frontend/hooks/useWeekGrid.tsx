@@ -11,8 +11,11 @@ type Menu = {
 const useWeekGrid = () => {
   const [menus, setMenus] = useState<Menu[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [menuStartTime, setMenuStartTime] = useState("");
+  const [menuTitle, setMenuTitle] = useState("");
+  const [menuLocation, setMenuLocation] = useState("");
   const [menuDate, setMenuDate] = useState("");
+  const [menuStartTime, setMenuStartTime] = useState("");
+  const [menuEndTime, setMenuEndTime] = useState("");
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -33,6 +36,15 @@ const useWeekGrid = () => {
   const toggleMenu = (startTime: string, date: string): void => {
     setMenuStartTime(startTime);
     setMenuDate(date);
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const openMenuWithDetails = (menu: Menu): void => {
+    setMenuTitle(menu.menu_title);
+    setMenuLocation(menu.menu_location);
+    setMenuDate(menu.menu_date);
+    setMenuStartTime(menu.menu_start_time);
+    setMenuEndTime(menu.menu_end_time);
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -76,8 +88,12 @@ const useWeekGrid = () => {
     isMenuOpen,
     setIsMenuOpen,
     toggleMenu,
-    menuStartTime,
+    menuTitle,
+    menuLocation,
     menuDate,
+    menuStartTime,
+    menuEndTime,
+    openMenuWithDetails,
     isToday,
   };
 };

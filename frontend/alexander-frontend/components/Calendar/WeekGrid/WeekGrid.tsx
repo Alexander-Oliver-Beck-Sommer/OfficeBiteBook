@@ -36,8 +36,12 @@ const WeekGrid = ({
     isMenuOpen,
     setIsMenuOpen,
     toggleMenu,
-    menuStartTime,
+    menuTitle,
+    menuLocation,
     menuDate,
+    menuStartTime,
+    menuEndTime,
+    openMenuWithDetails,
     isToday,
   } = useWeekGrid();
 
@@ -119,6 +123,7 @@ const WeekGrid = ({
                               menu.menu_end_time,
                             )}px`,
                           }}
+                          onClick={() => openMenuWithDetails(menu)}
                           className="absolute left-0 flex w-11/12 flex-col justify-between overflow-auto rounded border-l-4 border-l-true_blue bg-eerie_black p-2"
                         >
                           <div>
@@ -142,10 +147,13 @@ const WeekGrid = ({
         </li>
       </ul>
       <MenuModal
-        date={menuDate}
-        startTime={menuStartTime}
-        menuVisible={isMenuOpen}
-        toggle={() => setIsMenuOpen(false)}
+        menuModalTitle={menuTitle}
+        menuModalLocation={menuLocation}
+        menuModalDate={menuDate}
+        menuModalStartTime={menuStartTime}
+        menuModalEndTime={menuEndTime}
+        menuModalVisibility={isMenuOpen}
+        menuModalToggle={() => setIsMenuOpen(false)}
       />
     </>
   );
