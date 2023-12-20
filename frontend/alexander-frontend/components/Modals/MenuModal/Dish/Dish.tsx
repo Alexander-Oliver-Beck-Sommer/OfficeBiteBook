@@ -136,22 +136,23 @@ const Dish = ({
           <ul className="grid w-full grid-cols-2 gap-6 p-6">
             <li>
               <TextInput
-                type="text"
-                label="Click to change the title of the dish"
-                name="Title"
-                placeholder="Title"
-                onValueChange={handleTitleChange}
-                value={titleInput}
+                textInputType="text"
+                textInputLabel="Click to change the title of the dish"
+                textInputName="Title"
+                textInputPlaceholder="Title"
+                textInputValueChange={handleTitleChange}
+                textInputValue={titleInput}
+                textInputRequired
               />
             </li>
             <li>
               <TextInput
-                type="text"
-                label="Click to change the subtitle of the dish"
-                name="Subtitle"
-                placeholder="Subtitle"
-                onValueChange={handleSubtitleChange}
-                value={subtitleInput}
+                textInputType="text"
+                textInputLabel="Click to change the subtitle of the dish"
+                textInputName="Subtitle"
+                textInputPlaceholder="Subtitle"
+                textInputValueChange={handleSubtitleChange}
+                textInputValue={subtitleInput}
               />
             </li>
             <li>

@@ -7,121 +7,127 @@ import TitleIcon from "@/components/Icons/TitleIcon";
 
 const types = (type: string) => {
   switch (type) {
+    case "title":
+      return <TitleIcon />;
+    case "location":
+      return <LocationIcon />;
     case "date":
       return <CalendarIcon />;
     case "time":
       return <TimeIcon />;
-    case "location":
-      return <LocationIcon />;
-    case "title":
-      return <TitleIcon />;
     default:
       return null;
   }
 };
 
 type TextInputProps = {
-  type?: string;
-  label?: string;
-  value?: string;
-  name?: string;
-  placeholder?: string;
-  isInvalid?: boolean;
-  onValueChange: (value: string) => void;
+  textInputType?: string;
+  textInputLabel?: string;
+  textInputValue?: string;
+  textInputName?: string;
+  textInputPlaceholder?: string;
+  textInputValid?: boolean;
+  textInputRequired?: boolean;
+  textInputValueChange: (value: string) => void;
 };
 
 const TextInput = ({
-  type = "",
-  label = "",
-  value = "",
-  name = "",
-  placeholder = "",
-  isInvalid = false,
-  onValueChange = () => {},
+  textInputType = "",
+  textInputLabel = "",
+  textInputValue = "",
+  textInputName = "",
+  textInputPlaceholder = "",
+  textInputValid = false,
+  textInputRequired = false,
+  textInputValueChange = () => {},
 }: TextInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const errorText = isInvalid ? "text-sunset_orange" : "";
+  const invalidText = textInputValid ? "text-sunset_orange" : "";
 
-  const errorBorder = isInvalid ? "border-sunset_orange" : "";
+  const invalidBorder = textInputValid ? "border-sunset_orange" : "";
 
-  const errorPlaceholder = isInvalid ? "placeholder:text-sunset_orange" : "";
+  const invalidPlaceholder = textInputValid
+    ? "placeholder:text-sunset_orange"
+    : "";
 
-  const errorIcon = isInvalid ? "fill-sunset_orange" : "";
+  const invalidIcon = textInputValid ? "fill-sunset_orange" : "";
 
   const [isFocused, setIsFocused] = React.useState(false);
 
-  const typeIcon = types(type);
+  const textInputIcon = types(textInputType);
 
+  // This is functionality is to remove the seconds from the time input
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let timeValue = event.target.value;
-    if (type === "time") {
+    if (textInputType === "time") {
       timeValue = timeValue.substring(0, 5);
     }
-    onValueChange(timeValue);
+    textInputValueChange(timeValue);
   };
 
-  const handleIconClick = () => {
+  const textInputIconClick = () => {
     inputRef.current?.focus();
   };
 
-  const handleFocus = () => {
+  const textInputFocus = () => {
     setIsFocused(true);
   };
 
-  const handleBlur = () => {
+  const textInputBlur = () => {
     setIsFocused(false);
   };
 
-  const labelFocus = `${
+  const textInputLabelFocus = `${
     isFocused ? "scale-75 text-cool_grey" : "scale-100 text-ghost_white"
   }`;
 
-  if (!type) {
-    throw new Error("Provide a type for the input.");
+  if (!textInputType) {
+    throw new Error("Provide a type for the TextInput.");
   }
 
-  if (!label) {
-    throw new Error("Provide a label for the input.");
+  if (!textInputLabel) {
+    throw new Error("Provide a label for the TextInput.");
   }
 
-  if (!name) {
-    throw new Error("Provide a name for the input.");
+  if (!textInputName) {
+    throw new Error("Provide a name for the TextInput.");
   }
   return (
     <section className="relative flex flex-col gap-4">
-      <label htmlFor={name} className="w-fit">
+      <label htmlFor={textInputName} className="w-fit">
         <p
-          className={`origin-bottom-left text-ghost_white transition-all duration-300 ease-in-out ${labelFocus} ${errorText}`}
+          className={`origin-bottom-left text-ghost_white transition-all duration-300 ease-in-out ${textInputLabelFocus} ${invalidText}`}
         >
-          {name}
+          {textInputName}
         </p>
       </label>
       <div
-        className={`relative w-full overflow-hidden rounded border-2  border-arsenic transition-all duration-300 ease-in-out ${errorBorder}`}
+        className={`relative w-full overflow-hidden rounded border-2  border-arsenic transition-all duration-300 ease-in-out ${invalidBorder}`}
       >
         <input
           ref={inputRef}
-          type={type}
-          placeholder={placeholder}
-          className={`w-full bg-eerie_black p-4 text-ghost_white placeholder-opacity-100 outline-0 transition-all duration-300 ease-in-out placeholder:text-cool_grey ${errorPlaceholder} placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0`}
-          id={name}
-          name={name}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-          aria-label={label}
+          type={textInputType}
+          placeholder={textInputPlaceholder}
+          className={`w-full bg-eerie_black p-4 text-ghost_white placeholder-opacity-100 outline-0 transition-all duration-300 ease-in-out placeholder:text-cool_grey ${invalidPlaceholder} placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0`}
+          id={textInputName}
+          name={textInputName}
+          onBlur={textInputBlur}
+          onFocus={textInputFocus}
+          aria-label={textInputLabel}
           onChange={handleChange}
-          value={value}
+          value={textInputValue}
+          required={textInputRequired}
         />
         <button
           tabIndex={-1}
-          aria-label={label}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-          onClick={handleIconClick}
-          className={`absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-eerie_black fill-arsenic ${errorIcon}`}
+          aria-label={textInputLabel}
+          onBlur={textInputBlur}
+          onFocus={textInputFocus}
+          onClick={textInputIconClick}
+          className={`absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-eerie_black fill-arsenic ${invalidIcon}`}
         >
-          {typeIcon}
+          {textInputIcon}
         </button>
       </div>
     </section>

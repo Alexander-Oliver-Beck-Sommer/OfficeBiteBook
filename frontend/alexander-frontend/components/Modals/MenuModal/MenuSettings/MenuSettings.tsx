@@ -96,54 +96,55 @@ const MenuSettings = ({
     <ul className="flex flex-col gap-5 border-y-2 border-eerie_black bg-raisin_black px-6 py-4">
       <li>
         <TextInput
-          type="title"
-          isInvalid={!menuSettingsValidation?.title ?? true}
-          placeholder={data.location_section.title.placeholder}
-          name={data.location_section.title.name}
-          label={data.location_section.title.label}
-          onValueChange={handleTitleChange}
-          value={titleInput}
+          textInputType="title"
+          textInputValid={!menuSettingsValidation?.title ?? true}
+          textInputPlaceholder={data.location_section.title.placeholder}
+          textInputName={data.location_section.title.name}
+          textInputLabel={data.location_section.title.label}
+          textInputValueChange={handleTitleChange}
+          textInputValue={titleInput}
+          textInputRequired={true}
         />
       </li>
       <li>
         <TextInput
-          type="location"
-          isInvalid={!menuSettingsValidation?.location ?? true}
-          placeholder={data.location_section.location.placeholder}
-          name={data.location_section.location.name}
-          label={data.location_section.location.label}
-          onValueChange={handleLocationChange}
-          value={locationInput}
+          textInputType="location"
+          textInputValid={!menuSettingsValidation?.location ?? true}
+          textInputPlaceholder={data.location_section.location.placeholder}
+          textInputName={data.location_section.location.name}
+          textInputLabel={data.location_section.location.label}
+          textInputValueChange={handleLocationChange}
+          textInputValue={locationInput}
         />
       </li>
       <li>
         <TextInput
-          type="date"
-          isInvalid={!menuSettingsValidation?.date ?? true}
-          name={data.location_section.date.name}
-          label={data.location_section.date.label}
-          onValueChange={handleDateChange}
-          value={dateInput}
+          textInputType="date"
+          textInputValid={!menuSettingsValidation?.date ?? true}
+          textInputName={data.location_section.date.name}
+          textInputLabel={data.location_section.date.label}
+          textInputValueChange={handleDateChange}
+          textInputValue={dateInput}
         />
       </li>
       <li>
         <TextInput
-          type="time"
-          isInvalid={!menuSettingsValidation?.startTime ?? true}
-          name={data.location_section.start_time.name}
-          label={data.location_section.start_time.label}
-          onValueChange={handleStartTimeChange}
-          value={startTimeInput}
+          textInputType="time"
+          textInputValid={!menuSettingsValidation?.startTime ?? true}
+          textInputName={data.location_section.start_time.name}
+          textInputLabel={data.location_section.start_time.label}
+          textInputValueChange={handleStartTimeChange}
+          textInputValue={startTimeInput}
         />
       </li>
       <li>
         <TextInput
-          type="time"
-          isInvalid={!menuSettingsValidation?.endTime ?? true}
-          name={data.location_section.end_time.name}
-          label={data.location_section.end_time.label}
-          onValueChange={handleEndTimeChange}
-          value={endTimeInput}
+          textInputType="time"
+          textInputValid={!menuSettingsValidation?.endTime ?? true}
+          textInputName={data.location_section.end_time.name}
+          textInputLabel={data.location_section.end_time.label}
+          textInputValueChange={handleEndTimeChange}
+          textInputValue={endTimeInput}
         />
       </li>
     </ul>
