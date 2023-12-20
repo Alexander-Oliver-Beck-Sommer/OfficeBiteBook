@@ -21,7 +21,7 @@ const useTimeCalculator = (locale: string = "da-DK") => {
     weekSettings[locale] || weekSettings["da-DK"];
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  const generateTimeSlots = (timeFormat: TimeFormat) => {
+  const generateHourCells = (timeFormat: TimeFormat) => {
     const slots = [];
     for (let hour = 8; hour < 20; hour++) {
       let hourFormatted =
@@ -42,7 +42,7 @@ const useTimeCalculator = (locale: string = "da-DK") => {
     return slots;
   };
 
-  const getWeekDates = () => {
+  const getDates = () => {
     const today = new Date(currentDate);
     const firstDayOfWeek =
       today.getDate() -
@@ -67,8 +67,8 @@ const useTimeCalculator = (locale: string = "da-DK") => {
   return {
     currentDate,
     setCurrentDate,
-    generateTimeSlots,
-    getWeekDates,
+    generateHourCells,
+    getDates,
     getCurrentWeekNumber,
     settings,
   };

@@ -13,41 +13,41 @@ type TimeSlot = {
 
 type TimeFormat = "24-hour" | "12-hour";
 
-type Settings = {
+type WeekGridSettingsProps = {
   timeFormat: TimeFormat;
   country: string;
   weekDays: string[];
 };
 
 type WeekGridProps = {
-  generateTimeSlots: (timeFormat: TimeFormat) => TimeSlot[];
-  getWeekDates: () => Date[];
-  settings: Settings;
+  weekGridHours: (timeFormat: TimeFormat) => TimeSlot[];
+  weekGridDates: () => dayCellDate[];
+  weekGridSettings: WeekGridSettingsProps;
 };
 
 const WeekGrid = ({
-  generateTimeSlots,
-  getWeekDates,
-  settings,
+  weekGridHours,
+  weekGridDates,
+  weekGridSettings,
 }: WeekGridProps) => {
   const {
     menus,
     calculateTopPosition,
     calculateHeight,
-    isMenuOpen,
-    setIsMenuOpen,
-    toggleMenu,
-    menuTitle,
-    menuLocation,
-    menuDate,
-    menuStartTime,
-    menuEndTime,
-    openMenuWithDetails,
+    menuModalVisibility,
+    setMenuModalVisibility,
+    hourCellToggleMenu,
+    menuModalTitle,
+    menuModalLocation,
+    menuModalDate,
+    menuModalStartTime,
+    menuModalEndTime,
+    cardButtonToggle,
     isToday,
   } = useWeekGrid();
 
-  const timeSlots = generateTimeSlots(settings.timeFormat);
-  const weekDates = getWeekDates();
+  const hourCells = weekGridHours(weekGridSettings.timeFormat);
+  const weekDates = weekGridDates();
 
   return (
     <>
@@ -59,74 +59,74 @@ const WeekGrid = ({
               <section className="h-12"></section>
               <section className="h-14"></section>
             </li>
-            {timeSlots.map((slot, slotIndex) => (
+            {hourCells.map((sidebarCell, sidebarCellIndex) => (
               <li
-                key={`sidebar-slots-${slotIndex}`}
+                key={`sidebar-slots-${sidebarCellIndex}`}
                 className="flex h-24 w-full items-start justify-center"
               >
-                <p>{slot.fullHour}</p>
+                <p>{sidebarCell.fullHour}</p>
               </li>
             ))}
           </ul>
         </li>
         <li className="bg-arsenic">
           <ul className="grid grid-cols-7">
-            {weekDates.map((date, index) => {
-              const dayName = settings.weekDays[index];
-              const isCurrentDay = isToday(date);
-              const dateValue = date.toISOString().split("T")[0];
-              const dayMenus = menus.filter((menu) =>
-                menu.menu_date.startsWith(dateValue),
+            {weekDates.map((dayCellDate, dayCellDateIndex) => {
+              const dayCellDay = weekGridSettings.weekDays[dayCellDateIndex];
+              const dayCellCurrent = isToday(dayCellDate);
+              const hourCellDate = dayCellDate.toISOString().split("T")[0];
+              const cardButtons = menus.filter((menu) =>
+                menu.menu_date.startsWith(hourCellDate),
               );
 
               return (
                 <li
-                  key={`week-day-${dayName}`}
+                  key={`day-${dayCellDay}`}
                   className="overflow-hidden border-r border-r-arsenic"
                 >
                   <ul className="flex flex-col">
                     <li className="flex w-full flex-row flex-wrap">
                       <DayCell
-                        day={dayName}
-                        date={date.getDate()}
-                        isCurrentDay={isCurrentDay}
+                        dayCellDay={dayCellDay}
+                        dayCellDate={dayCellDate.getDate()}
+                        dayCellCurrent={dayCellCurrent}
                       />
                       <SettingsCell />
                       <VisibilityCell />
                     </li>
                     <li className="relative flex flex-col border-t border-t-arsenic bg-dark_charcoal">
-                      {timeSlots.map((slot, slotIndex) => (
+                      {hourCells.map((hourCell, hourCellIndex) => (
                         <HourCell
-                          key={`${dayName}-hours-${slotIndex}`}
-                          hourCellDateValue={dateValue}
-                          hourCellFullValue={slot.fullHour}
-                          hourCellFullLabel={`Click and create a new menu at ${slot.fullHour}`}
+                          key={`${dayCellDay}-hourCell-${hourCellIndex}`}
+                          hourCellDate={hourCellDate}
+                          hourCellFullValue={hourCell.fullHour}
+                          hourCellFullLabel={`Click and create a new menu at ${hourCell.fullHour}`}
                           hourCellFullToggle={() =>
-                            toggleMenu(slot.fullHour, dateValue)
+                            hourCellToggleMenu(hourCell.fullHour, hourCellDate)
                           }
-                          hourCellHalfValue={slot.halfHour}
-                          hourCellHalfLabel={`Click and create a new menu at ${slot.halfHour}`}
+                          hourCellHalfValue={hourCell.halfHour}
+                          hourCellHalfLabel={`Click and create a new menu at ${hourCell.halfHour}`}
                           hourCellHalfToggle={() =>
-                            toggleMenu(slot.halfHour, dateValue)
+                            hourCellToggleMenu(hourCell.halfHour, hourCellDate)
                           }
                         />
                       ))}
-                      {dayMenus.map((menu, menuIndex) => (
+                      {cardButtons.map((cardButton, cardButtonIndex) => (
                         <CardButton
-                          key={`menu-card-${menuIndex}`}
-                          cardButtonTitle={menu.menu_title}
-                          cardButtonStartTime={menu.menu_start_time}
-                          cardButtonEndTime={menu.menu_end_time}
-                          cardButtonLocation={menu.menu_location}
-                          cardButtonLabel={`Click to open the menu for ${menu.menu_title}`}
-                          cardButtonToggle={() => openMenuWithDetails(menu)}
+                          key={`cardButton-${cardButtonIndex}`}
+                          cardButtonTitle={cardButton.menu_title}
+                          cardButtonLocation={cardButton.menu_location}
+                          cardButtonStartTime={cardButton.menu_start_time}
+                          cardButtonEndTime={cardButton.menu_end_time}
+                          cardButtonLabel={`Click to open the menu for ${cardButton.menu_title}`}
+                          cardButtonToggle={() => cardButtonToggle(cardButton)}
                           cardButtonStyle={{
                             top: `${calculateTopPosition(
-                              menu.menu_start_time,
+                              cardButton.menu_start_time,
                             )}px`,
                             height: `${calculateHeight(
-                              menu.menu_start_time,
-                              menu.menu_end_time,
+                              cardButton.menu_start_time,
+                              cardButton.menu_end_time,
                             )}px`,
                           }}
                         />
@@ -140,13 +140,13 @@ const WeekGrid = ({
         </li>
       </ul>
       <MenuModal
-        menuModalTitle={menuTitle}
-        menuModalLocation={menuLocation}
-        menuModalDate={menuDate}
-        menuModalStartTime={menuStartTime}
-        menuModalEndTime={menuEndTime}
-        menuModalVisibility={isMenuOpen}
-        menuModalToggle={() => setIsMenuOpen(false)}
+        menuModalTitle={menuModalTitle}
+        menuModalLocation={menuModalLocation}
+        menuModalDate={menuModalDate}
+        menuModalStartTime={menuModalStartTime}
+        menuModalEndTime={menuModalEndTime}
+        menuModalVisibility={menuModalVisibility}
+        menuModalToggle={() => setMenuModalVisibility(false)}
       />
     </>
   );

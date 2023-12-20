@@ -10,12 +10,12 @@ type Menu = {
 
 const useWeekGrid = () => {
   const [menus, setMenus] = useState<Menu[]>([]);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [menuTitle, setMenuTitle] = useState("");
-  const [menuLocation, setMenuLocation] = useState("");
-  const [menuDate, setMenuDate] = useState("");
-  const [menuStartTime, setMenuStartTime] = useState("");
-  const [menuEndTime, setMenuEndTime] = useState("");
+  const [menuModalVisibility, setMenuModalVisibility] = useState(false);
+  const [menuModalTitle, setMenuModalTitle] = useState("");
+  const [menuModalLocation, setMenuModalLocation] = useState("");
+  const [menuModalDate, setMenuModalDate] = useState("");
+  const [menuModalStartTime, setMenuModalStartTime] = useState("");
+  const [menuModalEndTime, setMenuModalEndTime] = useState("");
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -33,19 +33,19 @@ const useWeekGrid = () => {
     fetchMenus();
   }, []);
 
-  const toggleMenu = (startTime: string, date: string): void => {
-    setMenuStartTime(startTime);
-    setMenuDate(date);
-    setIsMenuOpen(!isMenuOpen);
+  const hourCellToggleMenu = (startTime: string, date: string): void => {
+    setMenuModalStartTime(startTime);
+    setMenuModalDate(date);
+    setMenuModalVisibility(!menuModalVisibility);
   };
 
-  const openMenuWithDetails = (menu: Menu): void => {
-    setMenuTitle(menu.menu_title);
-    setMenuLocation(menu.menu_location);
-    setMenuDate(menu.menu_date);
-    setMenuStartTime(menu.menu_start_time);
-    setMenuEndTime(menu.menu_end_time);
-    setIsMenuOpen(!isMenuOpen);
+  const cardButtonToggle = (menu: Menu): void => {
+    setMenuModalTitle(menu.menu_title);
+    setMenuModalLocation(menu.menu_location);
+    setMenuModalDate(menu.menu_date);
+    setMenuModalStartTime(menu.menu_start_time);
+    setMenuModalEndTime(menu.menu_end_time);
+    setMenuModalVisibility(!menuModalVisibility);
   };
 
   const isToday = (date: Date): boolean => {
@@ -85,15 +85,15 @@ const useWeekGrid = () => {
     menus,
     calculateTopPosition,
     calculateHeight,
-    isMenuOpen,
-    setIsMenuOpen,
-    toggleMenu,
-    menuTitle,
-    menuLocation,
-    menuDate,
-    menuStartTime,
-    menuEndTime,
-    openMenuWithDetails,
+    menuModalVisibility,
+    setMenuModalVisibility,
+    hourCellToggleMenu,
+    menuModalTitle,
+    menuModalLocation,
+    menuModalDate,
+    menuModalStartTime,
+    menuModalEndTime,
+    cardButtonToggle,
     isToday,
   };
 };

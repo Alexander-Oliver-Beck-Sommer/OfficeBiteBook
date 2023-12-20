@@ -7,8 +7,8 @@ export default function Calendar() {
   const {
     currentDate,
     setCurrentDate,
-    generateTimeSlots,
-    getWeekDates,
+    generateHourCells,
+    getDates,
     getCurrentWeekNumber,
     settings,
   } = useTimeCalculator();
@@ -20,9 +20,9 @@ export default function Calendar() {
         getCurrentWeekNumber={getCurrentWeekNumber}
       />
       <WeekGrid
-        generateTimeSlots={generateTimeSlots}
-        getWeekDates={getWeekDates}
-        settings={settings}
+        weekGridHours={generateHourCells}
+        weekGridDates={getDates}
+        weekGridSettings={settings}
       />
     </section>
   );

@@ -1,5 +1,5 @@
 type HourCellProps = {
-  hourCellDateValue?: string;
+  hourCellDate?: string;
   hourCellFullValue?: string;
   hourCellFullLabel?: string;
   hourCellHalfValue?: string;
@@ -9,7 +9,7 @@ type HourCellProps = {
 };
 
 const HourCell = ({
-  hourCellDateValue = "",
+  hourCellDate = "",
   hourCellFullValue = "",
   hourCellFullLabel = "",
   hourCellHalfValue = "",
@@ -21,14 +21,14 @@ const HourCell = ({
     <>
       <button
         value={hourCellFullValue}
-        data-date={hourCellDateValue}
+        data-date={hourCellDate}
         aria-label={hourCellFullLabel}
         onClick={hourCellFullToggle}
         className="h-12 cursor-default border-b border-dashed border-arsenic outline-1 outline-transparent transition duration-300 ease-in-out hover:bg-arsenic focus-visible:bg-arsenic focus-visible:outline-apple"
       ></button>
       <button
         value={hourCellHalfValue}
-        data-date={hourCellDateValue}
+        data-date={hourCellDate}
         aria-label={hourCellHalfLabel}
         onClick={hourCellHalfToggle}
         className="h-12 cursor-default border-b border-arsenic outline-1 outline-transparent transition duration-300 ease-in-out hover:bg-arsenic focus-visible:bg-arsenic focus-visible:outline-apple"
