@@ -96,7 +96,7 @@ const MenuModal = ({
           />
           <section className="grid grid-cols-30X70">
             <MenuSettings
-              menuSettingsTitle={menuTitle}
+              menuSettingsTitle={title}
               menuSettingsTitleChange={onTitleChange}
               menuSettingsLocation={location}
               menuSettingsLocationChange={onLocationChange}
