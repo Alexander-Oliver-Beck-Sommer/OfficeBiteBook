@@ -111,6 +111,14 @@ const useMenuModal = (
     }
   };
 
+  // This function is exclusively used to check if the start time & end time are valid with each other.
+  const convertTimeStringToDate = (timeString) => {
+    const [hours, minutes] = timeString.split(":").map(Number);
+    const date = new Date();
+    date.setHours(hours, minutes, 0, 0);
+    return date;
+  };
+
   // Function to validate the menu and notify the user if there any unfilled fields.
   const validateMenu = () => {
     let isValid = true;
@@ -121,6 +129,23 @@ const useMenuModal = (
       startTime: !!menuStartTime,
       endTime: !!menuEndTime,
     };
+
+    if (menuStartTime && menuEndTime) {
+      const startTimeDate = convertTimeStringToDate(menuStartTime);
+      const endTimeDate = convertTimeStringToDate(menuEndTime);
+      if (endTimeDate < startTimeDate) {
+        toast.warn("End time must be after start time");
+        isValid = false;
+        validation.endTime = false;
+      } else if (
+        endTimeDate.getTime() - startTimeDate.getTime() < 1800000 ||
+        endTimeDate.getTime() === startTimeDate.getTime()
+      ) {
+        toast.warn("Menu must be at least 30 minutes long");
+        isValid = false;
+        validation.endTime = false;
+      }
+    }
 
     type ValidationKeys = keyof typeof validation;
     type FieldValidation = {
@@ -148,7 +173,6 @@ const useMenuModal = (
   };
 
   // Function to cancel the menu.
-  // TODO: add functionality to remove entered values from the form.
   const cancelMenu = () => {
     if (
       window.confirm(
