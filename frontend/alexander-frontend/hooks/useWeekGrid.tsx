@@ -34,8 +34,11 @@ const useWeekGrid = () => {
   }, []);
 
   const hourCellToggleMenu = (startTime: string, date: string): void => {
-    setMenuModalStartTime(startTime);
+    setMenuModalTitle("");
+    setMenuModalLocation("");
     setMenuModalDate(date);
+    setMenuModalStartTime(startTime);
+    setMenuModalEndTime("");
     setMenuModalVisibility(!menuModalVisibility);
   };
 
