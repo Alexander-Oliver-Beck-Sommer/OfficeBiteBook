@@ -43,7 +43,7 @@ const WeekGrid = ({
     menuModalDate,
     menuModalStartTime,
     menuModalEndTime,
-    cardButtonToggle,
+    cardButtonToggleMenu,
     isToday,
   } = useWeekGrid();
 
@@ -120,7 +120,9 @@ const WeekGrid = ({
                           cardButtonStartTime={cardButton.menu_start_time}
                           cardButtonEndTime={cardButton.menu_end_time}
                           cardButtonLabel={`Click to open the menu for ${cardButton.menu_title}`}
-                          cardButtonToggle={() => cardButtonToggle(cardButton)}
+                          cardButtonToggleMenu={() =>
+                            cardButtonToggleMenu(cardButton)
+                          }
                           cardButtonStyle={{
                             top: `${calculateTopPosition(
                               cardButton.menu_start_time,

@@ -5,7 +5,7 @@ type CardButtonProps = {
   cardButtonLocation?: string;
   cardButtonStyle?: string;
   cardButtonLabel?: string;
-  cardButtonToggle?: () => void;
+  cardButtonToggleMenu?: () => void;
 };
 
 const CardButton = ({
@@ -15,20 +15,20 @@ const CardButton = ({
   cardButtonLocation = "",
   cardButtonStyle = "",
   cardButtonLabel = "",
-  cardButtonToggle = () => {},
+  cardButtonToggleMenu = () => {},
 }: CardButtonProps) => {
   return (
     <button
       className="group absolute left-0 block w-11/12 p-1 text-left"
       style={cardButtonStyle}
       aria-label={cardButtonLabel}
-      onClick={cardButtonToggle}
+      onClick={cardButtonToggleMenu}
     >
       <section className="flex h-full w-full flex-col justify-between overflow-auto rounded border-l-4 border-l-apple bg-eerie_black p-2 transition-all duration-300 ease-in-out group-hover:bg-raisin_black">
         <div>
           <h4>{cardButtonTitle}</h4>
           <p className="pt-1 text-sm">
-            {cardButtonStartTime} - {cardButtonStartTime}
+            {cardButtonStartTime} - {cardButtonEndTime}
           </p>
         </div>
 

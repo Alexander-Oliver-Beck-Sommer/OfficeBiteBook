@@ -65,9 +65,10 @@ const useWeekGrid = () => {
     setMenuModalStartTime(startTime);
     setMenuModalEndTime("");
     setMenuModalVisibility(!menuModalVisibility);
+    setMenuModalDishes([]);
   };
 
-  const cardButtonToggle = (menu: Menu): void => {
+  const cardButtonToggleMenu = (menu: Menu): void => {
     setMenuModalTitle(menu.menu_title);
     setMenuModalLocation(menu.menu_location);
     setMenuModalDate(menu.menu_date);
@@ -123,7 +124,7 @@ const useWeekGrid = () => {
     menuModalDate,
     menuModalStartTime,
     menuModalEndTime,
-    cardButtonToggle,
+    cardButtonToggleMenu,
     isToday,
   };
 };
