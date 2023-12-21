@@ -8,8 +8,19 @@ type Menu = {
   menu_end_time: string;
 };
 
+type Dish = {
+  dish_id: number;
+  menu_id: number;
+  dish_title: string;
+  dish_subtitle: string;
+  dish_description: string;
+  dish_thumbnail: string;
+  user_id: number;
+};
+
 const useWeekGrid = () => {
   const [menus, setMenus] = useState<Menu[]>([]);
+  const [menuModalDishes, setMenuModalDishes] = useState<Dish[]>([]);
   const [menuModalVisibility, setMenuModalVisibility] = useState(false);
   const [menuModalTitle, setMenuModalTitle] = useState("");
   const [menuModalLocation, setMenuModalLocation] = useState("");
@@ -18,20 +29,38 @@ const useWeekGrid = () => {
   const [menuModalEndTime, setMenuModalEndTime] = useState("");
 
   useEffect(() => {
-    const fetchMenus = async () => {
+    const fetchMenusAndDishes = async () => {
       try {
-        let { data: menusData, error } = await supabase
+        let { data: menusData, error: menusError } = await supabase
           .from("menus")
           .select("*");
-        if (error) throw error;
-        setMenus(menusData);
+        if (menusError) throw menusError;
+
+        const menusWithDishes = await Promise.all(
+          menusData.map(async (menu) => {
+            let { data: dishesData, error: dishesError } = await supabase
+              .from("dishes")
+              .select("*")
+              .eq("menu_id", menu.menu_id);
+
+            if (dishesError) throw dishesError;
+
+            return { ...menu, dishes: dishesData };
+          }),
+        );
+
+        setMenus(menusWithDishes);
       } catch (error) {
-        console.error("Error fetching menus:", error);
+        console.error("Error fetching menus and dishes:", error);
       }
     };
 
-    fetchMenus();
+    fetchMenusAndDishes();
   }, []);
+
+  useEffect(() => {
+    console.log("Menus with their respective dishes:", menus);
+  }, [menus]);
 
   const hourCellToggleMenu = (startTime: string, date: string): void => {
     setMenuModalTitle("");
@@ -49,6 +78,7 @@ const useWeekGrid = () => {
     setMenuModalStartTime(menu.menu_start_time);
     setMenuModalEndTime(menu.menu_end_time);
     setMenuModalVisibility(!menuModalVisibility);
+    setMenuModalDishes(menu.dishes);
   };
 
   const isToday = (date: Date): boolean => {
@@ -86,6 +116,7 @@ const useWeekGrid = () => {
 
   return {
     menus,
+    menuModalDishes,
     calculateTopPosition,
     calculateHeight,
     menuModalVisibility,
