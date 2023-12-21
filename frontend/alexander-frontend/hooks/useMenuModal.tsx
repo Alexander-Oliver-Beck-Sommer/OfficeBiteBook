@@ -22,6 +22,7 @@ const useMenuModal = (
   initialStartTime: string,
   menuVisible: boolean,
   toggle: () => void,
+  menuModalDishes: Dish[] = [],
 ) => {
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [expandedDish, setExpandedDish] = useState<number | null>(null);
@@ -60,7 +61,16 @@ const useMenuModal = (
   useEffect(() => {
     setMenuDate(initialDate);
     setMenuStartTime(initialStartTime);
-  }, [initialDate, initialStartTime]);
+    if (menuModalDishes && menuModalDishes.length > 0) {
+      const formattedDishes = menuModalDishes.map((menuDish) => ({
+        id: menuDish.dish_id,
+        title: menuDish.dish_title,
+        subtitle: menuDish.dish_subtitle,
+        description: menuDish.dish_description,
+      }));
+      setDishes(formattedDishes);
+    }
+  }, [initialDate, initialStartTime, menuModalDishes]);
 
   // Function to create a new dish. Each dish has a unique ID.
   const createDish = () => {

@@ -60,6 +60,7 @@ const MenuModal = ({
     menuModalStartTime,
     menuModalVisibility,
     menuModalToggle,
+    menuModalDishes,
   );
 
   // This useEffect hook is used to disable scrolling when the modal is open
