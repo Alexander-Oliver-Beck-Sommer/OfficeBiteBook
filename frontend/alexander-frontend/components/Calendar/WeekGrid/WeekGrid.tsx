@@ -32,6 +32,7 @@ const WeekGrid = ({
 }: WeekGridProps) => {
   const {
     menus,
+    menuModalDishes,
     calculateTopPosition,
     calculateHeight,
     menuModalVisibility,
@@ -140,6 +141,7 @@ const WeekGrid = ({
         </li>
       </ul>
       <MenuModal
+        menuModalDishes={menuModalDishes}
         menuModalTitle={menuModalTitle}
         menuModalLocation={menuModalLocation}
         menuModalDate={menuModalDate}

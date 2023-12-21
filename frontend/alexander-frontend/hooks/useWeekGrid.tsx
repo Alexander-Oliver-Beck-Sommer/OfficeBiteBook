@@ -58,10 +58,6 @@ const useWeekGrid = () => {
     fetchMenusAndDishes();
   }, []);
 
-  useEffect(() => {
-    console.log("Menus with their respective dishes:", menus);
-  }, [menus]);
-
   const hourCellToggleMenu = (startTime: string, date: string): void => {
     setMenuModalTitle("");
     setMenuModalLocation("");

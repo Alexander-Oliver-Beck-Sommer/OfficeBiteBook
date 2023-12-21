@@ -12,6 +12,7 @@ type MenuModalProps = {
   menuModalStartTime?: string;
   menuModalEndTime?: string;
   menuModalVisibility: boolean;
+  menuModalDishes?: [];
   menuModalToggle: () => void;
 };
 
@@ -22,6 +23,7 @@ const MenuModal = ({
   menuModalStartTime = "",
   menuModalEndTime = "",
   menuModalVisibility = false,
+  menuModalDishes,
   menuModalToggle = () => {},
 }: MenuModalProps) => {
   const {
@@ -53,7 +55,12 @@ const MenuModal = ({
     cancelMenu,
     acceptMenu,
     updateDish,
-  } = useMenuModal(menuModalDate, menuModalStartTime, menuModalVisibility, menuModalToggle);
+  } = useMenuModal(
+    menuModalDate,
+    menuModalStartTime,
+    menuModalVisibility,
+    menuModalToggle,
+  );
 
   // This useEffect hook is used to disable scrolling when the modal is open
   useEffect(() => {
