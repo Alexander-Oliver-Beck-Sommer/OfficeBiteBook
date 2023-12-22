@@ -2,20 +2,20 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { supabase } from "@/components/Supabase/supabaseClient";
 
-// type Dish = {
-//   id: number;
-//   title: string;
-//   subtitle: string;
-//   description: string;
-//   thumbnail: string;
-// };
+type Dish = {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  thumbnail: string;
+};
 
-// type UpdatedDishFields = {
-//   title?: string;
-//   subtitle?: string;
-//   description?: string;
-//   thumbnail?: string;
-// };
+type UpdatedDishFields = {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  thumbnail?: string;
+};
 
 const useMenuModal = (
   initialDate: string,
@@ -24,32 +24,32 @@ const useMenuModal = (
   toggle: () => void,
   menuModalDishes: Dish[] = [],
 ) => {
-  // const [dishes, setDishes] = useState<Dish[]>([]);
-  // const [expandedDish, setExpandedDish] = useState<number | null>(null);
-  // const [menuTitle, setMenuTitle] = useState("");
-  // const onTitleChange = (newTitle: string) => setMenuTitle(newTitle);
-  // const [menuLocation, setMenuLocation] = useState("");
-  // const onLocationChange = (newLocation: string) =>
-  //   setMenuLocation(newLocation);
-  // const [menuDate, setMenuDate] = useState(initialDate);
-  // const onDateChange = (newDate: string) => setMenuDate(newDate);
-  // const [menuStartTime, setMenuStartTime] = useState(initialStartTime);
-  // const onStartTimeChange = (newStartTime: string) =>
-  //   setMenuStartTime(newStartTime);
-  // const [menuEndTime, setMenuEndTime] = useState("");
-  // const onEndTimeChange = (newEndTime: string) => setMenuEndTime(newEndTime);
-  // const [dishTitle, setDishTitle] = useState("");
-  // const onDishTitleChange = (newDishTitle: string) =>
-  //   setDishTitle(newDishTitle);
-  // const [dishSubtitle, setDishSubtitle] = useState("");
-  // const onDishSubtitleChange = (newDishSubtitle: string) =>
-  //   setDishSubtitle(newDishSubtitle);
-  // const [dishDescription, setDishDescription] = useState("");
-  // const onDishDescriptionChange = (newDishDescription: string) =>
-  //   setDishDescription(newDishDescription);
-  // const [dishThumbnail, setDishThumbnail] = useState("");
-  // const onDishThumbnailChange = (newDishThumbnail: string) =>
-  //   setDishThumbnail(newDishThumbnail);
+  const [dishes, setDishes] = useState<Dish[]>([]);
+  const [expandedDish, setExpandedDish] = useState<number | null>(null);
+  const [menuTitle, setMenuTitle] = useState("");
+  const onTitleChange = (newTitle: string) => setMenuTitle(newTitle);
+  const [menuLocation, setMenuLocation] = useState("");
+  const onLocationChange = (newLocation: string) =>
+    setMenuLocation(newLocation);
+  const [menuDate, setMenuDate] = useState(initialDate);
+  const onDateChange = (newDate: string) => setMenuDate(newDate);
+  const [menuStartTime, setMenuStartTime] = useState(initialStartTime);
+  const onStartTimeChange = (newStartTime: string) =>
+    setMenuStartTime(newStartTime);
+  const [menuEndTime, setMenuEndTime] = useState("");
+  const onEndTimeChange = (newEndTime: string) => setMenuEndTime(newEndTime);
+  const [dishTitle, setDishTitle] = useState("");
+  const onDishTitleChange = (newDishTitle: string) =>
+    setDishTitle(newDishTitle);
+  const [dishSubtitle, setDishSubtitle] = useState("");
+  const onDishSubtitleChange = (newDishSubtitle: string) =>
+    setDishSubtitle(newDishSubtitle);
+  const [dishDescription, setDishDescription] = useState("");
+  const onDishDescriptionChange = (newDishDescription: string) =>
+    setDishDescription(newDishDescription);
+  const [dishThumbnail, setDishThumbnail] = useState("");
+  const onDishThumbnailChange = (newDishThumbnail: string) =>
+    setDishThumbnail(newDishThumbnail);
   const [validationState, setValidationState] = useState({
     title: true,
     location: true,
@@ -58,60 +58,62 @@ const useMenuModal = (
     endTime: true,
   });
 
-  // useEffect(() => {
-  //   setMenuDate(initialDate);
-  //   setMenuStartTime(initialStartTime);
-  //   if (menuModalDishes && menuModalDishes.length > 0) {
-  //     const formattedDishes = menuModalDishes.map((menuDish) => ({
-  //       id: menuDish.dish_id,
-  //       title: menuDish.dish_title,
-  //       subtitle: menuDish.dish_subtitle,
-  //       description: menuDish.dish_description,
-  //     }));
-  //     setDishes(formattedDishes);
-  //   }
-  // }, [initialDate, initialStartTime, menuModalDishes]);
+  useEffect(() => {
+    setMenuDate(initialDate);
+    setMenuStartTime(initialStartTime);
+    if (menuModalDishes && menuModalDishes.length > 0) {
+      const formattedDishes = menuModalDishes.map((menuDish) => ({
+        id: menuDish.dish_id,
+        title: menuDish.dish_title,
+        subtitle: menuDish.dish_subtitle,
+        description: menuDish.dish_description,
+      }));
+      setDishes(formattedDishes);
+    } else {
+      setDishes([]);
+    }
+  }, [initialDate, initialStartTime, menuModalDishes]);
 
   // Function to create a new dish. Each dish has a unique ID.
-  // const createDish = () => {
-  //   const newDish: Dish = {
-  //     id: Date.now(),
-  //     title: "",
-  //     subtitle: "",
-  //     description: "",
-  //     thumbnail: "",
-  //   };
-  //   setDishes([...dishes, newDish]);
-  // };
+  const createDish = () => {
+    const newDish: Dish = {
+      id: Date.now(),
+      title: "",
+      subtitle: "",
+      description: "",
+      thumbnail: "",
+    };
+    setDishes([...dishes, newDish]);
+  };
 
-  // const updateDish = (dishId: number, updatedFields: UpdatedDishFields) => {
-  //   setDishes(
-  //     dishes.map((dish) => {
-  //       return dish.id === dishId ? { ...dish, ...updatedFields } : dish;
-  //     }),
-  //   );
-  // };
+  const updateDish = (dishId: number, updatedFields: UpdatedDishFields) => {
+    setDishes(
+      dishes.map((dish) => {
+        return dish.id === dishId ? { ...dish, ...updatedFields } : dish;
+      }),
+    );
+  };
 
   // Function to delete dishes individually.
-  // const deleteDish = (dishId: number) => {
-  //   setDishes(dishes.filter((dish) => dish.id !== dishId));
-  // };
+  const deleteDish = (dishId: number) => {
+    setDishes(dishes.filter((dish) => dish.id !== dishId));
+  };
 
   // Function to clear (delete) all dishes from the menu.
-  // const clearAllDishes = () => {
-  //   // If there are no dishes, let the user know.
-  //   if (dishes.length === 0) {
-  //     toast.warn("No dishes to remove");
-  //   } else if (
-  //     window.confirm(
-  //       "Are you sure you want to remove all dishes? All changes will be lost.",
-  //     )
-  //   ) {
-  //     toast.success("All dishes removed");
-  //     // Clean the array of dishes.
-  //     setDishes([]);
-  //   }
-  // };
+  const clearAllDishes = () => {
+    // If there are no dishes, let the user know.
+    if (dishes.length === 0) {
+      toast.warn("No dishes to remove");
+    } else if (
+      window.confirm(
+        "Are you sure you want to remove all dishes? All changes will be lost.",
+      )
+    ) {
+      toast.success("All dishes removed");
+      // Clean the array of dishes.
+      setDishes([]);
+    }
+  };
 
   const toggleDish = (dishId: number) => {
     if (expandedDish === dishId) {
@@ -258,7 +260,6 @@ const useMenuModal = (
     setMenuDate(initialDate);
     setMenuStartTime(initialStartTime);
     setMenuEndTime("");
-    setDishes([]);
     setValidationState({
       title: true,
       location: true,
@@ -269,34 +270,34 @@ const useMenuModal = (
   };
 
   return {
-    // menuTitle,
-    // onTitleChange,
-    // menuLocation,
-    // onLocationChange,
-    // menuDate,
-    // onDateChange,
-    // menuStartTime,
-    // onStartTimeChange,
-    // menuEndTime,
-    // onEndTimeChange,
-    // dishTitle,
-    // onDishTitleChange,
-    // dishSubtitle,
-    // onDishSubtitleChange,
-    // dishDescription,
-    // onDishDescriptionChange,
-    // dishThumbnail,
-    // onDishThumbnailChange,
-    // dishes,
+    menuTitle,
+    onTitleChange,
+    menuLocation,
+    onLocationChange,
+    menuDate,
+    onDateChange,
+    menuStartTime,
+    onStartTimeChange,
+    menuEndTime,
+    onEndTimeChange,
+    dishTitle,
+    onDishTitleChange,
+    dishSubtitle,
+    onDishSubtitleChange,
+    dishDescription,
+    onDishDescriptionChange,
+    dishThumbnail,
+    onDishThumbnailChange,
+    dishes,
     clearAllDishes,
-    // createDish,
+    createDish,
     deleteDish,
     toggleDish,
     expandedDish,
     validationState,
     cancelMenu,
     acceptMenu,
-    // updateDish,
+    updateDish,
   };
 };
 

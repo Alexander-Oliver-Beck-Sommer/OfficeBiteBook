@@ -98,7 +98,7 @@ const MenuModal = ({
           } `}
         >
           <HeaderBar
-            headerBarTitle={menuModalTitle}
+            headerBarTitle={menuTitle}
             headerBarClear={clearAllDishes}
             headerBarDelete={menuModalToggle}
           />
