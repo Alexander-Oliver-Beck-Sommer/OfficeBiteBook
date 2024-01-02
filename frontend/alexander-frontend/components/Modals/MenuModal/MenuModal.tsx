@@ -34,6 +34,7 @@ const MenuModal = ({
   menuModalEndTimeChange,
   menuModalVisibility,
   menuModalCreate,
+  menuModalDelete,
   menuModalClose,
   menuModalDishes,
 }: MenuModalProps) => {
@@ -70,7 +71,10 @@ const MenuModal = ({
             menuModalVisibility ? "animate-fade-up animate-ease-in-out" : ""
           } `}
         >
-          <HeaderBar headerBarTitle={menuModalTitle} />
+          <HeaderBar
+            headerBarTitle={menuModalTitle}
+            headerBarDelete={menuModalDelete}
+          />
           <section className="grid grid-cols-30X70">
             <MenuSettings
               menuSettingsTitle={menuModalTitle}

@@ -46,6 +46,7 @@ const WeekGrid = ({
     menuModalVisibility,
     setMenuModalVisibility,
     menuModalCreate,
+    menuModalDelete,
     dishCreate,
     dayCellHighlight,
     hourCellToggle,
@@ -163,6 +164,7 @@ const WeekGrid = ({
         menuModalVisibility={menuModalVisibility}
         menuModalClose={() => setMenuModalVisibility(false)}
         menuModalCreate={menuModalCreate}
+        menuModalDelete={menuModalDelete}
         menuModalDishes={dishes}
       />
     </>

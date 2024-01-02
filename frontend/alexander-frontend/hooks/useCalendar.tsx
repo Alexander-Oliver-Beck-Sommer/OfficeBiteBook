@@ -218,6 +218,21 @@ const useCalendar = () => {
     }
   };
 
+  const menuModalDelete = async () => {
+    if (menuModalSource === "cardButton") {
+      try {
+        const { error } = await supabase
+          .from("menus")
+          .delete()
+          .match({ menu_id: menuModalId });
+        toast.success("Menu deleted!");
+        setMenuModalVisibility(false);
+      } catch (error) {
+        toast.error("Error deleting menu!");
+      }
+    }
+  };
+
   const dishCreate = () => {
     const newDish: Dish = {
       dish_id: Date.now(),
@@ -245,6 +260,7 @@ const useCalendar = () => {
     menuModalVisibility,
     setMenuModalVisibility,
     menuModalCreate,
+    menuModalDelete,
     dishCreate,
     dayCellHighlight,
     hourCellToggle,
