@@ -10,8 +10,8 @@ const VisibilityCell = ({ toggle = () => {} }: VisibilityCellProps) => {
       <ToggleInput
         label="Toggle the day to be either visible, or private."
         toggle={toggle}
-        trueValue="Visible"
-        falseValue="Private"
+        trueValue="Published"
+        falseValue="Unpublished"
       />
     </section>
   );
