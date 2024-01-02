@@ -4,7 +4,7 @@ import VisibilityCell from "@/components/Calendar/WeekGrid/child-components/Visi
 import HourCell from "@/components/Calendar/WeekGrid/child-components/HourCell";
 import MenuModal from "@/components/Modals/MenuModal/MenuModal";
 import CardButton from "@/components/Buttons/CardButton";
-import useWeekGrid from "@/hooks/useWeekGrid"; // This is where the magic happens
+import useCalendar from "@/hooks/useCalendar";
 
 type TimeSlot = {
   fullHour: string;
@@ -32,20 +32,21 @@ const WeekGrid = ({
 }: WeekGridProps) => {
   const {
     menus,
-    menuModalDishes,
-    calculateTopPosition,
-    calculateHeight,
-    menuModalVisibility,
-    setMenuModalVisibility,
-    hourCellToggleMenu,
+    dishes,
     menuModalTitle,
     menuModalLocation,
     menuModalDate,
     menuModalStartTime,
     menuModalEndTime,
-    cardButtonToggleMenu,
-    isToday,
-  } = useWeekGrid();
+    menuModalVisibility,
+    setMenuModalVisibility,
+    dishCreate,
+    dayCellHighlight,
+    hourCellToggle,
+    cardButtonToggle,
+    cardButtonPosition,
+    cardButtonHeight,
+  } = useCalendar();
 
   const hourCells = weekGridHours(weekGridSettings.timeFormat);
   const weekDates = weekGridDates();
@@ -74,7 +75,7 @@ const WeekGrid = ({
           <ul className="grid grid-cols-7">
             {weekDates.map((dayCellDate, dayCellDateIndex) => {
               const dayCellDay = weekGridSettings.weekDays[dayCellDateIndex];
-              const dayCellCurrent = isToday(dayCellDate);
+              const dayCellCurrent = dayCellHighlight(dayCellDate);
               const hourCellDate = dayCellDate.toISOString().split("T")[0];
               const cardButtons = menus.filter((menu) =>
                 menu.menu_date.startsWith(hourCellDate),
@@ -103,12 +104,12 @@ const WeekGrid = ({
                           hourCellFullValue={hourCell.fullHour}
                           hourCellFullLabel={`Click and create a new menu at ${hourCell.fullHour}`}
                           hourCellFullToggle={() =>
-                            hourCellToggleMenu(hourCell.fullHour, hourCellDate)
+                            hourCellToggle(hourCell.fullHour, hourCellDate)
                           }
                           hourCellHalfValue={hourCell.halfHour}
                           hourCellHalfLabel={`Click and create a new menu at ${hourCell.halfHour}`}
                           hourCellHalfToggle={() =>
-                            hourCellToggleMenu(hourCell.halfHour, hourCellDate)
+                            hourCellToggle(hourCell.halfHour, hourCellDate)
                           }
                         />
                       ))}
@@ -121,13 +122,13 @@ const WeekGrid = ({
                           cardButtonEndTime={cardButton.menu_end_time}
                           cardButtonLabel={`Click to open the menu for ${cardButton.menu_title}`}
                           cardButtonToggleMenu={() =>
-                            cardButtonToggleMenu(cardButton)
+                            cardButtonToggle(cardButton)
                           }
                           cardButtonStyle={{
-                            top: `${calculateTopPosition(
+                            top: `${cardButtonPosition(
                               cardButton.menu_start_time,
                             )}px`,
-                            height: `${calculateHeight(
+                            height: `${cardButtonHeight(
                               cardButton.menu_start_time,
                               cardButton.menu_end_time,
                             )}px`,
@@ -143,7 +144,7 @@ const WeekGrid = ({
         </li>
       </ul>
       <MenuModal
-        menuModalDishes={menuModalDishes}
+        menuModalDishes={dishes}
         menuModalTitle={menuModalTitle}
         menuModalLocation={menuModalLocation}
         menuModalDate={menuModalDate}

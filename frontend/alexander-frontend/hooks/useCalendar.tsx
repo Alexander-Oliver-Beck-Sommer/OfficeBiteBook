@@ -137,9 +137,6 @@ const useCalendar = () => {
   };
 
   const dishCreate = () => {
-    // if (menuModalSource === "hourCell") {
-    //   console.log("Create a dish from an hour cell");
-    // }
     const newDish: Dish = {
       dish_id: Date.now(),
       dish_title: "",
@@ -147,7 +144,7 @@ const useCalendar = () => {
       dish_description: "",
       dish_thumbnail: "",
     };
-    setDishes([...dishes, newDish]); 
+    setDishes([...dishes, newDish]);
   };
 
   return {
