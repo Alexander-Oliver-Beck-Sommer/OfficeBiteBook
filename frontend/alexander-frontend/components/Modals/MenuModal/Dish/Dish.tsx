@@ -4,6 +4,7 @@ import TextInput from "@/components/Inputs/TextInput";
 import ActionButton from "@/components/Buttons/ActionButton";
 import TextArea from "@/components/Inputs/TextArea";
 import ThumbnailButton from "@/components/Buttons/ThumbnailButton";
+import useCalendar from "@/hooks/useCalendar";
 
 type DishProps = {
   dishCount?: number;
@@ -18,8 +19,6 @@ type DishProps = {
   dishArchive?: () => void;
   dishReplace?: () => void;
   dishDelete?: () => void;
-  dishOpen?: boolean;
-  dishExpand?: () => void;
 };
 
 const Dish = ({
@@ -35,19 +34,20 @@ const Dish = ({
   dishArchive,
   dishReplace,
   dishDelete,
-  dishOpen,
-  dishExpand,
 }: DishProps) => {
   const [titleInput, setTitleInput] = useState(dishTitle);
   const [subtitleInput, setSubtitleInput] = useState(dishSubtitle);
   const [descriptionInput, setDescriptionInput] = useState(dishDescription);
   const [thumbnailInput, setThumbnailInput] = useState(dishThumbnail);
+  const [dishOpen, setDishOpen] = useState(false);
 
-  const dishOpenStyle = `${
-    dishOpen
-      ? "grid-rows-[1fr] visible opacity-100"
-      : "grid-rows-[0fr] invisible opacity-0"
-  }`;
+  const dishOpenStyle = dishOpen
+    ? "grid-rows-[1fr] visible opacity-100"
+    : "grid-rows-[0fr] invisible opacity-0";
+
+  const dishExpand = () => {
+    setDishOpen(!dishOpen);
+  };
 
   const handleTitleChange = (newValue: string) => {
     setTitleInput(newValue);

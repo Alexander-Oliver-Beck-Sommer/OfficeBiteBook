@@ -34,12 +34,18 @@ const WeekGrid = ({
     menus,
     dishes,
     menuModalTitle,
+    menuModalTitleChange,
     menuModalLocation,
+    menuModalLocationChange,
     menuModalDate,
+    menuModalDateChange,
     menuModalStartTime,
+    menuModalStartTimeChange,
     menuModalEndTime,
+    menuModalEndTimeChange,
     menuModalVisibility,
     setMenuModalVisibility,
+    menuModalCreate,
     dishCreate,
     dayCellHighlight,
     hourCellToggle,
@@ -144,14 +150,20 @@ const WeekGrid = ({
         </li>
       </ul>
       <MenuModal
-        menuModalDishes={dishes}
         menuModalTitle={menuModalTitle}
+        menuModalTitleChange={menuModalTitleChange}
         menuModalLocation={menuModalLocation}
+        menuModalLocationChange={menuModalLocationChange}
         menuModalDate={menuModalDate}
+        menuModalDateChange={menuModalDateChange}
         menuModalStartTime={menuModalStartTime}
+        menuModalStartTimeChange={menuModalStartTimeChange}
         menuModalEndTime={menuModalEndTime}
+        menuModalEndTimeChange={menuModalEndTimeChange}
         menuModalVisibility={menuModalVisibility}
-        menuModalToggle={() => setMenuModalVisibility(false)}
+        menuModalClose={() => setMenuModalVisibility(false)}
+        menuModalCreate={menuModalCreate}
+        menuModalDishes={dishes}
       />
     </>
   );

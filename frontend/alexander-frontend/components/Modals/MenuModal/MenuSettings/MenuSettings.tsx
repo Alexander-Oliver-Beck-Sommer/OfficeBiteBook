@@ -97,7 +97,7 @@ const MenuSettings = ({
       <li>
         <TextInput
           textInputType="title"
-          textInputValid={!menuSettingsValidation?.title ?? true}
+          // textInputValid={!menuSettingsValidation?.title ?? true}
           textInputPlaceholder={data.location_section.title.placeholder}
           textInputName={data.location_section.title.name}
           textInputLabel={data.location_section.title.label}
@@ -109,7 +109,7 @@ const MenuSettings = ({
       <li>
         <TextInput
           textInputType="location"
-          textInputValid={!menuSettingsValidation?.location ?? true}
+          // textInputValid={!menuSettingsValidation?.location ?? true}
           textInputPlaceholder={data.location_section.location.placeholder}
           textInputName={data.location_section.location.name}
           textInputLabel={data.location_section.location.label}
@@ -120,7 +120,7 @@ const MenuSettings = ({
       <li>
         <TextInput
           textInputType="date"
-          textInputValid={!menuSettingsValidation?.date ?? true}
+          // textInputValid={!menuSettingsValidation?.date ?? true}
           textInputName={data.location_section.date.name}
           textInputLabel={data.location_section.date.label}
           textInputValueChange={handleDateChange}
@@ -130,7 +130,7 @@ const MenuSettings = ({
       <li>
         <TextInput
           textInputType="time"
-          textInputValid={!menuSettingsValidation?.startTime ?? true}
+          // textInputValid={!menuSettingsValidation?.startTime ?? true}
           textInputName={data.location_section.start_time.name}
           textInputLabel={data.location_section.start_time.label}
           textInputValueChange={handleStartTimeChange}
@@ -140,7 +140,7 @@ const MenuSettings = ({
       <li>
         <TextInput
           textInputType="time"
-          textInputValid={!menuSettingsValidation?.endTime ?? true}
+          // textInputValid={!menuSettingsValidation?.endTime ?? true}
           textInputName={data.location_section.end_time.name}
           textInputLabel={data.location_section.end_time.label}
           textInputValueChange={handleEndTimeChange}

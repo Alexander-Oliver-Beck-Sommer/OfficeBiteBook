@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/components/Supabase/supabaseClient";
-import { Toast } from "react-toastify/dist/components";
+import { toast } from "react-toastify";
 
 type Menu = {
+  menu_id: number;
   menu_title: string;
   menu_location: string;
   menu_date: string;
@@ -21,7 +22,9 @@ type Dish = {
 const useCalendar = () => {
   const [selectedMenuId, setSelectedMenuId] = useState<number | null>(null);
   const [menus, setMenus] = useState<Menu[]>([]);
+  const [originalMenuData, setOriginalMenuData] = useState<Menu | null>(null);
   const [dishes, setDishes] = useState<Dish[]>([]);
+  const [menuModalId, setMenuModalId] = useState(null);
   const [menuModalTitle, setMenuModalTitle] = useState("");
   const [menuModalLocation, setMenuModalLocation] = useState("");
   const [menuModalDate, setMenuModalDate] = useState("");
@@ -29,6 +32,21 @@ const useCalendar = () => {
   const [menuModalEndTime, setMenuModalEndTime] = useState("");
   const [menuModalVisibility, setMenuModalVisibility] = useState(false);
   const [menuModalSource, setMenuModalSource] = useState("");
+  const [menuModalChanged, setMenuModalChanged] = useState(false);
+  const [dishTitle, setDishTitle] = useState("");
+  const [dishSubtitle, setDishSubtitle] = useState("");
+  const [dishDescription, setDishDescription] = useState("");
+  const [dishThumbnail, setDishThumbnail] = useState("");
+
+  const menuModalTitleChange = (newTitle: string) => setMenuModalTitle(newTitle); // prettier-ignore
+  const menuModalLocationChange = (newLocation: string) => setMenuModalLocation(newLocation); // prettier-ignore
+  const menuModalDateChange = (newDate: string) => setMenuModalDate(newDate); // prettier-ignore
+  const menuModalStartTimeChange = (newStartTime: string) => setMenuModalStartTime(newStartTime); // prettier-ignore
+  const menuModalEndTimeChange = (newEndTime: string) => setMenuModalEndTime(newEndTime); // prettier-ignore
+  const dishTitleChange = (newTitle: string) => setDishTitle(newTitle); // prettier-ignore
+  const dishSubtitleChange = (newSubtitle: string) => setDishSubtitle(newSubtitle); // prettier-ignore
+  const dishDescriptionChange = (newDescription: string) => setDishDescription(newDescription); // prettier-ignore
+  const dishThumbnailChange = (newThumbnail: string) => setDishThumbnail(newThumbnail); // prettier-ignore
 
   // Fetch data from Supabase (menus and dishes)
   useEffect(() => {
@@ -64,6 +82,7 @@ const useCalendar = () => {
   // Clear the menu modal when it is closed
   useEffect(() => {
     if (menuModalVisibility === false) {
+      setMenuModalId(null);
       setMenuModalTitle("");
       setMenuModalLocation("");
       setMenuModalDate("");
@@ -102,11 +121,13 @@ const useCalendar = () => {
   };
 
   const cardButtonToggle = (menu: Menu): void => {
+    setMenuModalId(menu.menu_id);
     setMenuModalTitle(menu.menu_title);
     setMenuModalLocation(menu.menu_location);
     setMenuModalDate(menu.menu_date);
     setMenuModalStartTime(menu.menu_start_time);
     setMenuModalEndTime(menu.menu_end_time);
+    setOriginalMenuData(menu);
     setMenuModalVisibility(true);
     setMenuModalSource("cardButton");
     setDishes(menu.dishes);
@@ -136,6 +157,41 @@ const useCalendar = () => {
     return ((endDate - startDate) / (1000 * 60 * 30)) * 48;
   };
 
+  const menuModalCreate = async () => {
+    if (menuModalSource === "cardButton" && originalMenuData) {
+      const hasChanges =
+        menuModalTitle !== originalMenuData.menu_title ||
+        menuModalLocation !== originalMenuData.menu_location ||
+        menuModalDate !== originalMenuData.menu_date ||
+        menuModalStartTime !== originalMenuData.menu_start_time ||
+        menuModalEndTime !== originalMenuData.menu_end_time;
+      if (hasChanges) {
+        try {
+          const { data: menuData, error: menuError } = await supabase
+            .from("menus")
+            .update({
+              menu_title: menuModalTitle,
+              menu_location: menuModalLocation,
+              menu_date: menuModalDate,
+              menu_start_time: menuModalStartTime,
+              menu_end_time: menuModalEndTime,
+            })
+            .match({ menu_id: menuModalId });
+          toast.success("Menu updated!");
+          setMenuModalVisibility(false);
+        } catch (error) {
+          toast.error("Error updating menu!");
+        }
+      } else {
+        toast.info("No changes to save!");
+      }
+    }
+
+    if (menuModalSource === "hourCell") {
+      console.log("logic for hour cell - create menu");
+    }
+  };
+
   const dishCreate = () => {
     const newDish: Dish = {
       dish_id: Date.now(),
@@ -155,8 +211,14 @@ const useCalendar = () => {
     menuModalDate,
     menuModalStartTime,
     menuModalEndTime,
+    menuModalTitleChange,
+    menuModalLocationChange,
+    menuModalDateChange,
+    menuModalStartTimeChange,
+    menuModalEndTimeChange,
     menuModalVisibility,
     setMenuModalVisibility,
+    menuModalCreate,
     dishCreate,
     dayCellHighlight,
     hourCellToggle,
