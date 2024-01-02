@@ -188,7 +188,33 @@ const useCalendar = () => {
     }
 
     if (menuModalSource === "hourCell") {
-      console.log("logic for hour cell - create menu");
+      const hasChanges =
+        menuModalTitle !== "" &&
+        menuModalLocation !== "" &&
+        menuModalDate !== "" &&
+        menuModalStartTime !== "" &&
+        menuModalEndTime !== "";
+      if (hasChanges) {
+        try {
+          const { data: menuData, error: menuError } = await supabase
+            .from("menus")
+            .insert([
+              {
+                menu_title: menuModalTitle,
+                menu_location: menuModalLocation,
+                menu_date: menuModalDate,
+                menu_start_time: menuModalStartTime,
+                menu_end_time: menuModalEndTime,
+              },
+            ]);
+          toast.success("Menu created!");
+          setMenuModalVisibility(false);
+        } catch (error) {
+          toast.error("Error creating menu!");
+        }
+      } else {
+        toast.info("No data to save!");
+      }
     }
   };
 
