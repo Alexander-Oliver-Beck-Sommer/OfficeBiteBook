@@ -1,3 +1,11 @@
+////////////////////////////////////////////////////////////////
+//                                                            ||
+//                                                            ||
+//   This hook is used to maintain all functionality for:     ||
+//               Calendar.tsx & MenuModal.tsx                 ||
+//                                                            ||
+//                                                            ||
+////////////////////////////////////////////////////////////////
 import { useState, useEffect } from "react";
 import { supabase } from "@/components/Supabase/supabaseClient";
 import { toast } from "react-toastify";
@@ -23,75 +31,59 @@ type Dish = {
 };
 
 const useCalendar = () => {
-  const [selectedMenuId, setSelectedMenuId] = useState<number | null>(null);
   const [menus, setMenus] = useState<Menu[]>([]);
-  const [originalMenuData, setOriginalMenuData] = useState<Menu | null>(null);
+  const [originalMenuData, setOriginalMenuData] = useState<Menu | null>(null); // Copy of the original menu to compare changes with
   const [dishes, setDishes] = useState<Dish[]>([]);
-  const [originalDishes, setOriginalDishes] = useState<Dish[]>([]);
-  const [menuModalId, setMenuModalId] = useState("");
+  const [originalDishes, setOriginalDishes] = useState<Dish[]>([]); // Copy of the original dishes to compare changes with
+  const [menuModalId, setMenuModalId] = useState(""); // Used to identify the menu - will always be an UUID
   const [menuModalTitle, setMenuModalTitle] = useState("");
   const [menuModalLocation, setMenuModalLocation] = useState("");
   const [menuModalDate, setMenuModalDate] = useState("");
   const [menuModalStartTime, setMenuModalStartTime] = useState("");
   const [menuModalEndTime, setMenuModalEndTime] = useState("");
   const [menuModalVisibility, setMenuModalVisibility] = useState(false);
-  const [menuModalSource, setMenuModalSource] = useState("");
-  const [menuModalChanged, setMenuModalChanged] = useState(false);
-  const [dishTitle, setDishTitle] = useState("");
-  const [dishSubtitle, setDishSubtitle] = useState("");
-  const [dishDescription, setDishDescription] = useState("");
-  const [dishThumbnail, setDishThumbnail] = useState("");
+  const [menuModalSource, setMenuModalSource] = useState(""); // Have the MenuModal component perform different actions based on the source of the modal
 
   const menuModalTitleChange = (newTitle: string) => setMenuModalTitle(newTitle); // prettier-ignore
   const menuModalLocationChange = (newLocation: string) => setMenuModalLocation(newLocation); // prettier-ignore
   const menuModalDateChange = (newDate: string) => setMenuModalDate(newDate); // prettier-ignore
   const menuModalStartTimeChange = (newStartTime: string) => setMenuModalStartTime(newStartTime); // prettier-ignore
   const menuModalEndTimeChange = (newEndTime: string) => setMenuModalEndTime(newEndTime); // prettier-ignore
-  const dishTitleChange = (newTitle: string) => setDishTitle(newTitle); // prettier-ignore
-  const dishSubtitleChange = (newSubtitle: string) => setDishSubtitle(newSubtitle); // prettier-ignore
-  const dishDescriptionChange = (newDescription: string) => setDishDescription(newDescription); // prettier-ignore
-  const dishThumbnailChange = (newThumbnail: string) => setDishThumbnail(newThumbnail); // prettier-ignore
 
-  // Fetch data from Supabase (menus and dishes)
+  // Render all existing menus as cardButtons on the calendar - updated content will be
   useEffect(() => {
-    const fetchMenusAndDishes = async () => {
-      try {
-        let { data: menusData, error: menusError } = await supabase
-          .from("menus")
-          .select("*");
-        if (menusError) throw menusError;
+    if (!menuModalVisibility) {
+      const fetchMenusAndDishes = async () => {
+        try {
+          let { data: menusData, error: menusError } = await supabase
+            .from("menus")
+            .select("*");
+          if (menusError) throw menusError;
 
-        const menusWithDishes = await Promise.all(
-          menusData.map(async (menu) => {
-            let { data: dishesData, error: dishesError } = await supabase
-              .from("dishes")
-              .select("*")
-              .eq("menu_id", menu.menu_id);
+          const menusWithDishes = await Promise.all(
+            menusData.map(async (menu) => {
+              let { data: dishesData, error: dishesError } = await supabase
+                .from("dishes")
+                .select("*")
+                .eq("menu_id", menu.menu_id);
 
-            if (dishesError) throw dishesError;
+              if (dishesError) throw dishesError;
 
-            return { ...menu, dishes: dishesData };
-          }),
-        );
+              return { ...menu, dishes: dishesData };
+            }),
+          );
 
-        setMenus(menusWithDishes);
-      } catch (error) {
-        console.error("Error fetching menus and dishes:", error);
-      }
-    };
+          setMenus(menusWithDishes);
+        } catch (error) {
+          console.error("Error fetching menus and dishes:", error);
+        }
+      };
 
-    fetchMenusAndDishes();
-  }, []);
+      fetchMenusAndDishes();
+    }
+  }, [menuModalVisibility]);
 
-  useEffect(() => {
-    console.log(menuModalId);
-  }, [menuModalId]);
-
-  useEffect(() => {
-    console.log(dishes);
-  }, [dishes, dishTitle]);
-
-  // Clear the menu modal when it is closed
+  // Clear data inside menu modal when closed again
   useEffect(() => {
     if (menuModalVisibility === false) {
       setMenuModalId("");
@@ -101,21 +93,13 @@ const useCalendar = () => {
       setMenuModalStartTime("");
       setMenuModalEndTime("");
       setMenuModalSource("");
+      setOriginalMenuData(null);
       setDishes([]);
+      setOriginalDishes([]);
     }
   }, [menuModalVisibility]);
 
-  // Remove this useEffect when the menu modal is finished
-  useEffect(() => {
-    if (menuModalSource === "hourCell") {
-      console.log("The Menu Modal was opened from an Hour Cell");
-    } else if (menuModalSource === "cardButton") {
-      console.log("The Menu Modal was opened from a Card Button");
-    } else {
-      console.log("The Menu modal was closed");
-    }
-  }, [menuModalSource]);
-
+  // Highlight the current day in the calendar
   const dayCellHighlight = (date: Date): boolean => {
     const currentDay = new Date();
     return (
@@ -125,6 +109,7 @@ const useCalendar = () => {
     );
   };
 
+  // Events that will be triggered when clicking on a <HourCell/> component
   const hourCellToggle = (startTime: string, date: string): void => {
     setMenuModalId(uuidv4());
     setMenuModalDate(date);
@@ -133,6 +118,7 @@ const useCalendar = () => {
     setMenuModalSource("hourCell");
   };
 
+  // Events that will be triggered when clicking on a <CardButton/> component
   const cardButtonToggle = (menu: Menu): void => {
     setMenuModalId(menu.menu_id);
     setMenuModalTitle(menu.menu_title);
@@ -147,6 +133,7 @@ const useCalendar = () => {
     setOriginalDishes(menu.dishes);
   };
 
+  // Calculate the position of the <CardButton/> at the top of its starting time
   const cardButtonPosition = (startTime: string): number => {
     const baseTime = new Date();
     baseTime.setHours(8, 0, 0);
@@ -158,6 +145,7 @@ const useCalendar = () => {
     return ((menuTime - baseTime) / (1000 * 60 * 30)) * 48;
   };
 
+  // Calculate the height of the <CardButton/> and have it span until its ending time
   const cardButtonHeight = (startTime: string, endTime: string): number => {
     const [startHours, startMinutes] = startTime.split(":").map(Number);
     const [endHours, endMinutes] = endTime.split(":").map(Number);
@@ -308,21 +296,37 @@ const useCalendar = () => {
     }
   };
 
+  // Delete the menu and all its dishes - only available when editing an existing menu
   const menuModalDelete = async () => {
     if (menuModalSource === "cardButton") {
       try {
-        const { error } = await supabase
+        const { error: menuError } = await supabase
           .from("menus")
           .delete()
           .match({ menu_id: menuModalId });
-        toast.success("Menu deleted!");
+
+        if (menuError) {
+          throw menuError;
+        }
+
+        const { error: dishesError } = await supabase
+          .from("dishes")
+          .delete()
+          .match({ menu_id: menuModalId });
+
+        if (dishesError) {
+          throw dishesError;
+        }
+
+        toast.success("Menu and dishes deleted!");
         setMenuModalVisibility(false);
       } catch (error) {
-        toast.error("Error deleting menu!");
+        toast.error("Error deleting menu and dishes!");
       }
     }
   };
 
+  // Add a new dish to the menu - new dishes can be identified by their dish_saved. TRUE = SAVED, FALSE = NEW
   const dishCreate = () => {
     const newDish: Dish = {
       dish_id: Date.now(),
@@ -336,12 +340,34 @@ const useCalendar = () => {
     setDishes([...dishes, newDish]);
   };
 
+  // Functionality to keep track of the newest data added or removed from individual dishes
   const dishUpdate = (dishId: number, dishFields: Dish) => {
     setDishes(
       dishes.map((dish) => {
         return dish.dish_id === dishId ? { ...dish, ...dishFields } : dish;
       }),
     );
+  };
+
+  // Have our dish be removed from the dishes array, as well as from the database
+  const dishDelete = async (dishId: number) => {
+    const updatedDishes = dishes.filter((dish) => dish.dish_id !== dishId);
+    setDishes(updatedDishes);
+
+    try {
+      const { error } = await supabase
+        .from("dishes")
+        .delete()
+        .match({ dish_id: dishId });
+
+      if (error) {
+        throw error;
+      }
+
+      toast.success("Dish deleted successfully!");
+    } catch (error) {
+      toast.error("Error deleting dish!");
+    }
   };
 
   return {
@@ -363,6 +389,7 @@ const useCalendar = () => {
     menuModalDelete,
     dishCreate,
     dishUpdate,
+    dishDelete,
     dayCellHighlight,
     hourCellToggle,
     cardButtonToggle,

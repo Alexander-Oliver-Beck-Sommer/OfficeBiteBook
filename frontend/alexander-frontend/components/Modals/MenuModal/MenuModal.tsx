@@ -36,6 +36,7 @@ const MenuModal = ({
   menuModalCreate,
   menuModalDishCreate,
   menuModalDishUpdate,
+  menuModalDishDelete,
   menuModalDelete,
   menuModalClose,
   menuModalDishes,
@@ -104,6 +105,7 @@ const MenuModal = ({
                     dishDescriptionChange={(newDescription) => menuModalDishUpdate(dish.dish_id, { dish_description: newDescription })} /* prettier-ignore */
                     dishThumbnail={dish.dish_thumbnail}
                     dishThumbnailChange={(newThumbnail) => menuModalDishUpdate(dish.dish_id, { dish_thumbnail: newThumbnail})} /* prettier-ignore */
+                    dishDelete={() => menuModalDishDelete(dish.dish_id)}
                   />
                 ))}
               </ul>
