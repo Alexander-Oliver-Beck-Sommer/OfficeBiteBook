@@ -19,6 +19,7 @@ type Dish = {
   dish_subtitle: string;
   dish_description: string;
   dish_thumbnail: string;
+  dish_saved: boolean;
 };
 
 const useCalendar = () => {
@@ -26,6 +27,7 @@ const useCalendar = () => {
   const [menus, setMenus] = useState<Menu[]>([]);
   const [originalMenuData, setOriginalMenuData] = useState<Menu | null>(null);
   const [dishes, setDishes] = useState<Dish[]>([]);
+  const [originalDishes, setOriginalDishes] = useState<Dish[]>([]);
   const [menuModalId, setMenuModalId] = useState("");
   const [menuModalTitle, setMenuModalTitle] = useState("");
   const [menuModalLocation, setMenuModalLocation] = useState("");
@@ -142,6 +144,7 @@ const useCalendar = () => {
     setMenuModalVisibility(true);
     setMenuModalSource("cardButton");
     setDishes(menu.dishes);
+    setOriginalDishes(menu.dishes);
   };
 
   const cardButtonPosition = (startTime: string): number => {
@@ -170,13 +173,17 @@ const useCalendar = () => {
 
   const menuModalCreate = async () => {
     if (menuModalSource === "cardButton" && originalMenuData) {
-      const hasChanges =
+      const hasMenuChanges =
         menuModalTitle !== originalMenuData.menu_title ||
         menuModalLocation !== originalMenuData.menu_location ||
         menuModalDate !== originalMenuData.menu_date ||
         menuModalStartTime !== originalMenuData.menu_start_time ||
         menuModalEndTime !== originalMenuData.menu_end_time;
-      if (hasChanges) {
+
+      const newDishes = dishes.filter((dish) => !dish.dish_saved);
+      const hasNewDishes = newDishes.length > 0;
+
+      if (hasMenuChanges) {
         try {
           const { data: menuData, error: menuError } = await supabase
             .from("menus")
@@ -188,13 +195,61 @@ const useCalendar = () => {
               menu_end_time: menuModalEndTime,
             })
             .match({ menu_id: menuModalId });
+          if (menuError) throw menuError;
           toast.success("Menu updated!");
-          setMenuModalVisibility(false);
         } catch (error) {
           toast.error("Error updating menu!");
         }
-      } else {
+      }
+
+      // Add new dishes if there are any
+      if (hasNewDishes) {
+        try {
+          const { data: dishesData, error: dishesError } = await supabase
+            .from("dishes")
+            .insert(newDishes.map((dish) => ({ ...dish, dish_saved: true })));
+          if (dishesError) throw dishesError;
+          toast.success("New dishes added!");
+        } catch (error) {
+          toast.error("Error adding new dishes!");
+        }
+      }
+
+      const originalDishesMap = new Map(
+        originalDishes.map((dish) => [dish.dish_id, dish]),
+      );
+
+      const updatedDishes = dishes
+        .filter((dish) => dish.dish_saved)
+        .filter((dish) => {
+          const originalDish = originalDishesMap.get(dish.dish_id);
+          return (
+            originalDish &&
+            (dish.dish_title !== originalDish.dish_title ||
+              dish.dish_subtitle !== originalDish.dish_subtitle ||
+              dish.dish_description !== originalDish.dish_description ||
+              dish.dish_thumbnail !== originalDish.dish_thumbnail)
+          );
+        });
+
+      // Update changed dishes
+      if (updatedDishes.length > 0) {
+        try {
+          const { data: updatedData, error: updateError } = await supabase
+            .from("dishes")
+            .upsert(updatedDishes);
+          if (updateError) throw updateError;
+          toast.success("Dishes updated successfully!");
+        } catch (error) {
+          toast.error("Error updating dishes: " + error.message);
+        }
+      }
+
+      // Provide feedback based on what actions were performed
+      if (!hasMenuChanges && !hasNewDishes && updatedDishes.length === 0) {
         toast.info("No changes to save!");
+      } else {
+        setMenuModalVisibility(false);
       }
     }
 
@@ -220,7 +275,6 @@ const useCalendar = () => {
                 menu_end_time: menuModalEndTime,
               },
             ]);
-          toast.success("Menu created!");
           if (dishes.length > 0) {
             try {
               const { data: dishesData, error: dishesError } = await supabase
@@ -233,15 +287,17 @@ const useCalendar = () => {
                     dish_subtitle: dish.dish_subtitle,
                     dish_description: dish.dish_description,
                     dish_thumbnail: dish.dish_thumbnail,
+                    dish_saved: true,
                   })),
                 );
-              toast.success("Dishes created!");
+              toast.success("Menu created!!");
               setMenuModalVisibility(false);
             } catch (error) {
               toast.error("Error creating dishes!");
             }
           } else {
             setMenuModalVisibility(false);
+            toast.success("Menu created!");
           }
         } catch (error) {
           toast.error("Error creating menu!");
@@ -275,6 +331,7 @@ const useCalendar = () => {
       dish_subtitle: "",
       dish_description: "",
       dish_thumbnail: "",
+      dish_saved: false,
     };
     setDishes([...dishes, newDish]);
   };
