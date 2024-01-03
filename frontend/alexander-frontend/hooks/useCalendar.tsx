@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/components/Supabase/supabaseClient";
 import { toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
 
 type Menu = {
-  menu_id: number;
+  menu_id: string;
   menu_title: string;
   menu_location: string;
   menu_date: string;
@@ -13,6 +14,7 @@ type Menu = {
 
 type Dish = {
   dish_id: number;
+  menu_id: string;
   dish_title: string;
   dish_subtitle: string;
   dish_description: string;
@@ -24,7 +26,7 @@ const useCalendar = () => {
   const [menus, setMenus] = useState<Menu[]>([]);
   const [originalMenuData, setOriginalMenuData] = useState<Menu | null>(null);
   const [dishes, setDishes] = useState<Dish[]>([]);
-  const [menuModalId, setMenuModalId] = useState(null);
+  const [menuModalId, setMenuModalId] = useState("");
   const [menuModalTitle, setMenuModalTitle] = useState("");
   const [menuModalLocation, setMenuModalLocation] = useState("");
   const [menuModalDate, setMenuModalDate] = useState("");
@@ -79,10 +81,18 @@ const useCalendar = () => {
     fetchMenusAndDishes();
   }, []);
 
+  useEffect(() => {
+    console.log(menuModalId);
+  }, [menuModalId]);
+
+  useEffect(() => {
+    console.log(dishes);
+  }, [dishes, dishTitle]);
+
   // Clear the menu modal when it is closed
   useEffect(() => {
     if (menuModalVisibility === false) {
-      setMenuModalId(null);
+      setMenuModalId("");
       setMenuModalTitle("");
       setMenuModalLocation("");
       setMenuModalDate("");
@@ -114,6 +124,7 @@ const useCalendar = () => {
   };
 
   const hourCellToggle = (startTime: string, date: string): void => {
+    setMenuModalId(uuidv4());
     setMenuModalDate(date);
     setMenuModalStartTime(startTime);
     setMenuModalVisibility(true);
@@ -189,6 +200,7 @@ const useCalendar = () => {
 
     if (menuModalSource === "hourCell") {
       const hasChanges =
+        menuModalId !== "" &&
         menuModalTitle !== "" &&
         menuModalLocation !== "" &&
         menuModalDate !== "" &&
@@ -200,6 +212,7 @@ const useCalendar = () => {
             .from("menus")
             .insert([
               {
+                menu_id: menuModalId,
                 menu_title: menuModalTitle,
                 menu_location: menuModalLocation,
                 menu_date: menuModalDate,
@@ -208,7 +221,28 @@ const useCalendar = () => {
               },
             ]);
           toast.success("Menu created!");
-          setMenuModalVisibility(false);
+          if (dishes.length > 0) {
+            try {
+              const { data: dishesData, error: dishesError } = await supabase
+                .from("dishes")
+                .insert(
+                  dishes.map((dish) => ({
+                    dish_id: dish.dish_id,
+                    menu_id: menuModalId,
+                    dish_title: dish.dish_title,
+                    dish_subtitle: dish.dish_subtitle,
+                    dish_description: dish.dish_description,
+                    dish_thumbnail: dish.dish_thumbnail,
+                  })),
+                );
+              toast.success("Dishes created!");
+              setMenuModalVisibility(false);
+            } catch (error) {
+              toast.error("Error creating dishes!");
+            }
+          } else {
+            setMenuModalVisibility(false);
+          }
         } catch (error) {
           toast.error("Error creating menu!");
         }
@@ -236,12 +270,21 @@ const useCalendar = () => {
   const dishCreate = () => {
     const newDish: Dish = {
       dish_id: Date.now(),
+      menu_id: menuModalId,
       dish_title: "",
       dish_subtitle: "",
       dish_description: "",
       dish_thumbnail: "",
     };
     setDishes([...dishes, newDish]);
+  };
+
+  const dishUpdate = (dishId: number, dishFields: Dish) => {
+    setDishes(
+      dishes.map((dish) => {
+        return dish.dish_id === dishId ? { ...dish, ...dishFields } : dish;
+      }),
+    );
   };
 
   return {
@@ -262,6 +305,7 @@ const useCalendar = () => {
     menuModalCreate,
     menuModalDelete,
     dishCreate,
+    dishUpdate,
     dayCellHighlight,
     hourCellToggle,
     cardButtonToggle,

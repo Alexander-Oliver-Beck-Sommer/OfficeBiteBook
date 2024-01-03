@@ -34,6 +34,8 @@ const MenuModal = ({
   menuModalEndTimeChange,
   menuModalVisibility,
   menuModalCreate,
+  menuModalDishCreate,
+  menuModalDishUpdate,
   menuModalDelete,
   menuModalClose,
   menuModalDishes,
@@ -95,15 +97,22 @@ const MenuModal = ({
                     key={dish.dish_id}
                     dishCount={menuModalDishes.indexOf(dish) + 1}
                     dishTitle={dish.dish_title}
+                    dishTitleChange={(newTitle) => menuModalDishUpdate(dish.dish_id, { dish_title: newTitle })} /* prettier-ignore */
                     dishSubtitle={dish.dish_subtitle}
+                    dishSubtitleChange={(newSubtitle) => menuModalDishUpdate(dish.dish_id, { dish_subtitle: newSubtitle })} /* prettier-ignore */
                     dishDescription={dish.dish_description}
+                    dishDescriptionChange={(newDescription) => menuModalDishUpdate(dish.dish_id, { dish_description: newDescription })} /* prettier-ignore */
                     dishThumbnail={dish.dish_thumbnail}
+                    dishThumbnailChange={(newThumbnail) => menuModalDishUpdate(dish.dish_id, { dish_thumbnail: newThumbnail})} /* prettier-ignore */
                   />
                 ))}
               </ul>
             </div>
           </section>
-          <FooterBar footerBarAcceptMenu={menuModalCreate} />
+          <FooterBar
+            footerBarDishCreate={menuModalDishCreate}
+            footerBarAcceptMenu={menuModalCreate}
+          />
         </section>
       </div>
     </section>

@@ -2,14 +2,14 @@ import data from "@/data/MenuModal.js";
 import ActionButton from "@/components/Buttons/ActionButton";
 
 type FooterBarProps = {
-  footerBarCreateDish?: () => void;
+  footerBarDishCreate?: () => void;
   footerBarImportDish?: () => void;
   footerBarCancelMenu?: () => void;
   footerBarAcceptMenu?: () => void;
 };
 
 const FooterBar = ({
-  footerBarCreateDish = () => {},
+  footerBarDishCreate = () => {},
   footerBarImportDish = () => {},
   footerBarCancelMenu = () => {},
   footerBarAcceptMenu = () => {},
@@ -24,7 +24,7 @@ const FooterBar = ({
             title="Add a new dish"
             name="Add"
             label={data.menu_buttons.accept.label}
-            toggle={footerBarCreateDish}
+            toggle={footerBarDishCreate}
           />
         </li>
         <li>
