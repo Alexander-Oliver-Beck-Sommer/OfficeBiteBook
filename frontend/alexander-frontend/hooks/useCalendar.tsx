@@ -349,6 +349,28 @@ const useCalendar = () => {
     );
   };
 
+  // Clear all dishes from the menu - only available when editing an existing menu
+  const dishesClear = async () => {
+    setDishes([]);
+
+    if (menuModalSource === "cardButton") {
+      try {
+        const { error } = await supabase
+          .from("dishes")
+          .delete()
+          .match({ menu_id: menuModalId });
+
+        if (error) {
+          throw error;
+        }
+
+        toast.success("Dishes cleared!");
+      } catch (error) {
+        toast.error("Error clearing dishes!");
+      }
+    }
+  };
+
   // Have our dish be removed from the dishes array, as well as from the database
   const dishDelete = async (dishId: number) => {
     const updatedDishes = dishes.filter((dish) => dish.dish_id !== dishId);
@@ -389,6 +411,7 @@ const useCalendar = () => {
     menuModalDelete,
     dishCreate,
     dishUpdate,
+    dishesClear,
     dishDelete,
     dayCellHighlight,
     hourCellToggle,

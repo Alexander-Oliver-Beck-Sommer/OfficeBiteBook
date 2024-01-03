@@ -36,6 +36,7 @@ const MenuModal = ({
   menuModalCreate,
   menuModalDishCreate,
   menuModalDishUpdate,
+  menuModalClearDishes,
   menuModalDishDelete,
   menuModalDelete,
   menuModalClose,
@@ -76,6 +77,7 @@ const MenuModal = ({
         >
           <HeaderBar
             headerBarTitle={menuModalTitle}
+            headerBarClear={menuModalClearDishes}
             headerBarDelete={menuModalDelete}
           />
           <section className="grid grid-cols-30X70">
