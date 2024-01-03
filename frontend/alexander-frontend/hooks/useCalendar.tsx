@@ -296,6 +296,17 @@ const useCalendar = () => {
     }
   };
 
+  // Have the user confirm if they want to cancel their changes, and do so if they do
+  const menuModalCancel = () => {
+    if (
+      window.confirm(
+        "Are you sure you want to cancel? All changes will be lost!",
+      )
+    ) {
+      setMenuModalVisibility(false);
+    }
+  };
+
   // Delete the menu and all its dishes - only available when editing an existing menu
   const menuModalDelete = async () => {
     if (menuModalSource === "cardButton") {
@@ -406,8 +417,8 @@ const useCalendar = () => {
     menuModalStartTimeChange,
     menuModalEndTimeChange,
     menuModalVisibility,
-    setMenuModalVisibility,
     menuModalCreate,
+    menuModalCancel,
     menuModalDelete,
     dishCreate,
     dishUpdate,

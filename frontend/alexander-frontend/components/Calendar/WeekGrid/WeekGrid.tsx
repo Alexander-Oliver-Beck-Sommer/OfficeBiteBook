@@ -44,8 +44,8 @@ const WeekGrid = ({
     menuModalEndTime,
     menuModalEndTimeChange,
     menuModalVisibility,
-    setMenuModalVisibility,
     menuModalCreate,
+    menuModalCancel,
     menuModalDelete,
     dishCreate,
     dishUpdate,
@@ -165,7 +165,7 @@ const WeekGrid = ({
         menuModalEndTime={menuModalEndTime}
         menuModalEndTimeChange={menuModalEndTimeChange}
         menuModalVisibility={menuModalVisibility}
-        menuModalClose={() => setMenuModalVisibility(false)}
+        menuModalCancel={menuModalCancel}
         menuModalCreate={menuModalCreate}
         menuModalDelete={menuModalDelete}
         menuModalDishCreate={dishCreate}
