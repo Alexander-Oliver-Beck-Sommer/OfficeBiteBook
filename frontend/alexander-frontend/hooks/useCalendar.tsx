@@ -111,11 +111,20 @@ const useCalendar = () => {
 
   // Events that will be triggered when clicking on a <HourCell/> component
   const hourCellToggle = (startTime: string, date: string): void => {
-    setMenuModalId(uuidv4());
+    const newMenuId = uuidv4();
+    setMenuModalId(newMenuId);
     setMenuModalDate(date);
     setMenuModalStartTime(startTime);
     setMenuModalVisibility(true);
     setMenuModalSource("hourCell");
+    setOriginalMenuData({
+      menu_id: newMenuId,
+      menu_title: "",
+      menu_location: "",
+      menu_date: date,
+      menu_start_time: startTime,
+      menu_end_time: "",
+    });
   };
 
   // Events that will be triggered when clicking on a <CardButton/> component
@@ -298,11 +307,25 @@ const useCalendar = () => {
 
   // Have the user confirm if they want to cancel their changes, and do so if they do
   const menuModalCancel = () => {
-    if (
-      window.confirm(
-        "Are you sure you want to cancel? All changes will be lost!",
-      )
-    ) {
+    const hasMenuChanges =
+      originalMenuData &&
+      (menuModalTitle !== originalMenuData.menu_title ||
+        menuModalLocation !== originalMenuData.menu_location ||
+        menuModalDate !== originalMenuData.menu_date ||
+        menuModalStartTime !== originalMenuData.menu_start_time ||
+        menuModalEndTime !== originalMenuData.menu_end_time);
+
+    const hasNewDishes = dishes.some((dish) => !dish.dish_saved);
+
+    if (hasMenuChanges || hasNewDishes) {
+      if (
+        window.confirm(
+          "Are you sure you want to cancel? All changes will be lost!",
+        )
+      ) {
+        setMenuModalVisibility(false);
+      }
+    } else {
       setMenuModalVisibility(false);
     }
   };
