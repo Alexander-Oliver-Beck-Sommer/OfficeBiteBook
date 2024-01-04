@@ -105,7 +105,7 @@ const Dish = ({
           />
           <ActionButton
             toggle={dishReplace}
-            icon="cycle"
+            icon="replace"
             label="Click to replace the dish with a dish from the archive"
             variant="icon"
             title="Replace the dish with a dish from the archive"

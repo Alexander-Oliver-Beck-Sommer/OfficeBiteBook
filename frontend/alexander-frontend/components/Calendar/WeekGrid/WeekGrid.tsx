@@ -49,7 +49,7 @@ const WeekGrid = ({
     menuModalDelete,
     dishCreate,
     dishUpdate,
-    dishesClear,
+    dishesErase,
     dishDelete,
     dayCellHighlight,
     hourCellToggle,
@@ -170,7 +170,7 @@ const WeekGrid = ({
         menuModalDelete={menuModalDelete}
         menuModalDishCreate={dishCreate}
         menuModalDishUpdate={dishUpdate}
-        menuModalClearDishes={dishesClear}
+        menuModalEraseDishes={dishesErase}
         menuModalDishDelete={dishDelete}
         menuModalDishes={dishes}
       />

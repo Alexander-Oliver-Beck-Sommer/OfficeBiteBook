@@ -83,7 +83,7 @@ const useCalendar = () => {
     }
   }, [menuModalVisibility]);
 
-  // Clear data inside menu modal when closed again
+  // Erase data inside menu modal when closed again
   useEffect(() => {
     if (menuModalVisibility === false) {
       setMenuModalId("");
@@ -383,8 +383,8 @@ const useCalendar = () => {
     );
   };
 
-  // Clear all dishes from the menu - only available when editing an existing menu
-  const dishesClear = async () => {
+  // Erase all dishes from the menu - only available when editing an existing menu
+  const dishesErase = async () => {
     setDishes([]);
 
     if (menuModalSource === "cardButton") {
@@ -398,9 +398,9 @@ const useCalendar = () => {
           throw error;
         }
 
-        toast.success("Dishes cleared!");
+        toast.success("Dishes erased!");
       } catch (error) {
-        toast.error("Error clearing dishes!");
+        toast.error("Error erasing dishes!");
       }
     }
   };
@@ -445,7 +445,7 @@ const useCalendar = () => {
     menuModalDelete,
     dishCreate,
     dishUpdate,
-    dishesClear,
+    dishesErase,
     dishDelete,
     dayCellHighlight,
     hourCellToggle,

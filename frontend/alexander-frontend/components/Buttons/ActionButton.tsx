@@ -1,7 +1,7 @@
 import AddIcon from "@/components/Icons/AddIcon";
-import CancelIcon from "@/components/Icons/CancelIcon";
+import CloseIcon from "@/components/Icons/CloseIcon";
 import CheckIcon from "@/components/Icons/CheckIcon";
-import CycleIcon from "@/components/Icons/CycleIcon";
+import ReplaceIcon from "@/components/Icons/ReplaceIcon";
 import DeleteIcon from "@/components/Icons/DeleteIcon";
 import UploadIcon from "@/components/Icons/UploadIcon";
 import DownArrowIcon from "../Icons/DownArrowIcon";
@@ -9,20 +9,20 @@ import SettingsIcon from "../Icons/SettingsIcon";
 import InventoryIcon from "../Icons/InventoryIcon";
 import TemplateIcon from "../Icons/TemplateIcon";
 import MenuIcon from "../Icons/MenuIcon";
-import CleanIcon from "../Icons/CleanIcon";
+import EraseIcon from "../Icons/EraseIcon";
 
 const icons = (icon: string) => {
   switch (icon) {
     case "cancel":
-      return <CancelIcon variant="outlined" />;
+      return <CloseIcon />;
     case "check":
-      return <CheckIcon variant="outlined" />;
+      return <CheckIcon />;
     case "add":
-      return <AddIcon variant="outlined" />;
-    case "cycle":
-      return <CycleIcon />;
+      return <AddIcon />;
+    case "replace":
+      return <ReplaceIcon />;
     case "delete":
-      return <DeleteIcon variant="outlined" />;
+      return <DeleteIcon />;
     case "downArrow":
       return <DownArrowIcon />;
     case "upload":
@@ -35,8 +35,8 @@ const icons = (icon: string) => {
       return <TemplateIcon variant="outlined" />;
     case "menu":
       return <MenuIcon variant="outlined" />;
-    case "clear":
-      return <CleanIcon variant="outlined" />;
+    case "erase":
+      return <EraseIcon variant="outlined" />;
     default:
       return null;
   }

@@ -4,18 +4,18 @@ import data from "@/data/MenuModal.js";
 
 type HeaderBarProps = {
   headerBarTitle?: string;
-  headerBarMenu?: () => void;
-  headerBarTemplate?: () => void;
-  headerBarClear?: () => void;
+  headerBarDish?: () => void;
+  headerBarImport?: () => void;
+  headerBarErase?: () => void;
   headerBarDelete?: () => void;
 };
 
 const HeaderBar = ({
   headerBarTitle = "",
-  headerBarMenu,
-  headerBarTemplate,
-  headerBarClear,
-  headerBarDelete,
+  headerBarDish = () => {},
+  headerBarImport = () => {},
+  headerBarErase = () => {},
+  headerBarDelete = () => {},
 }: HeaderBarProps) => {
   const [title, setTitle] = useState(headerBarTitle);
 
@@ -33,32 +33,32 @@ const HeaderBar = ({
       <ul className="flex gap-5">
         <li>
           <ActionButton
-            icon="menu"
+            icon="add"
             variant="icon-border"
-            title="Save or import a menu from the archive"
+            title="Add a new dish"
             name="Add"
             label={data.menu_buttons.accept.label}
-            toggle={headerBarMenu}
+            toggle={headerBarDish}
           />
         </li>
         <li>
           <ActionButton
-            icon="template"
+            icon="inventory"
             variant="icon-border"
-            title="Save or import a menu template from the archive"
-            name="Menu Templates"
-            label={data.menu_buttons.accept.label}
-            toggle={headerBarTemplate}
+            title="Import a dish from the archive"
+            name="Import"
+            label={data.menu_buttons.cancel.label}
+            toggle={headerBarImport}
           />
         </li>
         <li>
           <ActionButton
-            icon="clear"
+            icon="erase"
             variant="icon-border"
-            title="Clear all dishes from the menu"
-            name="clear"
+            title="Erase all dishes from the menu"
+            name="erase"
             label={data.menu_buttons.accept.label}
-            toggle={headerBarClear}
+            toggle={headerBarErase}
           />
         </li>
         <li>

@@ -10,11 +10,11 @@ const InventoryIcon: React.FC<InventoryIconProps> = ({ className }) => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24"
-        viewBox="0 -960 960 960"
+        viewBox="0 0 24 24"
         width="24"
         className={className}
       >
-        <path d="M200-80q-33 0-56.5-23.5T120-160v-451q-18-11-29-28.5T80-680v-120q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v120q0 23-11 40.5T840-611v451q0 33-23.5 56.5T760-80H200Zm0-520v440h560v-440H200Zm-40-80h640v-120H160v120Zm200 280h240v-80H360v80Zm120 20Z" />
+        <path d="M3 10H2V4.00293C2 3.44903 2.45531 3 2.9918 3H21.0082C21.556 3 22 3.43788 22 4.00293V10H21V20.0015C21 20.553 20.5551 21 20.0066 21H3.9934C3.44476 21 3 20.5525 3 20.0015V10ZM19 10H5V19H19V10ZM4 5V8H20V5H4ZM9 12H15V14H9V12Z" />
       </svg>
     </>
   );

@@ -36,7 +36,7 @@ const MenuModal = ({
   menuModalCreate,
   menuModalDishCreate,
   menuModalDishUpdate,
-  menuModalClearDishes,
+  menuModalEraseDishes,
   menuModalDishDelete,
   menuModalDelete,
   menuModalCancel,
@@ -77,7 +77,8 @@ const MenuModal = ({
         >
           <HeaderBar
             headerBarTitle={menuModalTitle}
-            headerBarClear={menuModalClearDishes}
+            headerBarDish={menuModalDishCreate}
+            headerBarErase={menuModalEraseDishes}
             headerBarDelete={menuModalDelete}
           />
           <section className="grid grid-cols-30X70">
@@ -114,7 +115,6 @@ const MenuModal = ({
             </div>
           </section>
           <FooterBar
-            footerBarDishCreate={menuModalDishCreate}
             footerBarCancelMenu={menuModalCancel}
             footerBarAcceptMenu={menuModalCreate}
           />
