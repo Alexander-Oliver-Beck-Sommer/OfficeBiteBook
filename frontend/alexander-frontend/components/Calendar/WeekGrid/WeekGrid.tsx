@@ -68,7 +68,6 @@ const WeekGrid = ({
           <ul className="flex flex-col">
             <li className="flex flex-col">
               <section className="h-20"></section>
-              <section className="h-12"></section>
               <section className="h-14"></section>
             </li>
             {hourCells.map((sidebarCell, sidebarCellIndex) => (
@@ -103,7 +102,6 @@ const WeekGrid = ({
                         dayCellDate={dayCellDate.getDate()}
                         dayCellCurrent={dayCellCurrent}
                       />
-                      <SettingsCell />
                       <VisibilityCell />
                     </li>
                     <li className="relative flex flex-col border-t border-t-arsenic bg-dark_charcoal">

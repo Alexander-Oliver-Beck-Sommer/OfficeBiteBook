@@ -10,11 +10,11 @@ const LeftArrowIcon: React.FC<LeftArrowIconProps> = ({ className }) => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24"
-        viewBox="0 -960 960 960"
+        viewBox="0 0 24 24"
         width="24"
         className={className}
       >
-        <path d="m432-480 156 156q11 11 11 28t-11 28q-11 11-28 11t-28-11L348-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 28-11t28 11q11 11 11 28t-11 28L432-480Z" />
+        <path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z" />
       </svg>
     </>
   );

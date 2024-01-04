@@ -10,11 +10,11 @@ const DownArrowIcon: React.FC<DownArrowIconProps> = ({ className }) => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24"
-        viewBox="0 -960 960 960"
+        viewBox="0 0 24 24"
         width="24"
         className={className}
       >
-        <path d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
+        <path d="M11.9999 13.1714L16.9497 8.22168L18.3639 9.63589L11.9999 15.9999L5.63599 9.63589L7.0502 8.22168L11.9999 13.1714Z" />
       </svg>
     </>
   );

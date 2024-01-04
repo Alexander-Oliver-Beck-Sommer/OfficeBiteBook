@@ -6,6 +6,7 @@ import DeleteIcon from "@/components/Icons/DeleteIcon";
 import UploadIcon from "@/components/Icons/UploadIcon";
 import DownArrowIcon from "../Icons/DownArrowIcon";
 import SettingsIcon from "../Icons/SettingsIcon";
+import SettingsListIcon from "../Icons/SettingsList";
 import InventoryIcon from "../Icons/InventoryIcon";
 import TemplateIcon from "../Icons/TemplateIcon";
 import MenuIcon from "../Icons/MenuIcon";
@@ -29,6 +30,8 @@ const icons = (icon: string) => {
       return <UploadIcon />;
     case "settings":
       return <SettingsIcon />;
+    case "settingsList":
+      return <SettingsListIcon />;
     case "inventory":
       return <InventoryIcon />;
     case "template":
@@ -36,7 +39,7 @@ const icons = (icon: string) => {
     case "menu":
       return <MenuIcon variant="outlined" />;
     case "erase":
-      return <EraseIcon variant="outlined" />;
+      return <EraseIcon />;
     default:
       return null;
   }

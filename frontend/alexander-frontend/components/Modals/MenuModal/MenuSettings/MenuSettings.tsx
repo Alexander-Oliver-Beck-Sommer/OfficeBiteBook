@@ -96,8 +96,7 @@ const MenuSettings = ({
     <ul className="flex flex-col gap-5 border-y-2 border-eerie_black bg-raisin_black px-6 py-4">
       <li>
         <TextInput
-          textInputType="title"
-          // textInputValid={!menuSettingsValidation?.title ?? true}
+          textInputType="text"
           textInputPlaceholder={data.location_section.title.placeholder}
           textInputName={data.location_section.title.name}
           textInputLabel={data.location_section.title.label}
@@ -108,8 +107,7 @@ const MenuSettings = ({
       </li>
       <li>
         <TextInput
-          textInputType="location"
-          // textInputValid={!menuSettingsValidation?.location ?? true}
+          textInputType="text"
           textInputPlaceholder={data.location_section.location.placeholder}
           textInputName={data.location_section.location.name}
           textInputLabel={data.location_section.location.label}
@@ -120,7 +118,6 @@ const MenuSettings = ({
       <li>
         <TextInput
           textInputType="date"
-          // textInputValid={!menuSettingsValidation?.date ?? true}
           textInputName={data.location_section.date.name}
           textInputLabel={data.location_section.date.label}
           textInputValueChange={handleDateChange}
@@ -130,7 +127,6 @@ const MenuSettings = ({
       <li>
         <TextInput
           textInputType="time"
-          // textInputValid={!menuSettingsValidation?.startTime ?? true}
           textInputName={data.location_section.start_time.name}
           textInputLabel={data.location_section.start_time.label}
           textInputValueChange={handleStartTimeChange}
@@ -140,7 +136,6 @@ const MenuSettings = ({
       <li>
         <TextInput
           textInputType="time"
-          // textInputValid={!menuSettingsValidation?.endTime ?? true}
           textInputName={data.location_section.end_time.name}
           textInputLabel={data.location_section.end_time.label}
           textInputValueChange={handleEndTimeChange}

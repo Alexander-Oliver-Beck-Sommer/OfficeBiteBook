@@ -10,11 +10,11 @@ const RightArrowIcon: React.FC<RightArrowIconProps> = ({ className }) => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24"
-        viewBox="0 -960 960 960"
+        viewBox="0 0 24 24"
         width="24"
         className={className}
       >
-        <path d="M504-480 348-636q-11-11-11-28t11-28q11-11 28-11t28 11l184 184q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13L404-268q-11 11-28 11t-28-11q-11-11-11-28t11-28l156-156Z" />
+        <path d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z" />
       </svg>
     </>
   );

@@ -1,4 +1,5 @@
 import LockIcon from "@/components/Icons/LockIcon";
+import SettingsIcon from "@/components/Icons/SettingsIcon";
 
 type DayCellProps = {
   dayCellDay?: string;
@@ -19,13 +20,18 @@ const DayCell = ({
     <section
       className={`flex h-20 w-full items-center justify-between border-t-4 bg-raisin_black px-4 ${style}`}
     >
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 ">
         <h2 className="leading-none">{dayCellDate}</h2>
         <h5>{dayCellDay}</h5>
       </div>
-      <button onClick={toggle}>
-        <LockIcon className="h-6 w-6 fill-ghost_white" variant="outlined" />
-      </button>
+      <div className="flex gap-4">
+        <button onClick={toggle}>
+          <LockIcon className="h-6 w-6 fill-ghost_white" />
+        </button>
+        <button onClick={toggle}>
+          <SettingsIcon className="h-6 w-6 fill-ghost_white" />
+        </button>
+      </div>
     </section>
   );
 };

@@ -3,14 +3,12 @@ import React, { useRef } from "react";
 import TimeIcon from "@/components/Icons/TimeIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
 import LocationIcon from "@/components/Icons/LocationIcon";
-import TitleIcon from "@/components/Icons/TitleIcon";
+import TextIcon from "@/components/Icons/TextIcon";
 
 const types = (type: string) => {
   switch (type) {
-    case "title":
-      return <TitleIcon />;
-    case "location":
-      return <LocationIcon />;
+    case "text":
+      return <TextIcon />;
     case "date":
       return <CalendarIcon />;
     case "time":

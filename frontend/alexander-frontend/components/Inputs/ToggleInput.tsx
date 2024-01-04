@@ -13,7 +13,7 @@ const ToggleInput = ({
   falseValue,
   toggle = () => {},
 }: ToggleInputProps) => {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -21,9 +21,9 @@ const ToggleInput = ({
 
   return (
     <>
-      <h4 className={`${isChecked ? "text-apple" : "text-sunset_orange"}`}>
+      <h5 className={`${isChecked ? "text-apple" : "text-sunset_orange"}`}>
         {isChecked ? trueValue : falseValue}
-      </h4>
+      </h5>
       <label className="flex cursor-pointer select-none items-center">
         <div className="relative">
           <input
@@ -35,13 +35,13 @@ const ToggleInput = ({
             className="sr-only"
           />
           <div
-            className={`box block h-8 w-14 rounded-full border transition-all duration-300 ease-in-out ${
+            className={`box block h-6 w-12 rounded-full border transition-all duration-300 ease-in-out ${
               isChecked ? "border-apple" : "border-sunset_orange"
             }`}
           ></div>
           <div
-            className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full transition-all duration-300 ease-in-out ${
-              isChecked ? "translate-x-full bg-apple" : "bg-sunset_orange"
+            className={`absolute left-1 top-1 flex h-4 w-4 items-center justify-center rounded-full transition-all duration-300 ease-in-out ${
+              isChecked ? "translate-x-6 bg-apple" : "bg-sunset_orange"
             }`}
           ></div>
         </div>
