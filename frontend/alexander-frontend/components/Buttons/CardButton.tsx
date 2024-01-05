@@ -1,3 +1,5 @@
+import BowlIcon from "../Icons/BowlIcon";
+
 type CardButtonProps = {
   cardButtonTitle?: string;
   cardButtonStartTime?: string;
@@ -5,6 +7,7 @@ type CardButtonProps = {
   cardButtonLocation?: string;
   cardButtonStyle?: string;
   cardButtonLabel?: string;
+  cardButtonDishes?: number;
   cardButtonToggleMenu?: () => void;
 };
 
@@ -15,6 +18,7 @@ const CardButton = ({
   cardButtonLocation = "",
   cardButtonStyle = "",
   cardButtonLabel = "",
+  cardButtonDishes,
   cardButtonToggleMenu = () => {},
 }: CardButtonProps) => {
   return (
@@ -32,8 +36,14 @@ const CardButton = ({
           </h6>
         </div>
 
-        <div>
+        <div className="flex items-center justify-between">
           <h6 className="font-normal">{cardButtonLocation}</h6>
+          {cardButtonDishes !== 0 && (
+            <div className="flex items-center justify-between gap-1">
+              <h5 className="font-medium">{cardButtonDishes}</h5>
+              <BowlIcon className="h-5 fill-apple" />
+            </div>
+          )}
         </div>
       </section>
     </button>

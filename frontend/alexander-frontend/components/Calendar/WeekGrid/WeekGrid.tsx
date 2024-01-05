@@ -135,6 +135,7 @@ const WeekGrid = ({
                           cardButtonLocation={cardButton.menu_location}
                           cardButtonStartTime={cardButton.menu_start_time}
                           cardButtonEndTime={cardButton.menu_end_time}
+                          cardButtonDishes={cardButton.menu_dishes_amount}
                           cardButtonLabel={`Click to open the menu for ${cardButton.menu_title}`}
                           cardButtonToggleMenu={() =>
                             cardButtonToggle(cardButton)

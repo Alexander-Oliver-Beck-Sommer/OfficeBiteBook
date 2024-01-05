@@ -18,6 +18,7 @@ type Menu = {
   menu_date: string;
   menu_start_time: string;
   menu_end_time: string;
+  menu_dishes_amount: number;
 };
 
 type Dish = {
@@ -46,6 +47,7 @@ const useCalendar = () => {
   const [menuModalDateValid, setMenuModalDateValid] = useState(false);
   const [menuModalStartTimeValid, setMenuModalStartTimeValid] = useState(false);
   const [menuModalEndTimeValid, setMenuModalEndTimeValid] = useState(false);
+  const [menuModalDishesAmount, setMenuModalDishesAmount] = useState(0); // Amount of dishes in the menu - used to display the amount of dishes in the <CardButton/> component
   const [menuModalVisibility, setMenuModalVisibility] = useState(false); // When the modals visibility is set to false, all data from within the menu is erased
   const [menuModalSource, setMenuModalSource] = useState(""); // Have the MenuModal component perform different actions based on the source of the modal
   const [menuModalDeleteDisabled, setMenuModalDeleteDisabled] = useState(true); // Disable the delete button if the menu is new and has no dishes
@@ -98,11 +100,14 @@ const useCalendar = () => {
     }
   }, [dishes]);
 
+  useEffect(() => {
+    setMenuModalDishesAmount(dishes.length);
+  }, [dishes]);
+
   // Disable the delete button if the menu is and not already saved
   useEffect(() => {
     if (menuModalSource === "hourCell") {
       setMenuModalDeleteDisabled(true);
-      console.log("Hello");
     } else {
       setMenuModalDeleteDisabled(false);
     }
@@ -123,6 +128,7 @@ const useCalendar = () => {
       setMenuModalDateValid(false);
       setMenuModalStartTimeValid(false);
       setMenuModalEndTimeValid(false);
+      setMenuModalDishesAmount(0);
       setOriginalMenuData(null);
       setDishes([]);
       setOriginalDishes([]);
@@ -154,6 +160,7 @@ const useCalendar = () => {
       menu_date: date,
       menu_start_time: startTime,
       menu_end_time: "",
+      menu_dishes_amount: 0,
     });
   };
 
@@ -165,6 +172,7 @@ const useCalendar = () => {
     setMenuModalDate(menu.menu_date);
     setMenuModalStartTime(menu.menu_start_time);
     setMenuModalEndTime(menu.menu_end_time);
+    setMenuModalDishesAmount(menu.menu_dishes_amount);
     setOriginalMenuData(menu);
     setMenuModalVisibility(true);
     setMenuModalSource("cardButton");
@@ -267,7 +275,8 @@ const useCalendar = () => {
         menuModalLocation.trim() !== originalMenuData.menu_location ||
         menuModalDate !== originalMenuData.menu_date ||
         menuModalStartTime !== originalMenuData.menu_start_time ||
-        menuModalEndTime !== originalMenuData.menu_end_time;
+        menuModalEndTime !== originalMenuData.menu_end_time ||
+        menuModalDishesAmount !== originalMenuData.menu_dishes_amount;
 
       const newDishes = dishes.filter((dish) => !dish.dish_saved);
       const hasNewDishes = newDishes.length > 0;
@@ -282,6 +291,7 @@ const useCalendar = () => {
               menu_date: menuModalDate,
               menu_start_time: menuModalStartTime,
               menu_end_time: menuModalEndTime,
+              menu_dishes_amount: menuModalDishesAmount,
             })
             .match({ menu_id: menuModalId });
           if (menuError) throw menuError;
@@ -349,7 +359,8 @@ const useCalendar = () => {
         menuModalLocation.trim() !== "" &&
         menuModalDate !== "" &&
         menuModalStartTime !== "" &&
-        menuModalEndTime !== "";
+        menuModalEndTime !== "" &&
+        menuModalDishesAmount !== 0;
       if (hasChanges) {
         try {
           const { data: menuData, error: menuError } = await supabase
@@ -362,6 +373,7 @@ const useCalendar = () => {
                 menu_date: menuModalDate,
                 menu_start_time: menuModalStartTime,
                 menu_end_time: menuModalEndTime,
+                menu_dishes_amount: menuModalDishesAmount,
               },
             ]);
           if (dishes.length > 0) {
@@ -405,7 +417,8 @@ const useCalendar = () => {
         menuModalLocation.trim() !== originalMenuData.menu_location ||
         menuModalDate !== originalMenuData.menu_date ||
         menuModalStartTime !== originalMenuData.menu_start_time ||
-        menuModalEndTime !== originalMenuData.menu_end_time);
+        menuModalEndTime !== originalMenuData.menu_end_time ||
+        menuModalDishesAmount !== originalMenuData.menu_dishes_amount);
 
     const hasNewDishes = dishes.some((dish) => !dish.dish_saved);
 
