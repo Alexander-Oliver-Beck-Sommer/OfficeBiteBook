@@ -7,7 +7,9 @@ type HeaderBarProps = {
   headerBarDish?: () => void;
   headerBarImport?: () => void;
   headerBarErase?: () => void;
+  headerBarEraseDisabled?: boolean;
   headerBarDelete?: () => void;
+  headerBarDeleteDisabled?: boolean;
 };
 
 const HeaderBar = ({
@@ -15,7 +17,9 @@ const HeaderBar = ({
   headerBarDish = () => {},
   headerBarImport = () => {},
   headerBarErase = () => {},
+  headerBarEraseDisabled = true,
   headerBarDelete = () => {},
+  headerBarDeleteDisabled = true,
 }: HeaderBarProps) => {
   const [title, setTitle] = useState(headerBarTitle);
 
@@ -59,6 +63,7 @@ const HeaderBar = ({
             name="erase"
             label={data.menu_buttons.accept.label}
             toggle={headerBarErase}
+            disabled={headerBarEraseDisabled}
           />
         </li>
         <li>
@@ -69,6 +74,7 @@ const HeaderBar = ({
             name="Delete"
             label={data.menu_buttons.cancel.label}
             toggle={headerBarDelete}
+            disabled={headerBarDeleteDisabled}
           />
         </li>
       </ul>

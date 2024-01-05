@@ -48,6 +48,8 @@ const useCalendar = () => {
   const [menuModalEndTimeValid, setMenuModalEndTimeValid] = useState(false);
   const [menuModalVisibility, setMenuModalVisibility] = useState(false); // When the modals visibility is set to false, all data from within the menu is erased
   const [menuModalSource, setMenuModalSource] = useState(""); // Have the MenuModal component perform different actions based on the source of the modal
+  const [menuModalDeleteDisabled, setMenuModalDeleteDisabled] = useState(true); // Disable the delete button if the menu is new and has no dishes
+  const [dishesEraseDisabled, setDishesEraseDisabled] = useState(true); // Disable the erase button if there are no dishes to erase
   const menuModalTitleChange = (newTitle: string) => setMenuModalTitle(newTitle); // prettier-ignore
   const menuModalLocationChange = (newLocation: string) => setMenuModalLocation(newLocation); // prettier-ignore
   const menuModalDateChange = (newDate: string) => setMenuModalDate(newDate); // prettier-ignore
@@ -86,6 +88,25 @@ const useCalendar = () => {
       fetchMenusAndDishes();
     }
   }, [menuModalVisibility]);
+
+  // Disable the erase button if there are no dishes to erase
+  useEffect(() => {
+    if (dishes.length > 0) {
+      setDishesEraseDisabled(false);
+    } else {
+      setDishesEraseDisabled(true);
+    }
+  }, [dishes]);
+
+  // Disable the delete button if the menu is and not already saved
+  useEffect(() => {
+    if (menuModalSource === "hourCell") {
+      setMenuModalDeleteDisabled(true);
+      console.log("Hello");
+    } else {
+      setMenuModalDeleteDisabled(false);
+    }
+  }, [menuModalSource]);
 
   // Erase entered values and validation states for the menu modal when closed again
   useEffect(() => {
@@ -519,9 +540,11 @@ const useCalendar = () => {
     menuModalCreate,
     menuModalCancel,
     menuModalDelete,
+    menuModalDeleteDisabled,
     dishCreate,
     dishUpdate,
     dishesErase,
+    dishesEraseDisabled,
     dishDelete,
     dayCellHighlight,
     hourCellToggle,

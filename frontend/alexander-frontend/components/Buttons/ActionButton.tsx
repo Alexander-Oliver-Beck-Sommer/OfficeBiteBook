@@ -3,13 +3,9 @@ import CloseIcon from "@/components/Icons/CloseIcon";
 import CheckIcon from "@/components/Icons/CheckIcon";
 import ReplaceIcon from "@/components/Icons/ReplaceIcon";
 import DeleteIcon from "@/components/Icons/DeleteIcon";
-import UploadIcon from "@/components/Icons/UploadIcon";
 import DownArrowIcon from "../Icons/DownArrowIcon";
 import SettingsIcon from "../Icons/SettingsIcon";
-import SettingsListIcon from "../Icons/SettingsList";
 import InventoryIcon from "../Icons/InventoryIcon";
-import TemplateIcon from "../Icons/TemplateIcon";
-import MenuIcon from "../Icons/MenuIcon";
 import EraseIcon from "../Icons/EraseIcon";
 
 const icons = (icon: string) => {
@@ -26,18 +22,10 @@ const icons = (icon: string) => {
       return <DeleteIcon />;
     case "downArrow":
       return <DownArrowIcon />;
-    case "upload":
-      return <UploadIcon />;
     case "settings":
       return <SettingsIcon />;
-    case "settingsList":
-      return <SettingsListIcon />;
     case "inventory":
       return <InventoryIcon />;
-    case "template":
-      return <TemplateIcon variant="outlined" />;
-    case "menu":
-      return <MenuIcon variant="outlined" />;
     case "erase":
       return <EraseIcon />;
     default:
@@ -45,14 +33,18 @@ const icons = (icon: string) => {
   }
 };
 
-const variants = (variant: string) => {
+const variants = (variant: string, isDisabled: boolean) => {
+  const iconBorderDisabled = isDisabled
+    ? "fill-arsenic border-dark_charcoal"
+    : "fill-ghost_white border-arsenic hover:bg-arsenic";
+
   switch (variant) {
     case "filled":
       return "bg-arsenic border-transparent border-2 px-5 py-3 fill-ghost_white rounded";
     case "outlined":
       return "border-arsenic bg-eerie_black border-2 px-5 py-3 fill-ghost_white rounded hover:bg-arsenic";
     case "icon-border":
-      return "border-arsenic bg-eerie_black border-2 px-3 py-3 fill-ghost_white rounded hover:bg-arsenic";
+      return `bg-eerie_black border-2 px-3 py-3 rounded ${iconBorderDisabled}`;
     case "icon":
       return "px-3 py-3 fill-ghost_white rounded hover:bg-arsenic";
     default:
@@ -67,6 +59,7 @@ type ActionButtonsProps = {
   label?: string;
   name?: string;
   title?: string;
+  disabled?: boolean;
   toggle?: () => void;
 };
 
@@ -76,17 +69,19 @@ const ActionButton = ({
   variant = "",
   label = "",
   name = "",
-  toggle = () => {},
   title = "",
+  disabled = false,
+  toggle = () => {},
 }: ActionButtonsProps) => {
   const iconValue = icons(icon);
-  const variantValue = variants(variant);
+  const variantValue = variants(variant, disabled);
 
   return (
     <button
       title={title}
       onClick={toggle}
       aria-label={label}
+      {...(disabled ? { disabled: true } : {})}
       className={`flex items-center justify-center gap-2 text-ghost_white ${variantValue} ${style}`}
     >
       {variant !== "icon" && variant !== "icon-border" && <h4>{name}</h4>}

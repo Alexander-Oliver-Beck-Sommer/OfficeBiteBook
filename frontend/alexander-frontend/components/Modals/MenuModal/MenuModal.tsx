@@ -46,8 +46,10 @@ const MenuModal = ({
   menuModalDishCreate,
   menuModalDishUpdate,
   menuModalEraseDishes,
+  menuModalEraseDishesDisabled,
   menuModalDishDelete,
   menuModalDelete,
+  menuModalDeleteDisabled,
   menuModalCancel,
   menuModalDishes,
 }: MenuModalProps) => {
@@ -88,7 +90,9 @@ const MenuModal = ({
             headerBarTitle={menuModalTitle}
             headerBarDish={menuModalDishCreate}
             headerBarErase={menuModalEraseDishes}
+            headerBarEraseDisabled={menuModalEraseDishesDisabled}
             headerBarDelete={menuModalDelete}
+            headerBarDeleteDisabled={menuModalDeleteDisabled}
           />
           <section className="grid grid-cols-30X70">
             <MenuSettings
