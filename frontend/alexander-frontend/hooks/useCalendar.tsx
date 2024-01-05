@@ -477,22 +477,28 @@ const useCalendar = () => {
 
   // Erase all dishes from the menu - only available when editing an existing menu
   const dishesErase = async () => {
-    setDishes([]);
+    if (
+      window.confirm(
+        "Are you sure you want to erase all dishes? This action cannot be undone!",
+      )
+    ) {
+      setDishes([]);
 
-    if (menuModalSource === "cardButton") {
-      try {
-        const { error } = await supabase
-          .from("dishes")
-          .delete()
-          .match({ menu_id: menuModalId });
+      if (menuModalSource === "cardButton") {
+        try {
+          const { error } = await supabase
+            .from("dishes")
+            .delete()
+            .match({ menu_id: menuModalId });
 
-        if (error) {
-          throw error;
+          if (error) {
+            throw error;
+          }
+
+          toast.success("Dishes erased!");
+        } catch (error) {
+          toast.error("Error erasing dishes!");
         }
-
-        toast.success("Dishes erased!");
-      } catch (error) {
-        toast.error("Error erasing dishes!");
       }
     }
   };
