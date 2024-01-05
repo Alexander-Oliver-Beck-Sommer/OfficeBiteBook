@@ -35,14 +35,19 @@ const WeekGrid = ({
     dishes,
     menuModalTitle,
     menuModalTitleChange,
+    menuModalTitleValid,
     menuModalLocation,
     menuModalLocationChange,
+    menuModalLocationValid,
     menuModalDate,
     menuModalDateChange,
+    menuModalDateValid,
     menuModalStartTime,
     menuModalStartTimeChange,
+    menuModalStartTimeValid,
     menuModalEndTime,
     menuModalEndTimeChange,
+    menuModalEndTimeValid,
     menuModalVisibility,
     menuModalCreate,
     menuModalCancel,
@@ -154,14 +159,19 @@ const WeekGrid = ({
       <MenuModal
         menuModalTitle={menuModalTitle}
         menuModalTitleChange={menuModalTitleChange}
+        menuModalTitleValid={menuModalTitleValid}
         menuModalLocation={menuModalLocation}
         menuModalLocationChange={menuModalLocationChange}
+        menuModalLocationValid={menuModalLocationValid}
         menuModalDate={menuModalDate}
         menuModalDateChange={menuModalDateChange}
+        menuModalDateValid={menuModalDateValid}
         menuModalStartTime={menuModalStartTime}
         menuModalStartTimeChange={menuModalStartTimeChange}
+        menuModalStartTimeValid={menuModalStartTimeValid}
         menuModalEndTime={menuModalEndTime}
         menuModalEndTimeChange={menuModalEndTimeChange}
+        menuModalEndTimeValid={menuModalEndTimeValid}
         menuModalVisibility={menuModalVisibility}
         menuModalCancel={menuModalCancel}
         menuModalCreate={menuModalCreate}

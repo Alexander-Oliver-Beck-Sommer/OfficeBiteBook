@@ -35,21 +35,25 @@ const TextInput = ({
   textInputValue = "",
   textInputName = "",
   textInputPlaceholder = "",
-  textInputValid = false,
-  textInputRequired = false,
+  textInputValid,
+  textInputRequired,
   textInputValueChange = () => {},
 }: TextInputProps) => {
   const inputField = useRef<HTMLInputElement>(null);
 
-  const invalidText = textInputValid ? "text-sunset_orange" : "";
+  const invalidText = textInputValid
+    ? "text-sunset_orange"
+    : "text-ghost_white";
 
-  const invalidBorder = textInputValid ? "border-sunset_orange" : "";
+  const invalidBorder = textInputValid
+    ? "border-sunset_orange"
+    : "border-arsenic";
 
   const invalidPlaceholder = textInputValid
     ? "placeholder:text-sunset_orange"
-    : "";
+    : "placeholder:text-cool_grey";
 
-  const invalidIcon = textInputValid ? "fill-sunset_orange" : "";
+  const invalidIcon = textInputValid ? "fill-sunset_orange" : "fill-arsenic";
 
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -95,19 +99,19 @@ const TextInput = ({
     <section className="relative flex flex-col gap-4">
       <label htmlFor={textInputName} className="w-fit">
         <p
-          className={`origin-bottom-left text-ghost_white transition-all duration-300 ease-in-out ${textInputLabelFocus} ${invalidText}`}
+          className={`origin-bottom-left  transition-all duration-300 ease-in-out ${textInputLabelFocus} ${invalidText}`}
         >
           {textInputName}
         </p>
       </label>
       <div
-        className={`relative w-full overflow-hidden rounded border-2  border-arsenic transition-all duration-300 ease-in-out ${invalidBorder}`}
+        className={`relative w-full overflow-hidden rounded border-2 transition-all duration-300 ease-in-out ${invalidBorder}`}
       >
         <input
           ref={inputField}
           type={textInputType}
           placeholder={textInputPlaceholder}
-          className={`w-full bg-eerie_black p-4 text-ghost_white placeholder-opacity-100 outline-0 transition-all duration-300 ease-in-out placeholder:text-cool_grey ${invalidPlaceholder} placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0`}
+          className={`w-full bg-eerie_black p-4 placeholder-opacity-100 outline-0 transition-all duration-300 ease-in-out ${invalidPlaceholder} ${invalidText} placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0`}
           id={textInputName}
           name={textInputName}
           onBlur={textInputBlur}
@@ -123,7 +127,7 @@ const TextInput = ({
           onBlur={textInputBlur}
           onFocus={textInputFocus}
           onClick={textInputIconClick}
-          className={`absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-eerie_black fill-arsenic ${invalidIcon}`}
+          className={`absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-eerie_black ${invalidIcon}`}
         >
           {textInputIcon}
         </button>

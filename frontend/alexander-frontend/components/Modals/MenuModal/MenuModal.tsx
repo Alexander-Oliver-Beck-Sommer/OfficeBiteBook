@@ -7,16 +7,20 @@ import FooterBar from "@/components/Modals/MenuModal/FooterBar/FooterBar";
 type MenuModalProps = {
   menuModalTitle: string;
   menuModalTitleChange: string;
+  menuModalTitleValid: boolean;
   menuModalLocation: string;
   menuModalLocationChange: string;
-  menuModalVisibility: boolean;
+  menuModalLocationValid: boolean;
+  menuModalDate: string;
   menuModalDateChange: string;
-  menuModalDate: string;
-  menuModalDate: string;
+  menuModalDateValid: boolean;
   menuModalStartTime: string;
   menuModalStartTimeChange: string;
+  menuModalStartTimeValid: boolean;
   menuModalEndTime: string;
   menuModalEndTimeChange: string;
+  menuModalEndTimeValid: boolean;
+  menuModalVisibility: boolean;
   menuModalCancel: () => void;
   menuModalDishes: [];
 };
@@ -24,14 +28,19 @@ type MenuModalProps = {
 const MenuModal = ({
   menuModalTitle,
   menuModalTitleChange,
+  menuModalTitleValid,
   menuModalLocation,
   menuModalLocationChange,
+  menuModalLocationValid,
   menuModalDate,
   menuModalDateChange,
+  menuModalDateValid,
   menuModalStartTime,
   menuModalStartTimeChange,
+  menuModalStartTimeValid,
   menuModalEndTime,
   menuModalEndTimeChange,
+  menuModalEndTimeValid,
   menuModalVisibility,
   menuModalCreate,
   menuModalDishCreate,
@@ -85,14 +94,19 @@ const MenuModal = ({
             <MenuSettings
               menuSettingsTitle={menuModalTitle}
               menuSettingsTitleChange={menuModalTitleChange}
+              menuSettingsTitleValid={menuModalTitleValid}
               menuSettingsLocation={menuModalLocation}
               menuSettingsLocationChange={menuModalLocationChange}
+              menuSettingsLocationValid={menuModalLocationValid}
               menuSettingsDate={menuModalDate}
               menuSettingsDateChange={menuModalDateChange}
+              menuSettingsDateValid={menuModalDateValid}
               menuSettingsStartTime={menuModalStartTime}
               menuSettingsStartTimeChange={menuModalStartTimeChange}
+              menuSettingsStartTimeValid={menuModalStartTimeValid}
               menuSettingsEndTime={menuModalEndTime}
               menuSettingsEndTimeChange={menuModalEndTimeChange}
+              menuSettingsEndTimeValid={menuModalEndTimeValid}
             />
             <div className="pattern relative overflow-scroll">
               <ul className="absolute inset-0 flex flex-col gap-8 px-8 py-8">

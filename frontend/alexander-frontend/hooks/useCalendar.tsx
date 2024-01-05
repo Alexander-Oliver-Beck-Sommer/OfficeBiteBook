@@ -32,8 +32,8 @@ type Dish = {
 
 const useCalendar = () => {
   const [menus, setMenus] = useState<Menu[]>([]);
-  const [originalMenuData, setOriginalMenuData] = useState<Menu | null>(null); // Copy of the original menu to compare changes with
   const [dishes, setDishes] = useState<Dish[]>([]);
+  const [originalMenuData, setOriginalMenuData] = useState<Menu[]>([]); // Copy of the original menu to compare changes with
   const [originalDishes, setOriginalDishes] = useState<Dish[]>([]); // Copy of the original dishes to compare changes with
   const [menuModalId, setMenuModalId] = useState(""); // Used to identify the menu - will always be an UUID
   const [menuModalTitle, setMenuModalTitle] = useState("");
@@ -41,9 +41,13 @@ const useCalendar = () => {
   const [menuModalDate, setMenuModalDate] = useState("");
   const [menuModalStartTime, setMenuModalStartTime] = useState("");
   const [menuModalEndTime, setMenuModalEndTime] = useState("");
-  const [menuModalVisibility, setMenuModalVisibility] = useState(false);
+  const [menuModalTitleValid, setMenuModalTitleValid] = useState(false);
+  const [menuModalLocationValid, setMenuModalLocationValid] = useState(false);
+  const [menuModalDateValid, setMenuModalDateValid] = useState(false);
+  const [menuModalStartTimeValid, setMenuModalStartTimeValid] = useState(false);
+  const [menuModalEndTimeValid, setMenuModalEndTimeValid] = useState(false);
+  const [menuModalVisibility, setMenuModalVisibility] = useState(false); // When the modals visibility is set to false, all data from within the menu is erased
   const [menuModalSource, setMenuModalSource] = useState(""); // Have the MenuModal component perform different actions based on the source of the modal
-
   const menuModalTitleChange = (newTitle: string) => setMenuModalTitle(newTitle); // prettier-ignore
   const menuModalLocationChange = (newLocation: string) => setMenuModalLocation(newLocation); // prettier-ignore
   const menuModalDateChange = (newDate: string) => setMenuModalDate(newDate); // prettier-ignore
@@ -83,7 +87,7 @@ const useCalendar = () => {
     }
   }, [menuModalVisibility]);
 
-  // Erase data inside menu modal when closed again
+  // Erase entered values and validation states for the menu modal when closed again
   useEffect(() => {
     if (menuModalVisibility === false) {
       setMenuModalId("");
@@ -93,6 +97,11 @@ const useCalendar = () => {
       setMenuModalStartTime("");
       setMenuModalEndTime("");
       setMenuModalSource("");
+      setMenuModalTitleValid(false);
+      setMenuModalLocationValid(false);
+      setMenuModalDateValid(false);
+      setMenuModalStartTimeValid(false);
+      setMenuModalEndTimeValid(false);
       setOriginalMenuData(null);
       setDishes([]);
       setOriginalDishes([]);
@@ -168,7 +177,69 @@ const useCalendar = () => {
     return ((endDate - startDate) / (1000 * 60 * 30)) * 48;
   };
 
+  // Validate the menu modal and provide feedback if there are any errors - this function is executed and if the menuValidState is equal to false, the menuModalCreate function will be cancelled
+  const menuModalValidate = () => {
+    let menuValidState = true;
+    const startTime = new Date(`01/01/2000 ${menuModalStartTime}`);
+    const endTime = new Date(`01/01/2000 ${menuModalEndTime}`);
+
+    if (menuModalTitle.trim() === "") {
+      setMenuModalTitleValid(true);
+      toast.error("Title required");
+      menuValidState = false;
+    } else {
+      setMenuModalTitleValid(false);
+    }
+
+    if (menuModalLocation.trim() === "") {
+      setMenuModalLocationValid(true);
+      toast.error("Location required");
+      menuValidState = false;
+    } else {
+      setMenuModalLocationValid(false);
+    }
+
+    if (menuModalDate === "") {
+      setMenuModalDateValid(true);
+      toast.error("Date required");
+      menuValidState = false;
+    } else {
+      setMenuModalDateValid(false);
+    }
+
+    if (menuModalStartTime === "") {
+      setMenuModalStartTimeValid(true);
+      toast.error("Start time required");
+      menuValidState = false;
+    } else {
+      setMenuModalStartTimeValid(false);
+    }
+
+    if (menuModalEndTime === "") {
+      setMenuModalEndTimeValid(true);
+      toast.error("End time required");
+      menuValidState = false;
+    } else if (endTime && startTime && endTime <= startTime) {
+      setMenuModalEndTimeValid(true);
+      toast.error("End time must be after start time");
+      menuValidState = false;
+    } else if (endTime && startTime && endTime - startTime < 30 * 60 * 1000) {
+      setMenuModalEndTimeValid(true);
+      toast.error("Menu must be at least 30 minutes long");
+      menuValidState = false;
+    } else {
+      setMenuModalEndTimeValid(false);
+    }
+
+    return menuValidState;
+  };
+
+  // Create a new or update an existing menu - depending on the source of the modal
   const menuModalCreate = async () => {
+    // Cancel the rest of the function if the menu is not valid and contains unfilled fields
+    const menuModalValidity = menuModalValidate();
+    if (menuModalValidity === false) return;
+
     if (menuModalSource === "cardButton" && originalMenuData) {
       const hasMenuChanges =
         menuModalTitle !== originalMenuData.menu_title ||
@@ -244,7 +315,7 @@ const useCalendar = () => {
 
       // Provide feedback based on what actions were performed
       if (!hasMenuChanges && !hasNewDishes && updatedDishes.length === 0) {
-        toast.info("No changes to save!");
+        toast.info("No changes to be found!");
       } else {
         setMenuModalVisibility(false);
       }
@@ -430,10 +501,15 @@ const useCalendar = () => {
     menus,
     dishes,
     menuModalTitle,
+    menuModalTitleValid,
     menuModalLocation,
+    menuModalLocationValid,
     menuModalDate,
+    menuModalDateValid,
     menuModalStartTime,
+    menuModalStartTimeValid,
     menuModalEndTime,
+    menuModalEndTimeValid,
     menuModalTitleChange,
     menuModalLocationChange,
     menuModalDateChange,
