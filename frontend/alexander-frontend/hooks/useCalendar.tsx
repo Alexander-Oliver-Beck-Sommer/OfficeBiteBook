@@ -499,18 +499,31 @@ const useCalendar = () => {
 
       if (menuModalSource === "cardButton") {
         try {
-          const { error } = await supabase
+          const { error: dishesError } = await supabase
             .from("dishes")
             .delete()
             .match({ menu_id: menuModalId });
 
-          if (error) {
-            throw error;
+          if (dishesError) {
+            throw dishesError;
           }
 
           toast.success("Dishes erased!");
-        } catch (error) {
+        } catch (dishesError) {
           toast.error("Error erasing dishes!");
+        }
+
+        try {
+          const { error: menusError } = await supabase
+            .from("menus")
+            .update({ menu_dishes_amount: 0 })
+            .match({ menu_id: menuModalId });
+
+          if (menusError) {
+            throw menusError;
+          }
+        } catch (menusError) {
+          console.log("Error resetting menu_dishes_amount:", menusError);
         }
       }
     }
@@ -521,19 +534,34 @@ const useCalendar = () => {
     const updatedDishes = dishes.filter((dish) => dish.dish_id !== dishId);
     setDishes(updatedDishes);
 
-    try {
-      const { error } = await supabase
-        .from("dishes")
-        .delete()
-        .match({ dish_id: dishId });
+    if (menuModalSource === "cardButton") {
+      try {
+        const { error: dishesError } = await supabase
+          .from("dishes")
+          .delete()
+          .match({ dish_id: dishId });
 
-      if (error) {
-        throw error;
+        if (dishesError) {
+          throw dishesError;
+        }
+
+        toast.success("Dish deleted successfully!");
+      } catch (dishesError) {
+        toast.error("Error deleting dish!");
       }
 
-      toast.success("Dish deleted successfully!");
-    } catch (error) {
-      toast.error("Error deleting dish!");
+      try {
+        const { error: menusError } = await supabase
+          .from("menus")
+          .update({ menu_dishes_amount: updatedDishes.length })
+          .match({ menu_id: menuModalId });
+
+        if (menusError) {
+          throw menusError;
+        }
+      } catch (menusError) {
+        console.log("Error decreasing menu_dishes_amount:", menusError);
+      }
     }
   };
 
