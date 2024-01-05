@@ -242,8 +242,8 @@ const useCalendar = () => {
 
     if (menuModalSource === "cardButton" && originalMenuData) {
       const hasMenuChanges =
-        menuModalTitle !== originalMenuData.menu_title ||
-        menuModalLocation !== originalMenuData.menu_location ||
+        menuModalTitle.trim() !== originalMenuData.menu_title ||
+        menuModalLocation.trim() !== originalMenuData.menu_location ||
         menuModalDate !== originalMenuData.menu_date ||
         menuModalStartTime !== originalMenuData.menu_start_time ||
         menuModalEndTime !== originalMenuData.menu_end_time;
@@ -324,8 +324,8 @@ const useCalendar = () => {
     if (menuModalSource === "hourCell") {
       const hasChanges =
         menuModalId !== "" &&
-        menuModalTitle !== "" &&
-        menuModalLocation !== "" &&
+        menuModalTitle.trim() !== "" &&
+        menuModalLocation.trim() !== "" &&
         menuModalDate !== "" &&
         menuModalStartTime !== "" &&
         menuModalEndTime !== "";
@@ -380,8 +380,8 @@ const useCalendar = () => {
   const menuModalCancel = () => {
     const hasMenuChanges =
       originalMenuData &&
-      (menuModalTitle !== originalMenuData.menu_title ||
-        menuModalLocation !== originalMenuData.menu_location ||
+      (menuModalTitle.trim() !== originalMenuData.menu_title ||
+        menuModalLocation.trim() !== originalMenuData.menu_location ||
         menuModalDate !== originalMenuData.menu_date ||
         menuModalStartTime !== originalMenuData.menu_start_time ||
         menuModalEndTime !== originalMenuData.menu_end_time);
