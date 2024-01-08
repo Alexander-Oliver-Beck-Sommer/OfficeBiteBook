@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import TextInput from "@/components/Inputs/TextInput";
 import ActionButton from "@/components/Buttons/ActionButton";
 import TextArea from "@/components/Inputs/TextArea";
-import ThumbnailButton from "@/components/Buttons/ThumbnailButton";
 import useCalendar from "@/hooks/useCalendar";
+import ThumbnailInput from "@/components/Inputs/ThumbnailInput";
 
 type DishProps = {
   dishCount?: number;
@@ -166,7 +166,10 @@ const Dish = ({
               />
             </li>
             <li>
-              <ThumbnailButton title="Thumbnail" />
+              <ThumbnailInput
+                thumbnailInputTitle="Thumbnail"
+                thumbnailInputId={dishCount}
+              />
             </li>
           </ul>
         </div>
