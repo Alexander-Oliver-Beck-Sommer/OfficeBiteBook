@@ -359,8 +359,7 @@ const useCalendar = () => {
         menuModalLocation.trim() !== "" &&
         menuModalDate !== "" &&
         menuModalStartTime !== "" &&
-        menuModalEndTime !== "" &&
-        menuModalDishesAmount !== 0;
+        menuModalEndTime !== "";
       if (hasChanges) {
         try {
           const { data: menuData, error: menuError } = await supabase
