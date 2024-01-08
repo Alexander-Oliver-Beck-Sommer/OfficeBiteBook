@@ -189,7 +189,7 @@ const useCalendar = () => {
     const [hours, minutes] = startTime.split(":");
     menuTime.setHours(parseInt(hours), parseInt(minutes), 0);
 
-    return ((menuTime - baseTime) / (1000 * 60 * 30)) * 48;
+    return ((menuTime - baseTime) / (1000 * 60 * 30)) * 40;
   };
 
   // Calculate the height of the <CardButton/> and have it span until its ending time
@@ -203,7 +203,7 @@ const useCalendar = () => {
     const endDate = new Date();
     endDate.setHours(endHours, endMinutes, 0);
 
-    return ((endDate - startDate) / (1000 * 60 * 30)) * 48;
+    return ((endDate - startDate) / (1000 * 60 * 30)) * 40;
   };
 
   // Validate the menu modal and provide feedback if there are any errors - this function is executed and if the menuValidState is equal to false, the menuModalCreate function will be cancelled

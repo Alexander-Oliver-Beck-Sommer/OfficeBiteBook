@@ -18,11 +18,11 @@ const DayCell = ({
 
   return (
     <section
-      className={`flex h-20 w-full items-center justify-between border-t-4 bg-raisin_black px-4 ${style}`}
+      className={`flex h-[70px] w-full items-center justify-between border-t-4 bg-raisin_black px-4 ${style}`}
     >
-      <div className="flex flex-col gap-2 ">
-        <h2 className="leading-none">{dayCellDate}</h2>
-        <h5>{dayCellDay}</h5>
+      <div className="flex flex-col gap-[6px]">
+        <h3 className="font-semibold leading-none">{dayCellDate}</h3>
+        <h5 className="font-normal">{dayCellDay}</h5>
       </div>
       <div className="flex gap-4">
         <button onClick={toggle}>

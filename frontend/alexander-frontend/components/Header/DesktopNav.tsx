@@ -10,12 +10,8 @@ const DesktopNav = () => {
     <nav className="hidden lg:block">
       <ul className="flex items-center gap-12">
         <li>
-          <Link
-            href="/calendar-test"
-            className="flex flex-col items-center justify-center gap-1"
-          >
+          <Link href="/calendar-test">
             <CalendarIcon className="h-7 w-7 fill-ghost_white" />
-            <p>Calendar</p>
           </Link>
         </li>
       </ul>

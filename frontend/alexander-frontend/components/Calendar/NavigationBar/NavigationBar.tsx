@@ -35,15 +35,15 @@ const NavigationBar = ({
 
   return (
     <>
-      <section className="relative grid h-16 grid-cols-autoX1">
+      <section className="relative grid h-14 grid-cols-autoX1">
         <section
           className={`relative z-30 flex w-sidebar_width items-center justify-center rounded-bl rounded-tl border-y-2 border-l-2 border-r-0 bg-eerie_black transition-all duration-300 ease-in-out ${sidebarStyling}`}
         >
-          <HamburgerButton
+          {/* <HamburgerButton
             screen="all"
             label={"Open and close the dashboard"}
             toggle={toggleDashboard}
-          />
+          /> */}
         </section>
         <section className="flex items-center justify-between border-b border-arsenic px-4">
           <ul className="flex items-center gap-4">

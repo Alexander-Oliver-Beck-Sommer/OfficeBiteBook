@@ -7,8 +7,8 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
-        header_height: "5rem",
-        sidebar_width: "5rem",
+        header_height: "4rem",
+        sidebar_width: "4rem",
         grid: "1px",
       },
       fontFamily: {

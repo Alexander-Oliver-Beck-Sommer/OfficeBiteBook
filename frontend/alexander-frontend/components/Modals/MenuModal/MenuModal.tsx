@@ -83,7 +83,9 @@ const MenuModal = ({
         ></section>
         <section
           className={`relative z-50 grid h-full w-full max-w-screen-xl grid-rows-auto1Xauto overflow-y-auto rounded border-2 border-arsenic bg-eerie_black ${
-            menuModalVisibility ? "animate-fade-up animate-ease-in-out" : ""
+            menuModalVisibility
+              ? "animate-fade-up animate-ease-in-out"
+              : "invisible opacity-0"
           } `}
         >
           <HeaderBar

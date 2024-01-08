@@ -29,7 +29,7 @@ export default function Header() {
         className={`relative z-30 flex h-header_height items-center justify-between bg-eerie_black px-4 after:absolute after:bottom-0 after:right-0 after:box-content after:border-b-2 after:transition-all after:duration-300 after:ease-in-out after:content-[''] md:px-sidebar_width after:lg:hidden ${mobileHeaderClasses}`}
       >
         <Link href="/" onClick={() => setIsMenuOpen(false)}>
-          <h2>{sitesettings.site_name}</h2>
+          <h3 className="font-semibold">{sitesettings.site_name}</h3>
         </Link>
         <HamburgerButton
           screen="mobile-tablet"

@@ -1,6 +1,5 @@
 import DayCell from "@/components/Calendar/WeekGrid/child-components/DayCell";
 import SettingsCell from "@/components/Calendar/WeekGrid/child-components/SettingsCell";
-import VisibilityCell from "@/components/Calendar/WeekGrid/child-components/VisibilityCell";
 import HourCell from "@/components/Calendar/WeekGrid/child-components/HourCell";
 import MenuModal from "@/components/Modals/MenuModal/MenuModal";
 import CardButton from "@/components/Buttons/CardButton";
@@ -71,18 +70,18 @@ const WeekGrid = ({
   return (
     <>
       <ul className="grid grid-cols-autoX1">
-        <li className="w-20 bg-eerie_black">
+        <li className="w-sidebar_width bg-eerie_black">
           <ul className="flex flex-col">
             <li className="flex flex-col">
-              <section className="h-20"></section>
-              <section className="h-14"></section>
+              <section className="h-[70px]"></section>
+              <section className="h-12"></section>
             </li>
             {hourCells.map((sidebarCell, sidebarCellIndex) => (
               <li
                 key={`sidebar-slots-${sidebarCellIndex}`}
-                className="flex h-24 w-full items-start justify-center"
+                className="flex h-20 w-full items-start justify-center"
               >
-                <p>{sidebarCell.fullHour}</p>
+                <h5>{sidebarCell.fullHour}</h5>
               </li>
             ))}
           </ul>
@@ -109,7 +108,7 @@ const WeekGrid = ({
                         dayCellDate={dayCellDate.getDate()}
                         dayCellCurrent={dayCellCurrent}
                       />
-                      <VisibilityCell />
+                      <SettingsCell />
                     </li>
                     <li className="relative flex flex-col border-t border-t-arsenic bg-dark_charcoal">
                       {hourCells.map((hourCell, hourCellIndex) => (

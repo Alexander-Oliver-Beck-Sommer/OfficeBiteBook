@@ -1,12 +1,12 @@
 import ToggleInput from "@/components/Inputs/ToggleInput";
 
-type VisibilityCellProps = {
+type SettingsCellProps = {
   toggle?: () => void;
 };
 
-const VisibilityCell = ({ toggle = () => {} }: VisibilityCellProps) => {
+const SettingsCell = ({ toggle = () => {} }: SettingsCellProps) => {
   return (
-    <section className="flex h-14 w-full items-center justify-between border-t border-t-arsenic bg-raisin_black px-4">
+    <section className="flex h-12 w-full items-center justify-between border-t border-t-arsenic bg-raisin_black px-4">
       <ToggleInput
         label="Toggle the day to be either visible, or private."
         toggle={toggle}
@@ -17,4 +17,4 @@ const VisibilityCell = ({ toggle = () => {} }: VisibilityCellProps) => {
   );
 };
 
-export default VisibilityCell;
+export default SettingsCell;

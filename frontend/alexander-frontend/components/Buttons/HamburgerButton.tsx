@@ -32,7 +32,7 @@ const HamburgerButton = ({
 
   return (
     <button
-      className={`flex h-12 w-12 items-center justify-center ${screenValue}`}
+      className={`flex h-10 w-12 items-center justify-center ${screenValue}`}
       aria-label={label}
       onClick={toggle}
     >
