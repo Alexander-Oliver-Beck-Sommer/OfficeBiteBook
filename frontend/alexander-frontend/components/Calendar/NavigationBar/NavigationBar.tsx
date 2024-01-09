@@ -15,9 +15,11 @@ type NavigationBarProps = {
 const NavigationBar = ({
   setCurrentDate,
   getCurrentWeekNumber,
+  buttonBack,
+  buttonForward,
 }: NavigationBarProps) => {
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
-  const currentWeekNumber = getCurrentWeekNumber();
+  // const currentWeekNumber = getCurrentWeekNumber();
 
   const toggleDashboard = () => {
     setIsDashboardOpen(!isDashboardOpen);
@@ -50,7 +52,9 @@ const NavigationBar = ({
             <li>
               <WeekFlipper
                 setCurrentDate={setCurrentDate}
-                currentWeek={currentWeekNumber}
+                buttonBack={buttonBack}
+                buttonForward={buttonForward}
+                currentWeek={getCurrentWeekNumber}
               />
             </li>
             <li>

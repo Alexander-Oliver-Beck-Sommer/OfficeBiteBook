@@ -9,6 +9,8 @@ type WeekFlipperProps = {
 export default function WeekFlipper({
   setCurrentDate,
   currentWeek,
+  buttonBack,
+  buttonForward,
 }: WeekFlipperProps) {
   const goBackOneWeek = () => {
     setCurrentDate((prev) => {
@@ -29,7 +31,7 @@ export default function WeekFlipper({
   return (
     <ul className="flex items-center gap-1">
       <li className="flex items-center">
-        <button aria-label="Go 1 week back" onClick={goBackOneWeek}>
+        <button aria-label="Go 1 week back" onClick={buttonBack}>
           <LeftArrowIcon className="h-6 w-6 fill-apple" />
         </button>
       </li>
@@ -38,7 +40,7 @@ export default function WeekFlipper({
         <h4 className="w-5 text-center font-semibold">{currentWeek}</h4>
       </li>
       <li className="flex items-center">
-        <button aria-label="Go 1 week forward" onClick={goForwardOneWeek}>
+        <button aria-label="Go 1 week forward" onClick={buttonForward}>
           <RightArrowIcon className="h-6 w-6 fill-apple" />
         </button>
       </li>
