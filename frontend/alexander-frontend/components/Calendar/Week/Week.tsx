@@ -1,17 +1,21 @@
-import DayCell from "@/components/Calendar/WeekGrid/child-components/DayCell";
-import SettingsCell from "@/components/Calendar/WeekGrid/child-components/SettingsCell";
-import HourCell from "@/components/Calendar/WeekGrid/child-components/HourCell";
+import DayCell from "@/components/Calendar/Week/child-components/DayCell";
+import SettingsCell from "@/components/Calendar/Week/child-components/SettingsCell";
+import HourCell from "@/components/Calendar/Week/child-components/HourCell";
 import MenuModal from "@/components/Modals/MenuModal/MenuModal";
 import CardButton from "@/components/Buttons/CardButton";
 import useCalendar from "@/hooks/useCalendar";
 
 type WeekProps = {
-  weekDays: string[];
-  weekType: boolean;
-  weekHourCells: string[];
+  weekDays?: string[];
+  weekType?: boolean;
+  weekHours?: string[];
 };
 
-const Week = ({ weekDays = [], weekType, weekHourCells }: WeekProps) => {
+const Week = ({
+  weekDays = [],
+  weekType = true,
+  weekHours = [],
+}: WeekProps) => {
   const weekTypeGrid = weekType ? "grid-cols-autoX6" : "grid-cols-autoX8";
   const {
     menus,
@@ -57,44 +61,47 @@ const Week = ({ weekDays = [], weekType, weekHourCells }: WeekProps) => {
               <section className="h-[70px]"></section>
               <section className="h-12"></section>
             </li>
-            {weekHourCells.map((cell, cellIndex) => (
+            {weekHours.map((hour) => (
               <li
-                key={`sidebar-slots-${cellIndex}`}
+                key={`sidebar-${hour.fullHour}`}
                 className="flex h-20 w-full items-start justify-center"
               >
-                <h5>{cell.fullHour}</h5>
+                <h5>{hour.fullHour}</h5>
               </li>
             ))}
           </ul>
         </li>
-        {weekDays.map((day, dayIndex) => {
-          const dayCellDate = day.date.split("-")[2];
+        {weekDays.map((day) => {
+          const dayDate = day.date.split("-")[2];
           const cardButtons = menus.filter((menu) =>
             menu.menu_date.startsWith(day.date),
           );
           return (
-            <li key={dayIndex} className="border-r border-r-arsenic">
-              <DayCell dayCellDate={dayCellDate} dayCellDay={day.name} />
+            <li
+              key={`${day.name}-${day.date}`}
+              className="border-r border-r-arsenic"
+            >
+              <DayCell dayCellDate={dayDate} dayCellDay={day.name} />
               <SettingsCell />
               <ul className="relative flex flex-col bg-dark_charcoal">
                 <li className="relative flex flex-col  bg-dark_charcoal">
-                  {weekHourCells.map((cell, cellIndex) => (
+                  {weekHours.map((hour) => (
                     <HourCell
-                      key={`${day}-hourCell-${cellIndex}`}
+                      key={`${day.name}-${hour.fullHour}`}
                       hourCellDate={day.date}
-                      hourCellFullValue={cell.fullHour}
+                      hourCellFullValue={hour.fullHour}
                       hourCellFullToggle={() =>
-                        hourCellToggle(cell.fullHour, day.date)
+                        hourCellToggle(hour.fullHour, day.date)
                       }
-                      hourCellHalfValue={cell.halfHour}
+                      hourCellHalfValue={hour.halfHour}
                       hourCellHalfToggle={() =>
-                        hourCellToggle(cell.halfHour, day.date)
+                        hourCellToggle(hour.halfHour, day.date)
                       }
                     />
                   ))}
-                  {cardButtons.map((cardButton, cardButtonIndex) => (
+                  {cardButtons.map((cardButton) => (
                     <CardButton
-                      key={`cardButton-${cardButtonIndex}`}
+                      key={`cardButton-${cardButton.menu_id}`}
                       cardButtonTitle={cardButton.menu_title}
                       cardButtonLocation={cardButton.menu_location}
                       cardButtonStartTime={cardButton.menu_start_time}

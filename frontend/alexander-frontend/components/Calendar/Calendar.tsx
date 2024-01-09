@@ -1,52 +1,32 @@
 "use client";
-import NavigationBar from "@/components/Calendar/NavigationBar/NavigationBar";
-import WeekGrid from "@/components/Calendar/WeekGrid/WeekGrid";
-import useTimeCalculator from "@/hooks/useTimeCalculator";
 import useTimeMachine from "@/hooks/useTimeMachine";
+import NavigationBar from "@/components/Calendar/NavigationBar/NavigationBar";
 import Week from "@/components/Calendar/Week/Week";
 
 export default function Calendar() {
   const {
-    currentDate,
-    setCurrentDate,
-    generateHourCells,
-    getDates,
-    getCurrentWeekNumber,
-    settings,
-  } = useTimeCalculator();
-
-  const {
     week,
     weekType,
     setWeekType,
-    hourCellsGeneration,
+    weekHours,
     setWeekStart,
     setWeekEndTime,
-    goToPreviousWeek,
-    goToNextWeek,
+    weekBackward,
+    weekForward,
     currentWeekNumber,
   } = useTimeMachine();
 
   return (
     <section aria-label="Calendar">
-      {/* <NavigationBar
-        setCurrentDate={setCurrentDate}
-        getCurrentWeekNumber={getCurrentWeekNumber}
-      />
-      <WeekGrid
-        weekGridHours={generateHourCells}
-        weekGridDates={getDates}
-        weekGridSettings={settings}
-      /> */}
       <NavigationBar
-        buttonBack={goToPreviousWeek}
-        buttonForward={goToNextWeek}
-        getCurrentWeekNumber={currentWeekNumber}
+        navigationBarWeekBackward={weekBackward}
+        navigationBarWeekForward={weekForward}
+        navigationBarWeekNumber={currentWeekNumber}
       />
       <Week
         weekDays={week.week_days}
         weekType={weekType}
-        weekHourCells={hourCellsGeneration()}
+        weekHours={weekHours()}
       />
     </section>
   );

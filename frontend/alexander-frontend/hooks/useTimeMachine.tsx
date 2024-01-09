@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { supabase } from "@/components/Supabase/supabaseClient";
-import { toast } from "react-toastify";
+import { useState, useEffect } from "react";
 import weekData from "@/data/weekData";
 
 type Week = {
@@ -19,6 +17,7 @@ const useTimeMachine = () => {
   const [weekType, setWeekType] = useState(true);
   const [weekStartTime, setWeekStartTime] = useState("08:00");
   const [weekEndTime, setWeekEndTime] = useState("16:00");
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const getCurrentWeekNumber = () => {
     const currentDate = new Date();
@@ -33,30 +32,32 @@ const useTimeMachine = () => {
     getCurrentWeekNumber(),
   );
 
-  const goToNextWeek = () => {
+  // Function, if executed, will update the current week number to one week back
+  const weekBackward = () => {
+    const previousWeek = currentWeekNumber - 1;
+    setCurrentWeekNumber(previousWeek < 1 ? 52 : previousWeek);
+  };
+
+  // Function, if executed, will update the current week number to one week forward
+  const weekForward = () => {
     const nextWeek = currentWeekNumber + 1;
-    setCurrentWeekNumber(nextWeek > 52 ? 1 : nextWeek); // Assuming 52 weeks in a year
+    setCurrentWeekNumber(nextWeek > 52 ? 1 : nextWeek);
   };
 
-  const goToPreviousWeek = () => {
-    const prevWeek = currentWeekNumber - 1;
-    setCurrentWeekNumber(prevWeek < 1 ? 52 : prevWeek); // Assuming 52 weeks in a year
-  };
-
-  const getWeekStartAndEndDates = (weekNumber) => {
+  const weekDates = (weekNumber) => {
     const currentDate = new Date();
     const startOfYear = new Date(currentDate.getFullYear(), 0, 1);
     const weekStart = new Date(
       startOfYear.getTime() + (weekNumber - 1) * 7 * 24 * 60 * 60 * 1000,
     );
-    weekStart.setDate(weekStart.getDate() - weekStart.getDay() + 1); // Adjust to start from Monday
+    weekStart.setDate(weekStart.getDate() - weekStart.getDay() + 1);
     const weekEnd = new Date(weekStart);
-    weekEnd.setDate(weekEnd.getDate() + 6); // End on Sunday
+    weekEnd.setDate(weekEnd.getDate() + 6);
 
     return { weekStart, weekEnd };
   };
 
-  const hourCellsGeneration = () => {
+  const weekHours = () => {
     const startHour = parseInt(weekStartTime.split(":")[0], 10);
     const endHour = parseInt(weekEndTime.split(":")[0], 10);
     const hourCells: HourCell[] = [];
@@ -71,11 +72,7 @@ const useTimeMachine = () => {
   };
 
   useEffect(() => {
-    console.log("Current week state:", week);
-  }, [week]);
-
-  useEffect(() => {
-    const { weekStart } = getWeekStartAndEndDates(currentWeekNumber);
+    const { weekStart } = weekDates(currentWeekNumber);
     const language = weekData[navigator.language] ? navigator.language : "en";
     const weekSettings = weekData[language];
     const weekDays = weekType ? weekSettings.workWeek : weekSettings.fullWeek;
@@ -102,12 +99,12 @@ const useTimeMachine = () => {
     week,
     weekType,
     setWeekType,
-    hourCellsGeneration,
+    weekHours,
     currentWeekNumber,
     setWeekStartTime,
     setWeekEndTime,
-    goToNextWeek,
-    goToPreviousWeek,
+    weekForward,
+    weekBackward,
   };
 };
 
