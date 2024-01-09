@@ -1,7 +1,7 @@
 export default {
-  "da-DK": {
-    country: "Denmark",
-    weekDays: [
+  da: {
+    workWeek: ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag"],
+    fullWeek: [
       "Mandag",
       "Tirsdag",
       "Onsdag",
@@ -10,11 +10,10 @@ export default {
       "Lørdag",
       "Søndag",
     ],
-    timeFormat: "24-hour",
   },
-  "en-GB": {
-    country: "United Kingdom",
-    weekDays: [
+  "en": {
+    workWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    fullWeek: [
       "Sunday",
       "Monday",
       "Tuesday",
@@ -23,6 +22,5 @@ export default {
       "Friday",
       "Saturday",
     ],
-    timeFormat: "12-hour",
   },
 };
