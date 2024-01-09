@@ -16,7 +16,7 @@ type HourCell = {
 
 const useTimeMachine = () => {
   const [week, setWeek] = useState<Week[]>([]);
-  const [weekType, setWeekType] = useState(false);
+  const [weekType, setWeekType] = useState(true);
   const [weekStartTime, setWeekStartTime] = useState("08:00");
   const [weekEndTime, setWeekEndTime] = useState("16:00");
 
@@ -34,11 +34,13 @@ const useTimeMachine = () => {
   );
 
   const goToNextWeek = () => {
-    setCurrentWeekNumber(currentWeekNumber + 1);
+    const nextWeek = currentWeekNumber + 1;
+    setCurrentWeekNumber(nextWeek > 52 ? 1 : nextWeek); // Assuming 52 weeks in a year
   };
 
   const goToPreviousWeek = () => {
-    setCurrentWeekNumber(currentWeekNumber - 1);
+    const prevWeek = currentWeekNumber - 1;
+    setCurrentWeekNumber(prevWeek < 1 ? 52 : prevWeek); // Assuming 52 weeks in a year
   };
 
   const getWeekStartAndEndDates = (weekNumber) => {
@@ -76,12 +78,13 @@ const useTimeMachine = () => {
     const { weekStart } = getWeekStartAndEndDates(currentWeekNumber);
     const language = weekData[navigator.language] ? navigator.language : "en";
     const weekSettings = weekData[language];
+    const weekDays = weekType ? weekSettings.workWeek : weekSettings.fullWeek;
 
-    const formattedWeekDays = weekSettings.fullWeek.map((dayName, index) => {
+    const formattedWeekDays = weekDays.map((dayName, index) => {
       const date = new Date(weekStart.getTime());
       date.setDate(date.getDate() + index);
       const year = date.getFullYear();
-      const month = (date.getMonth() + 1).toString().padStart(2, "0"); // months are 0-indexed
+      const month = (date.getMonth() + 1).toString().padStart(2, "0");
       const day = date.getDate().toString().padStart(2, "0");
       const formattedDate = `${year}-${month}-${day}`;
 

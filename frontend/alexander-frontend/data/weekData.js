@@ -11,7 +11,7 @@ export default {
       "Søndag",
     ],
   },
-  "en": {
+  en: {
     workWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
     fullWeek: [
       "Sunday",
