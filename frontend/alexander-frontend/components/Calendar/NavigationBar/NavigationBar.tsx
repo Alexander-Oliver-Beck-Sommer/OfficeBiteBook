@@ -37,7 +37,7 @@ const NavigationBar = ({
             <li>
               <MonthFlipper />
             </li>
-            <li>
+            {/* <li>
               <button
                 className="flex items-center gap-1"
                 aria-label="Click and choose inbetween months and weeks"
@@ -45,7 +45,7 @@ const NavigationBar = ({
                 <h4>Actions</h4>
                 <DownArrowIcon className="h-6 w-6 fill-apple" />
               </button>
-            </li>
+            </li> */}
           </ul>
           <ul className="flex items-center gap-6">
             <li>
