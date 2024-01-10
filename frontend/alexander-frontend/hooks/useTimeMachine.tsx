@@ -64,6 +64,10 @@ const useTimeMachine = () => {
     setCurrentWeekNumber(getCurrentWeekNumber());
   };
 
+  const weekTypeSwitcher = () => {
+    setWeekType(!weekType);
+  };
+
   const weekHours = () => {
     const startHour = parseInt(weekStartTime.split(":")[0], 10);
     const endHour = parseInt(weekEndTime.split(":")[0], 10);
@@ -105,7 +109,7 @@ const useTimeMachine = () => {
   return {
     week,
     weekType,
-    setWeekType,
+    weekTypeSwitcher,
     weekHours,
     weekHighlighter,
     currentWeekNumber,

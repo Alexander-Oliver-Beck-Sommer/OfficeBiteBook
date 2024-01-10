@@ -16,7 +16,6 @@ const Week = ({
   weekType = true,
   weekHours = [],
 }: WeekProps) => {
-  const weekTypeGrid = weekType ? "grid-cols-autoX6" : "grid-cols-autoX8";
   const {
     menus,
     dishes,
@@ -54,7 +53,7 @@ const Week = ({
 
   return (
     <>
-      <ul className={`grid ${weekTypeGrid}`}>
+      <ul className="flex">
         <li className="w-sidebar_width bg-eerie_black">
           <ul className="flex flex-col">
             <li className="flex flex-col">
@@ -83,7 +82,7 @@ const Week = ({
           return (
             <li
               key={`${day.name}-${day.date}`}
-              className="border-r border-r-arsenic"
+              className="flex-1 border-r border-r-arsenic"
             >
               <DayCell
                 dayCellDate={dayCellDate}

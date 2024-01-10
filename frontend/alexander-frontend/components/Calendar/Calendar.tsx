@@ -7,7 +7,7 @@ export default function Calendar() {
   const {
     week,
     weekType,
-    setWeekType,
+    weekTypeSwitcher,
     weekHours,
     weekHighlighter,
     setWeekStart,
@@ -26,6 +26,7 @@ export default function Calendar() {
         navigationBarWeekNumber={currentWeekNumber}
         navigationBarWeekHighlighterValue={weekHighlighter}
         navigationBarWeekHighlighterReset={weekReset}
+        navigationBarWeekTypeSwitcherToggle={weekTypeSwitcher}
       />
       <Week
         weekDays={week.week_days}

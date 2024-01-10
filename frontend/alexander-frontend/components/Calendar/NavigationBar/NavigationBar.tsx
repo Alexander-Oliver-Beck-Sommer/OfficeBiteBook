@@ -2,6 +2,7 @@ import WeekFlipper from "@/components/Calendar/NavigationBar/child-components/We
 import MonthFlipper from "@/components/Calendar/NavigationBar/child-components/MonthFlipper";
 import WeekHighlighter from "@/components/Calendar/NavigationBar/child-components/WeekHighlighter";
 import DownArrowIcon from "@/components/Icons/DownArrowIcon";
+import WeekTypeSwitcher from "./child-components/WeekTypeSwitcher";
 
 type NavigationBarProps = {
   navigationBarWeekBackward: () => void;
@@ -9,6 +10,7 @@ type NavigationBarProps = {
   navigationBarWeekForward: () => void;
   navigationBarWeekHighlighter?: number;
   navigationBarWeekHighlighterReset?: () => void;
+  navigationBarWeekTypeSwitcherToggle?: () => void;
 };
 
 const NavigationBar = ({
@@ -17,6 +19,7 @@ const NavigationBar = ({
   navigationBarWeekForward = () => {},
   navigationBarWeekHighlighterValue = 0,
   navigationBarWeekHighlighterReset = () => {},
+  navigationBarWeekTypeSwitcherToggle,
 }: NavigationBarProps) => {
   return (
     <>
@@ -44,7 +47,12 @@ const NavigationBar = ({
               </button>
             </li>
           </ul>
-          <ul className="flex items-center gap-4">
+          <ul className="flex items-center gap-6">
+            <li>
+              <WeekTypeSwitcher
+                weekTypeSwitcherToggle={navigationBarWeekTypeSwitcherToggle}
+              />
+            </li>
             <li>
               <WeekHighlighter
                 weekHighlighterValue={navigationBarWeekHighlighterValue}
