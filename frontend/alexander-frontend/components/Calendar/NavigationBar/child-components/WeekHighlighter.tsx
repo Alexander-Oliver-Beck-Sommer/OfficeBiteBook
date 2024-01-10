@@ -1,17 +1,16 @@
-function getCurrentWeekNumber() {
-  const today = new Date();
-  const firstDayOfYear = new Date(today.getFullYear(), 0, 1);
-  const pastDaysOfYear =
-    (today.getTime() - firstDayOfYear.getTime()) / 86400000;
-  return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
-}
+type WeekHighlighterProps = {
+  weekHighlighterValue?: number;
+  weekHighlighterReset?: () => void;
+};
 
-export default function WeekHighlighter() {
-  const weekNumber = getCurrentWeekNumber();
-
+export default function WeekHighlighter({
+  weekHighlighterValue = 0,
+  weekHighlighterReset = () => {},
+}: WeekHighlighterProps) {
   return (
-    <h4 className="font-normal" aria-live="polite">
-      Currently: <span className="font-semibold">Week {weekNumber}</span>
-    </h4>
+    <button onClick={weekHighlighterReset}>
+      Currently:{" "}
+      <span className="font-semibold">Week {weekHighlighterValue}</span>
+    </button>
   );
 }

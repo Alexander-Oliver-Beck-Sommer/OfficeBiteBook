@@ -7,12 +7,16 @@ type NavigationBarProps = {
   navigationBarWeekBackward: () => void;
   navigationBarWeekNumber: number;
   navigationBarWeekForward: () => void;
+  navigationBarWeekHighlighter?: number;
+  navigationBarWeekHighlighterReset?: () => void;
 };
 
 const NavigationBar = ({
   navigationBarWeekBackward = () => {},
   navigationBarWeekNumber = 0,
   navigationBarWeekForward = () => {},
+  navigationBarWeekHighlighterValue = 0,
+  navigationBarWeekHighlighterReset = () => {},
 }: NavigationBarProps) => {
   return (
     <>
@@ -42,7 +46,10 @@ const NavigationBar = ({
           </ul>
           <ul className="flex items-center gap-4">
             <li>
-              <WeekHighlighter />
+              <WeekHighlighter
+                weekHighlighterValue={navigationBarWeekHighlighterValue}
+                weekHighlighterReset={navigationBarWeekHighlighterReset}
+              />
             </li>
           </ul>
         </section>

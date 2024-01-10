@@ -9,10 +9,12 @@ export default function Calendar() {
     weekType,
     setWeekType,
     weekHours,
+    weekHighlighter,
     setWeekStart,
     setWeekEndTime,
     weekBackward,
     weekForward,
+    weekReset,
     currentWeekNumber,
   } = useTimeMachine();
 
@@ -22,6 +24,8 @@ export default function Calendar() {
         navigationBarWeekBackward={weekBackward}
         navigationBarWeekForward={weekForward}
         navigationBarWeekNumber={currentWeekNumber}
+        navigationBarWeekHighlighterValue={weekHighlighter}
+        navigationBarWeekHighlighterReset={weekReset}
       />
       <Week
         weekDays={week.week_days}

@@ -28,6 +28,9 @@ const useTimeMachine = () => {
     return Math.ceil((pastDaysOfYear + startOfYear.getDay() + 1) / 7);
   };
 
+  const [weekHighlighter, setWeekHighlighter] = useState(
+    getCurrentWeekNumber(),
+  );
   const [currentWeekNumber, setCurrentWeekNumber] = useState(
     getCurrentWeekNumber(),
   );
@@ -55,6 +58,10 @@ const useTimeMachine = () => {
     weekEnd.setDate(weekEnd.getDate() + 6);
 
     return { weekStart, weekEnd };
+  };
+
+  const weekReset = () => {
+    setCurrentWeekNumber(getCurrentWeekNumber());
   };
 
   const weekHours = () => {
@@ -100,11 +107,13 @@ const useTimeMachine = () => {
     weekType,
     setWeekType,
     weekHours,
+    weekHighlighter,
     currentWeekNumber,
     setWeekStartTime,
     setWeekEndTime,
     weekForward,
     weekBackward,
+    weekReset,
   };
 };
 
