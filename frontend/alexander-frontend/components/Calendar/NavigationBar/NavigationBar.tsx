@@ -1,8 +1,11 @@
+import { useState } from "react";
 import WeekFlipper from "@/components/Calendar/NavigationBar/child-components/WeekFlipper";
 import MonthFlipper from "@/components/Calendar/NavigationBar/child-components/MonthFlipper";
 import WeekHighlighter from "@/components/Calendar/NavigationBar/child-components/WeekHighlighter";
 import DownArrowIcon from "@/components/Icons/DownArrowIcon";
 import WeekTypeSwitcher from "./child-components/WeekTypeSwitcher";
+import { Turn as Hamburger } from "hamburger-react";
+import AdminDashboard from "@/components/AdminDashboard/AdminDashboard";
 
 type NavigationBarProps = {
   navigationBarWeekBackward: () => void;
@@ -21,10 +24,24 @@ const NavigationBar = ({
   navigationBarWeekHighlighterReset = () => {},
   navigationBarWeekTypeSwitcherToggle,
 }: NavigationBarProps) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const adminDashboardToggle = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
     <>
       <section className="grid h-14 grid-cols-autoX1">
-        <section className="w-sidebar_width bg-eerie_black"></section>
+        <section className="relative flex w-sidebar_width items-center justify-center bg-eerie_black">
+          <div className="absolute z-50">
+            <Hamburger
+              label="Open admin dashboard"
+              direction="right"
+              toggled={menuOpen}
+              toggle={adminDashboardToggle}
+            />
+          </div>
+        </section>
         <section className="flex items-center justify-between border-b border-arsenic px-4">
           <ul className="flex items-center gap-4">
             <li>
@@ -62,6 +79,10 @@ const NavigationBar = ({
           </ul>
         </section>
       </section>
+      <AdminDashboard
+        adminDashboardVisibility={menuOpen}
+        adminDashboardClose={adminDashboardToggle}
+      />
     </>
   );
 };
