@@ -16,7 +16,7 @@ const useTimeMachine = () => {
   const [week, setWeek] = useState<Week[]>([]);
   const [weekType, setWeekType] = useState(true);
   const [weekStartTime, setWeekStartTime] = useState("08:00");
-  const [weekEndTime, setWeekEndTime] = useState("16:00");
+  const [weekEndTime, setWeekEndTime] = useState("17:00");
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const getCurrentWeekNumber = () => {

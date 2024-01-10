@@ -72,7 +72,11 @@ const Week = ({
           </ul>
         </li>
         {weekDays.map((day) => {
-          const dayDate = day.date.split("-")[2];
+          const getTodaysDate = new Date();
+          const todaysDate = getTodaysDate.toISOString().split("T")[0];
+          const dayDate = day.date;
+          const isCurrentDay = todaysDate === dayDate;
+          const dayCellDate = day.date.split("-")[2];
           const cardButtons = menus.filter((menu) =>
             menu.menu_date.startsWith(day.date),
           );
@@ -81,7 +85,11 @@ const Week = ({
               key={`${day.name}-${day.date}`}
               className="border-r border-r-arsenic"
             >
-              <DayCell dayCellDate={dayDate} dayCellDay={day.name} />
+              <DayCell
+                dayCellDate={dayCellDate}
+                dayCellDay={day.name}
+                dayCellCurrent={isCurrentDay}
+              />
               <SettingsCell />
               <ul className="relative flex flex-col bg-dark_charcoal">
                 <li className="relative flex flex-col  bg-dark_charcoal">

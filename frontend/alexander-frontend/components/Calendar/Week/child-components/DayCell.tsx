@@ -14,11 +14,13 @@ const DayCell = ({
   toggle = () => {},
   dayCellCurrent,
 }: DayCellProps) => {
-  const style = dayCellCurrent ? "border-apple" : "border-transparent";
+  const dayCellCurrentStyle = dayCellCurrent
+    ? "border-apple"
+    : "border-transparent";
 
   return (
     <section
-      className={`flex h-[70px] w-full items-center justify-between border-t-4 bg-raisin_black px-4 ${style}`}
+      className={`flex h-[70px] w-full items-center justify-between border-t-4 bg-raisin_black px-4 ${dayCellCurrentStyle}`}
     >
       <div className="flex flex-col gap-[6px]">
         <h3 className="font-semibold leading-none">{dayCellDate}</h3>
