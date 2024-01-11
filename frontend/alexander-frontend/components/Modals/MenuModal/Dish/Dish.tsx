@@ -14,23 +14,23 @@ type DishProps = {
   dishSubtitleChange?: (newSubtitle: string) => void;
   dishDescription?: string;
   dishDescriptionChange?: (newDescription: string) => void;
-  dishThumbnail?: string;
-  dishThumbnailChange?: (newThumbnail: string) => void;
+  dishThumbnailFile?: File | null;
+  dishThumbnailFileChange?: (newThumbnailFile: File | null) => void;
   dishArchive?: () => void;
   dishReplace?: () => void;
   dishDelete?: () => void;
 };
 
 const Dish = ({
-  dishCount,
+  dishCount = 0,
   dishTitle = "",
-  dishTitleChange,
+  dishTitleChange = () => {},
   dishSubtitle = "",
-  dishSubtitleChange,
+  dishSubtitleChange = () => {},
   dishDescription = "",
-  dishDescriptionChange,
-  dishThumbnail = "",
-  dishThumbnailChange,
+  dishDescriptionChange = () => {},
+  dishThumbnailFile = null,
+  dishThumbnailFileChange = () => {},
   dishArchive,
   dishReplace,
   dishDelete,
@@ -38,7 +38,7 @@ const Dish = ({
   const [titleInput, setTitleInput] = useState(dishTitle);
   const [subtitleInput, setSubtitleInput] = useState(dishSubtitle);
   const [descriptionInput, setDescriptionInput] = useState(dishDescription);
-  const [thumbnailInput, setThumbnailInput] = useState(dishThumbnail);
+  const [thumbnailInputFile, setThumbnailInputFile] = useState(dishThumbnailFile) // prettier-ignore
   const [dishOpen, setDishOpen] = useState(false);
 
   const dishOpenStyle = dishOpen
@@ -49,47 +49,40 @@ const Dish = ({
     setDishOpen(!dishOpen);
   };
 
-  const handleTitleChange = (newValue: string) => {
-    setTitleInput(newValue);
+  const handleTitleChange = (newTitle: string) => {
+    setTitleInput(newTitle);
     if (dishTitleChange) {
-      dishTitleChange(newValue);
+      dishTitleChange(newTitle);
     }
   };
 
-  const handleSubtitleChange = (newValue: string) => {
-    setSubtitleInput(newValue);
+  const handleSubtitleChange = (newSubtitle: string) => {
+    setSubtitleInput(newSubtitle);
     if (dishSubtitleChange) {
-      dishSubtitleChange(newValue);
+      dishSubtitleChange(newSubtitle);
     }
   };
 
-  const handleDescriptionChange = (newValue: string) => {
-    setDescriptionInput(newValue);
+  const handleDescriptionChange = (newDescription: string) => {
+    setDescriptionInput(newDescription);
     if (dishDescriptionChange) {
-      dishDescriptionChange(newValue);
+      dishDescriptionChange(newDescription);
     }
   };
 
-  const handleThumbnailValueChange = (newValue: string) => {
-    setThumbnailInput(newValue);
-    console.log(newValue);
-    if (dishThumbnailChange) {
-      dishThumbnailChange(newValue);
+  const handleThumbnailChange = (newThumbnailFile: File | null) => {
+    setThumbnailInputFile(newThumbnailFile);
+    if (dishThumbnailFileChange) {
+      dishThumbnailFileChange(newThumbnailFile);
     }
-  };
-
-  const handleThumbnailFileChange = (newFile: File | null) => {
-    console.log(newFile);
-    // Handle the file object as needed
-    // For instance, you might want to upload it to a server
   };
 
   useEffect(() => {
     setTitleInput(dishTitle);
     setSubtitleInput(dishSubtitle);
     setDescriptionInput(dishDescription);
-    setThumbnailInput(dishThumbnail);
-  }, [dishTitle, dishSubtitle, dishDescription, dishThumbnail]);
+    setThumbnailInputFile(dishThumbnailFile);
+  }, [dishTitle, dishSubtitle, dishDescription, dishThumbnailFile]);
 
   return (
     <li
@@ -176,9 +169,7 @@ const Dish = ({
               <ThumbnailInput
                 thumbnailInputTitle="Thumbnail"
                 thumbnailInputId={dishCount}
-                thumbnailInputValue={thumbnailInput}
-                thumbnailInputValueChange={handleThumbnailValueChange}
-                thumbnailInputFileChange={handleThumbnailFileChange}
+                onThumbnailChange={handleThumbnailChange}
               />
             </li>
           </ul>

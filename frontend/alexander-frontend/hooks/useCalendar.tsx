@@ -28,6 +28,7 @@ type Dish = {
   dish_subtitle: string;
   dish_description: string;
   dish_thumbnail: string;
+  dish_thumbnail_file: File | null;
   dish_saved: boolean;
 };
 
@@ -90,6 +91,10 @@ const useCalendar = () => {
       fetchMenusAndDishes();
     }
   }, [menuModalVisibility]);
+
+  useEffect(() => {
+    console.log(dishes);
+  }, [dishes]);
 
   // Disable the erase button if there are no dishes to erase
   useEffect(() => {
@@ -386,7 +391,7 @@ const useCalendar = () => {
                     dish_title: dish.dish_title,
                     dish_subtitle: dish.dish_subtitle,
                     dish_description: dish.dish_description,
-                    dish_thumbnail: dish.dish_thumbnail,
+                    dish_thumbnail: dish.dish_thumbnail_file.name,
                     dish_saved: true,
                   })),
                 );
@@ -398,6 +403,30 @@ const useCalendar = () => {
           } else {
             setMenuModalVisibility(false);
             toast.success("Menu created!");
+          }
+
+          for (const dish of dishes) {
+            if (dish.dish_thumbnail_file) {
+              try {
+                let { error: uploadError } = await supabase.storage
+                  .from("dishes_thumbnails")
+                  .upload(
+                    `${dish.dish_thumbnail_file.name}`,
+                    dish.dish_thumbnail_file,
+                    {
+                      cacheControl: "3600",
+                      upsert: false,
+                    },
+                  );
+
+                if (uploadError) throw uploadError;
+
+                // Update dish with the URL of the uploaded image
+              } catch (error) {
+                console.error("Error uploading image:", error);
+                toast.error("Error uploading dish image!");
+              }
+            }
           }
         } catch (error) {
           toast.error("Error creating menu!");
@@ -473,6 +502,7 @@ const useCalendar = () => {
       dish_subtitle: "",
       dish_description: "",
       dish_thumbnail: "",
+      dish_thumbnail_file: null,
       dish_saved: false,
     };
     setDishes([...dishes, newDish]);

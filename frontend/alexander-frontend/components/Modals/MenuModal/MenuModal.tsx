@@ -121,13 +121,29 @@ const MenuModal = ({
                     key={dish.dish_id}
                     dishCount={menuModalDishes.indexOf(dish) + 1}
                     dishTitle={dish.dish_title}
-                    dishTitleChange={(newTitle) => menuModalDishUpdate(dish.dish_id, { dish_title: newTitle })} /* prettier-ignore */
+                    dishTitleChange={(newTitle) =>
+                      menuModalDishUpdate(dish.dish_id, {
+                        dish_title: newTitle,
+                      })
+                    }
                     dishSubtitle={dish.dish_subtitle}
-                    dishSubtitleChange={(newSubtitle) => menuModalDishUpdate(dish.dish_id, { dish_subtitle: newSubtitle })} /* prettier-ignore */
+                    dishSubtitleChange={(newSubtitle) =>
+                      menuModalDishUpdate(dish.dish_id, {
+                        dish_subtitle: newSubtitle,
+                      })
+                    }
                     dishDescription={dish.dish_description}
-                    dishDescriptionChange={(newDescription) => menuModalDishUpdate(dish.dish_id, { dish_description: newDescription })} /* prettier-ignore */
-                    dishThumbnail={dish.dish_thumbnail}
-                    dishThumbnailChange={(newThumbnail) => menuModalDishUpdate(dish.dish_id, { dish_thumbnail: newThumbnail})} /* prettier-ignore */
+                    dishDescriptionChange={(newDescription) =>
+                      menuModalDishUpdate(dish.dish_id, {
+                        dish_description: newDescription,
+                      })
+                    }
+                    dishThumbnailFile={dish.dish_thumbnail_file}
+                    dishThumbnailFileChange={(newThumbnailFile) => {
+                      menuModalDishUpdate(dish.dish_id, {
+                        dish_thumbnail_file: newThumbnailFile,
+                      });
+                    }}
                     dishDelete={() => menuModalDishDelete(dish.dish_id)}
                   />
                 ))}

@@ -15,7 +15,6 @@ const WeekTypeSwitcher = ({
   const weekTypeChange = () => {
     setWeekType(!weekType);
     weekTypeSwitcherToggle();
-    console.log(fullWeek);
   };
 
   return (
