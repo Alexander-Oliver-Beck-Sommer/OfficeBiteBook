@@ -7,47 +7,50 @@ import { v4 as uuidv4 } from "uuid";
 type ThumbnailInputProps = {
   thumbnailInputTitle?: string;
   thumbnailInputId?: number;
-  onValueChange?: (file: File | null) => void; 
-  value?: string; 
+  thumbnailInputValue?: string; // for the file name
+  thumbnailInputValueChange?: (value: string) => void;
+  thumbnailInputFile?: File | null; // for the file object
+  thumbnailInputFileChange?: (file: File | null) => void;
+  thumbnailImageUrl?: string; // new prop for the image URL
 };
 
 const ThumbnailInput = ({
   thumbnailInputTitle = "",
   thumbnailInputId,
-  onValueChange,
-  value,
+  thumbnailInputValue,
+  thumbnailInputValueChange,
+  thumbnailInputFileChange,
+  thumbnailImageUrl, // new prop
 }: ThumbnailInputProps) => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(
-    value || null,
+    thumbnailImageUrl || thumbnailInputValue || null,
   );
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null;
     if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
       const uuid = uuidv4();
-      const newFileName = `${uuid}.${file.type.split("/")[1]}`; 
-      const newFile = new File([file], newFileName, { type: file.type }); 
+      const newFileName = `${uuid}.${file.type.split("/")[1]}`;
+      const newFile = new File([file], newFileName, { type: file.type });
 
       const reader = new FileReader();
       reader.onloadend = () => {
         setUploadedImage(reader.result as string);
-        if (onValueChange) onValueChange(newFile); 
+        if (thumbnailInputValueChange) thumbnailInputValueChange(newFileName);
+        if (thumbnailInputFileChange) thumbnailInputFileChange(newFile);
       };
       reader.readAsDataURL(file);
     } else {
-      if (onValueChange) onValueChange(null);
+      setUploadedImage(null);
+      if (thumbnailInputValueChange) thumbnailInputValueChange("");
+      if (thumbnailInputFileChange) thumbnailInputFileChange(null);
     }
   };
 
   const removeImage = () => {
     setUploadedImage(null);
-    const fileInput = document.getElementById(
-      `dropzone-file-${thumbnailInputId}`,
-    ) as HTMLInputElement;
-    if (fileInput) {
-      fileInput.value = "";
-    }
-    if (onValueChange) onValueChange(null);
+    if (thumbnailInputValueChange) thumbnailInputValueChange("");
+    if (thumbnailInputFileChange) thumbnailInputFileChange(null);
   };
 
   return (
@@ -60,9 +63,7 @@ const ThumbnailInput = ({
           {uploadedImage ? (
             <div
               className="absolute flex h-full w-full flex-col justify-end bg-cover bg-center"
-              style={{
-                backgroundImage: `url(${uploadedImage})`,
-              }}
+              style={{ backgroundImage: `url(${uploadedImage})` }}
             >
               <button
                 className="flex h-8 w-8 items-center justify-center rounded-tr border-r-2 border-t-2 border-arsenic bg-eerie_black hover:border-sunset_orange hover:bg-sunset_orange"

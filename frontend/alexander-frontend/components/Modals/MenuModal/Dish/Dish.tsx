@@ -70,11 +70,18 @@ const Dish = ({
     }
   };
 
-  const handleThumbnailChange = (newValue: File | null) => {
-    setThumbnailInput(newValue.name);
+  const handleThumbnailValueChange = (newValue: string) => {
+    setThumbnailInput(newValue);
+    console.log(newValue);
     if (dishThumbnailChange) {
-      dishThumbnailChange(newValue.name);
+      dishThumbnailChange(newValue);
     }
+  };
+
+  const handleThumbnailFileChange = (newFile: File | null) => {
+    console.log(newFile);
+    // Handle the file object as needed
+    // For instance, you might want to upload it to a server
   };
 
   useEffect(() => {
@@ -169,8 +176,9 @@ const Dish = ({
               <ThumbnailInput
                 thumbnailInputTitle="Thumbnail"
                 thumbnailInputId={dishCount}
-                onValueChange={handleThumbnailChange}
-                value={dishThumbnail}
+                thumbnailInputValue={thumbnailInput}
+                thumbnailInputValueChange={handleThumbnailValueChange}
+                thumbnailInputFileChange={handleThumbnailFileChange}
               />
             </li>
           </ul>
