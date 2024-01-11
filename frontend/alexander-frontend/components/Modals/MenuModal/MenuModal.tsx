@@ -144,6 +144,12 @@ const MenuModal = ({
                         dish_thumbnail_file: newThumbnailFile,
                       });
                     }}
+                    dishThumbnailUrl={dish.dish_thumbnail_url.publicUrl}
+                    dishThumbnailUrlChange={(newThumbnailUrl) => {
+                      menuModalDishUpdate(dish.dish_id, {
+                        dish_thumbnail_url: newThumbnailUrl,
+                      });
+                    }}
                     dishDelete={() => menuModalDishDelete(dish.dish_id)}
                   />
                 ))}

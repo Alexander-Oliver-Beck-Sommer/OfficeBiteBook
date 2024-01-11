@@ -29,6 +29,7 @@ type Dish = {
   dish_description: string;
   dish_thumbnail: string;
   dish_thumbnail_file: File | null;
+  dish_thumbnail_url: string;
   dish_saved: boolean;
 };
 
@@ -78,7 +79,31 @@ const useCalendar = () => {
 
               if (dishesError) throw dishesError;
 
-              return { ...menu, dishes: dishesData };
+              // Fetch thumbnails for dishes that have a thumbnail
+              const dishesWithThumbnails = await Promise.all(
+                dishesData.map(async (dish) => {
+                  if (dish.dish_thumbnail) {
+                    const thumbnailName = dish.dish_thumbnail;
+
+                    const { data, error: thumbnailError } = supabase.storage
+                      .from("dishes_thumbnails")
+                      .getPublicUrl(thumbnailName);
+
+                    if (thumbnailError) {
+                      console.error(
+                        "Error fetching thumbnail:",
+                        thumbnailError,
+                      );
+                      return { ...dish, dish_thumbnail_url: "" };
+                    }
+
+                    return { ...dish, dish_thumbnail_url: data };
+                  }
+                  return dish;
+                }),
+              );
+
+              return { ...menu, dishes: dishesWithThumbnails };
             }),
           );
 
@@ -396,6 +421,15 @@ const useCalendar = () => {
                   })),
                 );
               toast.success("Menu created!!");
+              for (const dish of dishes) {
+                const thumbnail = dish.dish_thumbnail_file;
+                const { data, error } = await supabase.storage
+                  .from("dishes_thumbnails")
+                  .upload(thumbnail.name, thumbnail, {
+                    cacheControl: "3600",
+                    upsert: false,
+                  });
+              }
               setMenuModalVisibility(false);
             } catch (error) {
               toast.error("Error creating dishes!");
@@ -403,30 +437,6 @@ const useCalendar = () => {
           } else {
             setMenuModalVisibility(false);
             toast.success("Menu created!");
-          }
-
-          for (const dish of dishes) {
-            if (dish.dish_thumbnail_file) {
-              try {
-                let { error: uploadError } = await supabase.storage
-                  .from("dishes_thumbnails")
-                  .upload(
-                    `${dish.dish_thumbnail_file.name}`,
-                    dish.dish_thumbnail_file,
-                    {
-                      cacheControl: "3600",
-                      upsert: false,
-                    },
-                  );
-
-                if (uploadError) throw uploadError;
-
-                // Update dish with the URL of the uploaded image
-              } catch (error) {
-                console.error("Error uploading image:", error);
-                toast.error("Error uploading dish image!");
-              }
-            }
           }
         } catch (error) {
           toast.error("Error creating menu!");

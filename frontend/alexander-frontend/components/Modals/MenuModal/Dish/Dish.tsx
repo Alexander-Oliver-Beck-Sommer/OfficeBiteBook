@@ -16,6 +16,8 @@ type DishProps = {
   dishDescriptionChange?: (newDescription: string) => void;
   dishThumbnailFile?: File | null;
   dishThumbnailFileChange?: (newThumbnailFile: File | null) => void;
+  dishThumbnailUrl?: string;
+  dishThumbnailUrlChange?: (newThumbnailUrl: string) => void;
   dishArchive?: () => void;
   dishReplace?: () => void;
   dishDelete?: () => void;
@@ -31,6 +33,8 @@ const Dish = ({
   dishDescriptionChange = () => {},
   dishThumbnailFile = null,
   dishThumbnailFileChange = () => {},
+  dishThumbnailUrl = "",
+  dishThumbnailUrlChange = () => {},
   dishArchive,
   dishReplace,
   dishDelete,
@@ -39,6 +43,7 @@ const Dish = ({
   const [subtitleInput, setSubtitleInput] = useState(dishSubtitle);
   const [descriptionInput, setDescriptionInput] = useState(dishDescription);
   const [thumbnailInputFile, setThumbnailInputFile] = useState(dishThumbnailFile) // prettier-ignore
+  const [thumbnailInputUrl, setThumbnailInputUrl] = useState(dishThumbnailUrl) // prettier-ignore
   const [dishOpen, setDishOpen] = useState(false);
 
   const dishOpenStyle = dishOpen
@@ -77,12 +82,26 @@ const Dish = ({
     }
   };
 
+  const handleThumbnailUrlChange = (newThumbnailUrl: string) => {
+    setThumbnailInputUrl(newThumbnailUrl);
+    if (dishThumbnailUrlChange) {
+      dishThumbnailUrlChange(newThumbnailUrl);
+    }
+  };
+
   useEffect(() => {
     setTitleInput(dishTitle);
     setSubtitleInput(dishSubtitle);
     setDescriptionInput(dishDescription);
     setThumbnailInputFile(dishThumbnailFile);
-  }, [dishTitle, dishSubtitle, dishDescription, dishThumbnailFile]);
+    setThumbnailInputUrl(dishThumbnailUrl);
+  }, [
+    dishTitle,
+    dishSubtitle,
+    dishDescription,
+    dishThumbnailFile,
+    dishThumbnailUrl,
+  ]);
 
   return (
     <li
@@ -170,6 +189,8 @@ const Dish = ({
                 thumbnailInputTitle="Thumbnail"
                 thumbnailInputId={dishCount}
                 onThumbnailChange={handleThumbnailChange}
+                thumbnailInputUrl={thumbnailInputUrl}
+                onThumbnailUrlChange={handleThumbnailUrlChange}
               />
             </li>
           </ul>
