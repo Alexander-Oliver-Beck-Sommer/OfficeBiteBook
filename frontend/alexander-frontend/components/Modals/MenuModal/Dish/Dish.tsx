@@ -70,10 +70,10 @@ const Dish = ({
     }
   };
 
-  const handleThumbnailChange = (newValue: string) => {
-    setThumbnailInput(newValue);
+  const handleThumbnailChange = (newValue: File | null) => {
+    setThumbnailInput(newValue.name);
     if (dishThumbnailChange) {
-      dishThumbnailChange(newValue);
+      dishThumbnailChange(newValue.name);
     }
   };
 
@@ -169,6 +169,8 @@ const Dish = ({
               <ThumbnailInput
                 thumbnailInputTitle="Thumbnail"
                 thumbnailInputId={dishCount}
+                onValueChange={handleThumbnailChange}
+                value={dishThumbnail}
               />
             </li>
           </ul>

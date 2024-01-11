@@ -2,26 +2,40 @@ import { useState } from "react";
 import ImageIcon from "@/components/Icons/ImageIcon";
 import UploadIcon from "@/components/Icons/UploadIcon";
 import DeleteIcon from "@/components/Icons/DeleteIcon";
+import { v4 as uuidv4 } from "uuid";
 
 type ThumbnailInputProps = {
   thumbnailInputTitle?: string;
   thumbnailInputId?: number;
+  onValueChange?: (file: File | null) => void; 
+  value?: string; 
 };
 
 const ThumbnailInput = ({
   thumbnailInputTitle = "",
   thumbnailInputId,
+  onValueChange,
+  value,
 }: ThumbnailInputProps) => {
-  const [uploadedImage, setUploadedImage] = useState(null);
+  const [uploadedImage, setUploadedImage] = useState<string | null>(
+    value || null,
+  );
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] || null;
     if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
+      const uuid = uuidv4();
+      const newFileName = `${uuid}.${file.type.split("/")[1]}`; 
+      const newFile = new File([file], newFileName, { type: file.type }); 
+
       const reader = new FileReader();
       reader.onloadend = () => {
-        setUploadedImage(reader.result);
+        setUploadedImage(reader.result as string);
+        if (onValueChange) onValueChange(newFile); 
       };
       reader.readAsDataURL(file);
+    } else {
+      if (onValueChange) onValueChange(null);
     }
   };
 
@@ -29,10 +43,11 @@ const ThumbnailInput = ({
     setUploadedImage(null);
     const fileInput = document.getElementById(
       `dropzone-file-${thumbnailInputId}`,
-    );
+    ) as HTMLInputElement;
     if (fileInput) {
       fileInput.value = "";
     }
+    if (onValueChange) onValueChange(null);
   };
 
   return (
