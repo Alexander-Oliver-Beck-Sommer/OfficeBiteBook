@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ImageIcon from "@/components/Icons/ImageIcon";
 import UploadIcon from "@/components/Icons/UploadIcon";
 import DeleteIcon from "@/components/Icons/DeleteIcon";
@@ -27,6 +27,12 @@ const UploadThumbnail = ({
   uploadThumbnailUrl = "",
   uploadThumbnailUrlChange = () => {},
 }: UploadThumbnailProps) => {
+  const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>(uploadThumbnailUrl); // prettier-ignore
+
+  useEffect(() => {
+    setBackgroundImageUrl(uploadThumbnailUrl);
+  }, [uploadThumbnailUrl]);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
 
@@ -35,14 +41,22 @@ const UploadThumbnail = ({
       const fileExtension = file.name.split(".").pop();
       const fileName = `${uuid}.${fileExtension}`;
 
-      // Create a new file object with the new name
       const newFile = new File([file], fileName, {
         type: file.type,
         lastModified: file.lastModified,
       });
+      uploadThumbnailUrlChange("");
+      setBackgroundImageUrl(URL.createObjectURL(newFile));
       uploadThumbnailValueChange(fileName);
       uploadThumbnailFileChange(newFile);
     }
+  };
+
+  const deleteThumbnail = () => {
+    uploadThumbnailValueChange("");
+    uploadThumbnailFileChange(null);
+    uploadThumbnailUrlChange("");
+    setBackgroundImageUrl("");
   };
 
   return (
@@ -52,7 +66,7 @@ const UploadThumbnail = ({
       </div>
       <div className="flex gap-4">
         <div className="relative flex aspect-square h-full items-center justify-center rounded border-2 border-arsenic bg-eerie_black fill-arsenic">
-          {/* {backgroundImageUrl ? (
+          {backgroundImageUrl ? (
             <div
               className="absolute flex h-full w-full flex-col justify-end bg-cover bg-center"
               style={{ backgroundImage: `url(${backgroundImageUrl})` }}
@@ -66,7 +80,7 @@ const UploadThumbnail = ({
             </div>
           ) : (
             <ImageIcon className="h-14 w-14" />
-          )} */}
+          )}
         </div>
         <div className="flex w-full items-center justify-center">
           <label

@@ -48,6 +48,7 @@ const Dish = ({
   const [descriptionInput, setDescriptionInput] = useState(dishDescription);
   const [thumbnailInputValue, setThumbnailInputValue] = useState(dishThumbnailValue); // prettier-ignore
   const [thumbnailInputFile, setThumbnailInputFile] = useState(dishThumbnailFile); // prettier-ignore
+  const [thumbnailInputUrl, setThumbnailInputUrl] = useState(dishThumbnailUrl); // prettier-ignore
   const [dishOpen, setDishOpen] = useState(false);
 
   const dishOpenStyle = dishOpen
@@ -92,6 +93,14 @@ const Dish = ({
     console.log(newFile);
     if (dishThumbnailFileChange) {
       dishThumbnailFileChange(newFile);
+    }
+  };
+
+  const handleThumbnailUrlChange = (newUrl: string) => {
+    setThumbnailInputUrl(newUrl);
+    console.log(newUrl);
+    if (dishThumbnailUrlChange) {
+      dishThumbnailUrlChange(newUrl);
     }
   };
 
@@ -199,6 +208,8 @@ const Dish = ({
                 uploadThumbnailValueChange={handleThumbnailValueChange}
                 uploadThumbnailFile={thumbnailInputFile}
                 uploadThumbnailFileChange={handleThumbnailFileChange}
+                uploadThumbnailUrl={thumbnailInputUrl}
+                uploadThumbnailUrlChange={handleThumbnailUrlChange}
               />
             </li>
           </ul>

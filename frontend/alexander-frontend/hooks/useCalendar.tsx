@@ -28,6 +28,8 @@ type Dish = {
   dish_subtitle: string;
   dish_description: string;
   dish_thumbnail_value: string;
+  dish_thumbnail_file?: File;
+  dish_thumbnail_url?: string;
   dish_saved: boolean;
 };
 
@@ -77,9 +79,26 @@ const useCalendar = () => {
 
               if (dishesError) throw dishesError;
 
-              // Fetch thumbnails for dishes that have a thumbnail
+              const dishesWithThumbnails = await Promise.all(
+                dishesData.map(async (dish) => {
+                  if (dish.dish_thumbnail_value) {
+                    const { data, error } = supabase.storage
+                      .from("dishes_thumbnails")
+                      .getPublicUrl(dish.dish_thumbnail_value);
 
-              return { ...menu, dishes: dishesData };
+                    if (error) {
+                      console.error("Error fetching dish thumbnail:", error);
+                      return dish;
+                    }
+
+                    return { ...dish, dish_thumbnail_url: data.publicUrl };
+                  } else {
+                    return dish;
+                  }
+                }),
+              );
+
+              return { ...menu, dishes: dishesWithThumbnails };
             }),
           );
 
@@ -532,6 +551,7 @@ const useCalendar = () => {
       dish_description: "",
       dish_thumbnail_value: "",
       dish_thumbnail_file: null,
+      dish_thumbnail_url: "",
       dish_saved: false,
     };
     setDishes([...dishes, newDish]);
