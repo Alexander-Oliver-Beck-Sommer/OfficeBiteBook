@@ -8,12 +8,16 @@ type ThumbnailInputProps = {
   thumbnailInputTitle?: string;
   thumbnailInputId?: number;
   onThumbnailChange: (newThumbnailFile: File | null) => void;
+  thumbnailInputUrl?: string;
+  thumbnailInputUrlChange?: (newThumbnailUrl: string) => void;
 };
 
 const ThumbnailInput = ({
   thumbnailInputTitle = "",
   thumbnailInputId = 0,
   onThumbnailChange,
+  thumbnailInputUrl = "",
+  thumbnailInputUrlChange = () => {},
 }: ThumbnailInputProps) => {
   const [thumbnailImage, setThumbnailImage] = useState<string | null>(null);
 
@@ -42,6 +46,7 @@ const ThumbnailInput = ({
     setThumbnailImage(null);
     onThumbnailChange(null);
   };
+  const backgroundImageUrl = thumbnailInputUrl || thumbnailImage;
 
   return (
     <section className="grid h-full grid-rows-autoX1 gap-4">
@@ -50,10 +55,10 @@ const ThumbnailInput = ({
       </div>
       <div className="flex gap-4">
         <div className="relative flex aspect-square h-full items-center justify-center rounded border-2 border-arsenic bg-eerie_black fill-arsenic">
-          {thumbnailImage ? (
+          {backgroundImageUrl ? (
             <div
               className="absolute flex h-full w-full flex-col justify-end bg-cover bg-center"
-              style={{ backgroundImage: `url(${thumbnailImage})` }}
+              style={{ backgroundImage: `url(${backgroundImageUrl})` }}
             >
               <button
                 className="flex h-8 w-8 items-center justify-center rounded-tr border-r-2 border-t-2 border-arsenic bg-eerie_black hover:border-sunset_orange hover:bg-sunset_orange"
