@@ -4,7 +4,7 @@ import TextInput from "@/components/Inputs/TextInput";
 import ActionButton from "@/components/Buttons/ActionButton";
 import TextArea from "@/components/Inputs/TextArea";
 import useCalendar from "@/hooks/useCalendar";
-import ThumbnailInput from "@/components/Inputs/ThumbnailInput";
+import UploadThumbnail from "@/components/Inputs/UploadThumbnail";
 
 type DishProps = {
   dishCount?: number;
@@ -14,10 +14,12 @@ type DishProps = {
   dishSubtitleChange?: (newSubtitle: string) => void;
   dishDescription?: string;
   dishDescriptionChange?: (newDescription: string) => void;
+  dishThumbnailValue?: string;
+  dishThumbnailValueChange?: (newValue: string) => void;
   dishThumbnailFile?: File | null;
-  dishThumbnailFileChange?: (newThumbnailFile: File | null) => void;
+  dishThumbnailFileChange?: (newFile: File | null) => void;
   dishThumbnailUrl?: string;
-  dishThumbnailUrlChange?: (newThumbnailUrl: string) => void;
+  dishThumbnailUrlChange?: (newUrl: string) => void;
   dishArchive?: () => void;
   dishReplace?: () => void;
   dishDelete?: () => void;
@@ -31,6 +33,8 @@ const Dish = ({
   dishSubtitleChange = () => {},
   dishDescription = "",
   dishDescriptionChange = () => {},
+  dishThumbnailValue = "",
+  dishThumbnailValueChange = () => {},
   dishThumbnailFile = null,
   dishThumbnailFileChange = () => {},
   dishThumbnailUrl = "",
@@ -42,8 +46,8 @@ const Dish = ({
   const [titleInput, setTitleInput] = useState(dishTitle);
   const [subtitleInput, setSubtitleInput] = useState(dishSubtitle);
   const [descriptionInput, setDescriptionInput] = useState(dishDescription);
-  const [thumbnailInputFile, setThumbnailInputFile] = useState(dishThumbnailFile) // prettier-ignore
-  const [thumbnailInputUrl, setThumbnailInputUrl] = useState(dishThumbnailUrl) // prettier-ignore
+  const [thumbnailInputValue, setThumbnailInputValue] = useState(dishThumbnailValue); // prettier-ignore
+  const [thumbnailInputFile, setThumbnailInputFile] = useState(dishThumbnailFile); // prettier-ignore
   const [dishOpen, setDishOpen] = useState(false);
 
   const dishOpenStyle = dishOpen
@@ -75,17 +79,19 @@ const Dish = ({
     }
   };
 
-  const handleThumbnailChange = (newThumbnailFile: File | null) => {
-    setThumbnailInputFile(newThumbnailFile);
-    if (dishThumbnailFileChange) {
-      dishThumbnailFileChange(newThumbnailFile);
+  const handleThumbnailValueChange = (newValue: string) => {
+    setThumbnailInputValue(newValue);
+    console.log(newValue);
+    if (dishThumbnailValueChange) {
+      dishThumbnailValueChange(newValue);
     }
   };
 
-  const handleThumbnailUrlChange = (newThumbnailUrl: string) => {
-    setThumbnailInputUrl(newThumbnailUrl);
-    if (dishThumbnailUrlChange) {
-      dishThumbnailUrlChange(newThumbnailUrl);
+  const handleThumbnailFileChange = (newFile: File | null) => {
+    setThumbnailInputFile(newFile);
+    console.log(newFile);
+    if (dishThumbnailFileChange) {
+      dishThumbnailFileChange(newFile);
     }
   };
 
@@ -93,14 +99,14 @@ const Dish = ({
     setTitleInput(dishTitle);
     setSubtitleInput(dishSubtitle);
     setDescriptionInput(dishDescription);
+    setThumbnailInputValue(dishThumbnailValue);
     setThumbnailInputFile(dishThumbnailFile);
-    setThumbnailInputUrl(dishThumbnailUrl);
   }, [
     dishTitle,
     dishSubtitle,
     dishDescription,
+    dishThumbnailValue,
     dishThumbnailFile,
-    dishThumbnailUrl,
   ]);
 
   return (
@@ -185,12 +191,14 @@ const Dish = ({
               />
             </li>
             <li>
-              <ThumbnailInput
-                thumbnailInputTitle="Thumbnail"
-                thumbnailInputId={dishCount}
-                onThumbnailChange={handleThumbnailChange}
-                thumbnailInputUrl={thumbnailInputUrl}
-                onThumbnailUrlChange={handleThumbnailUrlChange}
+              <UploadThumbnail
+                uploadThumbnailTitle="Thumbnail"
+                uploadThumbnailDescription="Upload Thumbnail"
+                uploadThumbnailId={dishCount}
+                uploadThumbnailValue={thumbnailInputValue}
+                uploadThumbnailValueChange={handleThumbnailValueChange}
+                uploadThumbnailFile={thumbnailInputFile}
+                uploadThumbnailFileChange={handleThumbnailFileChange}
               />
             </li>
           </ul>

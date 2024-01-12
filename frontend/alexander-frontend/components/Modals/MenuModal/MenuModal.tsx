@@ -138,19 +138,19 @@ const MenuModal = ({
                         dish_description: newDescription,
                       })
                     }
-                    dishThumbnailFile={dish.dish_thumbnail_file}
-                    dishThumbnailFileChange={(newThumbnailFile) => {
-                      console.log(newThumbnailFile);
+                    dishThumbnailValue={dish.dish_thumbnail_value}
+                    dishThumbnailValueChange={(newValue) => {
+                      console.log(newValue);
                       menuModalDishUpdate(dish.dish_id, {
-                        dish_thumbnail_file: newThumbnailFile,
+                        dish_thumbnail_value: newValue,
                       });
                     }}
-                    dishThumbnailUrl={dish.dish_thumbnail_url?.publicUrl}
-                    dishThumbnailUrlChange={(newThumbnailUrl) => {
+                    dishThumbnailFile={Dish.dish_thumbnail_file}
+                    dishThumbnailFileChange={(newFile) =>
                       menuModalDishUpdate(dish.dish_id, {
-                        dish_thumbnail_url: newThumbnailUrl,
-                      });
-                    }}
+                        dish_thumbnail_file: newFile,
+                      })
+                    }
                     dishDelete={() => menuModalDishDelete(dish.dish_id)}
                   />
                 ))}

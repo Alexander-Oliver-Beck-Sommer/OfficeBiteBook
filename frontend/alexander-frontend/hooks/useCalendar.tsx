@@ -27,9 +27,7 @@ type Dish = {
   dish_title: string;
   dish_subtitle: string;
   dish_description: string;
-  dish_thumbnail: string;
-  dish_thumbnail_file: File | null;
-  dish_thumbnail_url: string;
+  dish_thumbnail_value: string;
   dish_saved: boolean;
 };
 
@@ -80,30 +78,8 @@ const useCalendar = () => {
               if (dishesError) throw dishesError;
 
               // Fetch thumbnails for dishes that have a thumbnail
-              const dishesWithThumbnails = await Promise.all(
-                dishesData.map(async (dish) => {
-                  if (dish.dish_thumbnail) {
-                    const thumbnailName = dish.dish_thumbnail;
 
-                    const { data, error: thumbnailError } = supabase.storage
-                      .from("dishes_thumbnails")
-                      .getPublicUrl(thumbnailName);
-
-                    if (thumbnailError) {
-                      console.error(
-                        "Error fetching thumbnail:",
-                        thumbnailError,
-                      );
-                      return { ...dish, dish_thumbnail_url: "" };
-                    }
-
-                    return { ...dish, dish_thumbnail_url: data };
-                  }
-                  return dish;
-                }),
-              );
-
-              return { ...menu, dishes: dishesWithThumbnails };
+              return { ...menu, dishes: dishesData };
             }),
           );
 
@@ -357,7 +333,7 @@ const useCalendar = () => {
             (dish.dish_title !== originalDish.dish_title ||
               dish.dish_subtitle !== originalDish.dish_subtitle ||
               dish.dish_description !== originalDish.dish_description ||
-              dish.dish_thumbnail !== originalDish.dish_thumbnail)
+              dish.dish_thumbnail_value !== originalDish.dish_thumbnail_value)
           );
         });
 
@@ -407,20 +383,38 @@ const useCalendar = () => {
             ]);
           if (dishes.length > 0) {
             try {
-              // Upsert dishes data without the thumbnail first
+              for (const dish of dishes) {
+                // Check if there is a thumbnail file to upload
+                if (dish.dish_thumbnail_file) {
+                  const file = dish.dish_thumbnail_file;
+                  const fileName = file.name;
+
+                  // Upload the file to the "dishes_thumbnails" bucket
+                  const { error: uploadError } = await supabase.storage
+                    .from("dishes_thumbnails")
+                    .upload(fileName, file);
+
+                  if (uploadError) {
+                    throw uploadError;
+                  }
+
+                  // Update dish_thumbnail_value with the path of the uploaded file
+                  dish.dish_thumbnail_value = fileName;
+                }
+              }
+
+              // Prepare dishes for insertion after all thumbnails are uploaded
               const dishesToInsert = dishes.map((dish) => ({
                 dish_id: dish.dish_id,
                 menu_id: menuModalId,
                 dish_title: dish.dish_title,
                 dish_subtitle: dish.dish_subtitle,
                 dish_description: dish.dish_description,
+                dish_thumbnail_value: dish.dish_thumbnail_value,
                 dish_saved: true,
-                // Include dish_thumbnail only if it exists
-                ...(dish.dish_thumbnail_file?.name && {
-                  dish_thumbnail: dish.dish_thumbnail_file.name,
-                }),
               }));
 
+              // Insert dishes into the database
               const { data: dishesData, error: dishesError } = await supabase
                 .from("dishes")
                 .insert(dishesToInsert);
@@ -429,27 +423,10 @@ const useCalendar = () => {
                 throw dishesError;
               }
 
-              // Upload thumbnails if they exist
-              for (const dish of dishes) {
-                if (dish.dish_thumbnail_file && dish.dish_thumbnail_file.name) {
-                  const thumbnail = dish.dish_thumbnail_file;
-                  const { error: uploadError } = await supabase.storage
-                    .from("dishes_thumbnails")
-                    .upload(thumbnail.name, thumbnail, {
-                      cacheControl: "3600",
-                      upsert: false,
-                    });
-
-                  if (uploadError) {
-                    throw uploadError;
-                  }
-                }
-              }
-
-              toast.success("Menu created!!");
+              toast.success("Menu and dishes created!!");
               setMenuModalVisibility(false);
             } catch (error) {
-              toast.error("Error creating dishes: " + error.message);
+              toast.error("Error: " + error.message);
             }
           } else {
             setMenuModalVisibility(false);
@@ -528,7 +505,7 @@ const useCalendar = () => {
       dish_title: "",
       dish_subtitle: "",
       dish_description: "",
-      dish_thumbnail: "",
+      dish_thumbnail_value: "",
       dish_thumbnail_file: null,
       dish_saved: false,
     };
@@ -555,6 +532,29 @@ const useCalendar = () => {
 
       if (menuModalSource === "cardButton") {
         try {
+          const { data: dishesToDelete, error: fetchError } = await supabase
+            .from("dishes")
+            .select("dish_thumbnail_value")
+            .match({ menu_id: menuModalId });
+
+          if (fetchError) {
+            throw fetchError;
+          }
+
+          const thumbnailValues = dishesToDelete
+            .filter((dish) => dish.dish_thumbnail_value)
+            .map((dish) => dish.dish_thumbnail_value);
+
+          if (thumbnailValues.length > 0) {
+            const { error: storageError } = await supabase.storage
+              .from("dishes_thumbnails")
+              .remove(thumbnailValues);
+
+            if (storageError) {
+              throw storageError;
+            }
+          }
+
           const { error: dishesError } = await supabase
             .from("dishes")
             .delete()
@@ -565,11 +565,7 @@ const useCalendar = () => {
           }
 
           toast.success("Dishes erased!");
-        } catch (dishesError) {
-          toast.error("Error erasing dishes!");
-        }
 
-        try {
           const { error: menusError } = await supabase
             .from("menus")
             .update({ menu_dishes_amount: 0 })
@@ -578,8 +574,8 @@ const useCalendar = () => {
           if (menusError) {
             throw menusError;
           }
-        } catch (menusError) {
-          console.log("Error resetting menu_dishes_amount:", menusError);
+        } catch (error) {
+          toast.error("Error: " + error.message);
         }
       }
     }
@@ -587,11 +583,24 @@ const useCalendar = () => {
 
   // Have our dish be removed from the dishes array, as well as from the database
   const dishDelete = async (dishId: number) => {
+    const dishToDelete = dishes.find((dish) => dish.dish_id === dishId);
+    const thumbnailValue = dishToDelete?.dish_thumbnail_value;
+
     const updatedDishes = dishes.filter((dish) => dish.dish_id !== dishId);
     setDishes(updatedDishes);
 
     if (menuModalSource === "cardButton") {
       try {
+        if (thumbnailValue) {
+          const { error: storageError } = await supabase.storage
+            .from("dishes_thumbnails")
+            .remove([thumbnailValue]);
+
+          if (storageError) {
+            throw storageError;
+          }
+        }
+
         const { error: dishesError } = await supabase
           .from("dishes")
           .delete()
@@ -602,11 +611,7 @@ const useCalendar = () => {
         }
 
         toast.success("Dish deleted successfully!");
-      } catch (dishesError) {
-        toast.error("Error deleting dish!");
-      }
 
-      try {
         const { error: menusError } = await supabase
           .from("menus")
           .update({ menu_dishes_amount: updatedDishes.length })
@@ -615,8 +620,8 @@ const useCalendar = () => {
         if (menusError) {
           throw menusError;
         }
-      } catch (menusError) {
-        console.log("Error decreasing menu_dishes_amount:", menusError);
+      } catch (error) {
+        toast.error("Error: " + error.message);
       }
     }
   };
