@@ -407,32 +407,49 @@ const useCalendar = () => {
             ]);
           if (dishes.length > 0) {
             try {
+              // Upsert dishes data without the thumbnail first
+              const dishesToInsert = dishes.map((dish) => ({
+                dish_id: dish.dish_id,
+                menu_id: menuModalId,
+                dish_title: dish.dish_title,
+                dish_subtitle: dish.dish_subtitle,
+                dish_description: dish.dish_description,
+                dish_saved: true,
+                // Include dish_thumbnail only if it exists
+                ...(dish.dish_thumbnail_file?.name && {
+                  dish_thumbnail: dish.dish_thumbnail_file.name,
+                }),
+              }));
+
               const { data: dishesData, error: dishesError } = await supabase
                 .from("dishes")
-                .insert(
-                  dishes.map((dish) => ({
-                    dish_id: dish.dish_id,
-                    menu_id: menuModalId,
-                    dish_title: dish.dish_title,
-                    dish_subtitle: dish.dish_subtitle,
-                    dish_description: dish.dish_description,
-                    dish_thumbnail: dish.dish_thumbnail_file.name,
-                    dish_saved: true,
-                  })),
-                );
-              toast.success("Menu created!!");
-              for (const dish of dishes) {
-                const thumbnail = dish.dish_thumbnail_file;
-                const { data, error } = await supabase.storage
-                  .from("dishes_thumbnails")
-                  .upload(thumbnail.name, thumbnail, {
-                    cacheControl: "3600",
-                    upsert: false,
-                  });
+                .insert(dishesToInsert);
+
+              if (dishesError) {
+                throw dishesError;
               }
+
+              // Upload thumbnails if they exist
+              for (const dish of dishes) {
+                if (dish.dish_thumbnail_file && dish.dish_thumbnail_file.name) {
+                  const thumbnail = dish.dish_thumbnail_file;
+                  const { error: uploadError } = await supabase.storage
+                    .from("dishes_thumbnails")
+                    .upload(thumbnail.name, thumbnail, {
+                      cacheControl: "3600",
+                      upsert: false,
+                    });
+
+                  if (uploadError) {
+                    throw uploadError;
+                  }
+                }
+              }
+
+              toast.success("Menu created!!");
               setMenuModalVisibility(false);
             } catch (error) {
-              toast.error("Error creating dishes!");
+              toast.error("Error creating dishes: " + error.message);
             }
           } else {
             setMenuModalVisibility(false);

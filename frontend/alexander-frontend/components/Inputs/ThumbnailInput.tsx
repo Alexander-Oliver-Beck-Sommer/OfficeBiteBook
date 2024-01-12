@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ImageIcon from "@/components/Icons/ImageIcon";
 import UploadIcon from "@/components/Icons/UploadIcon";
 import DeleteIcon from "@/components/Icons/DeleteIcon";
@@ -8,38 +8,28 @@ type ThumbnailInputProps = {
   thumbnailInputTitle?: string;
   thumbnailInputId?: number;
   onThumbnailChange: (newThumbnailFile: File | null) => void;
-  thumbnailInputUrl?: string;
-  onThumbnailUrlChange?: (newThumbnailUrl: string) => void;
 };
 
 const ThumbnailInput = ({
   thumbnailInputTitle = "",
   thumbnailInputId = 0,
   onThumbnailChange,
-  thumbnailInputUrl = "",
-  onThumbnailUrlChange,
 }: ThumbnailInputProps) => {
   const [thumbnailImage, setThumbnailImage] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Set the initial thumbnail image from the URL if it exists
-    if (thumbnailInputUrl) {
-      setThumbnailImage(thumbnailInputUrl);
-    }
-  }, [thumbnailInputUrl]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
 
     if (file) {
+      const uuid = uuidv4();
+      const fileExtension = file.name.split(".").pop();
+      const fileName = `${uuid}.${fileExtension}`;
+      const newFile = new File([file], fileName, { type: file.type });
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setThumbnailImage(reader.result as string);
-        onThumbnailChange(file);
-        // Reset the URL when a new file is uploaded
-        if (onThumbnailUrlChange) {
-          onThumbnailUrlChange("");
-        }
+        onThumbnailChange(newFile);
       };
       reader.readAsDataURL(file);
     } else {
@@ -51,9 +41,6 @@ const ThumbnailInput = ({
   const deleteThumbnail = () => {
     setThumbnailImage(null);
     onThumbnailChange(null);
-    if (onThumbnailUrlChange) {
-      onThumbnailUrlChange("");
-    }
   };
 
   return (

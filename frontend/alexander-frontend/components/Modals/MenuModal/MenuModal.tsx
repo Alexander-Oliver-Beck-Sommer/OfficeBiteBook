@@ -140,11 +140,12 @@ const MenuModal = ({
                     }
                     dishThumbnailFile={dish.dish_thumbnail_file}
                     dishThumbnailFileChange={(newThumbnailFile) => {
+                      console.log(newThumbnailFile);
                       menuModalDishUpdate(dish.dish_id, {
                         dish_thumbnail_file: newThumbnailFile,
                       });
                     }}
-                    dishThumbnailUrl={dish.dish_thumbnail_url.publicUrl}
+                    dishThumbnailUrl={dish.dish_thumbnail_url?.publicUrl}
                     dishThumbnailUrlChange={(newThumbnailUrl) => {
                       menuModalDishUpdate(dish.dish_id, {
                         dish_thumbnail_url: newThumbnailUrl,
