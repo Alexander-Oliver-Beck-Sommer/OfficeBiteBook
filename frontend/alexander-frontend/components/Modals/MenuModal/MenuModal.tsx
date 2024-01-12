@@ -145,7 +145,7 @@ const MenuModal = ({
                         dish_thumbnail_value: newValue,
                       });
                     }}
-                    dishThumbnailFile={Dish.dish_thumbnail_file}
+                    dishThumbnailFile={dish.dish_thumbnail_file}
                     dishThumbnailFileChange={(newFile) =>
                       menuModalDishUpdate(dish.dish_id, {
                         dish_thumbnail_file: newFile,

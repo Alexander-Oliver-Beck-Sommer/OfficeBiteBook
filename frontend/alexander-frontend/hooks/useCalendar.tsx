@@ -471,6 +471,40 @@ const useCalendar = () => {
   const menuModalDelete = async () => {
     if (menuModalSource === "cardButton") {
       try {
+        const { data: dishesData, error: dishesFetchError } = await supabase
+          .from("dishes")
+          .select("dish_id, dish_thumbnail_value")
+          .match({ menu_id: menuModalId });
+
+        if (dishesFetchError) {
+          throw dishesFetchError;
+        }
+
+        const thumbnailValues = dishesData
+          .map((dish) => dish.dish_thumbnail_value)
+          .filter(Boolean);
+        if (thumbnailValues.length > 0) {
+          const { error: storageError } = await supabase.storage
+            .from("dishes_thumbnails")
+            .remove(thumbnailValues);
+
+          if (storageError) {
+            throw storageError;
+          }
+        }
+
+        const { error: dishesError } = await supabase
+          .from("dishes")
+          .delete()
+          .in(
+            "dish_id",
+            dishesData.map((dish) => dish.dish_id),
+          );
+
+        if (dishesError) {
+          throw dishesError;
+        }
+
         const { error: menuError } = await supabase
           .from("menus")
           .delete()
@@ -480,19 +514,10 @@ const useCalendar = () => {
           throw menuError;
         }
 
-        const { error: dishesError } = await supabase
-          .from("dishes")
-          .delete()
-          .match({ menu_id: menuModalId });
-
-        if (dishesError) {
-          throw dishesError;
-        }
-
-        toast.success("Menu and dishes deleted!");
+        toast.success("Menu and dishes with thumbnails deleted!");
         setMenuModalVisibility(false);
       } catch (error) {
-        toast.error("Error deleting menu and dishes!");
+        toast.error("Error: " + error.message);
       }
     }
   };
