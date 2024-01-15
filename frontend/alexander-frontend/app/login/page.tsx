@@ -40,7 +40,6 @@ export default function Login() {
     try {
       // Let's check if there is any data inside our user object
       if (userData) {
-        console.log("poop");
         console.log(userData);
         // There is? Great! Lets retrieve the required data we need! (Specifically: id, email, created_at)
         const { id, email, created_at } = userData;
