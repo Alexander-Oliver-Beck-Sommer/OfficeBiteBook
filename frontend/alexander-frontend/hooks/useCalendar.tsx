@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/components/Supabase/supabaseClient";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
+import {useCooki}
 
 type Menu = {
   menu_id: string;
@@ -34,6 +35,7 @@ type Dish = {
 };
 
 const useCalendar = () => {
+  const cookieStore = cookies();
   const [menus, setMenus] = useState<Menu[]>([]);
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [originalMenuData, setOriginalMenuData] = useState<Menu[]>([]); // Copy of the original menu to compare changes with
