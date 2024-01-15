@@ -2,6 +2,7 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { supabase } from "@/components/Supabase/supabaseClient";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -9,14 +10,13 @@ export default function Login() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const supabase = createClientComponentClient();
+  const supabaseClient = createClientComponentClient();
 
   useEffect(() => {
     async function getUser() {
       const {
         data: { user },
-      } = await supabase.auth.getUser();
+      } = await supabaseClient.auth.getUser();
       setUser(user);
       setLoading(false);
     }
@@ -25,7 +25,7 @@ export default function Login() {
   }, []);
 
   const handleSignUp = async () => {
-    const res = await supabase.auth.signUp({
+    const res = await supabaseClient.auth.signUp({
       email,
       password,
       options: {
@@ -33,26 +33,57 @@ export default function Login() {
       },
     });
     setUser(res.data.user);
-    router.refresh();
     setEmail("");
     setPassword("");
+    router.refresh();
+    const userData = res.data.user;
+    try {
+      // Let's check if there is any data inside our user object
+      if (userData) {
+        console.log("poop");
+        console.log(userData);
+        // There is? Great! Lets retrieve the required data we need! (Specifically: id, email, created_at)
+        const { id, email, created_at } = userData;
+        console.log(id);
+        if (id && email && created_at) {
+          const { error: userError } = await supabase.from("users").insert([
+            {
+              user_id: id,
+              user_email: email,
+              user_created_at: created_at,
+            },
+          ]);
+
+          if (userError) {
+            console.log(
+              "Failed to clone the user into 'users':",
+              userError.message,
+            );
+          }
+
+          console.log("Personal account cloned to table: 'users'!");
+        }
+      }
+    } catch (error) {
+      console.log("Personal account couldn't be saved!:", error.message);
+    }
   };
 
   const handleSignIn = async () => {
-    const res = await supabase.auth.signInWithPassword({
+    const res = await supabaseClient.auth.signInWithPassword({
       email,
       password,
     });
-    router.push("/");
     setUser(res.data.user);
     setEmail("");
     setPassword("");
+    router.refresh();
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.refresh();
+    await supabaseClient.auth.signOut();
     setUser(null);
+    router.refresh();
   };
 
   console.log({ loading, user });
