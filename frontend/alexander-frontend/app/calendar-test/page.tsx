@@ -13,8 +13,6 @@ export default async function CalendarTest() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  console.log({ user });
-
   if (!user) {
     return (
       <>
@@ -27,7 +25,7 @@ export default async function CalendarTest() {
 
   return (
     <>
-      <Calendar />
+      <Calendar calendarUser={user} />
     </>
   );
 }

@@ -1,5 +1,4 @@
 "use client";
-
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -44,8 +43,8 @@ export default function Login() {
       email,
       password,
     });
+    router.push("/");
     setUser(res.data.user);
-    router.refresh();
     setEmail("");
     setPassword("");
   };

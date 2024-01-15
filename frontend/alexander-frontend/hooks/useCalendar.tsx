@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 
 type Menu = {
   menu_id: string;
+  user_id: string;
   menu_title: string;
   menu_location: string;
   menu_date: string;
@@ -33,7 +34,8 @@ type Dish = {
   dish_saved: boolean;
 };
 
-const useCalendar = () => {
+const useCalendar = (weekUser) => {
+  const userData = weekUser; // This contains the user's data from the supabase
   const [menus, setMenus] = useState<Menu[]>([]);
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [originalMenuData, setOriginalMenuData] = useState<Menu[]>([]); // Copy of the original menu to compare changes with
@@ -111,10 +113,6 @@ const useCalendar = () => {
       fetchMenusAndDishes();
     }
   }, [menuModalVisibility]);
-
-  useEffect(() => {
-    console.log(dishes);
-  }, [dishes]);
 
   // Disable the erase button if there are no dishes to erase
   useEffect(() => {
@@ -392,6 +390,7 @@ const useCalendar = () => {
             .insert([
               {
                 menu_id: menuModalId,
+                user_id: userData.id,
                 menu_title: menuModalTitle,
                 menu_location: menuModalLocation,
                 menu_date: menuModalDate,

@@ -3,7 +3,11 @@ import useTimeMachine from "@/hooks/useTimeMachine";
 import NavigationBar from "@/components/Calendar/NavigationBar/NavigationBar";
 import Week from "@/components/Calendar/Week/Week";
 
-export default function Calendar() {
+type CalendarProps = {
+  calendarUser: any;
+};
+
+export default function Calendar({ calendarUser }) {
   const {
     week,
     weekType,
@@ -29,6 +33,7 @@ export default function Calendar() {
         navigationBarWeekTypeSwitcherToggle={weekTypeSwitcher}
       />
       <Week
+        weekUser={calendarUser}
         weekDays={week.week_days}
         weekType={weekType}
         weekHours={weekHours()}

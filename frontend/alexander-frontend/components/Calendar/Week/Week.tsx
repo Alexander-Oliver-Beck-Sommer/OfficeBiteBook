@@ -12,6 +12,7 @@ type WeekProps = {
 };
 
 const Week = ({
+  weekUser = null,
   weekDays = [],
   weekType = true,
   weekHours = [],
@@ -49,7 +50,7 @@ const Week = ({
     cardButtonToggle,
     cardButtonPosition,
     cardButtonHeight,
-  } = useCalendar();
+  } = useCalendar(weekUser);
 
   return (
     <>
