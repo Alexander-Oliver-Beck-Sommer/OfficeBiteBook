@@ -7,6 +7,7 @@ import DownArrowIcon from "../Icons/DownArrowIcon";
 import SettingsIcon from "../Icons/SettingsIcon";
 import InventoryIcon from "../Icons/InventoryIcon";
 import EraseIcon from "../Icons/EraseIcon";
+import UploadIcon from "../Icons/UploadIcon";
 
 const icons = (icon: string) => {
   switch (icon) {
@@ -28,12 +29,17 @@ const icons = (icon: string) => {
       return <InventoryIcon />;
     case "erase":
       return <EraseIcon />;
+    case "upload":
+      return <UploadIcon />;
     default:
       return null;
   }
 };
 
 const variants = (variant: string, isDisabled: boolean) => {
+  const outlinedDisabled = isDisabled
+    ? "fill-arsenic text-arsenic border-dark_charcoal"
+    : "fill-ghost_white text-ghost_white border-arsenic hover:bg-arsenic";
   const iconBorderDisabled = isDisabled
     ? "fill-arsenic border-dark_charcoal"
     : "fill-ghost_white border-arsenic hover:bg-arsenic";
@@ -42,7 +48,7 @@ const variants = (variant: string, isDisabled: boolean) => {
     case "filled":
       return "bg-arsenic border-transparent border-2 px-5 py-4 fill-ghost_white rounded";
     case "outlined":
-      return "border-arsenic bg-eerie_black border-2 px-5 py-4 fill-ghost_white rounded hover:bg-arsenic";
+      return `bg-eerie_black border-2 px-5 py-4 rounded ${outlinedDisabled}`;
     case "icon-border":
       return `bg-eerie_black border-2 px-3 py-3 rounded ${iconBorderDisabled}`;
     case "icon":
