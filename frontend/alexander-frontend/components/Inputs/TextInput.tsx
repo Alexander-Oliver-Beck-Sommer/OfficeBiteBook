@@ -4,6 +4,7 @@ import TimeIcon from "@/components/Icons/TimeIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
 import LocationIcon from "@/components/Icons/LocationIcon";
 import TextIcon from "@/components/Icons/TextIcon";
+import PhoneIcon from "../Icons/PhoneIcon";
 
 const types = (type: string) => {
   switch (type) {
@@ -13,6 +14,8 @@ const types = (type: string) => {
       return <CalendarIcon />;
     case "time":
       return <TimeIcon />;
+    case "tel":
+      return <PhoneIcon />;
     default:
       return null;
   }
@@ -84,25 +87,14 @@ const TextInput = ({
     isFocused ? "scale-75 text-cool_grey" : "scale-100 text-ghost_white"
   }`;
 
-  if (!textInputType) {
-    throw new Error("Provide a type for the TextInput.");
-  }
-
-  if (!textInputLabel) {
-    throw new Error("Provide a label for the TextInput.");
-  }
-
-  if (!textInputName) {
-    throw new Error("Provide a name for the TextInput.");
-  }
   return (
-    <section className="relative flex flex-col gap-4">
+    <section className="relative flex flex-col gap-3 md:gap-4">
       <label htmlFor={textInputName} className="w-fit">
-        <p
-          className={`origin-bottom-left  transition-all duration-300 ease-in-out ${textInputLabelFocus} ${invalidText}`}
+        <h4
+          className={`origin-bottom-left transition-all duration-300 ease-in-out ${textInputLabelFocus} ${invalidText}`}
         >
           {textInputName}
-        </p>
+        </h4>
       </label>
       <div
         className={`relative w-full overflow-hidden rounded border-2 transition-all duration-300 ease-in-out ${invalidBorder}`}

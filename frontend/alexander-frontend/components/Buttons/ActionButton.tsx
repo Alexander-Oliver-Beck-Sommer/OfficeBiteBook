@@ -40,9 +40,9 @@ const variants = (variant: string, isDisabled: boolean) => {
 
   switch (variant) {
     case "filled":
-      return "bg-arsenic border-transparent border-2 px-5 py-3 fill-ghost_white rounded";
+      return "bg-arsenic border-transparent border-2 px-5 py-4 fill-ghost_white rounded";
     case "outlined":
-      return "border-arsenic bg-eerie_black border-2 px-5 py-3 fill-ghost_white rounded hover:bg-arsenic";
+      return "border-arsenic bg-eerie_black border-2 px-5 py-4 fill-ghost_white rounded hover:bg-arsenic";
     case "icon-border":
       return `bg-eerie_black border-2 px-3 py-3 rounded ${iconBorderDisabled}`;
     case "icon":

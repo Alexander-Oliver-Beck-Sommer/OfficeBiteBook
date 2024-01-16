@@ -12,5 +12,11 @@ export default async function Profile() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  return <ProfileComponent profileId={user?.id} profileMail={user?.email} />;
+  return (
+    <ProfileComponent
+      profileId={user?.id}
+      profileMail={user?.email}
+      profileCreated={user?.created_at}
+    />
+  );
 }
