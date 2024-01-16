@@ -172,14 +172,14 @@ const ProfileComponent = ({
 
   return (
     <ShortContent ariaLabel="Profile">
-      <section className="mx-4 my-8 flex flex-col gap-8">
-        <section className="flex flex-col gap-1">
+      <section className="mx-4 my-8 flex flex-col gap-8 md:mx-12 md:my-6 md:gap-6">
+        <section className="flex flex-col gap-1 md:gap-2">
           <p className="text-cool_grey">Welcome back,</p>
           <h3>{originalUserName}</h3>
         </section>
         <div className="h-[2px] rounded bg-arsenic"></div>
-        <ul className="flex flex-col gap-8">
-          <li>
+        <ul className="grid gap-8 md:grid-cols-2 md:gap-6">
+          <li className="md:col-span-2">
             <TextInput
               textInputType="text"
               textInputLabel="Change your username"
@@ -210,7 +210,8 @@ const ProfileComponent = ({
               }
             />
           </li>
-          <li className="grid grid-cols-2 gap-2">
+          <li className="grid grid-cols-2 gap-3 md:gap-4">
+            <h4 className="col-span-2">Avatar</h4>
             <input
               type="file"
               accept="image/png, image/jpeg"
@@ -221,37 +222,37 @@ const ProfileComponent = ({
             {userAvatarUrl ? (
               // Content that shows if the user has an avatar.
               <div
-                className="aspect-square border-2 border-arsenic bg-eerie_black bg-cover bg-center"
+                className="aspect-square rounded border-2 border-arsenic bg-eerie_black bg-cover bg-center"
                 style={{ backgroundImage: `url(${userAvatarUrl})` }}
               ></div>
             ) : (
               // Content that shows if the user does not have an avatar.
-              <div className="flex aspect-square items-center justify-center border-2 border-arsenic bg-eerie_black">
+              <div className="flex aspect-square items-center justify-center rounded border-2 border-arsenic bg-eerie_black">
                 <ImageIcon className="h-16 w-16 fill-arsenic" />
               </div>
             )}
-            <div className="grid grid-rows-2 gap-2">
+            <div className="grid grid-rows-2 gap-3 md:gap-4">
               <ActionButton
                 icon="upload"
                 variant="outlined"
-                label="Upload thumbnail"
+                label="Upload Avatar"
                 name="Upload"
-                title="Upload thumbnail"
+                title="Upload Avatar"
                 toggle={() => fileInputRef.current.click()}
               />
               <ActionButton
                 style="gap-4"
                 variant="outlined"
                 icon="delete"
-                label="Delete thumbnail"
+                label="Delete Avatar"
                 name="Delete"
-                title="Delete thumbnail"
+                title="Delete Avatar"
                 toggle={handleDeleteAvatar}
                 disabled={!userAvatarUrl}
               />
             </div>
           </li>
-          <li>
+          <li className="md:col-span-2">
             <ActionButton
               style="w-full"
               icon="check"
