@@ -59,22 +59,52 @@ const useProfile = (profileId, profileMail) => {
   }, [profileId, profileMail]);
 
   // User wants to have a new avatar? Nice - let's get it
-  const handleAvatarChange = (event) => {
-    // Grab the uploaded image.
+  const handleAvatarChange = async (event) => {
     const file = event.target.files[0];
-    // Make sure the image is a JPEG or PNG.
+    // Make sure the image is a JPEG or PNG
     if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
-      const fileExtension = file.type.split("/").pop();
+      let processedFile = file;
+      // Lets convert pngs to jpgs - this will make sure no matter what the user uploads, we'll have a jpg at the end
+      if (file.type === "image/png") {
+        processedFile = await convertPNGtoJPG(file);
+      }
+      const fileExtension = processedFile.type.split("/").pop();
       const fileName = `${profileId}.${fileExtension}`;
       // the 'avatarFile' should now contains the uploaded image.
-      setAvatarFile(file);
+      setAvatarFile(processedFile);
       // the 'userAvatarName' should now contain the name of the uploaded image + file extension.
       setUserAvatarName(fileName);
       // the 'userAvatarUrl' should now contain the URL of the uploaded image.
-      setUserAvatarUrl(URL.createObjectURL(file));
+      setUserAvatarUrl(URL.createObjectURL(processedFile));
     } else {
       alert("Please select a JPEG or PNG image.");
     }
+  };
+
+  // Process for converting PNGs to JPGs
+  const convertPNGtoJPG = async (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+          canvas.toBlob((blob) => {
+            resolve(
+              new File([blob], `${profileId}.jpg`, { type: "image/jpeg" }),
+            );
+          }, "image/jpeg");
+        };
+        img.onerror = reject;
+        img.src = event.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
   };
 
   // User wants to update their avatar? Bravo - let's update!
