@@ -5,21 +5,24 @@ import TextInput from "@/components/Inputs/TextInput";
 import ShortContent from "@/components/Content/ShortContent";
 import ActionButton from "@/components/Buttons/ActionButton";
 import InfoIcon from "@/components/Icons/InfoIcon";
-import EmailIcon from "@/components/Icons/Email.Icon";
+import EmailIcon from "@/components/Icons/EmailIcon";
 import IdIcon from "@/components/Icons/IdIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
 import ImageIcon from "@/components/Icons/ImageIcon";
+import EditIcon from "@/components/Icons/EditIcon";
 
 type ProfileComponentProps = {
   profileId: string;
   profileMail: string;
   profileCreated: string;
+  profileLastUpdated?: string;
 };
 
 const ProfileComponent = ({
-  profileId,
-  profileMail,
-  profileCreated,
+  profileId = "",
+  profileMail = "",
+  profileCreated = "",
+  profileLastUpdated = "",
 }: ProfileComponentProps) => {
   const [userName, setUserName] = useState<string>("");
   const [originalUserName, setOriginalUserName] = useState<string>("");
@@ -172,89 +175,77 @@ const ProfileComponent = ({
 
   return (
     <ShortContent ariaLabel="Profile">
-      <section className="mx-4 my-8 flex flex-col gap-8 md:mx-12 md:my-6 md:gap-6">
-        <section className="flex flex-col gap-1 md:gap-2">
-          <p className="text-cool_grey">Welcome back,</p>
-          <h3>{originalUserName}</h3>
-        </section>
-        <div className="h-[2px] rounded bg-arsenic"></div>
-        <ul className="grid gap-8 md:grid-cols-2 md:gap-6">
-          <li className="md:col-span-2">
-            <TextInput
-              textInputType="text"
-              textInputLabel="Change your username"
-              textInputName="Name"
-              textInputValue={userName}
-              textInputValueChange={setUserName}
-            />
-          </li>
-          <li>
-            <TextInput
-              textInputType="tel"
-              textInputLabel="Change your phone number"
-              textInputName="Phone"
-              textInputValue={userPhone}
-              textInputValueChange={setUserPhone}
-            />
-          </li>
-          <li>
-            <TextInput
-              textInputType="date"
-              textInputLabel="Change your birthday"
-              textInputName="Birthday"
-              textInputValue={
-                userBirthday ? userBirthday.toISOString().split("T")[0] : ""
-              }
-              textInputValueChange={(dateString) =>
-                setUserBirthday(new Date(dateString))
-              }
-            />
-          </li>
-          <li className="grid grid-cols-2 gap-3 md:gap-4">
-            <h4 className="col-span-2">Avatar</h4>
+      <section className="mx-4 mb-12 mt-8 flex flex-col gap-8 md:mx-12 md:mt-6">
+        <div className="grid grid-cols-autoX1 gap-8">
+          <div className="flex flex-col justify-end overflow-hidden">
+            <p className="text-cool_grey">Welcome back,</p>
+            <h3 className="truncate">{originalUserName}</h3>
+          </div>
+          <div className="flex justify-end">
             <input
               type="file"
               accept="image/png, image/jpeg"
               ref={fileInputRef}
-              style={{ display: "none" }}
               onChange={handleAvatarChange}
+              className="hidden"
             />
-            {userAvatarUrl ? (
-              // Content that shows if the user has an avatar.
-              <div
-                className="aspect-square rounded border-2 border-arsenic bg-eerie_black bg-cover bg-center"
-                style={{ backgroundImage: `url(${userAvatarUrl})` }}
-              ></div>
-            ) : (
-              // Content that shows if the user does not have an avatar.
-              <div className="flex aspect-square items-center justify-center rounded border-2 border-arsenic bg-eerie_black">
-                <ImageIcon className="h-16 w-16 fill-arsenic" />
+            <button
+              onClick={() => fileInputRef.current.click()}
+              className="group relative z-10 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-arsenic bg-eerie_black bg-cover bg-center"
+              style={{ backgroundImage: `url(${userAvatarUrl})` }}
+            >
+              {!userAvatarUrl && <ImageIcon className="h-8 w-8 fill-arsenic" />}
+              <div className="invisible absolute inset-0 z-20 bg-apple opacity-0 transition-all duration-300 ease-in-out group-hover:visible group-hover:opacity-85"></div>
+              <div className="invisible absolute inset-0 z-30 flex items-center justify-center fill-transparent transition-all duration-300 ease-in-out group-hover:visible group-hover:fill-eerie_black">
+                <EditIcon />
               </div>
-            )}
-            <div className="grid grid-rows-2 gap-3 md:gap-4">
-              <ActionButton
-                icon="upload"
-                variant="outlined"
-                label="Upload Avatar"
-                name="Upload"
-                title="Upload Avatar"
-                toggle={() => fileInputRef.current.click()}
-              />
-              <ActionButton
-                style="gap-4"
-                variant="outlined"
-                icon="delete"
-                label="Delete Avatar"
-                name="Delete"
-                title="Delete Avatar"
-                toggle={handleDeleteAvatar}
-                disabled={!userAvatarUrl}
-              />
-            </div>
+            </button>
+          </div>
+        </div>
+        <div className="h-[2px] rounded bg-arsenic"></div>
+        <ul className="grid gap-8 md:grid-cols-2">
+          <li>
+            <TextInput
+              variant="text"
+              label="Change your username"
+              name="Name"
+              value={userName}
+              valueChange={setUserName}
+            />
           </li>
-          <li className="md:col-span-2">
+          <li>
+            <TextInput
+              variant="tel"
+              label="Change your phone number"
+              name="Phone"
+              value={userPhone}
+              valueChange={setUserPhone}
+            />
+          </li>
+          <li>
+            <TextInput
+              variant="date"
+              label="Change your birthday"
+              name="Birthday"
+              value={
+                userBirthday ? userBirthday.toISOString().split("T")[0] : ""
+              }
+              valueChange={(dateString) =>
+                setUserBirthday(new Date(dateString))
+              }
+            />
+          </li>
+          <li>
+            <TextInput
+              variant="email"
+              label={`Email: ${profileMail}`}
+              name="Email"
+              value={profileMail}
+              disabled
+            />
+          </li>
+          <li className="mt-4 flex flex-col justify-end md:col-span-1 md:col-start-2">
             <ActionButton
-              style="w-full"
               icon="check"
               variant="outlined"
               label="Save changes"
@@ -265,33 +256,38 @@ const ProfileComponent = ({
           </li>
         </ul>
         <div className="h-[2px] rounded bg-arsenic"></div>
-        <ul className="flex flex-col gap-8">
-          <li>
+        <ul className="grid grid-cols-3 gap-8">
+          <li className="col-span-3">
             <h3>Account Details</h3>
-            <p></p>
           </li>
-          <li className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <EmailIcon className="fill-apple" />
-              <h4>Email</h4>
-            </div>
-            <p className="text-cool_grey">{profileMail}</p>
+          <li className="col-span-3">
+            <ul className="lg:grid-cols-3Xauto grid gap-8">
+              <li className="flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <CalendarIcon className="fill-apple" />
+                  <h4>Created at:</h4>
+                </div>
+                <p className="text-cool_grey">{formatDate(profileCreated)}</p>
+              </li>
+              <li className="flex flex-col gap-2 overflow-hidden">
+                <div className="flex items-center gap-2">
+                  <IdIcon className="fill-apple" />
+                  <h4>Account ID</h4>
+                </div>
+                <p className="truncate text-cool_grey">{profileId}</p>
+              </li>
+              <li className="flex flex-col gap-2 overflow-hidden">
+                <div className="flex items-center gap-2">
+                  <IdIcon className="fill-apple" />
+                  <h4>Last updated:</h4>
+                </div>
+                <p className="truncate text-cool_grey">
+                  {formatDate(profileLastUpdated)}
+                </p>
+              </li>
+            </ul>
           </li>
-          <li className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <CalendarIcon className="fill-apple" />
-              <h4>Created</h4>
-            </div>
-            <p className="text-cool_grey">{formatDate(profileCreated)}</p>
-          </li>
-          <li className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <IdIcon className="fill-apple" />
-              <h4>UUID</h4>
-            </div>
-            <p className="text-cool_grey">{profileId}</p>
-          </li>
-          <li className="flex flex-col gap-2">
+          <li className="col-span-3 flex flex-col gap-2 lg:col-span-2">
             <div className="flex items-center gap-2">
               <InfoIcon className="fill-rajah" />
               <h4>Updating Account</h4>

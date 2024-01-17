@@ -17,6 +17,7 @@ export default async function Profile() {
       profileId={user?.id}
       profileMail={user?.email}
       profileCreated={user?.created_at}
+      profileLastUpdated={user?.updated_at}
     />
   );
 }

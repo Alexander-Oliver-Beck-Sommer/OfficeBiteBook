@@ -96,59 +96,59 @@ const MenuSettings = ({
     <ul className="flex flex-col gap-5 border-y-2 border-eerie_black bg-raisin_black px-6 py-4">
       <li>
         <TextInput
-          textInputType="text"
-          textInputPlaceholder={data.location_section.title.placeholder}
-          textInputName={data.location_section.title.name}
-          textInputLabel={data.location_section.title.label}
-          textInputValueChange={handleTitleChange}
-          textInputValue={titleInput}
-          textInputValid={menuSettingsTitleValid}
-          textInputRequired={true}
+          variant="text"
+          placeholder={data.location_section.title.placeholder}
+          name={data.location_section.title.name}
+          label={data.location_section.title.label}
+          valueChange={handleTitleChange}
+          value={titleInput}
+          valid={menuSettingsTitleValid}
+          required={true}
         />
       </li>
       <li>
         <TextInput
-          textInputType="text"
-          textInputPlaceholder={data.location_section.location.placeholder}
-          textInputName={data.location_section.location.name}
-          textInputLabel={data.location_section.location.label}
-          textInputValueChange={handleLocationChange}
-          textInputValid={menuSettingsLocationValid}
-          textInputValue={locationInput}
-          textInputRequired={true}
+          variant="text"
+          placeholder={data.location_section.location.placeholder}
+          name={data.location_section.location.name}
+          label={data.location_section.location.label}
+          valueChange={handleLocationChange}
+          valid={menuSettingsLocationValid}
+          value={locationInput}
+          required={true}
         />
       </li>
       <li>
         <TextInput
-          textInputType="date"
-          textInputName={data.location_section.date.name}
-          textInputLabel={data.location_section.date.label}
-          textInputValueChange={handleDateChange}
-          textInputValid={menuSettingsDateValid}
-          textInputValue={dateInput}
-          textInputRequired={true}
+          variant="date"
+          name={data.location_section.date.name}
+          label={data.location_section.date.label}
+          valueChange={handleDateChange}
+          valid={menuSettingsDateValid}
+          value={dateInput}
+          required={true}
         />
       </li>
       <li>
         <TextInput
-          textInputType="time"
-          textInputName={data.location_section.start_time.name}
-          textInputLabel={data.location_section.start_time.label}
-          textInputValueChange={handleStartTimeChange}
-          textInputValid={menuSettingsStartTimeValid}
-          textInputValue={startTimeInput}
-          textInputRequired={true}
+          variant="time"
+          name={data.location_section.start_time.name}
+          label={data.location_section.start_time.label}
+          valueChange={handleStartTimeChange}
+          valid={menuSettingsStartTimeValid}
+          value={startTimeInput}
+          required={true}
         />
       </li>
       <li>
         <TextInput
-          textInputType="time"
-          textInputName={data.location_section.end_time.name}
-          textInputLabel={data.location_section.end_time.label}
-          textInputValueChange={handleEndTimeChange}
-          textInputValid={menuSettingsEndTimeValid}
-          textInputValue={endTimeInput}
-          textInputRequired={true}
+          variant="time"
+          name={data.location_section.end_time.name}
+          label={data.location_section.end_time.label}
+          valueChange={handleEndTimeChange}
+          valid={menuSettingsEndTimeValid}
+          value={endTimeInput}
+          required={true}
         />
       </li>
     </ul>
