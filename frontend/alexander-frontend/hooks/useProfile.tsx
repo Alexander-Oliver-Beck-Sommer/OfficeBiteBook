@@ -8,6 +8,9 @@ const useProfile = (profileId, profileMail) => {
   const [userAvatarName, setUserAvatarName] = useState<string>("");
   const [userAvatarUrl, setUserAvatarUrl] = useState<string>("");
   const [userBirthday, setUserBirthday] = useState<Date | null>(null);
+  const [userDiet, setUserDiet] = useState<string>("");
+  // TODO: This should be an array of strings, not a single string
+  const [userAllergies, setUserAllergies] = useState<string>("");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const fileInputRef = useRef(null);
 
@@ -38,6 +41,8 @@ const useProfile = (profileId, profileMail) => {
           setUserBirthday(
             userData.user_birthday ? new Date(userData.user_birthday) : null,
           );
+          setUserDiet(userData.user_diet);
+          setUserAllergies(userData.user_allergies);
 
           // The user has an avatar? Nice - let's get the URL for it.
           if (userData.user_avatar) {
@@ -114,6 +119,8 @@ const useProfile = (profileId, profileMail) => {
       user_phone: userPhone,
       user_avatar: userAvatarName,
       user_birthday: userBirthday ? userBirthday.toISOString() : null,
+      user_diet: userDiet,
+      user_allergies: userAllergies,
     };
 
     // Upload the avatar (if it exists) and have it replace the old, if there is one already.
@@ -197,6 +204,10 @@ const useProfile = (profileId, profileMail) => {
     setUserAvatarUrl,
     userBirthday,
     setUserBirthday,
+    userDiet,
+    setUserDiet,
+    userAllergies,
+    setUserAllergies,
     avatarFile,
     setAvatarFile,
     fileInputRef,

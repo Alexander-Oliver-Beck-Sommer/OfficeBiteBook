@@ -36,6 +36,10 @@ const ProfileComponent = ({
     setUserAvatarUrl,
     userBirthday,
     setUserBirthday,
+    userDiet,
+    setUserDiet,
+    userAllergies,
+    setUserAllergies,
     avatarFile,
     setAvatarFile,
     fileInputRef,
@@ -109,11 +113,37 @@ const ProfileComponent = ({
           </li>
           <li>
             <TextInput
-              variant="email"
-              label={`Email: ${profileMail}`}
-              name="Email"
-              value={profileMail}
-              disabled
+              variant="tel"
+              label="Change your phone number"
+              name="Phone"
+              value={userPhone}
+              valueChange={setUserPhone}
+            />
+          </li>
+          <TextInput
+            variant="email"
+            label={`Email: ${profileMail}`}
+            name="Email"
+            value={profileMail}
+            disabled
+          />
+          <li>
+            <TextInput
+              variant="text"
+              label="Change your diet preference"
+              name="Diet preference"
+              value={userDiet}
+              valueChange={setUserDiet}
+            />
+          </li>
+          {/* TODO: Update this part to be something else that handles the creation of new objects and display of the allergies array. */}
+          <li className="col-span-2">
+            <TextInput
+              variant="text"
+              label="Change allergies"
+              name="Allergies"
+              value={userAllergies}
+              valueChange={setUserAllergies}
             />
           </li>
           <li className="mt-4 flex flex-col justify-end md:col-span-1 md:col-start-2">
@@ -133,7 +163,7 @@ const ProfileComponent = ({
             <h3>Account Details</h3>
           </li>
           <li className="col-span-3">
-            <ul className="lg:grid-cols-3Xauto grid gap-8">
+            <ul className="grid gap-8 lg:grid-cols-3Xauto">
               <li className="flex flex-col gap-2 overflow-hidden">
                 <div className="flex items-center gap-2">
                   <TimeIcon className="fill-apple" />
