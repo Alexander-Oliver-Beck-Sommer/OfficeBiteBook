@@ -43,7 +43,7 @@ const useProfile = (profileId, profileMail) => {
           if (userData.user_avatar) {
             const { data: avatarUrlData, error: avatarUrlError } =
               supabase.storage
-                .from("users_avatars")
+                .from(`users_avatars/${profileId}`)
                 .getPublicUrl(`${userData.user_avatar}`);
 
             if (avatarUrlError) {
@@ -89,7 +89,7 @@ const useProfile = (profileId, profileMail) => {
     // Upload the avatar (if it exists) and have it replace the old, if there is one already.
     if (avatarFile) {
       await supabase.storage
-        .from("users_avatars")
+        .from(`users_avatars/${profileId}`)
         .upload(userAvatarName, avatarFile, { upsert: true });
     }
 
@@ -110,7 +110,7 @@ const useProfile = (profileId, profileMail) => {
   // User wants to delete their avatar? Fine - let's delete it
   const handleDeleteAvatar = async () => {
     const { error: deleteAvatarError } = await supabase.storage
-      .from("users_avatars")
+      .from(`users_avatars/${profileId}`)
       .remove(userAvatarName);
 
     let userAvatarError = null;
