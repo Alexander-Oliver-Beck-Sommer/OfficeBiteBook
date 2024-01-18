@@ -51,11 +51,13 @@ const ProfileComponent = ({
 
   return (
     <ShortContent ariaLabel="Profile">
-      <section className="mx-4 mb-12 mt-8 flex flex-col gap-8 md:mx-12 md:mt-6">
+      <section className="mx-4 mb-12 mt-8 flex animate-fade-up flex-col gap-8 animate-ease-in-out md:mx-12 md:mt-6">
         <div className="grid grid-cols-autoX1 gap-8">
           <div className="flex flex-col justify-end overflow-hidden">
             <p className="text-cool_grey">Welcome back,</p>
-            <h3 className="truncate">{originalUserName}</h3>
+            <h3 className="truncate">
+              {originalUserName ? originalUserName : "Unnamed account"}
+            </h3>
           </div>
           <div className="flex justify-end">
             <input
@@ -170,7 +172,9 @@ const ProfileComponent = ({
                   <h4>Last updated</h4>
                 </div>
                 <p className="truncate text-cool_grey">
-                  {formatDate(profileLastUpdated)}
+                  {profileLastUpdated
+                    ? formatDate(profileLastUpdated)
+                    : "00-00-0000 | 00:00"}
                 </p>
               </li>
               <li className="flex flex-col gap-2 overflow-hidden">
@@ -178,14 +182,22 @@ const ProfileComponent = ({
                   <IdIcon className="fill-apple" />
                   <h4>Account ID</h4>
                 </div>
-                <p className="truncate text-cool_grey">{profileId}</p>
+                <p className="truncate text-cool_grey">
+                  {profileId
+                    ? profileId
+                    : "00000000-0000-0000-0000-000000000000"}
+                </p>
               </li>
               <li className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
                   <CalendarIcon className="fill-apple" />
                   <h4>Created at</h4>
                 </div>
-                <p className="text-cool_grey">{formatDate(profileCreated)}</p>
+                <p className="text-cool_grey">
+                  {profileCreated
+                    ? formatDate(profileCreated)
+                    : "00-00-0000 | 00:00"}
+                </p>
               </li>
             </ul>
           </li>
