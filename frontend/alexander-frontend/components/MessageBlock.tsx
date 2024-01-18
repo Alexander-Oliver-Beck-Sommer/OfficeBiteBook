@@ -19,7 +19,6 @@ const variants = (variant: number) => {
         link: {
           href: "/login",
           text: "Login",
-          icon: <LogIcon className="fill-ghost_white" />,
           label: "Navigate to the login page",
         },
       };
@@ -39,7 +38,6 @@ const variants = (variant: number) => {
         link: {
           href: "/",
           text: "Go Back",
-          icon: <HomeIcon className="fill-ghost_white" />,
           label: "Navigate to the home page",
         },
       };
@@ -54,7 +52,6 @@ const variants = (variant: number) => {
         link: {
           href: "/",
           text: "Go Back",
-          icon: <HomeIcon className="fill-ghost_white" />,
           label: "Navigate to the home page",
         },
       };
@@ -68,7 +65,6 @@ const variants = (variant: number) => {
         link: {
           href: "/",
           text: "",
-          icon: null,
           label: "",
         },
       };
@@ -104,10 +100,9 @@ const MessageBlock = ({ variant = 401 }) => {
               aria-label={link.label}
               title={link.label}
               href={link.href}
-              className="flex w-full items-center justify-center gap-3 rounded border-2 border-sunset_orange bg-eerie_black px-5 py-3 transition-colors duration-300 ease-in-out hover:bg-arsenic md:w-fit"
+              className="flex w-full items-center justify-center gap-3 rounded border-2 border-arsenic bg-eerie_black px-5 py-3 transition-colors duration-300 ease-in-out hover:bg-arsenic md:w-fit"
             >
               <h4>{link.text}</h4>
-              {link.icon}
             </Link>
           </div>
         </section>

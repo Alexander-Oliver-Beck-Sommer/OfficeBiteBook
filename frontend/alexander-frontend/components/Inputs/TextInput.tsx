@@ -6,6 +6,7 @@ import LocationIcon from "@/components/Icons/LocationIcon";
 import TextIcon from "@/components/Icons/TextIcon";
 import PhoneIcon from "../Icons/PhoneIcon";
 import EmailIcon from "@/components/Icons/EmailIcon";
+import KeyIcon from "@/components/Icons/KeyIcon";
 
 const variants = (variant: string) => {
   switch (variant) {
@@ -19,6 +20,8 @@ const variants = (variant: string) => {
       return <PhoneIcon />;
     case "email":
       return <EmailIcon />;
+    case "password":
+      return <KeyIcon />;
     default:
       return null;
   }
@@ -108,7 +111,7 @@ const TextInput = ({
           ref={inputField}
           type={variant}
           placeholder={placeholder}
-          className={`text_ghost_white w-full bg-eerie_black p-4 placeholder-opacity-100 outline-0 transition-all duration-300 ease-in-out placeholder:text-cool_grey ${invalidPlaceholder} ${invalidText} ${inputDisabled} placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0`}
+          className={`text_ghost_white placeholder:text-test_cool_grey w-full bg-eerie_black p-4 placeholder-opacity-100 outline-0 transition-all duration-300 ease-in-out ${invalidPlaceholder} ${invalidText} ${inputDisabled} placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0`}
           id={name}
           name={name}
           onBlur={textInputBlur}
@@ -125,7 +128,7 @@ const TextInput = ({
           onBlur={textInputBlur}
           onFocus={textInputFocus}
           onClick={textInputIconClick}
-          className={`absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-eerie_black fill-arsenic ${invalidIcon} ${buttonDisabled}`}
+          className={`absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-eerie_black fill-apple ${invalidIcon} ${buttonDisabled}`}
           {...(disabled ? { disabled: true } : {})}
         >
           {textInputIcon}

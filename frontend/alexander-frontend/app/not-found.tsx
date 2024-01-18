@@ -1,5 +1,5 @@
+import MessageBlock from "@/components/MessageBlock";
+
 export default function Custom404() {
-    return (
-        <h1>404 - Page Not Found</h1>
-    )
+  return <MessageBlock variant={404} />;
 }

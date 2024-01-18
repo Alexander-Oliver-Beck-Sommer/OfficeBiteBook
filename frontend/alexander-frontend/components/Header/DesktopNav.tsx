@@ -16,7 +16,7 @@ const DesktopNav = () => {
           </Link>
         </li>
         <li>
-          <Link href="/calendar-test">
+          <Link href="/calendar">
             <CalendarIcon className="h-7 w-7 fill-ghost_white" />
           </Link>
         </li>

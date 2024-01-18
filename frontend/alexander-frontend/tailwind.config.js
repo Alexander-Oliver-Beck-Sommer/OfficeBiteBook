@@ -45,7 +45,7 @@ module.exports = {
       raisin_black: "#252526",
       dark_charcoal: "#2d2d30",
       arsenic: "#3E3E42",
-      cool_grey: "#D4D3D5",
+      cool_grey: "#A9A9A9",
       ghost_white: "#F8F9FA",
       apple: "#4CAF50",
       sunset_orange: "#FE6257",

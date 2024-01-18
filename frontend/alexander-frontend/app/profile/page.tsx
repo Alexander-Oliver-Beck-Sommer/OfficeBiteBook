@@ -24,5 +24,5 @@ export default async function Profile() {
     );
   }
 
-  return <MessageBlock variant={404} />;
+  return <MessageBlock variant={401} />;
 }
