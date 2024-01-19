@@ -83,6 +83,7 @@ export default function Login() {
       setUser(res.data.user);
       setEmail("");
       setPassword("");
+      router.refresh();
       router.push("/");
     }
   };

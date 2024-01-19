@@ -103,4 +103,8 @@
       );
     @apply bg-eerie_black bg-[length:3em_3em];
   }
+
+  .full-height {
+    min-height: calc(100svh - theme("spacing.header_height"));
+  }
 }

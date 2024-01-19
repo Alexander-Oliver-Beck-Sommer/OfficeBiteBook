@@ -34,7 +34,7 @@ type Dish = {
   dish_saved: boolean;
 };
 
-const useCalendar = (weekUser) => {
+const useCalendar = (weekUser, weekNumber) => {
   const userData = weekUser; // This contains the user's data from the supabase
   const [menus, setMenus] = useState<Menu[]>([]);
   const [dishes, setDishes] = useState<Dish[]>([]);
@@ -312,6 +312,7 @@ const useCalendar = (weekUser) => {
               menu_title: menuModalTitle,
               menu_location: menuModalLocation,
               menu_date: menuModalDate,
+              menu_week: weekNumber,
               menu_start_time: menuModalStartTime,
               menu_end_time: menuModalEndTime,
               menu_dishes_amount: menuModalDishesAmount,
@@ -394,6 +395,7 @@ const useCalendar = (weekUser) => {
                 menu_title: menuModalTitle,
                 menu_location: menuModalLocation,
                 menu_date: menuModalDate,
+                menu_week: weekNumber,
                 menu_start_time: menuModalStartTime,
                 menu_end_time: menuModalEndTime,
                 menu_dishes_amount: menuModalDishesAmount,

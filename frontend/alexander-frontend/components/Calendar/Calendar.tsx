@@ -37,6 +37,7 @@ export default function Calendar({ calendarUser }) {
         weekDays={week.week_days}
         weekType={weekType}
         weekHours={weekHours()}
+        weekNumber={currentWeekNumber}
       />
     </section>
   );

@@ -9,6 +9,7 @@ type WeekProps = {
   weekDays?: string[];
   weekType?: boolean;
   weekHours?: string[];
+  weekNumber?: number;
 };
 
 const Week = ({
@@ -16,6 +17,7 @@ const Week = ({
   weekDays = [],
   weekType = true,
   weekHours = [],
+  weekNumber = 0,
 }: WeekProps) => {
   const {
     menus,
@@ -50,7 +52,7 @@ const Week = ({
     cardButtonToggle,
     cardButtonPosition,
     cardButtonHeight,
-  } = useCalendar(weekUser);
+  } = useCalendar(weekUser, weekNumber);
 
   return (
     <>
