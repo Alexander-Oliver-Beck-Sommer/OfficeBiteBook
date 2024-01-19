@@ -8,6 +8,7 @@ import SettingsIcon from "../Icons/SettingsIcon";
 import InventoryIcon from "../Icons/InventoryIcon";
 import EraseIcon from "../Icons/EraseIcon";
 import UploadIcon from "../Icons/UploadIcon";
+import InfoIcon from "../Icons/InfoIcon";
 
 const icons = (icon: string) => {
   switch (icon) {
@@ -31,6 +32,8 @@ const icons = (icon: string) => {
       return <EraseIcon />;
     case "upload":
       return <UploadIcon />;
+    case "info":
+      return <InfoIcon className="h-6 w-6" />;
     default:
       return null;
   }
@@ -51,8 +54,12 @@ const variants = (variant: string, isDisabled: boolean) => {
       return `bg-eerie_black border-2 px-5 py-4 rounded ${outlinedDisabled}`;
     case "icon-border":
       return `bg-eerie_black border-2 px-3 py-3 rounded ${iconBorderDisabled}`;
+    case "icon-border-small":
+      return "h-12 w-12 bg-eerie_black fill-apple border border-arsenic rounded flex items-center justify-center";
     case "icon":
       return "px-3 py-3 fill-ghost_white rounded hover:bg-arsenic";
+    case "icon-small":
+      return "fill-ghost_white";
     default:
       return "fill-cool_grey outline-offset-4";
   }
@@ -90,7 +97,9 @@ const ActionButton = ({
       {...(disabled ? { disabled: true } : {})}
       className={`flex items-center justify-center gap-2 text-ghost_white ${variantValue} ${style}`}
     >
-      {variant !== "icon" && variant !== "icon-border" && <h4>{name}</h4>}
+      {variant !== "icon" &&
+        variant !== "icon-border" &&
+        variant !== "icon-border-small" && <h4>{name}</h4>}
       {iconValue}
     </button>
   );

@@ -26,6 +26,7 @@ module.exports = {
         autoX6: "auto repeat(5, 1fr)",
         autoX8: "auto repeat(7, 1fr)",
         "30X70": "30% 70%",
+        auto1Xauto: "auto 1fr 1fr auto;",
       },
       gridTemplateRows: {
         autoX1: "auto 1fr;",

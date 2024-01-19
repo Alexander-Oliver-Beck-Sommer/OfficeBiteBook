@@ -5,6 +5,7 @@ type ToggleInputProps = {
   trueValue: string;
   falseValue: string;
   toggle?: () => void;
+  className?: string;
 };
 
 const ToggleInput = ({
@@ -12,6 +13,7 @@ const ToggleInput = ({
   trueValue,
   falseValue,
   toggle = () => {},
+  className = "",
 }: ToggleInputProps) => {
   const [isChecked, setIsChecked] = useState(true);
 
@@ -24,7 +26,9 @@ const ToggleInput = ({
       <h5 className={`${isChecked ? "text-apple" : "text-sunset_orange"}`}>
         {isChecked ? trueValue : falseValue}
       </h5>
-      <label className="flex cursor-pointer select-none items-center">
+      <label
+        className={`flex cursor-pointer select-none items-center ${className}`}
+      >
         <div className="relative">
           <input
             onClick={toggle}
