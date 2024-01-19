@@ -1,7 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import MessageBlock from "@/components/MessageBlock";
-import HomeComponent from "@/components/HomeComponent";
+import HomeComponent from "@/components/Home/HomeComponent";
 
 export default async function Home() {
   const cookieStore = cookies();

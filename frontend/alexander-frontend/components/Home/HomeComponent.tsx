@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
 import useHome from "@/hooks/useHome";
-import QuestionIcon from "./Icons/QuestionIcon";
-import ActionButton from "./Buttons/ActionButton";
-import ToggleInput from "./Inputs/ToggleInput";
-import ImageIcon from "./Icons/ImageIcon";
+import QuestionIcon from "../Icons/QuestionIcon";
+import ActionButton from "../Buttons/ActionButton";
+import ToggleInput from "../Inputs/ToggleInput";
+import DishItem from "./DishItem";
 
 type HomeComponentProps = {
   userId?: string;
@@ -69,26 +69,13 @@ const HomeComponent = ({ userId = "", userEmail = "" }: HomeComponentProps) => {
                 <div className="overflow-hidden">
                   <ul>
                     {menu.dishes.map((dish) => (
-                      <li
+                      <DishItem
                         key={dish.dish_id}
-                        className="flex items-center justify-between p-3 even:bg-strange_black"
-                      >
-                        <div className="grid-cols-auto1Xauto grid w-full gap-4">
-                          <div className="flex h-12 w-12 items-center justify-center rounded border border-arsenic bg-eerie_black">
-                            <ImageIcon className="h-6 w-6 fill-arsenic" />
-                          </div>
-                          <div className="flex w-full items-center overflow-hidden">
-                            <p className="truncate">{dish.dish_title}</p>
-                          </div>
-                          <div className="flex w-full items-center overflow-hidden">
-                            <p className="truncate">{dish.dish_subtitle}</p>
-                          </div>
-                          <ActionButton
-                            variant="icon-border-small"
-                            icon="info"
-                          />
-                        </div>
-                      </li>
+                        title={dish.dish_title}
+                        subtitle={dish.dish_subtitle}
+                        description={dish.dish_description}
+                        thumbnail={dish.dish_thumbnail}
+                      />
                     ))}
                   </ul>
                 </div>
