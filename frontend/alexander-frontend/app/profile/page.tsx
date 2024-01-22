@@ -1,7 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import ProfileComponent from "./ProfileComponent";
-import MessageBlock from "@/components/MessageBlock";
+import MessageModal from "@/components/Modals/MessageModal/MessageModal";
 
 export default async function Profile() {
   const cookieStore = cookies();
@@ -24,5 +24,5 @@ export default async function Profile() {
     );
   }
 
-  return <MessageBlock variant={401} />;
+  return <MessageModal variant={401} />;
 }

@@ -1,5 +1,5 @@
-import MessageBlock from "@/components/MessageBlock";
+import MessageModal from "@/components/Modals/MessageModal/MessageModal";
 
 export default function Custom404() {
-  return <MessageBlock variant={404} />;
+  return <MessageModal variant={404} />;
 }

@@ -1,7 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Calendar from "@/components/Calendar/Calendar";
-import MessageBlock from "@/components/MessageBlock";
+import MessageModal from "@/components/Modals/MessageModal/MessageModal";
 
 export default async function CalendarTest() {
   const cookieStore = cookies();
@@ -17,5 +17,5 @@ export default async function CalendarTest() {
     return <Calendar calendarUser={user} />;
   }
 
-  return <MessageBlock variant={401} />;
+  return <MessageModal variant={401} />;
 }

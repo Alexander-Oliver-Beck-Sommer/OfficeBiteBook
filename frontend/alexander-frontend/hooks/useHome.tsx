@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 
 const useHome = (userId, userEmail) => {
   const [weekNumber, setWeekNumber] = useState(0);
-  const [menus, setMenus] = useState([]);
   const [menusAndDishes, setMenusAndDishes] = useState([]);
+  const [selectedMenuId, setSelectedMenuId] = useState(null);
+  const [modalContent, setModalContent] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchDishesForMenu = async (menuId) => {
     const { data, error } = await supabase
@@ -56,7 +58,34 @@ const useHome = (userId, userEmail) => {
     }
   }, [userId, userEmail]);
 
-  return { menusAndDishes, weekNumber };
+  const handleMenuSelect = (menuId) => {
+    setSelectedMenuId(selectedMenuId === menuId ? null : menuId);
+  };
+
+  const handleModalOpen = (content) => {
+    if (content.dishes) {
+      setModalContent({ ...content, type: "menu" });
+    } else {
+      setModalContent({ ...content, type: "dish" });
+    }
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setModalContent(null);
+  };
+
+  return {
+    weekNumber,
+    menusAndDishes,
+    handleMenuSelect,
+    selectedMenuId,
+    handleModalOpen,
+    handleModalClose,
+    modalContent,
+    isModalOpen,
+  };
 };
 
 export default useHome;

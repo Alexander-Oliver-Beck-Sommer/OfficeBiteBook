@@ -3,12 +3,12 @@ import CloseIcon from "@/components/Icons/CloseIcon";
 import CheckIcon from "@/components/Icons/CheckIcon";
 import ReplaceIcon from "@/components/Icons/ReplaceIcon";
 import DeleteIcon from "@/components/Icons/DeleteIcon";
-import DownArrowIcon from "../Icons/DownArrowIcon";
-import SettingsIcon from "../Icons/SettingsIcon";
-import InventoryIcon from "../Icons/InventoryIcon";
-import EraseIcon from "../Icons/EraseIcon";
-import UploadIcon from "../Icons/UploadIcon";
-import InfoIcon from "../Icons/InfoIcon";
+import DownArrowIcon from "@/components/Icons/DownArrowIcon";
+import SettingsIcon from "@/components/Icons/SettingsIcon";
+import InventoryIcon from "@/components/Icons/InventoryIcon";
+import EraseIcon from "@/components/Icons/EraseIcon";
+import UploadIcon from "@/components/Icons/UploadIcon";
+import InfoIcon from "@/components/Icons/InfoIcon";
 
 const icons = (icon: string) => {
   switch (icon) {
@@ -60,6 +60,8 @@ const variants = (variant: string, isDisabled: boolean) => {
       return "px-3 py-3 fill-ghost_white rounded hover:bg-arsenic";
     case "icon-small":
       return "fill-ghost_white";
+    case "close":
+      return "rounded-full fill-sunset_orange border-2 border-sunset_orange h-10 w-10";
     default:
       return "fill-cool_grey outline-offset-4";
   }
@@ -99,7 +101,8 @@ const ActionButton = ({
     >
       {variant !== "icon" &&
         variant !== "icon-border" &&
-        variant !== "icon-border-small" && <h4>{name}</h4>}
+        variant !== "icon-border-small" &&
+        variant !== "close" && <h4>{name}</h4>}
       {iconValue}
     </button>
   );

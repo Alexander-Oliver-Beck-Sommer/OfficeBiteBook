@@ -1,6 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import MessageBlock from "@/components/MessageBlock";
+import MessageModal from "@/components/Modals/MessageModal/MessageModal";
 import HomeComponent from "@/components/Home/HomeComponent";
 
 export default async function Home() {
@@ -17,5 +17,5 @@ export default async function Home() {
     return <HomeComponent userId={user?.id} userEmail={user?.email} />;
   }
 
-  return <MessageBlock variant={401} />;
+  return <MessageModal variant={401} />;
 }

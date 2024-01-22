@@ -1,5 +1,5 @@
 import ShieldIcon from "@/components/Icons/ShieldIcon";
-import FileDamagedIcon from "./Icons/FileDamagedIcon";
+import FileDamagedIcon from "../../Icons/FileDamagedIcon";
 import LogIcon from "@/components/icons/LogIcon";
 import HomeIcon from "@/components/Icons/HomeIcon";
 import Link from "next/link";
@@ -71,11 +71,11 @@ const variants = (variant: number) => {
   }
 };
 
-type MessageBlockProps = {
+type MessageModalProps = {
   variant?: number;
 };
 
-const MessageBlock = ({ variant = 401 }) => {
+const MessageModal = ({ variant = 401 }) => {
   const { landmark, title, message, icon, description, link } =
     variants(variant);
 
@@ -111,4 +111,4 @@ const MessageBlock = ({ variant = 401 }) => {
   );
 };
 
-export default MessageBlock;
+export default MessageModal;
