@@ -4,6 +4,7 @@ import localfont from "next/font/local";
 import siteSettings from "@/data/siteSettings";
 import { ToastContainer, toast } from "react-toastify";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
+import NextTopLoader from "nextjs-toploader";
 
 const poppins = localfont({
   src: [
@@ -119,6 +120,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`relative ${poppins.variable}`}>
       <body>
+        <NextTopLoader
+          color="#4CAF50"
+          crawlSpeed={300}
+          showSpinner={false}
+          speed={300}
+        />
         <NavigationBar title="OfficeBiteBook" />
         <main>{children}</main>
         <ToastContainer
