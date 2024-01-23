@@ -6,6 +6,7 @@ import ToggleInput from "@/components/Inputs/ToggleInput";
 import DishItem from "@/components/Home/DishItem";
 import ContentModal from "@/components/Modals/ContentModal/ContentModal";
 import ListItem from "@/components/Modals/ContentModal/ListItem/ListItem";
+import ImageItem from "@/components/Modals/ContentModal/ImageItem/ImageItem";
 
 type HomeComponentProps = {
   userId?: string;
@@ -140,6 +141,7 @@ const HomeComponent = ({ userId = "", userEmail = "" }: HomeComponentProps) => {
                   name="Description"
                   value={modalContent?.dish_description}
                 />
+                <ImageItem imageURL={modalContent?.dish_thumbnail} />
               </div>
             )}
           </>
