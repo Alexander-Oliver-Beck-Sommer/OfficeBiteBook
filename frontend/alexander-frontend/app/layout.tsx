@@ -1,9 +1,9 @@
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import localfont from "next/font/local";
-import Header from "@/components/Header/Header";
 import siteSettings from "@/data/siteSettings";
 import { ToastContainer, toast } from "react-toastify";
+import NavigationBar from "@/components/NavigationBar/NavigationBar";
 
 const poppins = localfont({
   src: [
@@ -117,9 +117,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${poppins.variable}`}>
+    <html lang="en" className={`relative ${poppins.variable}`}>
       <body>
-        <Header />
+        <NavigationBar title="OfficeBiteBook" />
         <main>{children}</main>
         <ToastContainer
           position="top-right"
