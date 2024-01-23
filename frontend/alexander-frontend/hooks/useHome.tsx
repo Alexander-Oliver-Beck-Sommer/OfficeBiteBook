@@ -9,12 +9,37 @@ const useHome = (userId, userEmail) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchDishesForMenu = async (menuId) => {
-    const { data, error } = await supabase
+    const { data: dishesData, error: dishesError } = await supabase
       .from("dishes")
       .select("*")
       .eq("menu_id", menuId);
-    if (error) throw error;
-    return data;
+
+    if (dishesError) {
+      console.error("Error fetching dishes:", dishesError);
+      return;
+    }
+
+    const dishesWithThumbnails = await Promise.all(
+      dishesData.map(async (dish) => {
+        if (dish.dish_thumbnail_value) {
+          const { data: thumbnailData, error: thumbnailError } =
+            supabase.storage
+              .from("dishes_thumbnails")
+              .getPublicUrl(dish.dish_thumbnail_value);
+
+          if (thumbnailError) {
+            console.error("Error fetching dish thumbnail:", thumbnailError);
+            return dish;
+          }
+
+          return { ...dish, dish_thumbnail: thumbnailData.publicUrl };
+        } else {
+          return dish;
+        }
+      }),
+    );
+
+    return dishesWithThumbnails;
   };
 
   useEffect(() => {
