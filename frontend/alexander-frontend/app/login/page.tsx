@@ -100,7 +100,7 @@ export default function Login() {
 
   if (user) {
     return (
-      <section className="mx-4 mb-12 mt-8 flex items-center justify-center md:mx-12 md:mt-6">
+      <section className="mx-4 mb-12 mt-8 flex flex-1 items-center justify-center md:mx-12 md:mt-6">
         <ul className="flex w-full max-w-2xl animate-fade-up flex-col gap-6 overflow-hidden rounded border-arsenic animate-ease-in-out md:gap-4 md:border-2 md:bg-eerie_black md:px-8 md:pb-14 md:pt-10">
           <li>
             <p className="text-cool_grey">Already signed in!</p>

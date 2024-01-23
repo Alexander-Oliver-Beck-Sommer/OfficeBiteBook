@@ -23,7 +23,7 @@ export default function Calendar({ calendarUser }) {
   } = useTimeMachine();
 
   return (
-    <section aria-label="Calendar">
+    <section aria-label="Calendar" className="flex-1">
       <NavigationBar
         navigationBarWeekBackward={weekBackward}
         navigationBarWeekForward={weekForward}

@@ -126,8 +126,11 @@ export default function RootLayout({
           showSpinner={false}
           speed={300}
         />
-        <NavigationBar title="OfficeBiteBook" />
-        <main>{children}</main>
+        <section className="grid h-svh grid-rows-autoX1">
+          <NavigationBar title="OfficeBiteBook" />
+          <main className="flex items-center justify-center">{children}</main>
+        </section>
+
         <ToastContainer
           position="top-right"
           autoClose={5000}

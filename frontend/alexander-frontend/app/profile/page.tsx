@@ -1,6 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import ProfileComponent from "./ProfileComponent";
+// import ProfileComponent from "./ProfileComponent";
+import ProfileComponent from "@/components/Profile/ProfileComponent";
 import MessageModal from "@/components/Modals/MessageModal/MessageModal";
 
 export default async function Profile() {
@@ -16,10 +17,8 @@ export default async function Profile() {
   if (user) {
     return (
       <ProfileComponent
-        profileId={user?.id}
-        profileMail={user?.email}
-        profileCreated={user?.created_at}
-        profileLastUpdated={user?.updated_at}
+        userId={user?.id}
+        userEmail={user?.email}
       />
     );
   }
