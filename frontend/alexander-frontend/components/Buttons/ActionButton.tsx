@@ -9,6 +9,7 @@ import InventoryIcon from "@/components/Icons/InventoryIcon";
 import EraseIcon from "@/components/Icons/EraseIcon";
 import UploadIcon from "@/components/Icons/UploadIcon";
 import InfoIcon from "@/components/Icons/InfoIcon";
+import SaveIcon from "../Icons/SaveIcon";
 
 const icons = (icon: string) => {
   switch (icon) {
@@ -34,6 +35,8 @@ const icons = (icon: string) => {
       return <UploadIcon />;
     case "info":
       return <InfoIcon className="h-6 w-6" />;
+    case "save":
+      return <SaveIcon />;
     default:
       return null;
   }
@@ -52,6 +55,8 @@ const variants = (variant: string, isDisabled: boolean) => {
       return "bg-arsenic border-transparent border-2 px-5 py-4 fill-ghost_white rounded";
     case "outlined":
       return `bg-eerie_black border-2 px-5 py-4 rounded ${outlinedDisabled}`;
+    case "outlined-small":
+      return "bg-eerie_black outline-arsenic outline outline-2 outline-offset-0 hover:outline-offset-[3px] focus:outline-offset-[3px] hover:outline-apple focus:outline-apple md:px-5 md:py-3 transition-all ease-in-out duration-300 hover:text-eerie_black focus:text-eerie_black hover:bg-apple focus:bg-apple hover:fill-eerie_black active:outline-offset-0 focus:fill-eerie_black text-cool_grey fill-cool_grey px-4 py-2 rounded flex items-center justify-center";
     case "icon-border":
       return `bg-eerie_black border-2 px-3 py-3 rounded ${iconBorderDisabled}`;
     case "icon-border-small":
@@ -97,7 +102,7 @@ const ActionButton = ({
       onClick={toggle}
       aria-label={label}
       {...(disabled ? { disabled: true } : {})}
-      className={`flex items-center justify-center gap-2 text-ghost_white ${variantValue} ${style}`}
+      className={`flex items-center justify-center gap-2 ${variantValue} ${style}`}
     >
       {variant !== "icon" &&
         variant !== "icon-border" &&

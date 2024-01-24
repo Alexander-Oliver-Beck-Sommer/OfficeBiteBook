@@ -52,11 +52,9 @@ const TextInput = ({
 }: TextInputProps) => {
   const inputField = useRef<HTMLInputElement>(null);
 
-  const labelDisabled = disabled ? "text-arsenic" : "";
-
   const inputDisabled = disabled ? "text-arsenic" : "";
 
-  const buttonDisabled = disabled ? "fill-dark_charcoal" : "";
+  const buttonDisabled = disabled ? "fill-arsenic" : "";
 
   const borderDisabled = disabled ? "border-dark_charcoal" : "";
 
@@ -96,13 +94,13 @@ const TextInput = ({
   const labelFocus = `${isFocused ? "scale-75" : "scale-100"}`;
 
   return (
-    <section className="relative flex flex-col gap-3 md:gap-4">
+    <section className="relative flex flex-col gap-2 md:gap-4">
       <label htmlFor={name} className="w-fit">
-        <h4
-          className={`text_ghost_white origin-bottom-left transition-all duration-300 ease-in-out ${labelFocus} ${invalidText} ${labelDisabled}`}
+        <p
+          className={`text_ghost_white origin-bottom-left text-sm text-cool_grey transition-all duration-300 ease-in-out md:text-base ${labelFocus} ${invalidText}`}
         >
           {name}
-        </h4>
+        </p>
       </label>
       <div
         className={`relative w-full overflow-hidden rounded border-2 border-arsenic transition-all duration-300 ease-in-out ${invalidBorder} ${borderDisabled} `}
@@ -111,7 +109,7 @@ const TextInput = ({
           ref={inputField}
           type={variant}
           placeholder={placeholder}
-          className={`text_ghost_white placeholder:text-test_cool_grey w-full bg-eerie_black p-4 placeholder-opacity-100 outline-0 transition-all duration-300 ease-in-out ${invalidPlaceholder} ${invalidText} ${inputDisabled} placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0`}
+          className={`text_ghost_white placeholder:text-test_cool_grey w-full bg-eerie_black p-3 placeholder-opacity-100 outline-0 transition-all duration-300 ease-in-out md:p-4 ${invalidPlaceholder} ${invalidText} ${inputDisabled} placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0`}
           id={name}
           name={name}
           onBlur={textInputBlur}

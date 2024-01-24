@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/components/Supabase/supabaseClient";
 
-const useProfile = (profileId, profileMail) => {
+const useProfile = (userId, userEmail) => {
   const [userName, setUserName] = useState<string>("");
   const [originalUserName, setOriginalUserName] = useState<string>("");
   const [userPhone, setUserPhone] = useState<string>("");
@@ -9,6 +9,7 @@ const useProfile = (profileId, profileMail) => {
   const [userAvatarUrl, setUserAvatarUrl] = useState<string>("");
   const [userBirthday, setUserBirthday] = useState<Date | null>(null);
   const [userDiet, setUserDiet] = useState<string>("");
+  const [updatedAt, setUpdatedAt] = useState<string>("");
   // TODO: This should be an array of strings, not a single string
   const [userAllergies, setUserAllergies] = useState<string>("");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
@@ -17,13 +18,13 @@ const useProfile = (profileId, profileMail) => {
   // Lets grab our user's information from the 'users' table
   useEffect(() => {
     const fetchUserData = async () => {
-      if (profileId && profileMail) {
+      if (userId && userEmail) {
         // Making sure we get the absolute precise user.
         const { data: userData, error: userError } = await supabase
           .from("users")
           .select("*")
-          .eq("user_id", profileId)
-          .eq("user_email", profileMail)
+          .eq("user_id", userId)
+          .eq("user_email", userEmail)
           .single();
 
         // Scream in agony if we fail to retrieve the user.
@@ -42,13 +43,14 @@ const useProfile = (profileId, profileMail) => {
             userData.user_birthday ? new Date(userData.user_birthday) : null,
           );
           setUserDiet(userData.user_diet);
+          setUpdatedAt(userData.updated_at);
           setUserAllergies(userData.user_allergies);
 
           // The user has an avatar? Nice - let's get the URL for it.
           if (userData.user_avatar) {
             const { data: avatarUrlData, error: avatarUrlError } =
               supabase.storage
-                .from(`users_avatars/${profileId}`)
+                .from(`users_avatars/${userId}`)
                 .getPublicUrl(`${userData.user_avatar}`);
 
             if (avatarUrlError) {
@@ -61,7 +63,7 @@ const useProfile = (profileId, profileMail) => {
       }
     };
     fetchUserData();
-  }, [profileId, profileMail]);
+  }, [userId, userEmail]);
 
   // User wants to have a new avatar? Nice - let's get it
   const handleAvatarChange = async (event) => {
@@ -74,7 +76,7 @@ const useProfile = (profileId, profileMail) => {
         processedFile = await convertPNGtoJPG(file);
       }
       const fileExtension = processedFile.type.split("/").pop();
-      const fileName = `${profileId}.${fileExtension}`;
+      const fileName = `${userId}.${fileExtension}`;
       // the 'avatarFile' should now contains the uploaded image.
       setAvatarFile(processedFile);
       // the 'userAvatarName' should now contain the name of the uploaded image + file extension.
@@ -99,9 +101,7 @@ const useProfile = (profileId, profileMail) => {
           const ctx = canvas.getContext("2d");
           ctx.drawImage(img, 0, 0);
           canvas.toBlob((blob) => {
-            resolve(
-              new File([blob], `${profileId}.jpg`, { type: "image/jpeg" }),
-            );
+            resolve(new File([blob], `${userId}.jpg`, { type: "image/jpeg" }));
           }, "image/jpeg");
         };
         img.onerror = reject;
@@ -126,7 +126,7 @@ const useProfile = (profileId, profileMail) => {
     // Upload the avatar (if it exists) and have it replace the old, if there is one already.
     if (avatarFile) {
       await supabase.storage
-        .from(`users_avatars/${profileId}`)
+        .from(`users_avatars/${userId}`)
         .upload(userAvatarName, avatarFile, { upsert: true });
     }
 
@@ -134,8 +134,8 @@ const useProfile = (profileId, profileMail) => {
     const { error } = await supabase
       .from("users")
       .update(updates)
-      .eq("user_id", profileId)
-      .eq("user_email", profileMail);
+      .eq("user_id", userId)
+      .eq("user_email", userEmail);
 
     if (error) {
       console.error("Error updating user details", error);
@@ -147,7 +147,7 @@ const useProfile = (profileId, profileMail) => {
   // User wants to delete their avatar? Fine - let's delete it
   const handleDeleteAvatar = async () => {
     const { error: deleteAvatarError } = await supabase.storage
-      .from(`users_avatars/${profileId}`)
+      .from(`users_avatars/${userId}`)
       .remove(userAvatarName);
 
     let userAvatarError = null;
@@ -157,8 +157,8 @@ const useProfile = (profileId, profileMail) => {
       const { error } = await supabase
         .from("users")
         .update({ user_avatar: "" })
-        .eq("user_id", profileId)
-        .eq("user_email", profileMail);
+        .eq("user_id", userId)
+        .eq("user_email", userEmail);
 
       userAvatarError = error;
     }
@@ -206,6 +206,7 @@ const useProfile = (profileId, profileMail) => {
     setUserBirthday,
     userDiet,
     setUserDiet,
+    updatedAt,
     userAllergies,
     setUserAllergies,
     avatarFile,
