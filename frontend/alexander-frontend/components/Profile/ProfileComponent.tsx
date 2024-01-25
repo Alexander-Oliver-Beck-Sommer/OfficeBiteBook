@@ -70,9 +70,9 @@ const ProfileComponent = ({
             </div>
           </button>
           <div className="flex flex-col justify-center gap-1 overflow-hidden md:gap-2">
-            <h4 className="font-medium text-cool_grey md:text-base">
+            <p className="text-sm font-medium text-cool_grey md:text-base">
               Welcome back
-            </h4>
+            </p>
             <span className="h-[2px] rounded bg-apple md:h-[3px]"></span>
             <h2 className="w-full truncate font-semibold md:text-2xl">
               {originalUserName ? originalUserName : "Unnamed account"}

@@ -48,7 +48,7 @@ const variants = (variant: string, isDisabled: boolean) => {
     : "fill-ghost_white text-ghost_white border-arsenic hover:bg-arsenic";
   const iconBorderDisabled = isDisabled
     ? "fill-arsenic border-dark_charcoal"
-    : "fill-ghost_white border-arsenic hover:bg-arsenic";
+    : "fill-apple border-arsenic hover:bg-arsenic";
 
   switch (variant) {
     case "filled":
