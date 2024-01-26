@@ -4,14 +4,20 @@ import CheckboxInput from "@/components/Inputs/CheckboxInput";
 
 type ListItemProps = {
   menu?: Array<string>;
+  checkboxToggle?: () => void;
+  dishesToggle?: () => void;
 };
 
-const ListItem = ({ menu = null }: ListItemProps) => {
+const ListItem = ({
+  menu = null,
+  checkboxToggle = () => {},
+  dishesToggle = () => {},
+}: ListItemProps) => {
   return (
     <div className="group/menu-item flex flex-col gap-4">
-      <div className="grid grid-cols-autoX1 items-center gap-3 text-cool_grey xl:gap-6">
-        <div className="flex grid-cols-2 flex-col gap-4 xl:grid">
-          <CheckboxInput />
+      <div className="grid grid-cols-autoX1 items-center gap-3 text-cool_grey">
+        <div className="grid grid-cols-2 gap-3">
+          <CheckboxInput onChange={checkboxToggle} />
           <button className="flex h-8 w-8 items-center justify-center rounded border-2 border-arsenic fill-cool_grey outline-0 transition-all duration-300 ease-in-out hover:border-apple hover:bg-apple hover:fill-eerie_black focus-visible:border-apple focus-visible:bg-apple focus-visible:fill-eerie_black">
             <UserAddIcon className="h-5 w-5" />
           </button>
@@ -25,7 +31,10 @@ const ListItem = ({ menu = null }: ListItemProps) => {
           </p>
           <div className="flex items-center justify-between">
             <p>{menu.menu_dishes_amount} items</p>
-            <button className="group/dish-button relative flex items-center justify-center gap-1 bg-eerie_black fill-apple px-4 py-2 outline-none transition-all duration-300 ease-in-out hover:bg-apple hover:fill-eerie_black hover:text-eerie_black focus-visible:bg-apple focus-visible:fill-eerie_black focus-visible:text-eerie_black md:bg-transparent md:fill-cool_grey md:p-0 md:text-cool_grey md:hover:bg-transparent md:hover:fill-apple md:hover:text-ghost_white">
+            <button
+              onClick={dishesToggle}
+              className="group/dish-button relative flex items-center justify-center gap-1 bg-eerie_black fill-apple px-4 py-2 outline-none transition-all duration-300 ease-in-out hover:bg-apple hover:fill-eerie_black hover:text-eerie_black focus-visible:bg-apple focus-visible:fill-eerie_black focus-visible:text-eerie_black md:bg-transparent md:fill-cool_grey md:p-0 md:text-cool_grey md:hover:bg-transparent md:hover:fill-apple md:hover:text-ghost_white"
+            >
               <p>More</p>
               <RightArrowIcon />
               <div className="pointer-events-none absolute -bottom-[7px] left-0 hidden h-[3px] w-0 rounded-full bg-arsenic opacity-0 transition-all duration-300 ease-in-out group-hover/dish-button:w-full group-hover/dish-button:bg-apple group-hover/dish-button:opacity-100 md:block"></div>
