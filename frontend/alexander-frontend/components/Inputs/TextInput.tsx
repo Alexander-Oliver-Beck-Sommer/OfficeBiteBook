@@ -54,7 +54,7 @@ const TextInput = ({
 
   const inputDisabled = disabled ? "text-dark-500" : "";
 
-  const buttonDisabled = disabled ? "fill-dark-500" : "";
+  const buttonDisabled = disabled ? "fill-dark-500" : "fill-grey";
 
   const borderDisabled = disabled ? "border-dark-400" : "";
 
@@ -97,13 +97,13 @@ const TextInput = ({
     <section className="relative flex flex-col gap-2 md:gap-4">
       <label htmlFor={name} className="w-fit">
         <p
-          className={`text_white text-grey origin-bottom-left text-sm transition-all duration-300 ease-in-out md:text-base ${labelFocus} ${invalidText}`}
+          className={`text_white origin-bottom-left text-sm text-grey transition-all duration-300 ease-in-out md:text-base ${labelFocus} ${invalidText}`}
         >
           {name}
         </p>
       </label>
       <div
-        className={`border-dark-500 relative w-full overflow-hidden rounded border-2 transition-all duration-300 ease-in-out ${invalidBorder} ${borderDisabled} `}
+        className={`relative w-full overflow-hidden rounded border-2 border-dark-500 transition-all duration-300 ease-in-out ${invalidBorder} ${borderDisabled} `}
       >
         <input
           ref={inputField}
@@ -126,7 +126,7 @@ const TextInput = ({
           onBlur={textInputBlur}
           onFocus={textInputFocus}
           onClick={textInputIconClick}
-          className={`fill-primary absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-dark-100 ${invalidIcon} ${buttonDisabled}`}
+          className={`absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-dark-100 ${invalidIcon} ${buttonDisabled}`}
           {...(disabled ? { disabled: true } : {})}
         >
           {textInputIcon}

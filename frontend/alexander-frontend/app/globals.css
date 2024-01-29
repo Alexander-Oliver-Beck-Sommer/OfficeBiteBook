@@ -4,13 +4,13 @@
 
 @layer base {
   :root {
-    @apply text-white bg-dark-300;
+    @apply bg-dark-300 text-white;
+    scrollbar-gutter: stable;
   }
 
   * {
     @apply scroll-smooth font-poppins;
     letter-spacing: 0.2px;
-    scrollbar-width: thin;
     scrollbar-color: #3e3e42 #1e1e1e;
   }
 
@@ -19,7 +19,7 @@
   }
 
   button {
-    @apply focus-visible:outline-grey outline outline-2 outline-transparent transition-all duration-300 ease-in-out;
+    @apply outline outline-2 outline-transparent transition-all duration-300 ease-in-out focus-visible:outline-grey;
   }
 
   input {
@@ -66,7 +66,7 @@
   }
 
   *::-webkit-scrollbar-thumb {
-    @apply bg-dark-500 rounded;
+    @apply rounded bg-dark-500;
   }
 
   *::-webkit-scrollbar-thumb:hover {

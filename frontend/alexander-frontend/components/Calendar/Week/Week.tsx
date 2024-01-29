@@ -85,7 +85,7 @@ const Week = ({
           return (
             <li
               key={`${day.name}-${day.date}`}
-              className="flex-1 border-r border-r-dark-500"
+              className="flex-1 last:border-r-0 border-r border-r-dark-500"
             >
               <DayCell date={date} day={day.name} currentDay={isCurrentDay} />
               <SettingsCell />

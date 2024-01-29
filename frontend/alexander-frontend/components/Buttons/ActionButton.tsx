@@ -44,13 +44,13 @@ const variants = (variant: string, isDisabled: boolean) => {
     : "fill-white text-white border-dark-500 hover:bg-dark-500";
   const iconBorderDisabled = isDisabled
     ? "fill-dark-500 border-dark-400"
-    : "fill-primary border-dark-500 hover:bg-dark-500";
+    : "fill-white border-dark-500 hover:bg-dark-500";
 
   switch (variant) {
     case "filled":
       return "bg-dark-500 border-transparent border-2 px-5 py-4 fill-white rounded";
     case "outlined":
-      return `bg-dark-100 border-2 px-5 py-4 rounded ${outlinedDisabled}`;
+      return `bg-dark-100 border-2 px-5 py-3 rounded ${outlinedDisabled}`;
     case "outlined-small":
       return "bg-dark-100 outline-dark-500 outline outline-2 outline-offset-0 hover:outline-offset-[3px] focus:outline-offset-[3px] hover:outline-primary focus:outline-primary md:px-5 md:py-3 transition-all ease-in-out duration-300 hover:text-dark-100 focus:text-dark-100 hover:bg-primary focus:bg-primary hover:fill-dark-100 active:outline-offset-0 focus:fill-dark-100 text-grey fill-grey px-4 py-2 rounded flex items-center justify-center";
     case "icon-border":

@@ -27,7 +27,7 @@ const HourCell = ({
         data-date={date}
         aria-label={`Create a menu at ${halfHour}`}
         onClick={halfHourToggle}
-        className="h-10 cursor-default border-b border-dark-500 outline-1 outline-transparent transition duration-300 ease-in-out hover:bg-dark-500 focus-visible:bg-dark-500 focus-visible:outline-primary"
+        className="h-10 cursor-default border-b border-dark-500 outline-1 outline-transparent transition duration-300 ease-in-out last:border-b-0 hover:bg-dark-500 focus-visible:bg-dark-500 focus-visible:outline-primary"
       ></button>
     </>
   );
