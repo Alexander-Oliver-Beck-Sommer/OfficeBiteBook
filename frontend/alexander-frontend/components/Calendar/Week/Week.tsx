@@ -22,31 +22,31 @@ const Week = ({
   const {
     menus,
     dishes,
-    menuModalTitle,
-    menuModalTitleChange,
-    menuModalTitleValid,
-    menuModalLocation,
-    menuModalLocationChange,
-    menuModalLocationValid,
-    menuModalDate,
-    menuModalDateChange,
-    menuModalDateValid,
-    menuModalStartTime,
-    menuModalStartTimeChange,
-    menuModalStartTimeValid,
-    menuModalEndTime,
-    menuModalEndTimeChange,
-    menuModalEndTimeValid,
-    menuModalVisibility,
-    menuModalCreate,
-    menuModalCancel,
-    menuModalDelete,
-    menuModalDeleteDisabled,
+    title,
+    changeTitle,
+    isTitleValid,
+    location,
+    changeLocation,
+    isLocationValid,
+    date,
+    changeDate,
+    isDateValid,
+    startTime,
+    changeStartTime,
+    isStartTimeValid,
+    endTime,
+    changeEndTime,
+    isEndTimeValid,
+    visibility,
+    createToggle,
+    cancelToggle,
+    deleteToggle,
+    isDeleteDisabled,
     dishCreate,
     dishUpdate,
     dishesErase,
     dishesEraseDisabled,
-    dishDelete,
+    deleteDish,
     dayCellHighlight,
     hourCellToggle,
     cardButtonToggle,
@@ -134,32 +134,32 @@ const Week = ({
         })}
       </ul>
       <MenuModal
-        menuModalTitle={menuModalTitle}
-        menuModalTitleChange={menuModalTitleChange}
-        menuModalTitleValid={menuModalTitleValid}
-        menuModalLocation={menuModalLocation}
-        menuModalLocationChange={menuModalLocationChange}
-        menuModalLocationValid={menuModalLocationValid}
-        menuModalDate={menuModalDate}
-        menuModalDateChange={menuModalDateChange}
-        menuModalDateValid={menuModalDateValid}
-        menuModalStartTime={menuModalStartTime}
-        menuModalStartTimeChange={menuModalStartTimeChange}
-        menuModalStartTimeValid={menuModalStartTimeValid}
-        menuModalEndTime={menuModalEndTime}
-        menuModalEndTimeChange={menuModalEndTimeChange}
-        menuModalEndTimeValid={menuModalEndTimeValid}
-        menuModalVisibility={menuModalVisibility}
-        menuModalCancel={menuModalCancel}
-        menuModalCreate={menuModalCreate}
-        menuModalDelete={menuModalDelete}
-        menuModalDeleteDisabled={menuModalDeleteDisabled}
-        menuModalDishCreate={dishCreate}
-        menuModalDishUpdate={dishUpdate}
-        menuModalEraseDishes={dishesErase}
-        menuModalEraseDishesDisabled={dishesEraseDisabled}
-        menuModalDishDelete={dishDelete}
-        menuModalDishes={dishes}
+        title={title}
+        changeTitle={changeTitle}
+        isTitleValid={isTitleValid}
+        location={location}
+        changeLocation={changeLocation}
+        isLocationValid={isLocationValid}
+        date={date}
+        changeDate={changeDate}
+        isDateValid={isDateValid}
+        startTime={startTime}
+        changeStartTime={changeStartTime}
+        isStartTimeValid={isStartTimeValid}
+        endTime={endTime}
+        changeEndTime={changeEndTime}
+        isEndTimeValid={isEndTimeValid}
+        visibility={visibility}
+        cancelToggle={cancelToggle}
+        createToggle={createToggle}
+        deleteToggle={deleteToggle}
+        isDeleteDisabled={isDeleteDisabled}
+        createDish={dishCreate}
+        updateDish={dishUpdate}
+        eraseDishes={dishesErase}
+        isEraseDishesDisabled={dishesEraseDisabled}
+        deleteDish={deleteDish}
+        dishes={dishes}
       />
     </>
   );

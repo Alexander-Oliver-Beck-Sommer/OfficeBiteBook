@@ -3,129 +3,122 @@ import { useEffect, useState } from "react";
 import TextInput from "@/components/Inputs/TextInput";
 import ActionButton from "@/components/Buttons/ActionButton";
 import TextArea from "@/components/Inputs/TextArea";
-import useCalendar from "@/hooks/useCalendar";
 import UploadThumbnail from "@/components/Inputs/UploadThumbnail";
 
 type DishProps = {
-  dishCount?: number;
-  dishTitle?: string;
-  dishTitleChange?: (newTitle: string) => void;
-  dishSubtitle?: string;
-  dishSubtitleChange?: (newSubtitle: string) => void;
-  dishDescription?: string;
-  dishDescriptionChange?: (newDescription: string) => void;
-  dishThumbnailValue?: string;
-  dishThumbnailValueChange?: (newValue: string) => void;
-  dishThumbnailFile?: File | null;
-  dishThumbnailFileChange?: (newFile: File | null) => void;
-  dishThumbnailUrl?: string;
-  dishThumbnailUrlChange?: (newUrl: string) => void;
+  count?: number;
+  title?: string;
+  changeTitle?: (newTitle: string) => void;
+  subtitle?: string;
+  changeSubtitle?: (newSubtitle: string) => void;
+  description?: string;
+  changeDescription?: (newDescription: string) => void;
+  thumbnailValue?: string;
+  changeThumbnailValue?: (newValue: string) => void;
+  thumbnailFile?: File | null;
+  changeThumbnailFile?: (newFile: File | null) => void;
+  thumbnailURL?: string;
+  changeThumbnailURL?: (newUrl: string) => void;
   dishArchive?: () => void;
   dishReplace?: () => void;
-  dishDelete?: () => void;
+  deleteDish?: () => void;
 };
 
 const Dish = ({
-  dishCount = 0,
-  dishTitle = "",
-  dishTitleChange = () => {},
-  dishSubtitle = "",
-  dishSubtitleChange = () => {},
-  dishDescription = "",
-  dishDescriptionChange = () => {},
-  dishThumbnailValue = "",
-  dishThumbnailValueChange = () => {},
-  dishThumbnailFile = null,
-  dishThumbnailFileChange = () => {},
-  dishThumbnailUrl = "",
-  dishThumbnailUrlChange = () => {},
-  dishArchive,
-  dishReplace,
-  dishDelete,
+  count = 0,
+  title = "",
+  changeTitle = () => {},
+  subtitle = "",
+  changeSubtitle = () => {},
+  description = "",
+  changeDescription = () => {},
+  thumbnailValue = "",
+  changeThumbnailValue = () => {},
+  thumbnailFile = null,
+  changeThumbnailFile = () => {},
+  thumbnailURL = "",
+  changeThumbnailURL = () => {},
+  dishArchive = () => {},
+  dishReplace = () => {},
+  deleteDish = () => {},
 }: DishProps) => {
-  const [titleInput, setTitleInput] = useState(dishTitle);
-  const [subtitleInput, setSubtitleInput] = useState(dishSubtitle);
-  const [descriptionInput, setDescriptionInput] = useState(dishDescription);
-  const [thumbnailInputValue, setThumbnailInputValue] = useState(dishThumbnailValue); // prettier-ignore
-  const [thumbnailInputFile, setThumbnailInputFile] = useState(dishThumbnailFile); // prettier-ignore
-  const [thumbnailInputUrl, setThumbnailInputUrl] = useState(dishThumbnailUrl); // prettier-ignore
-  const [dishOpen, setDishOpen] = useState(false);
+  const [titleInput, setTitleInput] = useState(title);
+  const [subtitleInput, setSubtitleInput] = useState(subtitle);
+  const [descriptionInput, setDescriptionInput] = useState(description);
+  const [thumbnailInputValue, setThumbnailInputValue] = useState(thumbnailValue); // prettier-ignore
+  const [thumbnailInputFile, setThumbnailInputFile] = useState(thumbnailFile); // prettier-ignore
+  const [thumbnailInputUrl, setThumbnailInputUrl] = useState(thumbnailURL); // prettier-ignore
+  const [isDishOpen, setIsDishOpen] = useState(false);
 
-  const dishOpenStyle = dishOpen
+  const dishAccordion = isDishOpen
     ? "grid-rows-[1fr] visible opacity-100"
     : "grid-rows-[0fr] invisible opacity-0";
 
   const dishExpand = () => {
-    setDishOpen(!dishOpen);
+    setIsDishOpen(!isDishOpen);
   };
 
   const handleTitleChange = (newTitle: string) => {
     setTitleInput(newTitle);
-    if (dishTitleChange) {
-      dishTitleChange(newTitle);
+    if (changeTitle) {
+      changeTitle(newTitle);
     }
   };
 
   const handleSubtitleChange = (newSubtitle: string) => {
     setSubtitleInput(newSubtitle);
-    if (dishSubtitleChange) {
-      dishSubtitleChange(newSubtitle);
+    if (changeSubtitle) {
+      changeSubtitle(newSubtitle);
     }
   };
 
   const handleDescriptionChange = (newDescription: string) => {
     setDescriptionInput(newDescription);
-    if (dishDescriptionChange) {
-      dishDescriptionChange(newDescription);
+    if (changeDescription) {
+      changeDescription(newDescription);
     }
   };
 
   const handleThumbnailValueChange = (newValue: string) => {
     setThumbnailInputValue(newValue);
     console.log(newValue);
-    if (dishThumbnailValueChange) {
-      dishThumbnailValueChange(newValue);
+    if (changeThumbnailValue) {
+      changeThumbnailValue(newValue);
     }
   };
 
   const handleThumbnailFileChange = (newFile: File | null) => {
     setThumbnailInputFile(newFile);
     console.log(newFile);
-    if (dishThumbnailFileChange) {
-      dishThumbnailFileChange(newFile);
+    if (changeThumbnailFile) {
+      changeThumbnailFile(newFile);
     }
   };
 
   const handleThumbnailUrlChange = (newUrl: string) => {
     setThumbnailInputUrl(newUrl);
     console.log(newUrl);
-    if (dishThumbnailUrlChange) {
-      dishThumbnailUrlChange(newUrl);
+    if (changeThumbnailURL) {
+      changeThumbnailURL(newUrl);
     }
   };
 
   useEffect(() => {
-    setTitleInput(dishTitle);
-    setSubtitleInput(dishSubtitle);
-    setDescriptionInput(dishDescription);
-    setThumbnailInputValue(dishThumbnailValue);
-    setThumbnailInputFile(dishThumbnailFile);
-  }, [
-    dishTitle,
-    dishSubtitle,
-    dishDescription,
-    dishThumbnailValue,
-    dishThumbnailFile,
-  ]);
+    setTitleInput(title);
+    setSubtitleInput(subtitle);
+    setDescriptionInput(description);
+    setThumbnailInputValue(thumbnailValue);
+    setThumbnailInputFile(thumbnailFile);
+  }, [title, subtitle, description, thumbnailValue, thumbnailFile]);
 
   return (
     <li
       aria-label={titleInput}
-      className="border-dark-500 grid w-full flex-shrink-0 animate-fade-up grid-rows-autoX1 overflow-hidden rounded border-2 bg-dark-100 animate-ease-in-out"
+      className="grid w-full flex-shrink-0 animate-fade-up grid-rows-autoX1 overflow-hidden rounded border-2 border-dark-500 bg-dark-100 animate-ease-in-out"
     >
       <section className="flex items-center justify-between pl-3">
         <div className="flex items-center gap-3">
-          <h3 className="font-semibold">#{dishCount}</h3>
+          <h3 className="font-semibold">#{count}</h3>
           <p className="text-grey">{titleInput}</p>
         </div>
         <div className="flex">
@@ -146,7 +139,7 @@ const Dish = ({
             name="Replace"
           />
           <ActionButton
-            toggle={dishDelete}
+            toggle={deleteDish}
             icon="delete"
             label="Click to delete the dish from the menu"
             variant="icon"
@@ -164,7 +157,7 @@ const Dish = ({
         </div>
       </section>
       <section
-        className={`bg-dark-300 grid transition-all duration-300 ease-in-out ${dishOpenStyle}`}
+        className={`grid bg-dark-300 transition-all duration-300 ease-in-out ${dishAccordion}`}
       >
         <div className="overflow-hidden">
           <ul className="grid w-full grid-cols-2 gap-6 p-6">
@@ -203,7 +196,7 @@ const Dish = ({
               <UploadThumbnail
                 uploadThumbnailTitle="Thumbnail"
                 uploadThumbnailDescription="Upload Thumbnail"
-                uploadThumbnailId={dishCount}
+                uploadThumbnailId={count}
                 uploadThumbnailValue={thumbnailInputValue}
                 uploadThumbnailValueChange={handleThumbnailValueChange}
                 uploadThumbnailFile={thumbnailInputFile}

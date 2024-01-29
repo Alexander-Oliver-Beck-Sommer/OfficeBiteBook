@@ -41,30 +41,30 @@ const useCalendar = (user, weekNumber) => {
   const [originalMenuData, setOriginalMenuData] = useState<Menu[]>([]); // Copy of the original menu to compare changes with
   const [originalDishes, setOriginalDishes] = useState<Dish[]>([]); // Copy of the original dishes to compare changes with
   const [menuModalId, setMenuModalId] = useState(""); // Used to identify the menu - will always be an UUID
-  const [menuModalTitle, setMenuModalTitle] = useState("");
-  const [menuModalLocation, setMenuModalLocation] = useState("");
-  const [menuModalDate, setMenuModalDate] = useState("");
-  const [menuModalStartTime, setMenuModalStartTime] = useState("");
-  const [menuModalEndTime, setMenuModalEndTime] = useState("");
-  const [menuModalTitleValid, setMenuModalTitleValid] = useState(false);
-  const [menuModalLocationValid, setMenuModalLocationValid] = useState(false);
-  const [menuModalDateValid, setMenuModalDateValid] = useState(false);
-  const [menuModalStartTimeValid, setMenuModalStartTimeValid] = useState(false);
-  const [menuModalEndTimeValid, setMenuModalEndTimeValid] = useState(false);
+  const [title, setMenuModalTitle] = useState("");
+  const [location, setMenuModalLocation] = useState("");
+  const [date, setMenuModalDate] = useState("");
+  const [startTime, setMenuModalStartTime] = useState("");
+  const [endTime, setMenuModalEndTime] = useState("");
+  const [isTitleValid, setMenuModalTitleValid] = useState(false);
+  const [isLocationValid, setMenuModalLocationValid] = useState(false);
+  const [isDateValid, setMenuModalDateValid] = useState(false);
+  const [isStartTimeValid, setMenuModalStartTimeValid] = useState(false);
+  const [isEndTimeValid, setMenuModalEndTimeValid] = useState(false);
   const [menuModalDishesAmount, setMenuModalDishesAmount] = useState(0); // Amount of dishes in the menu - used to display the amount of dishes in the <CardButton/> component
-  const [menuModalVisibility, setMenuModalVisibility] = useState(false); // When the modals visibility is set to false, all data from within the menu is erased
+  const [visibility, setMenuModalVisibility] = useState(false); // When the modals visibility is set to false, all data from within the menu is erased
   const [menuModalSource, setMenuModalSource] = useState(""); // Have the MenuModal component perform different actions based on the source of the modal
-  const [menuModalDeleteDisabled, setMenuModalDeleteDisabled] = useState(true); // Disable the delete button if the menu is new and has no dishes
+  const [isDeleteDisabled, setMenuModalDeleteDisabled] = useState(true); // Disable the delete button if the menu is new and has no dishes
   const [dishesEraseDisabled, setDishesEraseDisabled] = useState(true); // Disable the erase button if there are no dishes to erase
-  const menuModalTitleChange = (newTitle: string) => setMenuModalTitle(newTitle); // prettier-ignore
-  const menuModalLocationChange = (newLocation: string) => setMenuModalLocation(newLocation); // prettier-ignore
-  const menuModalDateChange = (newDate: string) => setMenuModalDate(newDate); // prettier-ignore
-  const menuModalStartTimeChange = (newStartTime: string) => setMenuModalStartTime(newStartTime); // prettier-ignore
-  const menuModalEndTimeChange = (newEndTime: string) => setMenuModalEndTime(newEndTime); // prettier-ignore
+  const changeTitle = (newTitle: string) => setMenuModalTitle(newTitle); // prettier-ignore
+  const changeLocation = (newLocation: string) => setMenuModalLocation(newLocation); // prettier-ignore
+  const changeDate = (newDate: string) => setMenuModalDate(newDate); // prettier-ignore
+  const changeStartTime = (newStartTime: string) => setMenuModalStartTime(newStartTime); // prettier-ignore
+  const changeEndTime = (newEndTime: string) => setMenuModalEndTime(newEndTime); // prettier-ignore
 
   // Render all existing menus as cardButtons on the calendar - updated content will be
   useEffect(() => {
-    if (!menuModalVisibility) {
+    if (!visibility) {
       const fetchMenusAndDishes = async () => {
         try {
           let { data: menusData, error: menusError } = await supabase
@@ -112,7 +112,7 @@ const useCalendar = (user, weekNumber) => {
 
       fetchMenusAndDishes();
     }
-  }, [menuModalVisibility]);
+  }, [visibility]);
 
   // Disable the erase button if there are no dishes to erase
   useEffect(() => {
@@ -138,7 +138,7 @@ const useCalendar = (user, weekNumber) => {
 
   // Erase entered values and validation states for the menu modal when closed again
   useEffect(() => {
-    if (menuModalVisibility === false) {
+    if (visibility === false) {
       setMenuModalId("");
       setMenuModalTitle("");
       setMenuModalLocation("");
@@ -156,7 +156,7 @@ const useCalendar = (user, weekNumber) => {
       setDishes([]);
       setOriginalDishes([]);
     }
-  }, [menuModalVisibility]);
+  }, [visibility]);
 
   // Highlight the current day in the calendar
   const dayCellHighlight = (date: Date): boolean => {
@@ -229,13 +229,13 @@ const useCalendar = (user, weekNumber) => {
     return ((endDate - startDate) / (1000 * 60 * 30)) * 40;
   };
 
-  // Validate the menu modal and provide feedback if there are any errors - this function is executed and if the menuValidState is equal to false, the menuModalCreate function will be cancelled
+  // Validate the menu modal and provide feedback if there are any errors - this function is executed and if the menuValidState is equal to false, the createToggle function will be cancelled
   const menuModalValidate = () => {
     let menuValidState = true;
-    const startTime = new Date(`01/01/2000 ${menuModalStartTime}`);
-    const endTime = new Date(`01/01/2000 ${menuModalEndTime}`);
+    const startTime = new Date(`01/01/2000 ${startTime}`);
+    const endTime = new Date(`01/01/2000 ${endTime}`);
 
-    if (menuModalTitle.trim() === "") {
+    if (title.trim() === "") {
       setMenuModalTitleValid(true);
       toast.error("Title required");
       menuValidState = false;
@@ -243,7 +243,7 @@ const useCalendar = (user, weekNumber) => {
       setMenuModalTitleValid(false);
     }
 
-    if (menuModalLocation.trim() === "") {
+    if (location.trim() === "") {
       setMenuModalLocationValid(true);
       toast.error("Location required");
       menuValidState = false;
@@ -251,7 +251,7 @@ const useCalendar = (user, weekNumber) => {
       setMenuModalLocationValid(false);
     }
 
-    if (menuModalDate === "") {
+    if (date === "") {
       setMenuModalDateValid(true);
       toast.error("Date required");
       menuValidState = false;
@@ -259,7 +259,7 @@ const useCalendar = (user, weekNumber) => {
       setMenuModalDateValid(false);
     }
 
-    if (menuModalStartTime === "") {
+    if (startTime === "") {
       setMenuModalStartTimeValid(true);
       toast.error("Start time required");
       menuValidState = false;
@@ -267,7 +267,7 @@ const useCalendar = (user, weekNumber) => {
       setMenuModalStartTimeValid(false);
     }
 
-    if (menuModalEndTime === "") {
+    if (endTime === "") {
       setMenuModalEndTimeValid(true);
       toast.error("End time required");
       menuValidState = false;
@@ -287,18 +287,18 @@ const useCalendar = (user, weekNumber) => {
   };
 
   // Create a new or update an existing menu - depending on the source of the modal
-  const menuModalCreate = async () => {
+  const createToggle = async () => {
     // Cancel the rest of the function if the menu is not valid and contains unfilled fields
     const menuModalValidity = menuModalValidate();
     if (menuModalValidity === false) return;
 
     if (menuModalSource === "cardButton" && originalMenuData) {
       const hasMenuChanges =
-        menuModalTitle.trim() !== originalMenuData.menu_title ||
-        menuModalLocation.trim() !== originalMenuData.menu_location ||
-        menuModalDate !== originalMenuData.menu_date ||
-        menuModalStartTime !== originalMenuData.menu_start_time ||
-        menuModalEndTime !== originalMenuData.menu_end_time ||
+        title.trim() !== originalMenuData.menu_title ||
+        location.trim() !== originalMenuData.menu_location ||
+        date !== originalMenuData.menu_date ||
+        startTime !== originalMenuData.menu_start_time ||
+        endTime !== originalMenuData.menu_end_time ||
         menuModalDishesAmount !== originalMenuData.menu_dishes_amount;
 
       const newDishes = dishes.filter((dish) => !dish.dish_saved);
@@ -309,12 +309,12 @@ const useCalendar = (user, weekNumber) => {
           const { data: menuData, error: menuError } = await supabase
             .from("menus")
             .update({
-              menu_title: menuModalTitle,
-              menu_location: menuModalLocation,
-              menu_date: menuModalDate,
+              menu_title: title,
+              menu_location: location,
+              menu_date: date,
               menu_week: weekNumber,
-              menu_start_time: menuModalStartTime,
-              menu_end_time: menuModalEndTime,
+              menu_start_time: startTime,
+              menu_end_time: endTime,
               menu_dishes_amount: menuModalDishesAmount,
             })
             .match({ menu_id: menuModalId });
@@ -379,11 +379,11 @@ const useCalendar = (user, weekNumber) => {
     if (menuModalSource === "hourCell") {
       const hasChanges =
         menuModalId !== "" &&
-        menuModalTitle.trim() !== "" &&
-        menuModalLocation.trim() !== "" &&
-        menuModalDate !== "" &&
-        menuModalStartTime !== "" &&
-        menuModalEndTime !== "";
+        title.trim() !== "" &&
+        location.trim() !== "" &&
+        date !== "" &&
+        startTime !== "" &&
+        endTime !== "";
       if (hasChanges) {
         try {
           const { data: menuData, error: menuError } = await supabase
@@ -392,12 +392,12 @@ const useCalendar = (user, weekNumber) => {
               {
                 menu_id: menuModalId,
                 user_id: userData.id,
-                menu_title: menuModalTitle,
-                menu_location: menuModalLocation,
-                menu_date: menuModalDate,
+                menu_title: title,
+                menu_location: location,
+                menu_date: date,
                 menu_week: weekNumber,
-                menu_start_time: menuModalStartTime,
-                menu_end_time: menuModalEndTime,
+                menu_start_time: startTime,
+                menu_end_time: endTime,
                 menu_dishes_amount: menuModalDishesAmount,
               },
             ]);
@@ -462,14 +462,14 @@ const useCalendar = (user, weekNumber) => {
   };
 
   // Have the user confirm if they want to cancel their changes, and do so if they do
-  const menuModalCancel = () => {
+  const cancelToggle = () => {
     const hasMenuChanges =
       originalMenuData &&
-      (menuModalTitle.trim() !== originalMenuData.menu_title ||
-        menuModalLocation.trim() !== originalMenuData.menu_location ||
-        menuModalDate !== originalMenuData.menu_date ||
-        menuModalStartTime !== originalMenuData.menu_start_time ||
-        menuModalEndTime !== originalMenuData.menu_end_time ||
+      (title.trim() !== originalMenuData.menu_title ||
+        location.trim() !== originalMenuData.menu_location ||
+        date !== originalMenuData.menu_date ||
+        startTime !== originalMenuData.menu_start_time ||
+        endTime !== originalMenuData.menu_end_time ||
         menuModalDishesAmount !== originalMenuData.menu_dishes_amount);
 
     const hasNewDishes = dishes.some((dish) => !dish.dish_saved);
@@ -488,7 +488,7 @@ const useCalendar = (user, weekNumber) => {
   };
 
   // Delete the menu and all its dishes - only available when editing an existing menu
-  const menuModalDelete = async () => {
+  const deleteToggle = async () => {
     if (menuModalSource === "cardButton") {
       try {
         const { data: dishesData, error: dishesFetchError } = await supabase
@@ -628,7 +628,7 @@ const useCalendar = (user, weekNumber) => {
   };
 
   // Have our dish be removed from the dishes array, as well as from the database
-  const dishDelete = async (dishId: number) => {
+  const deleteDish = async (dishId: number) => {
     const dishToDelete = dishes.find((dish) => dish.dish_id === dishId);
     const thumbnailValue = dishToDelete?.dish_thumbnail_value;
 
@@ -675,31 +675,31 @@ const useCalendar = (user, weekNumber) => {
   return {
     menus,
     dishes,
-    menuModalTitle,
-    menuModalTitleValid,
-    menuModalLocation,
-    menuModalLocationValid,
-    menuModalDate,
-    menuModalDateValid,
-    menuModalStartTime,
-    menuModalStartTimeValid,
-    menuModalEndTime,
-    menuModalEndTimeValid,
-    menuModalTitleChange,
-    menuModalLocationChange,
-    menuModalDateChange,
-    menuModalStartTimeChange,
-    menuModalEndTimeChange,
-    menuModalVisibility,
-    menuModalCreate,
-    menuModalCancel,
-    menuModalDelete,
-    menuModalDeleteDisabled,
+    title,
+    isTitleValid,
+    location,
+    isLocationValid,
+    date,
+    isDateValid,
+    startTime,
+    isStartTimeValid,
+    endTime,
+    isEndTimeValid,
+    changeTitle,
+    changeLocation,
+    changeDate,
+    changeStartTime,
+    changeEndTime,
+    visibility,
+    createToggle,
+    cancelToggle,
+    deleteToggle,
+    isDeleteDisabled,
     dishCreate,
     dishUpdate,
     dishesErase,
     dishesEraseDisabled,
-    dishDelete,
+    deleteDish,
     dayCellHighlight,
     hourCellToggle,
     cardButtonToggle,

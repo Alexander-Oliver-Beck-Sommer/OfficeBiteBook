@@ -3,97 +3,91 @@ import data from "@/data/MenuModal.js";
 import TextInput from "@/components/Inputs/TextInput";
 
 type MenuSettingsProps = {
-  menuSettingsTitle?: string;
-  menuSettingsTitleChange?: (newTitle: string) => void;
-  menuSettingsTitleValid?: boolean;
-  menuSettingsLocation?: string;
-  menuSettingsLocationChange?: (newLocation: string) => void;
-  menuSettingsLocationValid?: boolean;
-  menuSettingsDate?: string;
-  menuSettingsDateChange?: (newDate: string) => void;
-  menuSettingsDateValid?: boolean;
-  menuSettingsStartTime?: string;
-  menuSettingsStartTimeChange?: (newStartTime: string) => void;
-  menuSettingsStartTimeValid?: boolean;
-  menuSettingsEndTime?: string;
-  menuSettingsEndTimeChange?: (newEndTime: string) => void;
-  menuSettingsEndTimeValid?: boolean;
+  title?: string;
+  changeTitle?: (newTitle: string) => void;
+  isTitleValid?: boolean;
+  location?: string;
+  changeLocation?: (newLocation: string) => void;
+  isLocationValid?: boolean;
+  date?: string;
+  changeDate?: (newDate: string) => void;
+  isDateValid?: boolean;
+  startTime?: string;
+  changeStartTime?: (newStartTime: string) => void;
+  isStartTimeValid?: boolean;
+  endTime?: string;
+  changeEndTime?: (newEndTime: string) => void;
+  isEndTimeValid?: boolean;
 };
 
 const MenuSettings = ({
-  menuSettingsTitle = "",
-  menuSettingsTitleChange,
-  menuSettingsTitleValid,
-  menuSettingsLocation = "",
-  menuSettingsLocationChange,
-  menuSettingsLocationValid,
-  menuSettingsDate = "",
-  menuSettingsDateChange,
-  menuSettingsDateValid,
-  menuSettingsStartTime = "",
-  menuSettingsStartTimeChange,
-  menuSettingsStartTimeValid,
-  menuSettingsEndTime = "",
-  menuSettingsEndTimeChange,
-  menuSettingsEndTimeValid,
+  title = "",
+  changeTitle = () => {},
+  isTitleValid = false,
+  location = "",
+  changeLocation = () => {},
+  isLocationValid = false,
+  date = "",
+  changeDate = () => {},
+  isDateValid = false,
+  startTime = "",
+  changeStartTime = () => {},
+  isStartTimeValid = false,
+  endTime = "",
+  changeEndTime = () => {},
+  isEndTimeValid = false,
 }: MenuSettingsProps) => {
-  const [titleInput, setTitleInput] = useState(menuSettingsTitle);
-  const [locationInput, setLocationInput] = useState(menuSettingsLocation);
-  const [dateInput, setDateInput] = useState(menuSettingsDate);
-  const [startTimeInput, setStartTimeInput] = useState(menuSettingsStartTime);
-  const [endTimeInput, setEndTimeInput] = useState(menuSettingsEndTime);
+  const [titleInput, setTitleInput] = useState(title);
+  const [locationInput, setLocationInput] = useState(location);
+  const [dateInput, setDateInput] = useState(date);
+  const [startTimeInput, setStartTimeInput] = useState(startTime);
+  const [endTimeInput, setEndTimeInput] = useState(endTime);
 
   const handleTitleChange = (newValue: string) => {
     setTitleInput(newValue);
-    if (menuSettingsTitleChange) {
-      menuSettingsTitleChange(newValue);
+    if (changeTitle) {
+      changeTitle(newValue);
     }
   };
 
   const handleLocationChange = (newValue: string) => {
     setLocationInput(newValue);
-    if (menuSettingsLocationChange) {
-      menuSettingsLocationChange(newValue);
+    if (changeLocation) {
+      changeLocation(newValue);
     }
   };
 
   const handleDateChange = (newValue: string) => {
     setDateInput(newValue);
-    if (menuSettingsDateChange) {
-      menuSettingsDateChange(newValue);
+    if (changeDate) {
+      changeDate(newValue);
     }
   };
 
   const handleStartTimeChange = (newValue: string) => {
     setStartTimeInput(newValue);
-    if (menuSettingsStartTimeChange) {
-      menuSettingsStartTimeChange(newValue);
+    if (changeStartTime) {
+      changeStartTime(newValue);
     }
   };
 
   const handleEndTimeChange = (newValue: string) => {
     setEndTimeInput(newValue);
-    if (menuSettingsEndTimeChange) {
-      menuSettingsEndTimeChange(newValue);
+    if (changeEndTime) {
+      changeEndTime(newValue);
     }
   };
 
   useEffect(() => {
-    setTitleInput(menuSettingsTitle);
-    setLocationInput(menuSettingsLocation);
-    setDateInput(menuSettingsDate);
-    setStartTimeInput(menuSettingsStartTime);
-    setEndTimeInput(menuSettingsEndTime);
-  }, [
-    menuSettingsTitle,
-    menuSettingsLocation,
-    menuSettingsDate,
-    menuSettingsStartTime,
-    menuSettingsEndTime,
-  ]);
+    setTitleInput(title);
+    setLocationInput(location);
+    setDateInput(date);
+    setStartTimeInput(startTime);
+    setEndTimeInput(endTime);
+  }, [title, location, date, startTime, endTime]);
 
   return (
-    <ul className="bg-dark-300 flex flex-col gap-5 border-y-2 border-dark-100 px-6 py-4">
+    <ul className="flex flex-col gap-5 border-y-2 border-dark-100 bg-dark-300 px-6 py-4">
       <li>
         <TextInput
           variant="text"
@@ -102,7 +96,7 @@ const MenuSettings = ({
           label={data.location_section.title.label}
           valueChange={handleTitleChange}
           value={titleInput}
-          valid={menuSettingsTitleValid}
+          valid={isTitleValid}
           required={true}
         />
       </li>
@@ -113,7 +107,7 @@ const MenuSettings = ({
           name={data.location_section.location.name}
           label={data.location_section.location.label}
           valueChange={handleLocationChange}
-          valid={menuSettingsLocationValid}
+          valid={isLocationValid}
           value={locationInput}
           required={true}
         />
@@ -124,7 +118,7 @@ const MenuSettings = ({
           name={data.location_section.date.name}
           label={data.location_section.date.label}
           valueChange={handleDateChange}
-          valid={menuSettingsDateValid}
+          valid={isDateValid}
           value={dateInput}
           required={true}
         />
@@ -135,7 +129,7 @@ const MenuSettings = ({
           name={data.location_section.start_time.name}
           label={data.location_section.start_time.label}
           valueChange={handleStartTimeChange}
-          valid={menuSettingsStartTimeValid}
+          valid={isStartTimeValid}
           value={startTimeInput}
           required={true}
         />
@@ -146,7 +140,7 @@ const MenuSettings = ({
           name={data.location_section.end_time.name}
           label={data.location_section.end_time.label}
           valueChange={handleEndTimeChange}
-          valid={menuSettingsEndTimeValid}
+          valid={isEndTimeValid}
           value={endTimeInput}
           required={true}
         />

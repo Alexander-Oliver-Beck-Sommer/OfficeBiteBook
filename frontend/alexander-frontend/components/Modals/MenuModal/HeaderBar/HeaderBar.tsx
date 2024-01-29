@@ -1,38 +1,37 @@
 import { useEffect, useState } from "react";
 import ActionButton from "@/components/Buttons/ActionButton";
-import data from "@/data/MenuModal.js";
 
 type HeaderBarProps = {
-  headerBarTitle?: string;
-  headerBarDish?: () => void;
+  title?: string;
+  createDish?: () => void;
   headerBarImport?: () => void;
-  headerBarErase?: () => void;
-  headerBarEraseDisabled?: boolean;
-  headerBarDelete?: () => void;
-  headerBarDeleteDisabled?: boolean;
+  eraseDishes?: () => void;
+  isEraseDishesDisabled?: boolean;
+  deleteToggle?: () => void;
+  isDeleteDisabled?: boolean;
 };
 
 const HeaderBar = ({
-  headerBarTitle = "",
-  headerBarDish = () => {},
+  title = "",
+  createDish = () => {},
   headerBarImport = () => {},
-  headerBarErase = () => {},
-  headerBarEraseDisabled = true,
-  headerBarDelete = () => {},
-  headerBarDeleteDisabled = true,
+  eraseDishes = () => {},
+  isEraseDishesDisabled = true,
+  deleteToggle = () => {},
+  isDeleteDisabled = true,
 }: HeaderBarProps) => {
-  const [title, setTitle] = useState(headerBarTitle);
+  const [emptyTitle, setEmptyTitle] = useState(title);
 
   useEffect(() => {
-    setTitle(headerBarTitle);
-  }, [headerBarTitle]);
+    setEmptyTitle(title);
+  }, [title]);
 
   return (
-    <header className="bg-dark-300 flex items-center justify-between px-6 py-4">
-      {title === "" ? (
+    <header className="flex items-center justify-between bg-dark-300 px-6 py-4">
+      {emptyTitle === "" ? (
         <h2 className="text-grey">Unnamed Menu</h2>
       ) : (
-        <h2>{title}</h2>
+        <h2>{emptyTitle}</h2>
       )}
       <ul className="flex gap-5">
         <li>
@@ -41,8 +40,8 @@ const HeaderBar = ({
             variant="icon-border"
             title="Add a new dish"
             name="Add"
-            label={data.menu_buttons.accept.label}
-            toggle={headerBarDish}
+            label="Add a new dish"
+            toggle={createDish}
           />
         </li>
         <li>
@@ -51,7 +50,7 @@ const HeaderBar = ({
             variant="icon-border"
             title="Import a dish from the archive"
             name="Import"
-            label={data.menu_buttons.cancel.label}
+            label="Import a dish from the archive"
             toggle={headerBarImport}
           />
         </li>
@@ -61,9 +60,9 @@ const HeaderBar = ({
             variant="icon-border"
             title="Erase all dishes from the menu"
             name="erase"
-            label={data.menu_buttons.accept.label}
-            toggle={headerBarErase}
-            disabled={headerBarEraseDisabled}
+            label="Erase all dishes from the menu"
+            toggle={eraseDishes}
+            disabled={isEraseDishesDisabled}
           />
         </li>
         <li>
@@ -72,9 +71,9 @@ const HeaderBar = ({
             variant="icon-border"
             title="Delete the menu and all its dishes"
             name="Delete"
-            label={data.menu_buttons.cancel.label}
-            toggle={headerBarDelete}
-            disabled={headerBarDeleteDisabled}
+            label="Delete the menu and all its dishes"
+            toggle={deleteToggle}
+            disabled={isDeleteDisabled}
           />
         </li>
       </ul>
