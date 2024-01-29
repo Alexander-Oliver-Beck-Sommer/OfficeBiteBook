@@ -14,7 +14,7 @@ type HourCell = {
 
 const useTimeMachine = () => {
   const [week, setWeek] = useState<Week[]>([]);
-  const [weekType, setWeekType] = useState(true);
+  const [type, setWeekType] = useState(true);
   const [weekStartTime, setWeekStartTime] = useState("08:00");
   const [weekEndTime, setWeekEndTime] = useState("17:00");
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -65,10 +65,10 @@ const useTimeMachine = () => {
   };
 
   const weekTypeSwitcher = () => {
-    setWeekType(!weekType);
+    setWeekType(!type);
   };
 
-  const weekHours = () => {
+  const hours = () => {
     const startHour = parseInt(weekStartTime.split(":")[0], 10);
     const endHour = parseInt(weekEndTime.split(":")[0], 10);
     const hourCells: HourCell[] = [];
@@ -86,9 +86,9 @@ const useTimeMachine = () => {
     const { weekStart } = weekDates(currentWeekNumber);
     const language = weekData[navigator.language] ? navigator.language : "en";
     const weekSettings = weekData[language];
-    const weekDays = weekType ? weekSettings.workWeek : weekSettings.fullWeek;
+    const days = type ? weekSettings.workWeek : weekSettings.fullWeek;
 
-    const formattedWeekDays = weekDays.map((dayName, index) => {
+    const formattedWeekDays = days.map((dayName, index) => {
       const date = new Date(weekStart.getTime());
       date.setDate(date.getDate() + index);
       const year = date.getFullYear();
@@ -104,13 +104,13 @@ const useTimeMachine = () => {
       week_location: language,
       week_days: formattedWeekDays,
     });
-  }, [currentWeekNumber, weekType]);
+  }, [currentWeekNumber, type]);
 
   return {
     week,
-    weekType,
+    type,
     weekTypeSwitcher,
-    weekHours,
+    hours,
     weekHighlighter,
     currentWeekNumber,
     setWeekStartTime,

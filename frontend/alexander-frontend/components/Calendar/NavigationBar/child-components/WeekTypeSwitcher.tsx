@@ -8,23 +8,23 @@ type WeekTypeSwitcherProps = {
 const WeekTypeSwitcher = ({
   weekTypeSwitcherToggle = () => {},
 }: WeekTypeSwitcherProps) => {
-  const [weekType, setWeekType] = useState(false);
-  const fullWeek = weekType ? "fill-white" : "fill-dark-500";
-  const workWeek = weekType ? "fill-dark-500" : "fill-white";
+  const [type, setWeekType] = useState(false);
+  const fullWeek = type ? "fill-white" : "fill-dark-500";
+  const workWeek = type ? "fill-dark-500" : "fill-white";
 
   const weekTypeChange = () => {
-    setWeekType(!weekType);
+    setWeekType(!type);
     weekTypeSwitcherToggle();
   };
 
   return (
     <button
       aria-label={
-        weekType ? "Switch to work week view" : "Switch to full week view"
+        type ? "Switch to work week view" : "Switch to full week view"
       }
-      title={weekType ? "Switch to work week view" : "Switch to full week view"}
+      title={type ? "Switch to work week view" : "Switch to full week view"}
       onClick={weekTypeChange}
-      aria-pressed={weekType}
+      aria-pressed={type}
       className="flex items-center gap-3"
     >
       <CalendarIcon

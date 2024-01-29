@@ -4,15 +4,15 @@ import NavigationBar from "@/components/Calendar/NavigationBar/NavigationBar";
 import Week from "@/components/Calendar/Week/Week";
 
 type CalendarProps = {
-  calendarUser: any;
+  user?: any;
 };
 
-export default function Calendar({ calendarUser }) {
+export default function Calendar({ user }: CalendarProps) {
   const {
     week,
-    weekType,
+    type,
     weekTypeSwitcher,
-    weekHours,
+    hours,
     weekHighlighter,
     setWeekStart,
     setWeekEndTime,
@@ -23,22 +23,22 @@ export default function Calendar({ calendarUser }) {
   } = useTimeMachine();
 
   return (
-    <section aria-label="Calendar" className="flex-1">
+    <>
       <NavigationBar
-        navigationBarWeekBackward={weekBackward}
-        navigationBarWeekForward={weekForward}
-        navigationBarWeekNumber={currentWeekNumber}
-        navigationBarWeekHighlighterValue={weekHighlighter}
-        navigationBarWeekHighlighterReset={weekReset}
-        navigationBarWeekTypeSwitcherToggle={weekTypeSwitcher}
+        jumpBack={weekBackward}
+        weekNumber={currentWeekNumber}
+        jumpForward={weekForward}
+        currentDateHighlight={weekHighlighter}
+        currentDateReset={weekReset}
+        typeToggle={weekTypeSwitcher}
       />
       <Week
-        weekUser={calendarUser}
-        weekDays={week.week_days}
-        weekType={weekType}
-        weekHours={weekHours()}
+        user={user}
+        days={week.week_days}
+        type={type}
+        hours={hours()}
         weekNumber={currentWeekNumber}
       />
-    </section>
+    </>
   );
 }

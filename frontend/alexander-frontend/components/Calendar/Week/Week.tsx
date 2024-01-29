@@ -6,17 +6,17 @@ import CardButton from "@/components/Buttons/CardButton";
 import useCalendar from "@/hooks/useCalendar";
 
 type WeekProps = {
-  weekDays?: string[];
-  weekType?: boolean;
-  weekHours?: string[];
+  days?: string[];
+  type?: boolean;
+  hours?: string[];
   weekNumber?: number;
 };
 
 const Week = ({
-  weekUser = null,
-  weekDays = [],
-  weekType = true,
-  weekHours = [],
+  user = null,
+  days = [],
+  type = true,
+  hours = [],
   weekNumber = 0,
 }: WeekProps) => {
   const {
@@ -52,7 +52,7 @@ const Week = ({
     cardButtonToggle,
     cardButtonPosition,
     cardButtonHeight,
-  } = useCalendar(weekUser, weekNumber);
+  } = useCalendar(user, weekNumber);
 
   return (
     <>
@@ -63,7 +63,7 @@ const Week = ({
               <section className="h-[70px]"></section>
               <section className="h-12"></section>
             </li>
-            {weekHours.map((hour) => (
+            {hours.map((hour) => (
               <li
                 key={`sidebar-${hour.fullHour}`}
                 className="flex h-20 w-full items-start justify-center"
@@ -73,7 +73,7 @@ const Week = ({
             ))}
           </ul>
         </li>
-        {weekDays.map((day) => {
+        {days.map((day) => {
           const getTodaysDate = new Date();
           const todaysDate = getTodaysDate.toISOString().split("T")[0];
           const dayDate = day.date;
@@ -95,7 +95,7 @@ const Week = ({
               <SettingsCell />
               <ul className="relative flex flex-col bg-dark-400">
                 <li className="relative flex flex-col  bg-dark-400">
-                  {weekHours.map((hour) => (
+                  {hours.map((hour) => (
                     <HourCell
                       key={`${day.name}-${hour.fullHour}`}
                       hourCellDate={day.date}

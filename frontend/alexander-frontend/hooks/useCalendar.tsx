@@ -34,8 +34,8 @@ type Dish = {
   dish_saved: boolean;
 };
 
-const useCalendar = (weekUser, weekNumber) => {
-  const userData = weekUser; // This contains the user's data from the supabase
+const useCalendar = (user, weekNumber) => {
+  const userData = user; // This contains the user's data from the supabase
   const [menus, setMenus] = useState<Menu[]>([]);
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [originalMenuData, setOriginalMenuData] = useState<Menu[]>([]); // Copy of the original menu to compare changes with

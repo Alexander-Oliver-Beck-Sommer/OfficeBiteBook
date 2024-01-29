@@ -8,21 +8,21 @@ import { Turn as Hamburger } from "hamburger-react";
 import AdminDashboard from "@/components/AdminDashboard/AdminDashboard";
 
 type NavigationBarProps = {
-  navigationBarWeekBackward: () => void;
-  navigationBarWeekNumber: number;
-  navigationBarWeekForward: () => void;
+  jumpBack: () => void;
+  weekNumber: number;
+  jumpForward: () => void;
   navigationBarWeekHighlighter?: number;
-  navigationBarWeekHighlighterReset?: () => void;
-  navigationBarWeekTypeSwitcherToggle?: () => void;
+  currentDateReset?: () => void;
+  typeToggle?: () => void;
 };
 
 const NavigationBar = ({
-  navigationBarWeekBackward = () => {},
-  navigationBarWeekNumber = 0,
-  navigationBarWeekForward = () => {},
-  navigationBarWeekHighlighterValue = 0,
-  navigationBarWeekHighlighterReset = () => {},
-  navigationBarWeekTypeSwitcherToggle,
+  jumpBack = () => {},
+  weekNumber = 0,
+  jumpForward = () => {},
+  currentDateHighlight = 0,
+  currentDateReset = () => {},
+  typeToggle,
 }: NavigationBarProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const adminDashboardToggle = () => {
@@ -42,13 +42,13 @@ const NavigationBar = ({
             />
           </div>
         </section>
-        <section className="border-dark-500 flex items-center justify-between border-b px-4">
+        <section className="flex items-center justify-between border-b border-dark-500 px-4">
           <ul className="flex items-center gap-4">
             <li>
               <WeekFlipper
-                weekFlipperBackward={navigationBarWeekBackward}
-                weekFlipperCurrentWeek={navigationBarWeekNumber}
-                weekFlipperForward={navigationBarWeekForward}
+                weekFlipperBackward={jumpBack}
+                weekFlipperCurrentWeek={weekNumber}
+                weekFlipperForward={jumpForward}
               />
             </li>
             <li>
@@ -66,14 +66,12 @@ const NavigationBar = ({
           </ul>
           <ul className="flex items-center gap-6">
             <li>
-              <WeekTypeSwitcher
-                weekTypeSwitcherToggle={navigationBarWeekTypeSwitcherToggle}
-              />
+              <WeekTypeSwitcher weekTypeSwitcherToggle={typeToggle} />
             </li>
             <li>
               <WeekHighlighter
-                weekHighlighterValue={navigationBarWeekHighlighterValue}
-                weekHighlighterReset={navigationBarWeekHighlighterReset}
+                weekHighlighterValue={currentDateHighlight}
+                weekHighlighterReset={currentDateReset}
               />
             </li>
           </ul>
