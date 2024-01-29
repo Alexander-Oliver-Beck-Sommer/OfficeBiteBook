@@ -1,22 +1,18 @@
-import React from "react";
-
-interface UploadIconProps {
+type UploadIconProps = {
   className?: string;
-}
+};
 
-const UploadIcon: React.FC<UploadIconProps> = ({ className }) => {
+const UploadIcon = ({ className = "" }: UploadIconProps) => {
   return (
-    <>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        className={className}
-      >
-        <path d="M3 19H21V21H3V19ZM13 5.82843V17H11V5.82843L4.92893 11.8995L3.51472 10.4853L12 2L20.4853 10.4853L19.0711 11.8995L13 5.82843Z" />
-      </svg>
-    </>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      className={className}
+    >
+      <path d="M4 19H20V12H22V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V12H4V19ZM13 9V16H11V9H6L12 3L18 9H13Z" />
+    </svg>
   );
 };
 

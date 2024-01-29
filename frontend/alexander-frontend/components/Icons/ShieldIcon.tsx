@@ -1,14 +1,9 @@
-import React from "react";
-
-interface ShieldIconProps {
+type ShieldIconProps = {
   className?: string;
   variant?: "user" | "keyhole";
-}
+};
 
-const ShieldIcon: React.FC<ShieldIconProps> = ({
-  className,
-  variant = "keyhole",
-}) => {
+const ShieldIcon = ({ className = "", variant = "keyhole" }) => {
   return (
     <>
       {variant === "keyhole" ? (

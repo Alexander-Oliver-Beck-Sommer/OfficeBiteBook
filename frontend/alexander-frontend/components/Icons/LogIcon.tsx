@@ -1,11 +1,9 @@
-import React from "react";
-
-interface LogIconProps {
+type LogIconProps = {
   className?: string;
   variant?: "logout" | "login";
-}
+};
 
-const LogIcon: React.FC<LogIconProps> = ({ className, variant = "login" }) => {
+const LogIcon = ({ className = "", variant = "login" }: LogIconProps) => {
   return (
     <>
       {variant === "login" ? (

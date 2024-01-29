@@ -1,14 +1,12 @@
-import React from "react";
-
-interface CalendarIconProps {
+type CalendarIconProps = {
   className?: string;
   variant?: "workWeek" | "fullWeek";
-}
+};
 
-const CalendarIcon: React.FC<CalendarIconProps> = ({
-  className,
+const CalendarIcon = ({
+  className = "",
   variant = "workWeek",
-}) => {
+}: CalendarIconProps) => {
   return (
     <>
       {variant === "fullWeek" ? (

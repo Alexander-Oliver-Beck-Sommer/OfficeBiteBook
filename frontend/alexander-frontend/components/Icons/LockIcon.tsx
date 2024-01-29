@@ -1,14 +1,9 @@
-import React from "react";
-
-interface LockIconProps {
+type LockIconProps = {
   className?: string;
   variant?: "unlocked" | "locked";
-}
+};
 
-const LockIcon: React.FC<LockIconProps> = ({
-  className,
-  variant = "locked",
-}) => {
+const LockIcon = ({ className = "", variant = "locked" }: LockIconProps) => {
   return (
     <>
       {variant === "locked" ? (
