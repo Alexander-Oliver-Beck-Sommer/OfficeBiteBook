@@ -11,7 +11,7 @@ const variants = (variant: number) => {
         landmark: "unauthenticated",
         title: "401",
         message: "Account required!",
-        icon: <ShieldIcon variant="user" className="fill-red h-8 w-8" />,
+        icon: <ShieldIcon variant="user" className="h-8 w-8 fill-red" />,
         description:
           "Sorry, you must be logged in to access this page. Please login or try a different page.",
         link: {
@@ -25,7 +25,7 @@ const variants = (variant: number) => {
         landmark: "forbidden",
         title: "403",
         message: "Access Denied!",
-        icon: <ShieldIcon variant="keyhole" className="fill-red h-8 w-8" />,
+        icon: <ShieldIcon variant="keyhole" className="h-8 w-8 fill-red" />,
         description:
           "Sorry, you don't have permission to access this page. Please check with your administrator or try a different page.",
         link: {
@@ -39,7 +39,7 @@ const variants = (variant: number) => {
         landmark: "not-found",
         title: "404",
         message: "Page not found!",
-        icon: <FileDamagedIcon className="fill-red h-8 w-8" />,
+        icon: <FileDamagedIcon className="h-8 w-8 fill-red" />,
         description:
           "We're sorry, but the page you're looking for doesn't exist. You can head back to the home page, or try again.",
         link: {
@@ -68,7 +68,7 @@ type MessageModalProps = {
   variant?: number;
 };
 
-const MessageModal = ({ variant = 401 }) => {
+const MessageModal = ({ variant = 401 }: MessageModalProps) => {
   const { landmark, title, message, icon, description, link } =
     variants(variant);
 
@@ -78,7 +78,7 @@ const MessageModal = ({ variant = 401 }) => {
       className="flex w-full items-center justify-center"
     >
       <section className="mx-4 my-8 flex justify-center md:mx-12 md:my-6">
-        <section className="md:border-dark-500 flex w-full animate-fade-up flex-col gap-4 animate-ease-in-out md:max-w-2xl md:gap-6 md:rounded md:border-2 md:bg-dark-100 md:px-8 md:py-10">
+        <section className="flex w-full animate-fade-up flex-col gap-4 animate-ease-in-out md:max-w-2xl md:gap-6 md:rounded md:border-2 md:border-dark-500 md:bg-dark-100 md:px-8 md:py-10">
           <div className="flex items-center justify-between">
             <div className="flex items-end gap-3">
               <h1>{title}</h1>
@@ -86,14 +86,14 @@ const MessageModal = ({ variant = 401 }) => {
             </div>
             {icon}
           </div>
-          <div className="bg-red h-[2px] rounded"></div>
+          <div className="h-[2px] rounded bg-red"></div>
           <p className="text-grey">{description}</p>
           <div className="flex justify-end">
             <Link
               aria-label={link.label}
               title={link.label}
               href={link.href}
-              className="border-dark-500 hover:bg-dark-500 flex w-full items-center justify-center gap-3 rounded border-2 bg-dark-100 px-5 py-3 transition-colors duration-300 ease-in-out md:w-fit"
+              className="flex w-full items-center justify-center gap-3 rounded border-2 border-dark-500 bg-dark-100 px-5 py-3 transition-colors duration-300 ease-in-out hover:bg-dark-500 md:w-fit"
             >
               <h4>{link.text}</h4>
             </Link>

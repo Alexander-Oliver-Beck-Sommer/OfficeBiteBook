@@ -9,7 +9,7 @@ import InventoryIcon from "@/components/Icons/InventoryIcon";
 import EraseIcon from "@/components/Icons/EraseIcon";
 import UploadIcon from "@/components/Icons/UploadIcon";
 import InfoIcon from "@/components/Icons/InfoIcon";
-import SaveIcon from "../Icons/SaveIcon";
+import SaveIcon from "@/components/Icons/SaveIcon";
 
 const icons = (icon: string) => {
   switch (icon) {
@@ -25,14 +25,10 @@ const icons = (icon: string) => {
       return <DeleteIcon />;
     case "downArrow":
       return <DownArrowIcon />;
-    case "settings":
-      return <SettingsIcon />;
     case "inventory":
       return <InventoryIcon />;
     case "erase":
       return <EraseIcon />;
-    case "upload":
-      return <UploadIcon />;
     case "info":
       return <InfoIcon className="h-6 w-6" />;
     case "save":

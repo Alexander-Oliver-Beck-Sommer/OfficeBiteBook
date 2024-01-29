@@ -85,7 +85,7 @@ const Week = ({
           return (
             <li
               key={`${day.name}-${day.date}`}
-              className="border-r-dark-500 flex-1 border-r"
+              className="flex-1 border-r border-r-dark-500"
             >
               <DayCell
                 dayCellDate={dayCellDate}
@@ -93,8 +93,8 @@ const Week = ({
                 dayCellCurrent={isCurrentDay}
               />
               <SettingsCell />
-              <ul className="bg-dark-400 relative flex flex-col">
-                <li className="bg-dark-400 relative flex  flex-col">
+              <ul className="relative flex flex-col bg-dark-400">
+                <li className="relative flex flex-col  bg-dark-400">
                   {weekHours.map((hour) => (
                     <HourCell
                       key={`${day.name}-${hour.fullHour}`}
@@ -112,14 +112,11 @@ const Week = ({
                   {cardButtons.map((cardButton) => (
                     <CardButton
                       key={`cardButton-${cardButton.menu_id}`}
-                      cardButtonTitle={cardButton.menu_title}
-                      cardButtonLocation={cardButton.menu_location}
-                      cardButtonStartTime={cardButton.menu_start_time}
-                      cardButtonEndTime={cardButton.menu_end_time}
-                      cardButtonDishes={cardButton.menu_dishes_amount}
-                      cardButtonLabel={`Click to open the menu for ${cardButton.menu_title}`}
-                      cardButtonToggleMenu={() => cardButtonToggle(cardButton)}
-                      cardButtonStyle={{
+                      title={cardButton.menu_title}
+                      location={cardButton.menu_location}
+                      dishesAmount={cardButton.menu_dishes_amount}
+                      toggle={() => cardButtonToggle(cardButton)}
+                      className={{
                         top: `${cardButtonPosition(
                           cardButton.menu_start_time,
                         )}px`,
