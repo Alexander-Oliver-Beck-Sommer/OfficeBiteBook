@@ -2,7 +2,7 @@ import { useState } from "react";
 import WeekFlipper from "@/components/Calendar/NavigationBar/child-components/WeekFlipper";
 import MonthFlipper from "@/components/Calendar/NavigationBar/child-components/MonthFlipper";
 import WeekHighlighter from "@/components/Calendar/NavigationBar/child-components/WeekHighlighter";
-import DownArrowIcon from "@/components/Icons/DownArrowIcon";
+import ArrowIcon from "@/components/Icons/ArrowIcon";
 import WeekTypeSwitcher from "./child-components/WeekTypeSwitcher";
 import { Turn as Hamburger } from "hamburger-react";
 import AdminDashboard from "@/components/AdminDashboard/AdminDashboard";
@@ -54,15 +54,6 @@ const NavigationBar = ({
             <li>
               <MonthFlipper />
             </li>
-            {/* <li>
-              <button
-                className="flex items-center gap-1"
-                aria-label="Click and choose inbetween months and weeks"
-              >
-                <h4>Actions</h4>
-                <DownArrowIcon className="h-6 w-6 fill-primary" />
-              </button>
-            </li> */}
           </ul>
           <ul className="flex items-center gap-6">
             <li>

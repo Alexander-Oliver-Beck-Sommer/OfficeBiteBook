@@ -1,4 +1,4 @@
-import DownArrowIcon from "@/components/Icons/DownArrowIcon";
+import ArrowIcon from "@/components/Icons/ArrowIcon";
 
 export default function MonthFlipper() {
   return (
@@ -7,7 +7,7 @@ export default function MonthFlipper() {
       aria-label="Click and choose inbetween months and weeks"
     >
       <h4>October 2023</h4>
-      <DownArrowIcon className="fill-primary h-6 w-6" />
+      <ArrowIcon variant="down" className="fill-primary" />
     </button>
   );
 }

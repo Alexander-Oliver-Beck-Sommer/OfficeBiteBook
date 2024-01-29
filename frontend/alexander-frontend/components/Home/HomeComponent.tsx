@@ -1,25 +1,6 @@
 "use client";
 import useHome from "@/hooks/useHome";
-import QuestionIcon from "@/components/Icons/QuestionIcon";
-import ActionButton from "@/components/Buttons/ActionButton";
-import ToggleInput from "@/components/Inputs/ToggleInput";
-import DishItem from "@/components/Home/DishItem";
-import ContentModal from "@/components/Modals/ContentModal/ContentModal";
-import ListItem from "@/components/Modals/ContentModal/ListItem/ListItem";
-import ImageItem from "@/components/Modals/ContentModal/ImageItem/ImageItem";
 import HeaderItem from "./HeaderItem";
-import CheckboxInput from "../Inputs/CheckboxInput";
-import DownArrowIcon from "../Icons/DownArrowIcon";
-import RightArrowIcon from "../Icons/RightArrowIcon";
-import LocationIcon from "../Icons/LocationIcon";
-import TimeIcon from "../Icons/TimeIcon";
-import RestaurantIcon from "../Icons/RestaurantIcon";
-import InfoIcon from "../Icons/InfoIcon";
-import UserAddIcon from "../Icons/UserAddIcon";
-import ZoomIcon from "../Icons/ZoomIcon";
-import CalendarIcon from "../Icons/CalendarIcon";
-import TextIcon from "../Icons/TextIcon";
-import BookIcon from "../Icons/BookIcon";
 import MobileVersion from "./MobileVersion/MobileVersion";
 import DesktopVersion from "./DesktopVersion/DesktopVersion";
 

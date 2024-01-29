@@ -1,5 +1,4 @@
-import LeftArrowIcon from "@/components/Icons/LeftArrowIcon";
-import RightArrowIcon from "@/components/Icons/RightArrowIcon";
+import ArrowIcon from "@/components/Icons/ArrowIcon";
 
 type WeekFlipperProps = {
   weekFlipperBackward: () => void;
@@ -22,12 +21,12 @@ export default function WeekFlipper({
           title="Regress 1 week"
           onClick={weekFlipperBackward}
         >
-          <LeftArrowIcon className="fill-primary h-6" />
+          <ArrowIcon variant="left" className="h-5 w-5 fill-primary" />
         </button>
       </li>
       <li className="flex items-center justify-center gap-1">
-        <p className="text-grey font-normal uppercase">Week</p>
-        <p className="text-white w-5 font-semibold">{weekNumber}</p>
+        <p className="font-normal uppercase text-grey">Week</p>
+        <p className="w-5 font-semibold text-white">{weekNumber}</p>
       </li>
       <li className="flex items-center">
         <button
@@ -35,7 +34,7 @@ export default function WeekFlipper({
           title="Forward 1 week"
           onClick={weekFlipperForward}
         >
-          <RightArrowIcon className="fill-primary h-6" />
+          <ArrowIcon variant="right" className="fill-primary" />
         </button>
       </li>
     </ul>

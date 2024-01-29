@@ -1,5 +1,5 @@
 import Link from "next/link";
-import RightArrowIcon from "@/components/Icons/RightArrowIcon";
+import ArrowIcon from "@/components/Icons/ArrowIcon";
 
 type LinkItemProps = {
   label?: string;
@@ -29,7 +29,7 @@ const LinkItem = ({
           </h4>
         </div>
         <div className="flex w-12 justify-center fill-primary lg:hidden">
-          <RightArrowIcon />
+          <ArrowIcon variant="right" />
         </div>
         <div className="pointer-events-none absolute -bottom-[10px] hidden h-[3px] w-0 rounded bg-grey opacity-0 transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-primary group-hover:opacity-100 lg:block"></div>
       </Link>
