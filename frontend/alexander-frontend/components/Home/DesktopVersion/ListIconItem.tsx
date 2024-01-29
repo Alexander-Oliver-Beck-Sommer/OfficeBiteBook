@@ -30,7 +30,7 @@ const ListIconItem = ({ icon = "", text = "" }: ListIconItemProps) => {
   const iconValue = icons(icon);
 
   return (
-    <li className="flex items-center gap-2 fill-apple uppercase">
+    <li className="fill-primary flex items-center gap-2 uppercase">
       {iconValue}
       <p>{text}</p>
     </li>

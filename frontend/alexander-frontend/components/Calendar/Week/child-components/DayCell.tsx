@@ -17,12 +17,12 @@ const DayCell = ({
   dayCellCurrent = false,
 }: DayCellProps) => {
   const currentDateStyling = dayCellCurrent
-    ? "border-apple"
+    ? "border-primary"
     : "border-transparent";
 
   return (
     <section
-      className={`flex h-[70px] w-full items-center justify-between border-t-4 bg-raisin_black px-4 ${currentDateStyling}`}
+      className={`bg-dark-300 flex h-[70px] w-full items-center justify-between border-t-4 px-4 ${currentDateStyling}`}
     >
       <div className="flex flex-col gap-[6px]">
         <h3 className="font-semibold leading-none">{dayCellDate}</h3>
@@ -30,10 +30,10 @@ const DayCell = ({
       </div>
       <div className="flex gap-4">
         <button onClick={dayCellLock}>
-          <LockIcon className="h-6 w-6 fill-ghost_white" />
+          <LockIcon className="fill-white h-6 w-6" />
         </button>
         <button onClick={dayCellSettings}>
-          <SettingsIcon className="h-6 w-6 fill-ghost_white" />
+          <SettingsIcon className="fill-white h-6 w-6" />
         </button>
       </div>
     </section>

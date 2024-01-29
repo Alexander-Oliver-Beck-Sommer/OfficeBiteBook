@@ -23,7 +23,7 @@ const NavigationMenu = ({
     <nav
       aria-hidden={!visible}
       aria-label={label}
-      className={`absolute bottom-0 left-0 top-header_height z-50 flex w-full items-stretch overflow-hidden bg-strange_black transition-all duration-300 ease-in-out lg:hidden ${visibleStyles}`}
+      className={`bg-dark-200 absolute bottom-0 left-0 top-header_height z-50 flex w-full items-stretch overflow-hidden transition-all duration-300 ease-in-out lg:hidden ${visibleStyles}`}
     >
       <ul className="w-full overflow-auto">
         <LinkItem label="Home" href="/" icon={<HomeIcon />} toggle={toggle} />

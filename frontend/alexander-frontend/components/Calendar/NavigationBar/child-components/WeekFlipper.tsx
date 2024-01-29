@@ -22,12 +22,12 @@ export default function WeekFlipper({
           title="Regress 1 week"
           onClick={weekFlipperBackward}
         >
-          <LeftArrowIcon className="h-6 fill-apple" />
+          <LeftArrowIcon className="fill-primary h-6" />
         </button>
       </li>
       <li className="flex items-center justify-center gap-1">
-        <p className="font-normal uppercase text-cool_grey">Week</p>
-        <p className="w-5 font-semibold text-ghost_white">{weekNumber}</p>
+        <p className="text-grey font-normal uppercase">Week</p>
+        <p className="text-white w-5 font-semibold">{weekNumber}</p>
       </li>
       <li className="flex items-center">
         <button
@@ -35,7 +35,7 @@ export default function WeekFlipper({
           title="Forward 1 week"
           onClick={weekFlipperForward}
         >
-          <RightArrowIcon className="h-6 fill-apple" />
+          <RightArrowIcon className="fill-primary h-6" />
         </button>
       </li>
     </ul>

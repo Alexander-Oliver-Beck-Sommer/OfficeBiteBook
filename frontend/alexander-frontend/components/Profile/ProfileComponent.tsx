@@ -46,8 +46,8 @@ const ProfileComponent = ({
   } = useProfile(userId, userEmail);
 
   return (
-    <section className="relative flex h-full flex-1 flex-col bg-dark_charcoal">
-      <section className="flex justify-center bg-strange_black p-4 md:px-12">
+    <section className="bg-dark-400 relative flex h-full flex-1 flex-col">
+      <section className="bg-dark-200 flex justify-center p-4 md:px-12">
         <div className="grid w-full max-w-screen-lg grid-cols-autoX1 gap-4 md:gap-6">
           <input
             type="file"
@@ -58,31 +58,31 @@ const ProfileComponent = ({
           />
           <button
             onClick={() => fileInputRef.current.click()}
-            className="group relative z-10 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-eerie_black bg-cover bg-center shadow-lg md:h-28 md:w-28"
+            className="group relative z-10 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-dark-100 bg-cover bg-center shadow-lg md:h-28 md:w-28"
             style={{ backgroundImage: `url(${userAvatarUrl})` }}
           >
             {!userAvatarUrl && (
-              <ImageIcon className="h-8 w-8 fill-arsenic md:h-10 md:w-10" />
+              <ImageIcon className="fill-dark-500 h-8 w-8 md:h-10 md:w-10" />
             )}
-            <div className="invisible absolute inset-0 z-20 bg-apple opacity-0 transition-all duration-300 ease-in-out group-hover:visible group-hover:opacity-85"></div>
-            <div className="invisible absolute inset-0 z-30 flex items-center justify-center fill-transparent transition-all duration-300 ease-in-out group-hover:visible group-hover:fill-eerie_black">
+            <div className="bg-primary invisible absolute inset-0 z-20 opacity-0 transition-all duration-300 ease-in-out group-hover:visible group-hover:opacity-85"></div>
+            <div className="invisible absolute inset-0 z-30 flex items-center justify-center fill-transparent transition-all duration-300 ease-in-out group-hover:visible group-hover:fill-dark-100">
               <EditIcon className="h-8 w-8 md:h-8 md:w-8" />
             </div>
           </button>
           <div className="flex flex-col justify-center gap-1 overflow-hidden md:gap-2">
-            <p className="text-sm font-medium text-cool_grey md:text-base">
+            <p className="text-grey text-sm font-medium md:text-base">
               Welcome back
             </p>
-            <span className="h-[2px] rounded bg-apple md:h-[3px]"></span>
+            <span className="bg-primary h-[2px] rounded md:h-[3px]"></span>
             <h2 className="w-full truncate font-semibold md:text-2xl">
               {originalUserName ? originalUserName : "Unnamed account"}
             </h2>
           </div>
         </div>
       </section>
-      <section className="flex justify-center bg-raisin_black px-4 py-3 md:px-12 md:py-4">
+      <section className="bg-dark-300 flex justify-center px-4 py-3 md:px-12 md:py-4">
         <div className="w-full max-w-screen-lg">
-          <p className="text-sm text-cool_grey md:text-base">
+          <p className="text-grey text-sm md:text-base">
             Welcome to the profile page. Here you can edit your personal
             details, including cost & allergies.
           </p>
@@ -150,10 +150,10 @@ const ProfileComponent = ({
           </li>
         </ul>
       </section>
-      <section className="sticky bottom-0 z-40 flex w-full justify-center bg-strange_black px-4 py-3 md:px-12 md:py-4">
+      <section className="bg-dark-200 sticky bottom-0 z-40 flex w-full justify-center px-4 py-3 md:px-12 md:py-4">
         <div className="flex w-full max-w-screen-lg items-center justify-between">
           <div className="flex flex-col gap-1 md:flex-row md:gap-2">
-            <p className="text-sm text-cool_grey md:text-base">Last updated:</p>
+            <p className="text-grey text-sm md:text-base">Last updated:</p>
             <p className="text-sm font-semibold md:text-base">
               {updatedAt ? formatDate(updatedAt) : "00-00-0000 | 00:00"}
             </p>

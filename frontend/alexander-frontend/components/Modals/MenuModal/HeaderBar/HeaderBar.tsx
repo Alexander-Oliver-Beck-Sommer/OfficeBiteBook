@@ -28,9 +28,9 @@ const HeaderBar = ({
   }, [headerBarTitle]);
 
   return (
-    <header className="flex items-center justify-between bg-raisin_black px-6 py-4">
+    <header className="bg-dark-300 flex items-center justify-between px-6 py-4">
       {title === "" ? (
-        <h2 className="text-cool_grey">Unnamed Menu</h2>
+        <h2 className="text-grey">Unnamed Menu</h2>
       ) : (
         <h2>{title}</h2>
       )}

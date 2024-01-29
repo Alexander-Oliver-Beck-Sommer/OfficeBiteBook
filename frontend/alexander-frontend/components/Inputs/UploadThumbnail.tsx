@@ -65,17 +65,17 @@ const UploadThumbnail = ({
         <p>{uploadThumbnailTitle}</p>
       </div>
       <div className="flex gap-4">
-        <div className="relative flex aspect-square h-full items-center justify-center rounded border-2 border-arsenic bg-eerie_black fill-arsenic">
+        <div className="border-dark-500 fill-dark-500 relative flex aspect-square h-full items-center justify-center rounded border-2 bg-dark-100">
           {backgroundImageUrl ? (
             <div
               className="absolute flex h-full w-full flex-col justify-end bg-cover bg-center"
               style={{ backgroundImage: `url(${backgroundImageUrl})` }}
             >
               <button
-                className="flex h-8 w-8 items-center justify-center rounded-tr border-r-2 border-t-2 border-arsenic bg-eerie_black hover:border-sunset_orange hover:bg-sunset_orange"
+                className="border-dark-500 hover:border-red hover:bg-red flex h-8 w-8 items-center justify-center rounded-tr border-r-2 border-t-2 bg-dark-100"
                 onClick={deleteThumbnail}
               >
-                <DeleteIcon className="h-4 fill-ghost_white" />
+                <DeleteIcon className="fill-white h-4" />
               </button>
             </div>
           ) : (
@@ -85,7 +85,7 @@ const UploadThumbnail = ({
         <div className="flex w-full items-center justify-center">
           <label
             htmlFor={`dropzone-file-${uploadThumbnailId}`}
-            className="flex h-full w-full cursor-pointer flex-col items-center justify-center gap-2 rounded border-2 border-arsenic bg-eerie_black fill-arsenic outline outline-2 outline-transparent transition-all duration-300 ease-in-out hover:bg-raisin_black hover:fill-cool_grey focus-visible:outline-cool_grey"
+            className="hover:bg-dark-300 border-dark-500 fill-dark-500 hover:fill-grey focus-visible:outline-grey flex h-full w-full cursor-pointer flex-col items-center justify-center gap-2 rounded border-2 bg-dark-100 outline outline-2 outline-transparent transition-all duration-300 ease-in-out"
           >
             <UploadIcon className="h-14 w-14" />
             <h5>{uploadThumbnailDescription}</h5>

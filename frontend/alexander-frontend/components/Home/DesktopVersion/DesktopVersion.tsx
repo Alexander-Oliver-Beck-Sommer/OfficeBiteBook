@@ -21,9 +21,9 @@ const DesktopVersion = ({ menu = [] }: DesktopVersionProps) => {
   return (
     <>
       <section className="hidden justify-center lg:flex">
-        <div className="relative flex w-full max-w-screen-xl flex-col gap-4 overflow-hidden rounded border-2 border-arsenic bg-eerie_black px-6 py-8">
+        <div className="border-dark-500 relative flex w-full max-w-screen-xl flex-col gap-4 overflow-hidden rounded border-2 bg-dark-100 px-6 py-8">
           <MenuItem />
-          <div className="h-[2px] rounded-full bg-apple"></div>
+          <div className="bg-primary h-[2px] rounded-full"></div>
           <div className="grid grid-rows-9 gap-4">
             {menu.map((menu) => (
               <ListItem
@@ -33,7 +33,7 @@ const DesktopVersion = ({ menu = [] }: DesktopVersionProps) => {
             ))}
           </div>
           <section
-            className={`pattern absolute bottom-0 right-0 top-0 bg-eerie_black px-6 py-8 transition-all duration-300 ease-in-out ${
+            className={`pattern absolute bottom-0 right-0 top-0 bg-dark-100 px-6 py-8 transition-all duration-300 ease-in-out ${
               selectedMenu
                 ? "w-full overflow-auto opacity-100"
                 : "w-0 overflow-hidden opacity-0"
@@ -46,7 +46,7 @@ const DesktopVersion = ({ menu = [] }: DesktopVersionProps) => {
                     <h3 className="animate-fade font-semibold animate-ease-in-out">
                       {selectedMenu.menu_title}
                     </h3>
-                    <h4 className="animate-fade text-cool_grey animate-ease-in-out">
+                    <h4 className="text-grey animate-fade animate-ease-in-out">
                       {selectedMenu.menu_date}
                     </h4>
                   </div>
@@ -56,37 +56,33 @@ const DesktopVersion = ({ menu = [] }: DesktopVersionProps) => {
                     </button>
                   </div>
                 </div>
-                <div className="h-[2px] rounded-full bg-apple"></div>
+                <div className="bg-primary h-[2px] rounded-full"></div>
                 <ul className="grid grid-cols-2 gap-8 pt-4">
                   {selectedMenu.dishes.map((dish, index) => (
-                    <li className="animate-fade rounded border-2 border-arsenic bg-raisin_black animate-ease-in-out">
-                      <header className="grid grid-cols-auto1Xauto items-center gap-3 bg-eerie_black fill-apple p-4">
+                    <li className="bg-dark-300 border-dark-500 animate-fade rounded border-2 animate-ease-in-out">
+                      <header className="fill-primary grid grid-cols-auto1Xauto items-center gap-3 bg-dark-100 p-4">
                         <h3 className="font-semibold">#{index + 1}</h3>
-                        <p className="truncate text-cool_grey">
-                          {dish.dish_title}
-                        </p>
+                        <p className="text-grey truncate">{dish.dish_title}</p>
                         <button
-                          className="flex h-16 w-16 items-center justify-center rounded border-2 border-arsenic bg-cover bg-center"
+                          className="border-dark-500 flex h-16 w-16 items-center justify-center rounded border-2 bg-cover bg-center"
                           style={{
                             backgroundImage: `url(${dish.dish_thumbnail})`,
                           }}
                         >
                           {!dish.dish_thumbnail && (
-                            <ImageIcon className="h-8 w-8 fill-arsenic" />
+                            <ImageIcon className="fill-dark-500 h-8 w-8" />
                           )}
                         </button>
                       </header>
                       <section className="flex flex-col gap-4 p-4 pb-8">
                         <div className="flex items-center justify-between gap-1">
                           <h4>Subtitle</h4>
-                          <p className="text-cool_grey">{dish.dish_subtitle}</p>
+                          <p className="text-grey">{dish.dish_subtitle}</p>
                         </div>
-                        <div className="h-[2px] rounded-full bg-dark_charcoal"></div>
+                        <div className="bg-dark-400 h-[2px] rounded-full"></div>
                         <div className="flex flex-col gap-1">
                           <h4>Description</h4>
-                          <p className="text-cool_grey">
-                            {dish.dish_description}
-                          </p>
+                          <p className="text-grey">{dish.dish_description}</p>
                         </div>
                       </section>
                     </li>

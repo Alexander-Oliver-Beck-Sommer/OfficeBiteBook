@@ -12,10 +12,10 @@ const HeaderItem = ({
   toggle = () => {},
 }: HeaderItemProps) => {
   return (
-    <header className="flex w-full justify-center border-b-2 border-apple bg-strange_black p-4 md:px-12 lg:hidden lg:border-0 lg:bg-transparent">
+    <header className="bg-dark-200 border-primary flex w-full justify-center border-b-2 p-4 md:px-12 lg:hidden lg:border-0 lg:bg-transparent">
       <section className="flex w-full max-w-screen-lg items-center justify-between">
         <div>
-          <p className="text-cool_grey">{subtitle}</p>
+          <p className="text-grey">{subtitle}</p>
           <h2>WEEK {weekNumber}</h2>
         </div>
         <div>

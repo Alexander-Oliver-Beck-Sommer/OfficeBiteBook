@@ -11,7 +11,7 @@ const FooterBar = ({
   footerBarAcceptMenu = () => {},
 }: FooterBarProps) => {
   return (
-    <footer className="flex items-center justify-end bg-raisin_black px-6 py-4">
+    <footer className="bg-dark-300 flex items-center justify-end px-6 py-4">
       <ul className="flex gap-5">
         <li>
           <ActionButton

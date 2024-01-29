@@ -37,9 +37,9 @@ const HamburgerButton = ({
       onClick={toggle}
     >
       <div className="flex h-6 w-10 flex-col justify-between">
-        <div className="h-1 rounded bg-ghost_white"></div>
-        <div className="h-1 w-full rounded bg-ghost_white"></div>
-        <div className="h-1 w-full rounded bg-ghost_white"></div>
+        <div className="bg-white h-1 rounded"></div>
+        <div className="bg-white h-1 w-full rounded"></div>
+        <div className="bg-white h-1 w-full rounded"></div>
       </div>
     </button>
   );

@@ -78,11 +78,11 @@ const MenuModal = ({
     >
       <div className="relative flex h-full w-full items-center justify-center px-10 py-10 lg:px-12 lg:py-12">
         <section
-          className="absolute inset-0 z-40 cursor-pointer bg-eerie_black opacity-95 transition-all duration-300 ease-in-out hover:bg-strange_black"
+          className="hover:bg-dark-200 absolute inset-0 z-40 cursor-pointer bg-dark-100 opacity-95 transition-all duration-300 ease-in-out"
           onClick={menuModalCancel}
         ></section>
         <section
-          className={`relative z-50 grid h-full w-full max-w-screen-xl grid-rows-auto1Xauto overflow-y-auto rounded border-2 border-arsenic bg-eerie_black ${
+          className={`border-dark-500 relative z-50 grid h-full w-full max-w-screen-xl grid-rows-auto1Xauto overflow-y-auto rounded border-2 bg-dark-100 ${
             menuModalVisibility
               ? "animate-fade-up animate-ease-in-out"
               : "invisible opacity-0"

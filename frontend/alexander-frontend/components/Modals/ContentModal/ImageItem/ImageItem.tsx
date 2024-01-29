@@ -6,13 +6,13 @@ type ImageItemProps = {
 
 const ImageItem = ({ imageURL }: ImageItemProps) => {
   return (
-    <li className="bg-strange_black p-4 last:pb-8">
+    <li className="bg-dark-200 p-4 last:pb-8">
       <h4>Thumbnail</h4>
       <div
-        className="mt-4 flex h-24 w-24 items-center justify-center rounded border border-arsenic bg-cover bg-center bg-no-repeat"
+        className="border-dark-500 mt-4 flex h-24 w-24 items-center justify-center rounded border bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${imageURL})` }}
       >
-        {!imageURL && <ImageIcon className="h-12 w-12 fill-arsenic" />}
+        {!imageURL && <ImageIcon className="fill-dark-500 h-12 w-12" />}
       </div>
     </li>
   );

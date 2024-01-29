@@ -33,7 +33,7 @@ const TextArea = ({
   };
 
   const labelFocus = `${
-    isFocused ? "scale-75 text-cool_grey" : "scale-100 text-ghost_white"
+    isFocused ? "scale-75 text-grey" : "scale-100 text-white"
   }`;
 
   return (
@@ -48,7 +48,7 @@ const TextArea = ({
       <textarea
         rows={rows}
         placeholder={placeholder}
-        className="resize-none rounded border-2 border-arsenic bg-eerie_black px-4 py-4 text-ghost_white placeholder-opacity-100 outline-none transition-all duration-300 ease-in-out placeholder:text-cool_grey placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0"
+        className="border-dark-500 placeholder:text-grey text-white resize-none rounded border-2 bg-dark-100 px-4 py-4 placeholder-opacity-100 outline-none transition-all duration-300 ease-in-out placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0"
         id={name}
         name={name}
         onBlur={handleBlur}

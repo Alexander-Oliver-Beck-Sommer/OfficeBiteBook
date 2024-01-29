@@ -44,31 +44,31 @@ const icons = (icon: string) => {
 
 const variants = (variant: string, isDisabled: boolean) => {
   const outlinedDisabled = isDisabled
-    ? "fill-arsenic text-arsenic border-dark_charcoal"
-    : "fill-ghost_white text-ghost_white border-arsenic hover:bg-arsenic";
+    ? "fill-dark-500 text-dark-500 border-dark-400"
+    : "fill-white text-white border-dark-500 hover:bg-dark-500";
   const iconBorderDisabled = isDisabled
-    ? "fill-arsenic border-dark_charcoal"
-    : "fill-apple border-arsenic hover:bg-arsenic";
+    ? "fill-dark-500 border-dark-400"
+    : "fill-primary border-dark-500 hover:bg-dark-500";
 
   switch (variant) {
     case "filled":
-      return "bg-arsenic border-transparent border-2 px-5 py-4 fill-ghost_white rounded";
+      return "bg-dark-500 border-transparent border-2 px-5 py-4 fill-white rounded";
     case "outlined":
-      return `bg-eerie_black border-2 px-5 py-4 rounded ${outlinedDisabled}`;
+      return `bg-dark-100 border-2 px-5 py-4 rounded ${outlinedDisabled}`;
     case "outlined-small":
-      return "bg-eerie_black outline-arsenic outline outline-2 outline-offset-0 hover:outline-offset-[3px] focus:outline-offset-[3px] hover:outline-apple focus:outline-apple md:px-5 md:py-3 transition-all ease-in-out duration-300 hover:text-eerie_black focus:text-eerie_black hover:bg-apple focus:bg-apple hover:fill-eerie_black active:outline-offset-0 focus:fill-eerie_black text-cool_grey fill-cool_grey px-4 py-2 rounded flex items-center justify-center";
+      return "bg-dark-100 outline-dark-500 outline outline-2 outline-offset-0 hover:outline-offset-[3px] focus:outline-offset-[3px] hover:outline-primary focus:outline-primary md:px-5 md:py-3 transition-all ease-in-out duration-300 hover:text-dark-100 focus:text-dark-100 hover:bg-primary focus:bg-primary hover:fill-dark-100 active:outline-offset-0 focus:fill-dark-100 text-grey fill-grey px-4 py-2 rounded flex items-center justify-center";
     case "icon-border":
-      return `bg-eerie_black border-2 px-3 py-3 rounded ${iconBorderDisabled}`;
+      return `bg-dark-100 border-2 px-3 py-3 rounded ${iconBorderDisabled}`;
     case "icon-border-small":
-      return "h-12 w-12 bg-eerie_black fill-apple border border-arsenic rounded flex items-center justify-center";
+      return "h-12 w-12 bg-dark-100 fill-primary border border-dark-500 rounded flex items-center justify-center";
     case "icon":
-      return "px-3 py-3 fill-ghost_white rounded hover:bg-arsenic";
+      return "px-3 py-3 fill-white rounded hover:bg-dark-500";
     case "icon-small":
-      return "fill-ghost_white";
+      return "fill-white";
     case "close":
-      return "rounded-full fill-sunset_orange border-2 border-sunset_orange h-10 w-10";
+      return "rounded-full fill-red border-2 border-red h-10 w-10";
     default:
-      return "fill-cool_grey outline-offset-4";
+      return "fill-grey outline-offset-4";
   }
 };
 

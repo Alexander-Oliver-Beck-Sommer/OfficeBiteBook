@@ -4,16 +4,7 @@
 
 @layer base {
   :root {
-    background: theme("colors.ghost_white");
-    color: theme("colors.eerie_black");
-    scrollbar-gutter: stable;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      background: theme("colors.raisin_black");
-      color: theme("colors.ghost_white");
-    }
+    @apply text-white bg-dark-300;
   }
 
   * {
@@ -28,7 +19,7 @@
   }
 
   button {
-    @apply outline outline-2 outline-transparent transition-all duration-300 ease-in-out focus-visible:outline-cool_grey;
+    @apply focus-visible:outline-grey outline outline-2 outline-transparent transition-all duration-300 ease-in-out;
   }
 
   input {
@@ -63,27 +54,27 @@
     @apply h-2.5 w-2.5;
   }
   *::-webkit-scrollbar-track {
-    @apply rounded bg-eerie_black;
+    @apply rounded bg-dark-100;
   }
 
   *::-webkit-scrollbar-track:hover {
-    @apply bg-eerie_black;
+    @apply bg-dark-100;
   }
 
   *::-webkit-scrollbar-track:active {
-    @apply bg-eerie_black;
+    @apply bg-dark-100;
   }
 
   *::-webkit-scrollbar-thumb {
-    @apply rounded bg-arsenic;
+    @apply bg-dark-500 rounded;
   }
 
   *::-webkit-scrollbar-thumb:hover {
-    @apply bg-cool_grey;
+    @apply bg-grey;
   }
 
   *::-webkit-scrollbar-thumb:active {
-    @apply bg-cool_grey;
+    @apply bg-grey;
   }
 
   .pattern {
@@ -101,10 +92,6 @@
         transparent 0,
         transparent 50%
       );
-    @apply bg-eerie_black bg-[length:3em_3em];
-  }
-
-  .full-height {
-    min-height: calc(100svh - theme("spacing.header_height"));
+    @apply bg-dark-100 bg-[length:3em_3em];
   }
 }

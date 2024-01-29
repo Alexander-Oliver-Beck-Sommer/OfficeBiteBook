@@ -24,8 +24,8 @@ const CheckboxInput = ({
   };
 
   const checkboxStyles = isChecked
-    ? "border-apple fill-apple"
-    : "border-arsenic fill-cool_grey";
+    ? "border-primary fill-primary"
+    : "border-dark-500 fill-grey";
 
   const checkboxIcons = isChecked ? (
     <CheckIcon className="animate-fade-down animate-duration-200 animate-ease-in-out" />
@@ -43,7 +43,7 @@ const CheckboxInput = ({
         onChange={handleInputChange}
       />
       <label
-        className={`absolute inset-0 flex cursor-pointer items-center justify-center rounded border-2 p-1 outline-apple transition-all duration-300 ease-in-out group-focus:outline ${checkboxStyles}`}
+        className={`outline-primary absolute inset-0 flex cursor-pointer items-center justify-center rounded border-2 p-1 transition-all duration-300 ease-in-out group-focus:outline ${checkboxStyles}`}
         onClick={handleInputChange}
       >
         {checkboxIcons}

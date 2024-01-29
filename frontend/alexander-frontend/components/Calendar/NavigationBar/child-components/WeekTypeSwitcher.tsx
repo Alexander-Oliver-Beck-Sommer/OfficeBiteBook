@@ -9,8 +9,8 @@ const WeekTypeSwitcher = ({
   weekTypeSwitcherToggle = () => {},
 }: WeekTypeSwitcherProps) => {
   const [weekType, setWeekType] = useState(false);
-  const fullWeek = weekType ? "fill-ghost_white" : "fill-arsenic";
-  const workWeek = weekType ? "fill-arsenic" : "fill-ghost_white";
+  const fullWeek = weekType ? "fill-white" : "fill-dark-500";
+  const workWeek = weekType ? "fill-dark-500" : "fill-white";
 
   const weekTypeChange = () => {
     setWeekType(!weekType);

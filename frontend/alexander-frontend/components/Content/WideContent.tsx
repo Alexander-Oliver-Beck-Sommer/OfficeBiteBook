@@ -9,7 +9,7 @@ const WideContent = ({ ariaLabel = "", children }: WideContentProps) => {
   return (
     <section
       aria-label={ariaLabel}
-      className="flex w-full items-center justify-center border-2 border-sunset_orange"
+      className="border-red flex w-full items-center justify-center border-2"
     >
       {children}
     </section>

@@ -28,12 +28,12 @@ const CardButton = ({
       aria-label={cardButtonLabel}
       onClick={cardButtonToggleMenu}
     >
-      <section className="flex h-full w-full flex-col justify-between overflow-auto rounded border-l-4 border-l-apple bg-eerie_black px-2 py-3 transition-all duration-300 ease-in-out group-hover:bg-raisin_black">
+      <section className="group-hover:bg-dark-300 border-l-primary flex h-full w-full flex-col justify-between overflow-auto rounded border-l-4 bg-dark-100 px-2 py-3 transition-all duration-300 ease-in-out">
         <div className="flex w-full items-center justify-between">
           <h5 className="font-medium">{cardButtonTitle}</h5>
           {/* FUTURE SELF: This just displays the menu's start & end time. */}
           {/* {cardButtonTitle.length <= 16 && (
-            <h6 className="font-normal text-cool_grey">
+            <h6 className="font-normal text-grey">
               {cardButtonStartTime} - {cardButtonEndTime}
             </h6>
           )} */}
@@ -44,7 +44,7 @@ const CardButton = ({
           {cardButtonDishes !== 0 && (
             <div className="flex items-center justify-between gap-1">
               <h6 className="font-medium">{cardButtonDishes}</h6>
-              <BowlIcon className="h-5 fill-apple" />
+              <BowlIcon className="fill-primary h-5" />
             </div>
           )}
         </div>

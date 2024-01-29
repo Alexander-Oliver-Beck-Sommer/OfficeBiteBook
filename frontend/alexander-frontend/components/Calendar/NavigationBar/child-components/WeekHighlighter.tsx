@@ -14,11 +14,9 @@ export default function WeekHighlighter({
       aria-label="Reset the calendar to the current week"
       title="Reset the calendar to the current week"
     >
-      <p className="uppercase text-cool_grey">
+      <p className="text-grey uppercase">
         Current:{" "}
-        <span className="font-semibold text-ghost_white">
-          Week {weekNumber}
-        </span>
+        <span className="text-white font-semibold">Week {weekNumber}</span>
       </p>
     </button>
   );

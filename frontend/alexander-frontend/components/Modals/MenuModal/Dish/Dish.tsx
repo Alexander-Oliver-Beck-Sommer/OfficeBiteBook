@@ -121,12 +121,12 @@ const Dish = ({
   return (
     <li
       aria-label={titleInput}
-      className="grid w-full flex-shrink-0 animate-fade-up grid-rows-autoX1 overflow-hidden rounded border-2 border-arsenic bg-eerie_black animate-ease-in-out"
+      className="border-dark-500 grid w-full flex-shrink-0 animate-fade-up grid-rows-autoX1 overflow-hidden rounded border-2 bg-dark-100 animate-ease-in-out"
     >
       <section className="flex items-center justify-between pl-3">
         <div className="flex items-center gap-3">
           <h3 className="font-semibold">#{dishCount}</h3>
-          <p className="text-cool_grey">{titleInput}</p>
+          <p className="text-grey">{titleInput}</p>
         </div>
         <div className="flex">
           <ActionButton
@@ -164,7 +164,7 @@ const Dish = ({
         </div>
       </section>
       <section
-        className={`grid bg-raisin_black transition-all duration-300 ease-in-out ${dishOpenStyle}`}
+        className={`bg-dark-300 grid transition-all duration-300 ease-in-out ${dishOpenStyle}`}
       >
         <div className="overflow-hidden">
           <ul className="grid w-full grid-cols-2 gap-6 p-6">

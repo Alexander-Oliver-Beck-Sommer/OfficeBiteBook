@@ -101,14 +101,14 @@ export default function Login() {
   if (user) {
     return (
       <section className="mx-4 mb-12 mt-8 flex flex-1 items-center justify-center md:mx-12 md:mt-6">
-        <ul className="flex w-full max-w-2xl animate-fade-up flex-col gap-6 overflow-hidden rounded border-arsenic animate-ease-in-out md:gap-4 md:border-2 md:bg-eerie_black md:px-8 md:pb-14 md:pt-10">
+        <ul className="border-dark-500 flex w-full max-w-2xl animate-fade-up flex-col gap-6 overflow-hidden rounded animate-ease-in-out md:gap-4 md:border-2 md:bg-dark-100 md:px-8 md:pb-14 md:pt-10">
           <li>
-            <p className="text-cool_grey">Already signed in!</p>
+            <p className="text-grey">Already signed in!</p>
             <h3>Want to logout instead?</h3>
           </li>
-          <li className="h-[2px] rounded bg-rajah"></li>
+          <li className="bg-orange h-[2px] rounded"></li>
           <li>
-            <p className="text-cool_grey">
+            <p className="text-grey">
               Seems like you're already signed in. If you want to sign out, you
               can press the Logout button below, or go back to the home page.
             </p>
@@ -118,7 +118,7 @@ export default function Login() {
               aria-label="Go back"
               title="Go back"
               href="/"
-              className="flex w-full items-center justify-center gap-3 rounded border-2 border-arsenic bg-eerie_black px-5 py-3 transition-colors duration-300 ease-in-out hover:bg-arsenic"
+              className="border-dark-500 hover:bg-dark-500 flex w-full items-center justify-center gap-3 rounded border-2 bg-dark-100 px-5 py-3 transition-colors duration-300 ease-in-out"
             >
               <h4>Go Back</h4>
             </Link>
@@ -137,14 +137,14 @@ export default function Login() {
 
   return (
     <section className="mx-4 mb-12 mt-8 flex items-center justify-center md:mx-12 md:mt-6">
-      <ul className="flex w-full max-w-2xl animate-fade-up flex-col gap-6 overflow-hidden rounded border-arsenic animate-ease-in-out md:gap-4 md:border-2 md:bg-eerie_black md:px-8 md:pb-14 md:pt-10">
+      <ul className="border-dark-500 flex w-full max-w-2xl animate-fade-up flex-col gap-6 overflow-hidden rounded animate-ease-in-out md:gap-4 md:border-2 md:bg-dark-100 md:px-8 md:pb-14 md:pt-10">
         <li>
-          <p className="text-cool_grey">Welcome to,</p>
+          <p className="text-grey">Welcome to,</p>
           <h3>OfficeBiteBook</h3>
         </li>
-        <li className="h-[2px] rounded bg-apple"></li>
+        <li className="bg-primary h-[2px] rounded"></li>
         <li>
-          <p className="text-cool_grey">
+          <p className="text-grey">
             Get started by creating an account or logging in with your existing
             one.
           </p>
@@ -185,7 +185,7 @@ export default function Login() {
             toggle={handleSignIn}
           />
         </li>
-        <li className="flex flex-col gap-2 text-cool_grey md:mt-4 md:flex-row md:gap-4">
+        <li className="text-grey flex flex-col gap-2 md:mt-4 md:flex-row md:gap-4">
           <p className="underline underline-offset-2">Forgotten email?</p>
           <p className="underline underline-offset-2">Forgotten password?</p>
         </li>

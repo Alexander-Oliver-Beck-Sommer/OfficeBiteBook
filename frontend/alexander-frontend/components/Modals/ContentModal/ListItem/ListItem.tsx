@@ -20,9 +20,9 @@ const ListItem = ({ name = "", value = "", variant = "" }: ListItemProps) => {
   const { container, truncate } = variants(variant);
 
   return (
-    <li className={`p-4 last:pb-8 even:bg-strange_black ${container}`}>
+    <li className={`even:bg-dark-200 p-4 last:pb-8 ${container}`}>
       <h4>{name}</h4>
-      <p className={`${truncate ? "truncate" : ""} text-cool_grey`}>{value}</p>
+      <p className={`${truncate ? "truncate" : ""} text-grey`}>{value}</p>
     </li>
   );
 };

@@ -46,13 +46,13 @@ const ContentModal = ({
     >
       <div className="relative flex w-full items-center justify-center p-4">
         <section
-          className="absolute inset-0 z-40 cursor-pointer bg-eerie_black opacity-95 transition-all duration-300 ease-in-out hover:bg-strange_black"
+          className="hover:bg-dark-200 absolute inset-0 z-40 cursor-pointer bg-dark-100 opacity-95 transition-all duration-300 ease-in-out"
           onClick={toggle}
         ></section>
         <section
-          className={`relative z-50 grid w-full grid-rows-autoX1 overflow-auto rounded border border-arsenic  transition-all duration-300 ease-in-out ${animateUp}`}
+          className={`border-dark-500 relative z-50 grid w-full grid-rows-autoX1 overflow-auto rounded border  transition-all duration-300 ease-in-out ${animateUp}`}
         >
-          <div className="flex items-center justify-between bg-eerie_black p-4">
+          <div className="flex items-center justify-between bg-dark-100 p-4">
             <h3>{title}</h3>
             <ActionButton toggle={toggle} variant="close" icon="cancel" />
           </div>

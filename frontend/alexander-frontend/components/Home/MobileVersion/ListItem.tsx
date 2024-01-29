@@ -28,11 +28,11 @@ const ListItem = ({ title = "", icon = "", text = "" }: ListItemProps) => {
   const iconValue = icons(icon);
 
   return (
-    <li className="grid grid-cols-2 bg-strange_black fill-apple p-4 md:px-8">
+    <li className="bg-dark-200 fill-primary grid grid-cols-2 p-4 md:px-8">
       <h4>{title}</h4>
       <div className="grid grid-cols-autoX1 items-center gap-2">
         {iconValue}
-        <p className="truncate text-cool_grey">{text}</p>
+        <p className="text-grey truncate">{text}</p>
       </div>
     </li>
   );

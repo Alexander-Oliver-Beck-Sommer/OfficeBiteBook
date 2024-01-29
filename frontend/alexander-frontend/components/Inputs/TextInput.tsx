@@ -52,19 +52,19 @@ const TextInput = ({
 }: TextInputProps) => {
   const inputField = useRef<HTMLInputElement>(null);
 
-  const inputDisabled = disabled ? "text-arsenic" : "";
+  const inputDisabled = disabled ? "text-dark-500" : "";
 
-  const buttonDisabled = disabled ? "fill-arsenic" : "";
+  const buttonDisabled = disabled ? "fill-dark-500" : "";
 
-  const borderDisabled = disabled ? "border-dark_charcoal" : "";
+  const borderDisabled = disabled ? "border-dark-400" : "";
 
-  const invalidText = valid ? "text-sunset_orange" : "";
+  const invalidText = valid ? "text-red" : "";
 
-  const invalidBorder = valid ? "border-sunset_orange" : "";
+  const invalidBorder = valid ? "border-red" : "";
 
-  const invalidPlaceholder = valid ? "placeholder:text-sunset_orange" : "";
+  const invalidPlaceholder = valid ? "placeholder:text-red" : "";
 
-  const invalidIcon = valid ? "fill-sunset_orange" : "";
+  const invalidIcon = valid ? "fill-red" : "";
 
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -97,19 +97,19 @@ const TextInput = ({
     <section className="relative flex flex-col gap-2 md:gap-4">
       <label htmlFor={name} className="w-fit">
         <p
-          className={`text_ghost_white origin-bottom-left text-sm text-cool_grey transition-all duration-300 ease-in-out md:text-base ${labelFocus} ${invalidText}`}
+          className={`text_white text-grey origin-bottom-left text-sm transition-all duration-300 ease-in-out md:text-base ${labelFocus} ${invalidText}`}
         >
           {name}
         </p>
       </label>
       <div
-        className={`relative w-full overflow-hidden rounded border-2 border-arsenic transition-all duration-300 ease-in-out ${invalidBorder} ${borderDisabled} `}
+        className={`border-dark-500 relative w-full overflow-hidden rounded border-2 transition-all duration-300 ease-in-out ${invalidBorder} ${borderDisabled} `}
       >
         <input
           ref={inputField}
           type={variant}
           placeholder={placeholder}
-          className={`text_ghost_white placeholder:text-test_cool_grey w-full bg-eerie_black p-3 placeholder-opacity-100 outline-0 transition-all duration-300 ease-in-out md:p-4 ${invalidPlaceholder} ${invalidText} ${inputDisabled} placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0`}
+          className={`text_white placeholder:text-test_grey w-full bg-dark-100 p-3 placeholder-opacity-100 outline-0 transition-all duration-300 ease-in-out md:p-4 ${invalidPlaceholder} ${invalidText} ${inputDisabled} placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0`}
           id={name}
           name={name}
           onBlur={textInputBlur}
@@ -126,7 +126,7 @@ const TextInput = ({
           onBlur={textInputBlur}
           onFocus={textInputFocus}
           onClick={textInputIconClick}
-          className={`absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-eerie_black fill-apple ${invalidIcon} ${buttonDisabled}`}
+          className={`fill-primary absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-dark-100 ${invalidIcon} ${buttonDisabled}`}
           {...(disabled ? { disabled: true } : {})}
         >
           {textInputIcon}

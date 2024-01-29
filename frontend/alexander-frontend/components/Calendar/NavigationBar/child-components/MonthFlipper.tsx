@@ -7,7 +7,7 @@ export default function MonthFlipper() {
       aria-label="Click and choose inbetween months and weeks"
     >
       <h4>October 2023</h4>
-      <DownArrowIcon className="h-6 w-6 fill-apple" />
+      <DownArrowIcon className="fill-primary h-6 w-6" />
     </button>
   );
 }

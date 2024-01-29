@@ -39,7 +39,7 @@ const NavigationBar = ({ title = "" }: NavigationBarProps) => {
 
   return (
     <>
-      <header className="flex h-header_height items-center justify-center bg-eerie_black px-4 md:px-12">
+      <header className="flex h-header_height items-center justify-center bg-dark-100 px-4 md:px-12">
         <section className="flex w-full max-w-screen-lg items-center justify-between gap-4">
           <Link href="/">
             <h3 className="font-semibold">{title}</h3>

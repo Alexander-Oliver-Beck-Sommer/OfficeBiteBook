@@ -21,8 +21,8 @@ const MobileVersion = ({
   readMoreToggle = () => {},
 }: MobileVersionProps) => {
   return (
-    <li className="overflow-hidden rounded border-2 border-arsenic">
-      <div className="grid grid-cols-autoX1 items-center gap-4 bg-eerie_black p-4 md:px-8">
+    <li className="border-dark-500 overflow-hidden rounded border-2">
+      <div className="grid grid-cols-autoX1 items-center gap-4 bg-dark-100 p-4 md:px-8">
         <CheckboxInput
           label={menu.menu_title}
           initialChecked={false}
@@ -30,15 +30,15 @@ const MobileVersion = ({
         />
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <h6 className="text-cool_grey">{menu.menu_date}</h6>
+            <h6 className="text-grey">{menu.menu_date}</h6>
             <h4>{menu.menu_title}</h4>
           </div>
           <button onClick={accordionToggle}>
             <RightArrowIcon
               className={` transition-all duration-300 ease-in-out ${
                 selectedMenuId === menu.menu_id
-                  ? "rotate-90 fill-ghost_white"
-                  : "fill-cool_grey"
+                  ? "fill-white rotate-90"
+                  : "fill-grey"
               }`}
             />
           </button>
@@ -68,8 +68,8 @@ const MobileVersion = ({
             icon="restaurant"
             text={`${menu.menu_dishes_amount} items`}
           />
-          <li className="bg-eerie_black fill-ghost_white p-4 text-ghost_white md:px-8 ">
-            <div className="grid grid-cols-2 gap-[1px] overflow-hidden rounded-full border border-arsenic bg-arsenic md:flex md:justify-end md:gap-8 md:overflow-visible md:rounded-none md:border-none md:bg-transparent">
+          <li className="fill-white text-white bg-dark-100 p-4 md:px-8 ">
+            <div className="border-dark-500 bg-dark-500 grid grid-cols-2 gap-[1px] overflow-hidden rounded-full border md:flex md:justify-end md:gap-8 md:overflow-visible md:rounded-none md:border-none md:bg-transparent">
               <ButtonItem
                 title="Guestlist"
                 icon="guest"

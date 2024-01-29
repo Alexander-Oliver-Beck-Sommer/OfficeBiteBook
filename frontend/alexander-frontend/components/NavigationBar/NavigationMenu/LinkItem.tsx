@@ -20,18 +20,18 @@ const LinkItem = ({
         onClick={toggle}
         href={href}
         aria-label={label}
-        className="lg:border-b-0-none group relative flex items-center justify-between gap-4 border-b border-dark_charcoal p-4 transition-all duration-300 ease-in-out hover:bg-raisin_black md:px-12 lg:border-0 lg:p-0 lg:hover:bg-transparent"
+        className="lg:border-b-0-none hover:bg-dark-300 border-dark-400 group relative flex items-center justify-between gap-4 border-b p-4 transition-all duration-300 ease-in-out md:px-12 lg:border-0 lg:p-0 lg:hover:bg-transparent"
       >
-        <div className="flex items-center gap-4 fill-apple transition-colors duration-300 ease-in-out lg:gap-2 lg:fill-cool_grey group-hover:lg:fill-apple">
+        <div className="lg:fill-grey fill-primary group-hover:lg:fill-primary flex items-center gap-4 transition-colors duration-300 ease-in-out lg:gap-2">
           {icon}
-          <h4 className="transition-colors duration-300 ease-in-out lg:text-cool_grey group-hover:lg:text-ghost_white">
+          <h4 className="lg:text-grey group-hover:lg:text-white transition-colors duration-300 ease-in-out">
             {label}
           </h4>
         </div>
-        <div className="flex w-12 justify-center fill-apple lg:hidden">
+        <div className="fill-primary flex w-12 justify-center lg:hidden">
           <RightArrowIcon />
         </div>
-        <div className="pointer-events-none absolute -bottom-[10px] hidden h-[3px] w-0 rounded bg-cool_grey opacity-0 transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-apple group-hover:opacity-100 lg:block"></div>
+        <div className="bg-grey group-hover:bg-primary pointer-events-none absolute -bottom-[10px] hidden h-[3px] w-0 rounded opacity-0 transition-all duration-300 ease-in-out group-hover:w-full group-hover:opacity-100 lg:block"></div>
       </Link>
     </li>
   );

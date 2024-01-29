@@ -17,7 +17,7 @@ const TransparentBackground = ({
 
   return (
     <div
-      className={`fixed inset-0 z-20 bg-eerie_black transition-all duration-300 ease-in-out ${visibleValue}`}
+      className={`fixed inset-0 z-20 bg-dark-100 transition-all duration-300 ease-in-out ${visibleValue}`}
       aria-hidden={!visible}
       onClick={toggle}
     ></div>

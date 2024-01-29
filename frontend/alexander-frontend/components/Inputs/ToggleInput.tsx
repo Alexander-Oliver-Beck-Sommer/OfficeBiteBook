@@ -23,7 +23,7 @@ const ToggleInput = ({
 
   return (
     <>
-      <h5 className={`${isChecked ? "text-apple" : "text-sunset_orange"}`}>
+      <h5 className={`${isChecked ? "text-primary" : "text-red"}`}>
         {isChecked ? trueValue : falseValue}
       </h5>
       <label
@@ -40,12 +40,12 @@ const ToggleInput = ({
           />
           <div
             className={`box block h-6 w-12 rounded-full border transition-all duration-300 ease-in-out ${
-              isChecked ? "border-apple" : "border-sunset_orange"
+              isChecked ? "border-primary" : "border-red"
             }`}
           ></div>
           <div
             className={`absolute left-1 top-1 flex h-4 w-4 items-center justify-center rounded-full transition-all duration-300 ease-in-out ${
-              isChecked ? "translate-x-6 bg-apple" : "bg-sunset_orange"
+              isChecked ? "bg-primary translate-x-6" : "bg-red"
             }`}
           ></div>
         </div>

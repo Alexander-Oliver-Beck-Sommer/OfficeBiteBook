@@ -93,7 +93,7 @@ const MenuSettings = ({
   ]);
 
   return (
-    <ul className="flex flex-col gap-5 border-y-2 border-eerie_black bg-raisin_black px-6 py-4">
+    <ul className="bg-dark-300 flex flex-col gap-5 border-y-2 border-dark-100 px-6 py-4">
       <li>
         <TextInput
           variant="text"

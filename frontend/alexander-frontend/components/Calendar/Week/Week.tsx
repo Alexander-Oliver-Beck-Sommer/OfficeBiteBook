@@ -57,7 +57,7 @@ const Week = ({
   return (
     <>
       <ul className="flex">
-        <li className="w-sidebar_width bg-eerie_black">
+        <li className="w-sidebar_width bg-dark-100">
           <ul className="flex flex-col">
             <li className="flex flex-col">
               <section className="h-[70px]"></section>
@@ -85,7 +85,7 @@ const Week = ({
           return (
             <li
               key={`${day.name}-${day.date}`}
-              className="flex-1 border-r border-r-arsenic"
+              className="border-r-dark-500 flex-1 border-r"
             >
               <DayCell
                 dayCellDate={dayCellDate}
@@ -93,8 +93,8 @@ const Week = ({
                 dayCellCurrent={isCurrentDay}
               />
               <SettingsCell />
-              <ul className="relative flex flex-col bg-dark_charcoal">
-                <li className="relative flex flex-col  bg-dark_charcoal">
+              <ul className="bg-dark-400 relative flex flex-col">
+                <li className="bg-dark-400 relative flex  flex-col">
                   {weekHours.map((hour) => (
                     <HourCell
                       key={`${day.name}-${hour.fullHour}`}

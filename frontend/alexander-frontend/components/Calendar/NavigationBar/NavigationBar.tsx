@@ -32,7 +32,7 @@ const NavigationBar = ({
   return (
     <>
       <section className="grid h-14 grid-cols-autoX1">
-        <section className="relative flex w-sidebar_width items-center justify-center bg-eerie_black">
+        <section className="relative flex w-sidebar_width items-center justify-center bg-dark-100">
           <div className="absolute z-50">
             <Hamburger
               label="Open admin dashboard"
@@ -42,7 +42,7 @@ const NavigationBar = ({
             />
           </div>
         </section>
-        <section className="flex items-center justify-between border-b border-arsenic px-4">
+        <section className="border-dark-500 flex items-center justify-between border-b px-4">
           <ul className="flex items-center gap-4">
             <li>
               <WeekFlipper
@@ -60,7 +60,7 @@ const NavigationBar = ({
                 aria-label="Click and choose inbetween months and weeks"
               >
                 <h4>Actions</h4>
-                <DownArrowIcon className="h-6 w-6 fill-apple" />
+                <DownArrowIcon className="h-6 w-6 fill-primary" />
               </button>
             </li> */}
           </ul>
