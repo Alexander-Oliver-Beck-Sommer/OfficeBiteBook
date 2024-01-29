@@ -33,6 +33,7 @@ const InputList = ({
         <ul className="grid h-fit max-w-screen-md auto-rows-max gap-6">
           <li>
             <TextInput
+              placeholder="Name"
               variant="text"
               label="Change your username"
               name="Name"
@@ -42,6 +43,7 @@ const InputList = ({
           </li>
           <li>
             <TextInput
+              placeholder="Phone number"
               variant="tel"
               label="Change your phone number"
               name="Phone"
@@ -51,6 +53,7 @@ const InputList = ({
           </li>
           <li>
             <TextInput
+              placeholder="Birthday"
               variant="date"
               label="Change your birthday"
               name="Birthday"
@@ -60,15 +63,17 @@ const InputList = ({
           </li>
           <li>
             <TextInput
+              placeholder="Diet preference"
               variant="text"
               label="Change your diet preference"
-              name="Diet preference"
+              name="Diet"
               value={diet}
               valueChange={changeDiet}
             />
           </li>
           <li>
             <TextInput
+              placeholder="Allergies"
               variant="text"
               label="Change your allergies"
               name="Allergies"
@@ -78,6 +83,7 @@ const InputList = ({
           </li>
           <li>
             <TextInput
+              placeholder="Email"
               variant="email"
               label="Email"
               name="Email"
