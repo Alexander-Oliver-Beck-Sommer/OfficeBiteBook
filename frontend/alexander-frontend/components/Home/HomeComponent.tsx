@@ -3,6 +3,7 @@ import useHome from "@/hooks/useHome";
 import HeaderItem from "./HeaderItem";
 import MobileVersion from "./MobileVersion/MobileVersion";
 import DesktopVersion from "./DesktopVersion/DesktopVersion";
+import ComputerVersion from "./ComputerVersion/ComputerVersion";
 
 type HomeComponentProps = {
   userId?: string;
@@ -27,7 +28,7 @@ const HomeComponent = ({ userId = "", userEmail = "" }: HomeComponentProps) => {
 
   return (
     <>
-      <section className="h-full w-full">
+      <section className="block h-full w-full lg:hidden">
         <HeaderItem
           subtitle="Previewing:"
           weekNumber={weekNumber}
@@ -45,9 +46,10 @@ const HomeComponent = ({ userId = "", userEmail = "" }: HomeComponentProps) => {
               />
             ))}
           </ul>
-          <DesktopVersion menu={menusAndDishes} />
+          {/* <DesktopVersion menu={menusAndDishes} /> */}
         </section>
       </section>
+      <ComputerVersion weekNumber={weekNumber} menus={menusAndDishes} />
     </>
   );
 };
