@@ -1,37 +1,33 @@
 type HourCellProps = {
-  hourCellDate?: string;
-  hourCellFullValue?: string;
-  hourCellFullLabel?: string;
-  hourCellHalfValue?: string;
-  hourCellHalfLabel?: string;
-  hourCellFullToggle?: () => void;
-  hourCellHalfToggle?: () => void;
+  date?: string;
+  fullHour?: string;
+  fullHourToggle?: () => void;
+  halfHour?: string;
+  halfHourToggle?: () => void;
 };
 
 const HourCell = ({
-  hourCellDate = "",
-  hourCellFullValue = "",
-  hourCellFullLabel = "",
-  hourCellHalfValue = "",
-  hourCellHalfLabel = "",
-  hourCellFullToggle = () => {},
-  hourCellHalfToggle = () => {},
+  date = "",
+  fullHour = "",
+  fullHourToggle = () => {},
+  halfHour = "",
+  halfHourToggle = () => {},
 }: HourCellProps) => {
   return (
     <>
       <button
-        value={hourCellFullValue}
-        data-date={hourCellDate}
-        aria-label={hourCellFullLabel}
-        onClick={hourCellFullToggle}
-        className="border-dark-500 hover:bg-dark-500 focus-visible:bg-dark-500 focus-visible:outline-primary h-10 cursor-default border-b border-dashed outline-1 outline-transparent transition duration-300 ease-in-out"
+        value={fullHour}
+        data-date={date}
+        aria-label={`Create a menu at ${fullHour}`}
+        onClick={fullHourToggle}
+        className="h-10 cursor-default border-b border-dashed border-dark-500 outline-1 outline-transparent transition duration-300 ease-in-out hover:bg-dark-500 focus-visible:bg-dark-500 focus-visible:outline-primary"
       ></button>
       <button
-        value={hourCellHalfValue}
-        data-date={hourCellDate}
-        aria-label={hourCellHalfLabel}
-        onClick={hourCellHalfToggle}
-        className="border-dark-500 hover:bg-dark-500 focus-visible:bg-dark-500 focus-visible:outline-primary h-10 cursor-default border-b outline-1 outline-transparent transition duration-300 ease-in-out"
+        value={halfHour}
+        data-date={date}
+        aria-label={`Create a menu at ${halfHour}`}
+        onClick={halfHourToggle}
+        className="h-10 cursor-default border-b border-dark-500 outline-1 outline-transparent transition duration-300 ease-in-out hover:bg-dark-500 focus-visible:bg-dark-500 focus-visible:outline-primary"
       ></button>
     </>
   );

@@ -78,7 +78,7 @@ const Week = ({
           const todaysDate = getTodaysDate.toISOString().split("T")[0];
           const dayDate = day.date;
           const isCurrentDay = todaysDate === dayDate;
-          const dayCellDate = day.date.split("-")[2];
+          const date = day.date.split("-")[2];
           const cardButtons = menus.filter((menu) =>
             menu.menu_date.startsWith(day.date),
           );
@@ -87,24 +87,20 @@ const Week = ({
               key={`${day.name}-${day.date}`}
               className="flex-1 border-r border-r-dark-500"
             >
-              <DayCell
-                dayCellDate={dayCellDate}
-                dayCellDay={day.name}
-                dayCellCurrent={isCurrentDay}
-              />
+              <DayCell date={date} day={day.name} currentDay={isCurrentDay} />
               <SettingsCell />
               <ul className="relative flex flex-col bg-dark-400">
                 <li className="relative flex flex-col  bg-dark-400">
                   {hours.map((hour) => (
                     <HourCell
                       key={`${day.name}-${hour.fullHour}`}
-                      hourCellDate={day.date}
-                      hourCellFullValue={hour.fullHour}
-                      hourCellFullToggle={() =>
+                      date={day.date}
+                      fullHour={hour.fullHour}
+                      fullHourToggle={() =>
                         hourCellToggle(hour.fullHour, day.date)
                       }
-                      hourCellHalfValue={hour.halfHour}
-                      hourCellHalfToggle={() =>
+                      halfHour={hour.halfHour}
+                      halfHourToggle={() =>
                         hourCellToggle(hour.halfHour, day.date)
                       }
                     />
