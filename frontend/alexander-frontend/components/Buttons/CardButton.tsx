@@ -1,4 +1,5 @@
 import BowlIcon from "@/components/Icons/BowlIcon";
+import RestaurantIcon from "../Icons/RestaurantIcon";
 
 type CardButtonProps = {
   title?: string;
@@ -29,7 +30,7 @@ const CardButton = ({
           {dishesAmount !== 0 && (
             <div className="flex items-center gap-1">
               <h6>{dishesAmount}</h6>
-              <BowlIcon className="h-5 w-5 fill-primary" />
+              <RestaurantIcon className="h-5 w-5 fill-primary" />
             </div>
           )}
         </div>
