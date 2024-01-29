@@ -1,20 +1,18 @@
-import LinkItem from "@/components/NavigationBar/NavigationMenu/LinkItem";
+import LinkItem from "@/components/Header/child-components/LinkItem";
 import HomeIcon from "@/components/Icons/HomeIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
+import ProfileIcon from "@/components/Icons/ProfileIcon";
 import LogIcon from "@/components/icons/LogIcon";
-import AccountIcon from "@/components/Icons/AccountIcon";
 
-type NavigationMenuProps = {
+type HamburgerMenuProps = {
   visible?: boolean;
-  label?: string;
   toggle?: () => void;
 };
 
-const NavigationMenu = ({
+const HamburgerMenu = ({
   visible = false,
-  label = "",
   toggle = () => {},
-}: NavigationMenuProps) => {
+}: HamburgerMenuProps) => {
   const visibleStyles = visible
     ? "opacity-100 visible max-w-full"
     : "opacity-0 invisible max-w-0";
@@ -22,21 +20,21 @@ const NavigationMenu = ({
   return (
     <nav
       aria-hidden={!visible}
-      aria-label={label}
-      className={`bg-dark-200 absolute bottom-0 left-0 top-header_height z-50 flex w-full items-stretch overflow-hidden transition-all duration-300 ease-in-out lg:hidden ${visibleStyles}`}
+      aria-label="Navigation menu"
+      className={`absolute bottom-0 left-0 top-header_height z-50 flex w-full items-stretch overflow-hidden bg-dark-200 transition-all duration-300 ease-in-out lg:hidden ${visibleStyles}`}
     >
       <ul className="w-full overflow-auto">
         <LinkItem label="Home" href="/" icon={<HomeIcon />} toggle={toggle} />
         <LinkItem
           label="Calendar"
           href="/calendar"
-          icon={<CalendarIcon />}
+          icon={<CalendarIcon variant="fullWeek" />}
           toggle={toggle}
         />
         <LinkItem
           label="Profile"
           href="/profile"
-          icon={<AccountIcon />}
+          icon={<ProfileIcon />}
           toggle={toggle}
         />
         <LinkItem
@@ -50,4 +48,4 @@ const NavigationMenu = ({
   );
 };
 
-export default NavigationMenu;
+export default HamburgerMenu;

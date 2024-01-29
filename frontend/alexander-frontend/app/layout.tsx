@@ -3,7 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 import localfont from "next/font/local";
 import siteSettings from "@/data/siteSettings";
 import { ToastContainer, toast } from "react-toastify";
-import NavigationBar from "@/components/NavigationBar/NavigationBar";
+import Header from "@/components/Header/Header";
 import NextTopLoader from "nextjs-toploader";
 
 const poppins = localfont({
@@ -118,7 +118,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`relative ${poppins.variable}`}>
+    <html lang="en" className={poppins.variable}>
       <body>
         <NextTopLoader
           color="#4CAF50"
@@ -126,11 +126,8 @@ export default function RootLayout({
           showSpinner={false}
           speed={300}
         />
-        <section className="grid h-svh grid-rows-autoX1">
-          <NavigationBar title="OfficeBiteBook" />
-          <main className="flex items-center justify-center">{children}</main>
-        </section>
-
+        <Header />
+        <main>{children}</main>
         <ToastContainer
           position="top-right"
           autoClose={5000}
