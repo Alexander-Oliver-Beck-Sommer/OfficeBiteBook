@@ -15,6 +15,8 @@ module.exports = {
       },
       gridTemplateColumns: {
         autoX1: "auto 1fr;",
+        "1Xauto": "1fr auto;",
+        "10X90": "10% 90%",
         "30X70": "30% 70%",
         auto1Xauto: "auto 1fr auto;",
       },

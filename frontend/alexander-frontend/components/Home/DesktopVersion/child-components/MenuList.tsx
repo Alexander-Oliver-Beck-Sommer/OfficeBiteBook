@@ -1,30 +1,24 @@
 import { useState } from "react";
 import CheckboxInput from "@/components/Inputs/CheckboxInput";
 import ActionButton from "@/components/Buttons/ActionButton";
-import Dish from "@/components/Home/MobileVersion/child-components/Dish";
-import Menu from "@/components/Home/MobileVersion/child-components/Menu";
+import Menu from "@/components/Home/DesktopVersion/child-components/Menu";
+import Dish from "@/components/Home/DesktopVersion/child-components/Dish";
 
-type MobileVersionProps = {
+type MenuListProps = {
   menus?: Array<any>;
-  checkAll?: () => void;
-  allChecked?: boolean;
-  checkToggle?: () => void;
-  checked?: boolean;
-  guestToggle?: () => void;
-  accordionId?: string | null;
-  handleAccordion?: (id: string) => void;
+  checkboxAll?: () => void;
+  checkboxAllChecked?: boolean;
+  checkboxSingle?: () => void;
+  checkboxSingleChecked?: boolean;
 };
 
-const MobileVersion = ({
+const MenuList = ({
   menus = [],
-  checkAll = () => {},
-  allChecked = false,
-  checkToggle = () => {},
-  checked = false,
-  guestToggle = () => {},
-  accordionId = null,
-  handleAccordion = () => {},
-}: MobileVersionProps) => {
+  checkboxAll = () => {},
+  checkboxAllChecked = false,
+  checkboxSingle = () => {},
+  checkboxSingleChecked = false,
+}: MenuListProps) => {
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [visibility, setVisibility] = useState(false);
 
@@ -43,23 +37,23 @@ const MobileVersion = ({
   };
 
   return (
-    <section className="block lg:hidden">
-      <ul className="flex flex-col gap-6 px-4 py-6 md:px-12">
-        <li className="flex animate-fade-up items-center gap-4 text-grey animate-ease-in-out">
-          <CheckboxInput
-            onChange={checkAll}
-            initialChecked={allChecked}
-            label="Select all"
-          />
-          <h4>Select all</h4>
+    <>
+      <ul className="flex flex-col items-center gap-6 p-4 md:p-12">
+        <li className=" w-full max-w-screen-xl animate-fade-up animate-ease-in-out">
+          <div className="flex items-center gap-6 text-grey">
+            <CheckboxInput
+              onChange={checkboxAll}
+              initialChecked={checkboxAllChecked}
+              label="Participate on all menus"
+            />
+            <h4>Select all</h4>
+          </div>
         </li>
         {menus.map((menu, index) => (
           <Menu
             key={`menu-${index}`}
-            checkToggle={checkToggle}
-            checked={checked}
-            guestToggle={guestToggle}
-            id={menu.menu_id}
+            checkToggle={checkboxSingle}
+            checked={checkboxSingleChecked}
             title={menu.menu_title}
             location={menu.menu_location}
             date={menu.menu_date}
@@ -67,8 +61,6 @@ const MobileVersion = ({
             endTime={menu.menu_end_time}
             dishesAmount={menu.menu_dishes_amount}
             modalToggle={() => openModal(menu)}
-            accordionId={accordionId}
-            accordionToggle={() => handleAccordion(menu.menu_id)}
           />
         ))}
       </ul>
@@ -78,7 +70,7 @@ const MobileVersion = ({
           visibility ? "visible opacity-100" : "invisible opacity-0"
         } `}
       >
-        <div className="relative flex h-full w-full items-center justify-center px-4 py-6 md:p-12">
+        <div className="relative flex h-full w-full items-center justify-center px-10 py-10 lg:px-12 lg:py-12">
           <section
             className="absolute inset-0 z-40 bg-dark-100 opacity-95 transition-all duration-300 ease-in-out hover:bg-dark-200"
             onClick={closeModal}
@@ -90,12 +82,12 @@ const MobileVersion = ({
           >
             {selectedMenu && (
               <>
-                <header className="flex items-center justify-between bg-dark-300 p-4 md:px-12">
-                  <div className="flex flex-col gap-1">
-                    <h4>{selectedMenu.menu_title}</h4>
-                    <h5 className="font-normal text-grey">
-                      {selectedMenu.menu_location}
-                    </h5>
+                <header className="flex items-center justify-between bg-dark-300 px-6 py-4">
+                  <div className="flex items-end gap-3">
+                    <h2>{selectedMenu.menu_title}</h2>
+                    <p className="font-normal text-grey">
+                      {selectedMenu.menu_location} - {selectedMenu.menu_date}
+                    </p>
                   </div>
                   <div>
                     <ActionButton
@@ -107,7 +99,7 @@ const MobileVersion = ({
                     />
                   </div>
                 </header>
-                <ul className="flex flex-col gap-6 overflow-y-scroll px-4 py-6 md:px-12">
+                <ul className="grid auto-rows-max grid-cols-2 gap-6 overflow-y-scroll p-6">
                   {selectedMenu.dishes.map((dish, index) => (
                     <Dish
                       key={`dish-${index}`}
@@ -124,8 +116,8 @@ const MobileVersion = ({
           </section>
         </div>
       </section>
-    </section>
+    </>
   );
 };
 
-export default MobileVersion;
+export default MenuList;

@@ -43,7 +43,7 @@ const CheckboxInput = ({
         onChange={handleInputChange}
       />
       <label
-        className={`outline-primary absolute inset-0 flex cursor-pointer items-center justify-center rounded border-2 p-1 transition-all duration-300 ease-in-out group-focus:outline ${checkboxStyles}`}
+        className={`absolute inset-0 flex cursor-pointer items-center justify-center rounded border-2 bg-dark-100 p-1 outline-primary transition-all duration-300 ease-in-out group-focus:outline ${checkboxStyles}`}
         onClick={handleInputChange}
       >
         {checkboxIcons}

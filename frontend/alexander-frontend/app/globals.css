@@ -94,4 +94,8 @@
       );
     @apply bg-dark-100 bg-[length:3em_3em];
   }
+
+  .fill-body {
+    height: calc(100svh - theme("spacing.header_height"));
+  }
 }

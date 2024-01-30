@@ -2,7 +2,7 @@ type HeaderBarProps = {
   weekNumber?: number;
 };
 
-const HeaderBar = ({ weekNumber }: HeaderBarProps) => {
+const HeaderBar = ({ weekNumber = 0 }: HeaderBarProps) => {
   return (
     <header className="flex justify-center border-b-2 border-dark-400 bg-dark-200 p-4 md:px-12 md:py-6">
       <section className="flex w-full max-w-screen-xl">
