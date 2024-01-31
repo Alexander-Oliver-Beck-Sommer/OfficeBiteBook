@@ -30,7 +30,9 @@ const Week = ({
     createMenu,
     menus,
     setMenus,
+    fetchedMenus,
     dishes,
+    fetchedDishes,
     title,
     setTitle,
     location,
@@ -41,6 +43,8 @@ const Week = ({
     setStartTime,
     endTime,
     setEndTime,
+    cardButtonPosition,
+    cardButtonHeight,
   } = useCalendarSystem(userId);
 
   return (
@@ -68,7 +72,7 @@ const Week = ({
           const dayDate = day.date;
           const isCurrentDay = todaysDate === dayDate;
           const date = day.date.split("-")[2];
-          const cardButtons = menus.filter((menu) =>
+          const cardButtons = fetchedMenus.filter((menu) =>
             menu.menu_date.startsWith(day.date),
           );
           return (
@@ -90,7 +94,7 @@ const Week = ({
                       halfHourToggle={() => createMenu(hour.halfHour, day.date)}
                     />
                   ))}
-                  {/* {cardButtons.map((cardButton) => (
+                  {cardButtons.map((cardButton) => (
                     <CardButton
                       key={`cardButton-${cardButton.menu_id}`}
                       title={cardButton.menu_title}
@@ -107,7 +111,7 @@ const Week = ({
                         )}px`,
                       }}
                     />
-                  ))} */}
+                  ))}
                 </li>
               </ul>
             </li>
