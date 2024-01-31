@@ -67,7 +67,8 @@ const useHome = (userId, userEmail) => {
         const combinedMenusAndDishes = await Promise.all(
           menusData.map(async (menu) => {
             const dishes = await fetchDishesForMenu(menu.menu_id);
-            return { ...menu, dishes, checked: false };
+            const isChecked = menu.menu_participants?.includes(userId);
+            return { ...menu, dishes, checked: isChecked ?? false };
           }),
         );
 
