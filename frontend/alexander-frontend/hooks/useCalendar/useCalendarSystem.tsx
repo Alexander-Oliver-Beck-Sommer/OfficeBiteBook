@@ -146,7 +146,7 @@ const useCalendarSystem = (userId) => {
     setDishes(updatedDishes);
   };
 
-  ///////////// Data Saving and Updating /////////////
+  ///////////// Data Saving, Updating & Deleting /////////////
   const saveNewDishesToDatabase = async () => {
     if (dishes.length === 0) {
       return;
@@ -261,6 +261,54 @@ const useCalendarSystem = (userId) => {
     }
   };
 
+  const removeMenu = async () => {
+    if (menuSource === "updateExistingMenu") {
+      try {
+        // Delete the menu
+        const { error: menuError } = await supabase
+          .from("menus")
+          .delete()
+          .eq("menu_id", menuId);
+
+        if (menuError) {
+          throw menuError;
+        }
+
+        // Check and delete associated dishes
+        for (const dish of dishes) {
+          // Check if the dish exists in the database
+          const { data, error } = await supabase
+            .from("dishes")
+            .select("*")
+            .eq("dish_id", dish.dish_id)
+            .single();
+
+          if (error) {
+            throw error;
+          }
+
+          if (data) {
+            // Dish exists in the database, delete it
+            const { error: dishDeleteError } = await supabase
+              .from("dishes")
+              .delete()
+              .eq("dish_id", dish.dish_id);
+
+            if (dishDeleteError) {
+              throw dishDeleteError;
+            }
+          }
+        }
+
+        hideModal();
+      } catch (error) {
+        console.error("Error in removeMenu:", error);
+      }
+    } else if (menuSource === "saveNewMenu") {
+      hideModal();
+    }
+  };
+
   ///////////// UI Calculations /////////////
   const calculateCardButtonPosition = (startTime: string): number => {
     const baseTime = new Date();
@@ -327,7 +375,11 @@ const useCalendarSystem = (userId) => {
     calculateCardButtonPosition,
     calculateCardButtonHeight,
     removeDishFromMenu,
+    removeMenu,
   };
 };
 
 export default useCalendarSystem;
+
+// Dirty Bug Report ಠ╭╮ಠ 🪳
+// 1?. Create menu with dishes => edit menu => add new dish => delete enitre menu => error will occur due to the new added dish - although funnily enough, both the menu and the dish will be deleted from the database...

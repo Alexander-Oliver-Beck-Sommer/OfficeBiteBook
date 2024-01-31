@@ -22,6 +22,7 @@ type MenuModalProps = {
   dishes?: [];
   updateDishToggle?: (dishId: string, dish: {}) => void;
   removeDishFromMenu?: (dishId: string) => void;
+  removeMenu?: () => void;
 };
 
 const MenuModal = ({
@@ -57,6 +58,7 @@ const MenuModal = ({
   dishes = [],
   updateDishToggle = () => {},
   removeDishFromMenu = () => {},
+  removeMenu = () => {},
 }: MenuModalProps) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -93,7 +95,11 @@ const MenuModal = ({
               : "invisible opacity-0"
           } `}
         >
-          <HeaderBar title={title} createDishToggle={createDishToggle} />
+          <HeaderBar
+            title={title}
+            createDishToggle={createDishToggle}
+            removeMenu={removeMenu}
+          />
           <section className="grid grid-cols-30X70">
             <MenuSettings
               title={title}

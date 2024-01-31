@@ -42,6 +42,7 @@ const Week = ({
     calculateCardButtonPosition,
     calculateCardButtonHeight,
     removeDishFromMenu,
+    removeMenu,
   } = useCalendarSystem(userId);
 
   return (
@@ -137,6 +138,7 @@ const Week = ({
         createDishToggle={addNewDishToMenu}
         updateDishToggle={modifyExistingDish}
         removeDishFromMenu={removeDishFromMenu}
+        removeMenu={removeMenu}
       />
     </>
   );
