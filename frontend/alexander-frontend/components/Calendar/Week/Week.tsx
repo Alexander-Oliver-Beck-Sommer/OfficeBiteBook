@@ -43,6 +43,7 @@ const Week = ({
     calculateCardButtonHeight,
     removeDishFromMenu,
     removeMenu,
+    eraseDishesFromMenu,
   } = useCalendarSystem(userId);
 
   return (
@@ -139,6 +140,7 @@ const Week = ({
         updateDishToggle={modifyExistingDish}
         removeDishFromMenu={removeDishFromMenu}
         removeMenu={removeMenu}
+        eraseDishesFromMenu={eraseDishesFromMenu}
       />
     </>
   );

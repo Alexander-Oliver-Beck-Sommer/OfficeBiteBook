@@ -7,10 +7,9 @@ type HeaderBarProps = {
   createDish?: () => void;
   headerBarImport?: () => void;
   eraseDishes?: () => void;
-  isEraseDishesDisabled?: boolean;
   deleteToggle?: () => void;
-  isDeleteDisabled?: boolean;
   removeMenu?: () => void;
+  eraseDishesFromMenu?: () => void;
 };
 
 const HeaderBar = ({
@@ -19,10 +18,9 @@ const HeaderBar = ({
   createDish = () => {},
   headerBarImport = () => {},
   eraseDishes = () => {},
-  isEraseDishesDisabled = true,
   deleteToggle = () => {},
-  isDeleteDisabled = true,
   removeMenu = () => {},
+  eraseDishesFromMenu = () => {},
 }: HeaderBarProps) => {
   const [emptyTitle, setEmptyTitle] = useState(title);
 
@@ -65,7 +63,7 @@ const HeaderBar = ({
             title="Erase all dishes from the menu"
             name="erase"
             label="Erase all dishes from the menu"
-            toggle={eraseDishes}
+            toggle={eraseDishesFromMenu}
           />
         </li>
         <li>

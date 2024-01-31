@@ -23,6 +23,7 @@ type MenuModalProps = {
   updateDishToggle?: (dishId: string, dish: {}) => void;
   removeDishFromMenu?: (dishId: string) => void;
   removeMenu?: () => void;
+  eraseDishesFromMenu?: () => void;
 };
 
 const MenuModal = ({
@@ -59,6 +60,7 @@ const MenuModal = ({
   updateDishToggle = () => {},
   removeDishFromMenu = () => {},
   removeMenu = () => {},
+  eraseDishesFromMenu = () => {},
 }: MenuModalProps) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -97,6 +99,7 @@ const MenuModal = ({
         >
           <HeaderBar
             title={title}
+            eraseDishesFromMenu={eraseDishesFromMenu}
             createDishToggle={createDishToggle}
             removeMenu={removeMenu}
           />

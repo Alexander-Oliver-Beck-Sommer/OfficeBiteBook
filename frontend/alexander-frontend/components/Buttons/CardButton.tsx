@@ -18,7 +18,7 @@ const CardButton = ({
 }: CardButtonProps) => {
   return (
     <button
-      className="group absolute left-0 block w-11/12 p-1"
+      className="group absolute left-0 block w-11/12 animate-fade p-1 animate-ease-in-out"
       style={className}
       aria-label={`Click to open the menu for ${title}`}
       onClick={toggle}
