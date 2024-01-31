@@ -21,7 +21,7 @@ type DishProps = {
   changeThumbnailURL?: (newUrl: string) => void;
   dishArchive?: () => void;
   dishReplace?: () => void;
-  deleteDish?: () => void;
+  removeDishFromMenu?: () => void;
 };
 
 const Dish = ({
@@ -40,7 +40,7 @@ const Dish = ({
   changeThumbnailURL = () => {},
   dishArchive = () => {},
   dishReplace = () => {},
-  deleteDish = () => {},
+  removeDishFromMenu = () => {},
 }: DishProps) => {
   const [titleInput, setTitleInput] = useState(title);
   const [subtitleInput, setSubtitleInput] = useState(subtitle);
@@ -139,7 +139,7 @@ const Dish = ({
             name="Replace"
           />
           <ActionButton
-            toggle={deleteDish}
+            toggle={removeDishFromMenu}
             icon="delete"
             label="Click to delete the dish from the menu"
             variant="icon"

@@ -134,6 +134,15 @@ const useCalendarSystem = (userId) => {
     setDishes(filteredDishes);
   };
 
+  const removeDishFromMenu = (dishId: string) => {
+    console.log("removeDishFromMenu called");
+    // Filter out the dish with the specified dishId
+    const updatedDishes = dishes.filter((dish) => dish.dish_id !== dishId);
+
+    // Update the dishes state with the filtered array
+    setDishes(updatedDishes);
+  };
+
   ///////////// Data Saving and Updating /////////////
   const saveNewDishesToDatabase = async () => {
     if (dishes.length === 0) {
@@ -312,6 +321,7 @@ const useCalendarSystem = (userId) => {
     setEndTime,
     calculateCardButtonPosition,
     calculateCardButtonHeight,
+    removeDishFromMenu,
   };
 };
 

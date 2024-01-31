@@ -14,7 +14,7 @@ export default async function CalendarTest() {
   } = await supabase.auth.getUser();
 
   if (user) {
-    return <Calendar user={user} userId={user?.id} userEmail={user?.email} />;
+    return <Calendar userId={user?.id} />;
   }
 
   return <MessageModal variant={401} />;

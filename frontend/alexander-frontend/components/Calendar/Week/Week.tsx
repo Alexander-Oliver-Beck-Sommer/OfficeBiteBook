@@ -3,7 +3,6 @@ import SettingsCell from "@/components/Calendar/Week/child-components/SettingsCe
 import HourCell from "@/components/Calendar/Week/child-components/HourCell";
 import MenuModal from "@/components/Modals/MenuModal/MenuModal";
 import CardButton from "@/components/Buttons/CardButton";
-import useCalendar from "@/hooks/useCalendar";
 import useCalendarSystem from "@/hooks/useCalendar/useCalendarSystem";
 
 type WeekProps = {
@@ -11,7 +10,6 @@ type WeekProps = {
   days?: string[];
   type?: boolean;
   hours?: string[];
-  weekNumber?: number;
 };
 
 const Week = ({
@@ -19,7 +17,6 @@ const Week = ({
   days = [],
   type = true,
   hours = [],
-  weekNumber = 0,
 }: WeekProps) => {
   const {
     prepareMenuForEditing,
@@ -44,6 +41,7 @@ const Week = ({
     setEndTime,
     calculateCardButtonPosition,
     calculateCardButtonHeight,
+    removeDishFromMenu,
   } = useCalendarSystem(userId);
 
   return (
@@ -138,6 +136,7 @@ const Week = ({
         dishes={dishes}
         createDishToggle={addNewDishToMenu}
         updateDishToggle={modifyExistingDish}
+        removeDishFromMenu={removeDishFromMenu}
       />
     </>
   );

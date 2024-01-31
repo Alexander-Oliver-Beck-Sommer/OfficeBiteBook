@@ -21,6 +21,7 @@ type MenuModalProps = {
   createDishToggle?: () => void;
   dishes?: [];
   updateDishToggle?: (dishId: string, dish: {}) => void;
+  removeDishFromMenu?: (dishId: string) => void;
 };
 
 const MenuModal = ({
@@ -55,6 +56,7 @@ const MenuModal = ({
   cancelToggle = () => {},
   dishes = [],
   updateDishToggle = () => {},
+  removeDishFromMenu = () => {},
 }: MenuModalProps) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -147,7 +149,7 @@ const MenuModal = ({
                         dish_thumbnail_url: newUrl,
                       })
                     }
-                    deleteDish={() => deleteDish(dish.dish_id)}
+                    removeDishFromMenu={() => removeDishFromMenu(dish.dish_id)}
                   />
                 ))}
               </ul>

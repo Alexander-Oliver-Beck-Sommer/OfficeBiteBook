@@ -4,19 +4,16 @@ import NavigationBar from "@/components/Calendar/NavigationBar/NavigationBar";
 import Week from "@/components/Calendar/Week/Week";
 
 type CalendarProps = {
-  user?: any;
   userId?: string;
 };
 
-export default function Calendar({ user, userId, userEmail }: CalendarProps) {
+export default function Calendar({ userId }: CalendarProps) {
   const {
     week,
     type,
     weekTypeSwitcher,
     hours,
     weekHighlighter,
-    setWeekStart,
-    setWeekEndTime,
     weekBackward,
     weekForward,
     weekReset,
@@ -33,13 +30,7 @@ export default function Calendar({ user, userId, userEmail }: CalendarProps) {
         currentDateReset={weekReset}
         typeToggle={weekTypeSwitcher}
       />
-      <Week
-        userId={userId}
-        days={week.week_days}
-        type={type}
-        hours={hours()}
-        weekNumber={currentWeekNumber}
-      />
+      <Week userId={userId} days={week.week_days} type={type} hours={hours()} />
     </>
   );
 }
