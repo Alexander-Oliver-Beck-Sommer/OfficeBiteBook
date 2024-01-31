@@ -29,8 +29,6 @@ const useCalendarSystem = (userId) => {
     setStartTime,
     endTime,
     setEndTime,
-    menuWeek,
-    setMenuWeek,
   } = useCalendarStates();
 
   ///////////// Modal and Menu Management /////////////
@@ -185,6 +183,7 @@ const useCalendarSystem = (userId) => {
   };
 
   const saveMenuChanges = async () => {
+    const [year, week] = getWeekNumber(date);
     if (menuSource === "saveNewMenu") {
       const newMenu = {
         menu_id: menuId,
@@ -194,6 +193,7 @@ const useCalendarSystem = (userId) => {
         menu_date: date,
         menu_start_time: startTime,
         menu_end_time: endTime,
+        menu_week: week,
         menu_dishes_amount: dishes.length,
       };
 
@@ -223,6 +223,7 @@ const useCalendarSystem = (userId) => {
             menu_date: date,
             menu_start_time: startTime,
             menu_end_time: endTime,
+            menu_week: week,
             menu_dishes_amount: dishes.length,
           })
           .eq("menu_id", menuId)
@@ -268,6 +269,24 @@ const useCalendarSystem = (userId) => {
     endDate.setHours(endHours, endMinutes, 0);
 
     return ((endDate - startDate) / (1000 * 60 * 30)) * 40;
+  };
+
+  ///////////// Utility Functions /////////////
+  const getWeekNumber = (date) => {
+    const currentDate = typeof date === "string" ? new Date(date) : date;
+
+    currentDate.setDate(
+      currentDate.getDate() + 4 - (currentDate.getDay() || 7),
+    );
+
+    // Get first day of year
+    const yearStart = new Date(currentDate.getFullYear(), 0, 1);
+
+    // Calculate full weeks to nearest Thursday
+    const weekNo = Math.ceil(((currentDate - yearStart) / 86400000 + 1) / 7);
+
+    // Return array of year and week number
+    return [currentDate.getFullYear(), weekNo];
   };
 
   return {
