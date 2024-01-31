@@ -5,6 +5,8 @@ import useCalendarStates from "@/hooks/useCalendar/child-hooks/useCalendarStates
 
 const useCalendarSystem = (userId) => {
   const {
+    menuSource,
+    setMenuSource,
     generatedMenuUUID,
     setGeneratedMenuUUID,
     menus,
@@ -31,48 +33,45 @@ const useCalendarSystem = (userId) => {
     setEndTime,
   } = useCalendarStates();
 
+  const filterRetrievedDishes = (menuId: string) => {
+    const filteredDishes = fetchedDishes.filter((dish) =>
+      dish.menus_id.includes(menuId),
+    );
+    setDishes(filteredDishes);
+  };
+
   useEffect(() => {
-    // 1. If the modal is closed, we want to fetch menus and dishes
     if (modalVisibility === false) {
       const fetchMenusAndDishes = async () => {
         try {
-          // 2. Lets fetch menus that are tied to our user
           const { data: menusData, error: menusError } = await supabase
             .from("menus")
             .select("*")
             .eq("user_id", userId);
 
-          // 2.5. Something f*cked up? Throw an error
           if (menusError) {
             throw menusError;
             console.error("Error fetching menus:", menusError);
           }
 
-          // 3. Save that priceless data
           setFetchedMenus(menusData);
 
-          // 4. Let's fetch dishes that are tied to our menus now
           const { data: dishesData, error: dishesError } = await supabase
             .from("dishes")
             .select("*");
 
-          // 4.5. Something screwed up? Throw an error
           if (dishesError) {
             throw dishesError;
             console.error("Error fetching dishes:", dishesError);
           }
 
-          // 5. Lets filter and only grab dishes that are tied to our menus
           const connectedDishes = dishesData.filter((dish) =>
             dish.menus_id.some((menuId) =>
               menusData.some((menu) => menu.menu_id === menuId),
             ),
           );
 
-          // 6. Save that bloody nice data
           setFetchedDishes(connectedDishes);
-
-          // 0. Let's scream in united misery if our operation completely failed
         } catch (error) {
           console.error("Error fetching menus and dishes:", error);
         }
@@ -86,6 +85,7 @@ const useCalendarSystem = (userId) => {
       setStartTime("");
       setEndTime("");
       setDishes([]);
+      setMenuSource("");
     }
   }, [modalVisibility]);
 
@@ -95,6 +95,7 @@ const useCalendarSystem = (userId) => {
 
   const createMenu = (newStartTime: string, newDate: string) => {
     setModalVisibility(true);
+    setMenuSource("create");
     setStartTime(newStartTime);
     setDate(newDate);
   };
@@ -104,10 +105,11 @@ const useCalendarSystem = (userId) => {
   };
 
   const createDish = () => {
-    // 1. Create the new dish object with a random dish_id and the current generatedMenuUUID in menus_id
+    const associatedMenuId =
+      menuSource === "create" ? generatedMenuUUID : menuId;
     const newDish = {
       dish_id: uuidv4(),
-      menus_id: [generatedMenuUUID],
+      menus_id: [associatedMenuId],
       dish_title: "",
       dish_subtitle: "",
       dish_description: "",
@@ -175,39 +177,107 @@ const useCalendarSystem = (userId) => {
     }
   };
 
-  const uploadMenu = async () => {
-    // 1. Let's define our new menu and what it should look like
-    const newMenu = {
-      menu_id: generatedMenuUUID,
-      user_id: userId,
-      menu_title: title,
-      menu_location: location,
-      menu_date: date,
-      menu_start_time: startTime,
-      menu_end_time: endTime,
-    };
+  const upsertDishes = async () => {
+    if (dishes.length === 0) {
+      console.log("No dishes to upsert.");
+      return;
+    }
 
-    // 2. Let's upload that sucker to the database
+    // Prepare dishes data for upsert
+    const dishesToUpsert = dishes.map((dish) => ({
+      ...dish,
+      menus_id: dish.menus_id.includes(menuId)
+        ? dish.menus_id
+        : [...dish.menus_id, menuId],
+    }));
+
     try {
-      const { error: menuError } = await supabase.from("menus").insert(newMenu);
+      const { error } = await supabase.from("dishes").upsert(dishesToUpsert);
 
-      // 2.5. A fault occurred? Throw an error in the user's face
-      if (menuError) {
-        throw menuError;
+      if (error) {
+        throw error;
       }
-      console.log("Menu uploaded successfully");
-
-      // 3. If menu upload is successful, then upload dishes
-      await uploadDishes();
-
-      // 4. Close the modal and make the calendar ready for a new potential menu
-      closeModal();
+      console.log("Dishes upserted successfully");
     } catch (error) {
-      console.error("The uploadMenu function failed:", error);
+      console.error("Error upserting dishes to Supabase:", error);
     }
   };
 
+  const uploadMenu = async () => {
+    if (menuSource === "create") {
+      // 1. Let's define our new menu and what it should look like
+      const newMenu = {
+        menu_id: generatedMenuUUID,
+        user_id: userId,
+        menu_title: title,
+        menu_location: location,
+        menu_date: date,
+        menu_start_time: startTime,
+        menu_end_time: endTime,
+      };
+
+      // 2. Let's upload that sucker to the database
+      try {
+        const { error: menuError } = await supabase
+          .from("menus")
+          .insert(newMenu);
+
+        // 2.5. A fault occurred? Throw an error in the user's face
+        if (menuError) {
+          throw menuError;
+        }
+        console.log("Menu uploaded successfully");
+
+        // 3. If menu upload is successful, then upload dishes
+        await uploadDishes();
+
+        // 4. Close the modal and make the calendar ready for a new potential menu
+        closeModal();
+      } catch (error) {
+        console.error("The uploadMenu function failed:", error);
+      }
+    } else if (menuSource === "update") {
+      try {
+        const { error: menuError } = await supabase
+          .from("menus")
+          .update({
+            menu_title: title,
+            menu_location: location,
+            menu_date: date,
+            menu_start_time: startTime,
+            menu_end_time: endTime,
+          })
+          .eq("menu_id", menuId)
+          .select();
+
+        if (menuError) {
+          throw menuError;
+          console.log("Failed to update menu");
+        }
+
+        await upsertDishes();
+
+        closeModal();
+      } catch (error) {
+        console.error("The uploadMenu function failed:", error);
+      }
+    }
+  };
+
+  const updateMenu = (cardButton) => {
+    setModalVisibility(true);
+    setMenuSource("update");
+    setMenuId(cardButton.menu_id);
+    setTitle(cardButton.menu_title);
+    setLocation(cardButton.menu_location);
+    setDate(cardButton.menu_date);
+    setStartTime(cardButton.menu_start_time);
+    setEndTime(cardButton.menu_end_time);
+    filterRetrievedDishes(cardButton.menu_id);
+  };
+
   return {
+    updateMenu,
     updateDish,
     createDish,
     uploadMenu,

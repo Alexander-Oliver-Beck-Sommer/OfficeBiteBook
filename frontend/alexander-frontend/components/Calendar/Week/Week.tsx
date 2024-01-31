@@ -22,6 +22,7 @@ const Week = ({
   weekNumber = 0,
 }: WeekProps) => {
   const {
+    updateMenu,
     updateDish,
     createDish,
     uploadMenu,
@@ -100,7 +101,7 @@ const Week = ({
                       title={cardButton.menu_title}
                       location={cardButton.menu_location}
                       dishesAmount={cardButton.menu_dishes_amount}
-                      toggle={() => cardButtonToggle(cardButton)}
+                      toggle={() => updateMenu(cardButton)}
                       className={{
                         top: `${cardButtonPosition(
                           cardButton.menu_start_time,
