@@ -10,7 +10,6 @@ type Menu = {
   menu_end_time?: string; // text
   menu_week?: number; // int8
   menu_dishes_amount?: number; // int8
-  menu_participants?: string[]; // jsonb
 };
 
 type Dish = {
@@ -32,6 +31,7 @@ const useCalendarStates = () => {
   const [date, setDate] = useState<typeof Menu.prototype.menu_date>("");
   const [startTime, setStartTime] = useState<typeof Menu.prototype.menu_start_time>(""); // prettier-ignore
   const [endTime, setEndTime] = useState<typeof Menu.prototype.menu_end_time>(""); // prettier-ignore
+  const [menuWeek, setMenuWeek] = useState<typeof Menu.prototype.menu_week>(0);
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [fetchedDishes, setFetchedDishes] = useState<Dish[]>([]);
   const [modalVisibility, setModalVisibility] = useState<boolean>(false); // FALSE = closed, TRUE = open
@@ -61,6 +61,8 @@ const useCalendarStates = () => {
     setStartTime,
     endTime,
     setEndTime,
+    menuWeek,
+    setMenuWeek,
   };
 };
 

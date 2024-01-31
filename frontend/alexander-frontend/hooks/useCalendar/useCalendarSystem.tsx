@@ -29,6 +29,8 @@ const useCalendarSystem = (userId) => {
     setStartTime,
     endTime,
     setEndTime,
+    menuWeek,
+    setMenuWeek,
   } = useCalendarStates();
 
   ///////////// Modal and Menu Management /////////////
@@ -192,6 +194,7 @@ const useCalendarSystem = (userId) => {
         menu_date: date,
         menu_start_time: startTime,
         menu_end_time: endTime,
+        menu_dishes_amount: dishes.length,
       };
 
       try {
@@ -220,6 +223,7 @@ const useCalendarSystem = (userId) => {
             menu_date: date,
             menu_start_time: startTime,
             menu_end_time: endTime,
+            menu_dishes_amount: dishes.length,
           })
           .eq("menu_id", menuId)
           .select();
@@ -275,10 +279,8 @@ const useCalendarSystem = (userId) => {
     hideModal,
     initializeNewMenu,
     menus,
-    setMenus,
     fetchedMenus,
     dishes,
-    fetchedDishes,
     title,
     setTitle,
     location,
