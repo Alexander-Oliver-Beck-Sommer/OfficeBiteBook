@@ -19,14 +19,15 @@ type Dish = {
   dish_title?: string;
   dish_subtitle?: string;
   dish_description?: string;
-  dish_saved?: boolean;
-  dish_thumbnail_value?: string;
+  dish_thumbnail?: string;
 };
 
 const useCalendarStates = () => {
   const [generatedMenuUUID, setGeneratedMenuUUID] = useState<string>("");
   const [menus, setMenus] = useState<Menu[]>([]);
+  const [fetchedMenus, setFetchedMenus] = useState<Menu[]>([]);
   const [dishes, setDishes] = useState<Dish[]>([]);
+  const [fetchedDishes, setFetchedDishes] = useState<Dish[]>([]);
   const [modalVisibility, setModalVisibility] = useState<boolean>(false); // FALSE = closed, TRUE = open
   const [menuId, setMenuId] = useState<typeof Menu.prototype.menu_id>("");
   const [title, setTitle] = useState<typeof Menu.prototype.menu_title>("");
@@ -40,8 +41,12 @@ const useCalendarStates = () => {
     setGeneratedMenuUUID,
     menus,
     setMenus,
+    fetchedMenus,
+    setFetchedMenus,
     dishes,
     setDishes,
+    fetchedDishes,
+    setFetchedDishes,
     modalVisibility,
     setModalVisibility,
     menuId,

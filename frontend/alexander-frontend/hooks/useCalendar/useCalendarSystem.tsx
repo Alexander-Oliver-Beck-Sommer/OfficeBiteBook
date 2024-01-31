@@ -9,8 +9,12 @@ const useCalendarSystem = (userId) => {
     setGeneratedMenuUUID,
     menus,
     setMenus,
+    fetchedMenus,
+    setFetchedMenus,
     dishes,
     setDishes,
+    fetchedDishes,
+    setFetchedDishes,
     modalVisibility,
     setModalVisibility,
     menuId,
@@ -45,7 +49,7 @@ const useCalendarSystem = (userId) => {
           }
 
           // 3. Save that priceless data
-          setMenus(menusData);
+          setFetchedMenus(menusData);
 
           // 4. Let's fetch dishes that are tied to our menus now
           const { data: dishesData, error: dishesError } = await supabase
@@ -66,7 +70,7 @@ const useCalendarSystem = (userId) => {
           );
 
           // 6. Save that bloody nice data
-          setDishes(connectedDishes);
+          setFetchedDishes(connectedDishes);
 
           // 0. Let's scream in united misery if our operation completely failed
         } catch (error) {
@@ -107,8 +111,7 @@ const useCalendarSystem = (userId) => {
       dish_title: "",
       dish_subtitle: "",
       dish_description: "",
-      dish_saved: false,
-      dish_thumbnail_value: "",
+      dish_thumbnail: "",
     };
 
     // 2. Update the dishes state to include the new dish
@@ -121,6 +124,30 @@ const useCalendarSystem = (userId) => {
         return dish.dish_id === dishId ? { ...dish, ...dishData } : dish;
       }),
     );
+  };
+
+  const uploadDishes = async () => {
+    if (dishes.length === 0) {
+      // No dishes to upload, so we can return early
+      return;
+    }
+
+    // Prepare dishes data for bulk insert
+    const dishesToUpload = dishes.map((dish) => ({
+      ...dish,
+      menus_id: [generatedMenuUUID], // Assuming each dish is tied to the current menu
+    }));
+
+    try {
+      const { error } = await supabase.from("dishes").insert(dishesToUpload);
+
+      if (error) {
+        throw error;
+      }
+      console.log("Dishes uploaded successfully");
+    } catch (error) {
+      console.error("Error uploading dishes to Supabase:", error);
+    }
   };
 
   const uploadMenu = async () => {
@@ -137,25 +164,23 @@ const useCalendarSystem = (userId) => {
 
     // 2. Let's upload that sucker to the database
     try {
-      const { data: menuData, error: menuError } = await supabase
-        .from("menus")
-        .insert(newMenu);
+      const { error: menuError } = await supabase.from("menus").insert(newMenu);
 
-      // 2.5. A faulty occured? Throw an error in the users face
+      // 2.5. A fault occurred? Throw an error in the user's face
       if (menuError) {
         throw menuError;
-        console.error("Error uploading menu to supabase:", menuError);
       }
-      // 3. Everything went smoothly? Lets close the modal and make the calendar ready for a new potential menu
+      console.log("Menu uploaded successfully");
+
+      // 3. If menu upload is successful, then upload dishes
+      await uploadDishes();
+
+      // 4. Close the modal and make the calendar ready for a new potential menu
       closeModal();
     } catch (error) {
       console.error("The uploadMenu function failed:", error);
     }
   };
-
-  const uploadDishes = async () => {
-    
-  }
 
   return {
     updateDish,
