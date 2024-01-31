@@ -7,7 +7,7 @@ import TimeIcon from "@/components/Icons/TimeIcon";
 import RestaurantIcon from "@/components/Icons/RestaurantIcon";
 
 type MenuProps = {
-  checkToggle?: () => void;
+  checkIndividual?: () => void;
   checked?: boolean;
   guestToggle?: () => void;
   id?: string;
@@ -23,7 +23,7 @@ type MenuProps = {
 };
 
 const Menu = ({
-  checkToggle = () => {},
+  checkIndividual = () => {},
   checked = false,
   guestToggle = () => {},
   id = "",
@@ -62,7 +62,7 @@ const Menu = ({
         <CheckboxInput
           label={title}
           initialChecked={checked}
-          onChange={checkToggle}
+          onChange={checkIndividual}
         />
         <div className="flex items-center justify-between">
           <div className="flex flex-col">

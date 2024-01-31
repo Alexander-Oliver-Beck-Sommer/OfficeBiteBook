@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 const useHome = (userId, userEmail) => {
   const [weekNumber, setWeekNumber] = useState(0);
   const [menusAndDishes, setMenusAndDishes] = useState([]);
-  const [selectedMenuId, setSelectedMenuId] = useState(null);
-  const [modalContent, setModalContent] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [accordionId, setAccordionId] = useState(null);
+  const [checkedMenus, setCheckedMenus] = useState([]);
+  const [areAllMenusChecked, setAreAllMenusChecked] = useState(false);
 
   const fetchDishesForMenu = async (menuId) => {
     const { data: dishesData, error: dishesError } = await supabase
@@ -67,7 +67,7 @@ const useHome = (userId, userEmail) => {
         const combinedMenusAndDishes = await Promise.all(
           menusData.map(async (menu) => {
             const dishes = await fetchDishesForMenu(menu.menu_id);
-            return { ...menu, dishes };
+            return { ...menu, dishes, checked: false };
           }),
         );
 
@@ -83,33 +83,43 @@ const useHome = (userId, userEmail) => {
     }
   }, [userId, userEmail]);
 
-  const handleMenuSelect = (menuId) => {
-    setSelectedMenuId(selectedMenuId === menuId ? null : menuId);
+  useEffect(() => {
+    console.log(menusAndDishes);
+  }, [areAllMenusChecked]);
+
+  const handleAccordion = (menuId) => {
+    setAccordionId(accordionId === menuId ? null : menuId);
   };
 
-  const handleModalOpen = (content) => {
-    if (content.dishes) {
-      setModalContent({ ...content, type: "menu" });
-    } else {
-      setModalContent({ ...content, type: "dish" });
-    }
-    setIsModalOpen(true);
+  const checkAll = () => {
+    setAreAllMenusChecked(!areAllMenusChecked);
+    const updatedMenus = menusAndDishes.map((menu) => ({
+      ...menu,
+      checked: areAllMenusChecked ? false : true,
+    }));
+
+    setMenusAndDishes(updatedMenus);
   };
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-    setModalContent(null);
+  const checkIndividual = (menuId) => {
+    const updatedMenus = menusAndDishes.map((menu) => {
+      if (menu.menu_id === menuId) {
+        return { ...menu, checked: !menu.checked };
+      } else {
+        return menu;
+      }
+    });
+
+    setMenusAndDishes(updatedMenus);
   };
 
   return {
     weekNumber,
     menusAndDishes,
-    handleMenuSelect,
-    selectedMenuId,
-    handleModalOpen,
-    handleModalClose,
-    modalContent,
-    isModalOpen,
+    handleAccordion,
+    accordionId,
+    checkAll,
+    checkIndividual,
   };
 };
 

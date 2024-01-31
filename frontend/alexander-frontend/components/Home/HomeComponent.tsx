@@ -13,12 +13,10 @@ const HomeComponent = ({ userId = "", userEmail = "" }: HomeComponentProps) => {
   const {
     menusAndDishes,
     weekNumber,
-    handleMenuSelect,
-    selectedMenuId,
-    handleModalOpen,
-    handleModalClose,
-    modalContent,
-    isModalOpen,
+    handleAccordion,
+    accordionId,
+    checkAll,
+    checkIndividual,
   } = useHome(userId, userEmail);
 
   return (
@@ -26,10 +24,16 @@ const HomeComponent = ({ userId = "", userEmail = "" }: HomeComponentProps) => {
       <HeaderBar weekNumber={weekNumber} />
       <MobileVersion
         menus={menusAndDishes}
-        accordionId={selectedMenuId}
-        handleAccordion={handleMenuSelect}
+        accordionId={accordionId}
+        handleAccordion={handleAccordion}
+        checkAll={checkAll}
+        checkIndividual={checkIndividual}
       />
-      <DesktopVersion menus={menusAndDishes} />
+      <DesktopVersion
+        menus={menusAndDishes}
+        checkAll={checkAll}
+        checkIndividual={checkIndividual}
+      />
     </section>
   );
 };

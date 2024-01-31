@@ -7,9 +7,7 @@ import Menu from "@/components/Home/MobileVersion/child-components/Menu";
 type MobileVersionProps = {
   menus?: Array<any>;
   checkAll?: () => void;
-  allChecked?: boolean;
-  checkToggle?: () => void;
-  checked?: boolean;
+  checkIndividual?: () => void;
   guestToggle?: () => void;
   accordionId?: string | null;
   handleAccordion?: (id: string) => void;
@@ -19,7 +17,7 @@ const MobileVersion = ({
   menus = [],
   checkAll = () => {},
   allChecked = false,
-  checkToggle = () => {},
+  checkIndividual = () => {},
   checked = false,
   guestToggle = () => {},
   accordionId = null,
@@ -46,18 +44,14 @@ const MobileVersion = ({
     <section className="block lg:hidden">
       <ul className="flex flex-col gap-6 px-4 py-6 md:px-12">
         <li className="flex animate-fade-up items-center gap-4 text-grey animate-ease-in-out">
-          <CheckboxInput
-            onChange={checkAll}
-            initialChecked={allChecked}
-            label="Select all"
-          />
+          <CheckboxInput onChange={checkAll} label="Select all" />
           <h4>Select all</h4>
         </li>
         {menus.map((menu, index) => (
           <Menu
             key={`menu-${index}`}
-            checkToggle={checkToggle}
-            checked={checked}
+            checkIndividual={checkIndividual}
+            checked={menu.checked}
             guestToggle={guestToggle}
             id={menu.menu_id}
             title={menu.menu_title}

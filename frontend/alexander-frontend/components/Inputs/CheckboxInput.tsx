@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CheckIcon from "../Icons/CheckIcon";
 import CloseIcon from "../Icons/CloseIcon";
 
@@ -14,6 +14,10 @@ const CheckboxInput = ({
   onChange,
 }: CheckboxInputProps) => {
   const [isChecked, setIsChecked] = useState(initialChecked);
+
+  useEffect(() => {
+    setIsChecked(initialChecked);
+  }, [initialChecked]);
 
   const handleInputChange = () => {
     const newChecked = !isChecked;

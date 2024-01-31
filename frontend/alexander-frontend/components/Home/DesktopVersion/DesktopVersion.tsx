@@ -2,21 +2,21 @@ import MenusList from "@/components/Home/DesktopVersion/child-components/MenuLis
 
 type DesktopVersionProps = {
   menus?: Array<any>;
-  checkboxAll?: () => void;
-  checkboxAllChecked?: boolean;
+  checkAll?: () => void;
+  checkIndividual?: (menuId: string) => void;
 };
 
 const DesktopVersion = ({
   menus = [],
-  checkboxAll = () => {},
-  checkboxAllChecked = false,
+  checkAll = () => {},
+  checkIndividual = () => {},
 }: DesktopVersionProps) => {
   return (
     <section className="hidden lg:block">
       <MenusList
         menus={menus}
-        checkboxAll={checkboxAll}
-        checkboxAllChecked={checkboxAllChecked}
+        checkAll={checkAll}
+        checkIndividual={checkIndividual}
       />
     </section>
   );

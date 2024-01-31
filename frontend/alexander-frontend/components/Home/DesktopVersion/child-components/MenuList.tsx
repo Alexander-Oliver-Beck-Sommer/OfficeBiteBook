@@ -6,18 +6,14 @@ import Dish from "@/components/Home/DesktopVersion/child-components/Dish";
 
 type MenuListProps = {
   menus?: Array<any>;
-  checkboxAll?: () => void;
-  checkboxAllChecked?: boolean;
-  checkboxSingle?: () => void;
-  checkboxSingleChecked?: boolean;
+  checkAll?: () => void;
+  checkIndividual?: () => void;
 };
 
 const MenuList = ({
   menus = [],
-  checkboxAll = () => {},
-  checkboxAllChecked = false,
-  checkboxSingle = () => {},
-  checkboxSingleChecked = false,
+  checkAll = () => {},
+  checkIndividual = () => {},
 }: MenuListProps) => {
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [visibility, setVisibility] = useState(false);
@@ -42,8 +38,7 @@ const MenuList = ({
         <li className=" w-full max-w-screen-xl animate-fade-up animate-ease-in-out">
           <div className="flex items-center gap-6 text-grey">
             <CheckboxInput
-              onChange={checkboxAll}
-              initialChecked={checkboxAllChecked}
+              onChange={checkAll}
               label="Participate on all menus"
             />
             <h4>Select all</h4>
@@ -52,8 +47,8 @@ const MenuList = ({
         {menus.map((menu, index) => (
           <Menu
             key={`menu-${index}`}
-            checkToggle={checkboxSingle}
-            checked={checkboxSingleChecked}
+            checkToggle={() => checkIndividual(menu.menu_id)}
+            checked={menu.checked}
             title={menu.menu_title}
             location={menu.menu_location}
             date={menu.menu_date}
