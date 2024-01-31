@@ -84,8 +84,14 @@ const useHome = (userId, userEmail) => {
   }, [userId, userEmail]);
 
   useEffect(() => {
-    console.log(menusAndDishes);
-  }, [areAllMenusChecked]);
+    menusAndDishes.forEach((menu) => {
+      if (menu.checked) {
+        addParticipant(menu.menu_id, userId);
+      } else {
+        removeParticipant(menu.menu_id, userId);
+      }
+    });
+  }, [menusAndDishes]);
 
   const handleAccordion = (menuId) => {
     setAccordionId(accordionId === menuId ? null : menuId);
@@ -111,6 +117,53 @@ const useHome = (userId, userEmail) => {
     });
 
     setMenusAndDishes(updatedMenus);
+  };
+
+  const addParticipant = async (menuId, userId) => {
+    try {
+      const { data, error } = await supabase
+        .from("menus")
+        .select("menu_participants")
+        .eq("menu_id", menuId)
+        .single();
+
+      if (error) throw error;
+
+      const currentParticipants = data.menu_participants || [];
+      if (!currentParticipants.includes(userId)) {
+        const updatedParticipants = [...currentParticipants, userId];
+
+        await supabase
+          .from("menus")
+          .update({ menu_participants: updatedParticipants })
+          .eq("menu_id", menuId);
+      }
+    } catch (error) {
+      console.error("Error adding participant:", error);
+    }
+  };
+
+  const removeParticipant = async (menuId, userId) => {
+    try {
+      const { data, error } = await supabase
+        .from("menus")
+        .select("menu_participants")
+        .eq("menu_id", menuId)
+        .single();
+
+      if (error) throw error;
+
+      const updatedParticipants = data.menu_participants.filter(
+        (id) => id !== userId,
+      );
+
+      await supabase
+        .from("menus")
+        .update({ menu_participants: updatedParticipants })
+        .eq("menu_id", menuId);
+    } catch (error) {
+      console.error("Error removing participant:", error);
+    }
   };
 
   return {
