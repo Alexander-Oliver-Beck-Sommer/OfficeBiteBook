@@ -32,6 +32,7 @@ const useCalendarStates = () => {
   const [startTime, setStartTime] = useState<typeof Menu.prototype.menu_start_time>(""); // prettier-ignore
   const [endTime, setEndTime] = useState<typeof Menu.prototype.menu_end_time>(""); // prettier-ignore
   const [dishes, setDishes] = useState<Dish[]>([]);
+  const [dishesToRemove, setDishesToRemove] = useState<string[]>([]);
   const [fetchedDishes, setFetchedDishes] = useState<Dish[]>([]);
   const [modalVisibility, setModalVisibility] = useState<boolean>(false); // FALSE = closed, TRUE = open
 
@@ -44,6 +45,8 @@ const useCalendarStates = () => {
     setFetchedMenus,
     dishes,
     setDishes,
+    dishesToRemove,
+    setDishesToRemove,
     fetchedDishes,
     setFetchedDishes,
     modalVisibility,

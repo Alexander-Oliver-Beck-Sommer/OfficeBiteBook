@@ -29,6 +29,8 @@ const useCalendarSystem = (userId) => {
     setStartTime,
     endTime,
     setEndTime,
+    dishesToRemove,
+    setDishesToRemove,
   } = useCalendarStates();
 
   ///////////// Modal and Menu Management /////////////
@@ -101,6 +103,7 @@ const useCalendarSystem = (userId) => {
       setStartTime("");
       setEndTime("");
       setDishes([]);
+      setDishesToRemove([]);
       setMenuSource("");
     }
   }, [modalVisibility]);
@@ -135,11 +138,11 @@ const useCalendarSystem = (userId) => {
   };
 
   const removeDishFromMenu = (dishId: string) => {
-    console.log("removeDishFromMenu called");
-    // Filter out the dish with the specified dishId
-    const updatedDishes = dishes.filter((dish) => dish.dish_id !== dishId);
+    if (menuSource === "updateExistingMenu") {
+      setDishesToRemove((prev) => [...prev, dishId]);
+    }
 
-    // Update the dishes state with the filtered array
+    const updatedDishes = dishes.filter((dish) => dish.dish_id !== dishId);
     setDishes(updatedDishes);
   };
 
@@ -245,9 +248,15 @@ const useCalendarSystem = (userId) => {
 
         await saveOrUpdateDishes();
 
+        await Promise.all(
+          dishesToRemove.map((dishId) =>
+            supabase.from("dishes").delete().eq("dish_id", dishId),
+          ),
+        );
+
         hideModal();
       } catch (error) {
-        console.error("The saveMenuChanges function failed:", error);
+        console.error("Error in saveMenuChanges:", error);
       }
     }
   };
@@ -288,13 +297,9 @@ const useCalendarSystem = (userId) => {
       currentDate.getDate() + 4 - (currentDate.getDay() || 7),
     );
 
-    // Get first day of year
     const yearStart = new Date(currentDate.getFullYear(), 0, 1);
-
-    // Calculate full weeks to nearest Thursday
     const weekNo = Math.ceil(((currentDate - yearStart) / 86400000 + 1) / 7);
 
-    // Return array of year and week number
     return [currentDate.getFullYear(), weekNo];
   };
 
