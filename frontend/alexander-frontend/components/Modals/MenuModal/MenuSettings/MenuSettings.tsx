@@ -4,37 +4,37 @@ import TextInput from "@/components/Inputs/TextInput";
 
 type MenuSettingsProps = {
   title?: string;
-  changeTitle?: (newTitle: string) => void;
+  setTitle?: (newTitle: string) => void;
   isTitleValid?: boolean;
   location?: string;
-  changeLocation?: (newLocation: string) => void;
+  setLocation?: (newLocation: string) => void;
   isLocationValid?: boolean;
   date?: string;
-  changeDate?: (newDate: string) => void;
+  setDate?: (newDate: string) => void;
   isDateValid?: boolean;
   startTime?: string;
-  changeStartTime?: (newStartTime: string) => void;
+  setStartTime?: (newStartTime: string) => void;
   isStartTimeValid?: boolean;
   endTime?: string;
-  changeEndTime?: (newEndTime: string) => void;
+  setEndTime?: (newEndTime: string) => void;
   isEndTimeValid?: boolean;
 };
 
 const MenuSettings = ({
   title = "",
-  changeTitle = () => {},
+  setTitle = () => {},
   isTitleValid = false,
   location = "",
-  changeLocation = () => {},
+  setLocation = () => {},
   isLocationValid = false,
   date = "",
-  changeDate = () => {},
+  setDate = () => {},
   isDateValid = false,
   startTime = "",
-  changeStartTime = () => {},
+  setStartTime = () => {},
   isStartTimeValid = false,
   endTime = "",
-  changeEndTime = () => {},
+  setEndTime = () => {},
   isEndTimeValid = false,
 }: MenuSettingsProps) => {
   const [titleInput, setTitleInput] = useState(title);
@@ -45,36 +45,36 @@ const MenuSettings = ({
 
   const handleTitleChange = (newValue: string) => {
     setTitleInput(newValue);
-    if (changeTitle) {
-      changeTitle(newValue);
+    if (setTitle) {
+      setTitle(newValue);
     }
   };
 
   const handleLocationChange = (newValue: string) => {
     setLocationInput(newValue);
-    if (changeLocation) {
-      changeLocation(newValue);
+    if (setLocation) {
+      setLocation(newValue);
     }
   };
 
   const handleDateChange = (newValue: string) => {
     setDateInput(newValue);
-    if (changeDate) {
-      changeDate(newValue);
+    if (setDate) {
+      setDate(newValue);
     }
   };
 
   const handleStartTimeChange = (newValue: string) => {
     setStartTimeInput(newValue);
-    if (changeStartTime) {
-      changeStartTime(newValue);
+    if (setStartTime) {
+      setStartTime(newValue);
     }
   };
 
   const handleEndTimeChange = (newValue: string) => {
     setEndTimeInput(newValue);
-    if (changeEndTime) {
-      changeEndTime(newValue);
+    if (setEndTime) {
+      setEndTime(newValue);
     }
   };
 

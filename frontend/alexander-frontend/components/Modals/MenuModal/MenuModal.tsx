@@ -5,41 +5,43 @@ import Dish from "@/components/Modals/MenuModal/Dish/Dish";
 import FooterBar from "@/components/Modals/MenuModal/FooterBar/FooterBar";
 
 type MenuModalProps = {
-  title: string;
-  changeTitle: string;
-  isTitleValid: boolean;
-  location: string;
-  changeLocation: string;
-  isLocationValid: boolean;
-  date: string;
-  changeDate: string;
-  isDateValid: boolean;
-  startTime: string;
-  changeStartTime: string;
-  isStartTimeValid: boolean;
-  endTime: string;
-  changeEndTime: string;
-  isEndTimeValid: boolean;
-  visibility: boolean;
-  cancelToggle: () => void;
-  dishes: [];
+  modalVisibility?: boolean;
+  closeToggle?: () => void;
+  uploadToggle?: () => void;
+  title?: string;
+  setTitle?: (newTitle: string) => void;
+  location?: string;
+  setLocation?: (newLocation: string) => void;
+  date?: string;
+  setDate?: (newDate: string) => void;
+  startTime?: string;
+  setStartTime?: (newStartTime: string) => void;
+  endTime?: string;
+  setEndTime?: (newEndTime: string) => void;
+  createDishToggle?: () => void;
+  dishes?: [];
+  updateDishToggle?: (dishId: string, dish: {}) => void;
 };
 
 const MenuModal = ({
+  modalVisibility = false,
+  closeToggle = () => {},
+  uploadToggle = () => {},
   title = "",
-  changeTitle = () => {},
+  setTitle = () => {},
   isTitleValid = false,
   location = "",
-  changeLocation = () => {},
+  setLocation = () => {},
   isLocationValid = false,
   date = "",
-  changeDate = () => {},
+  setDate = () => {},
   isDateValid = false,
   startTime = "",
-  changeStartTime = () => {},
+  setStartTime = () => {},
   isStartTimeValid = false,
   endTime = "",
-  changeEndTime = () => {},
+  setEndTime = () => {},
+  createDishToggle = () => {},
   isEndTimeValid = false,
   visibility = false,
   createToggle = () => {},
@@ -52,10 +54,11 @@ const MenuModal = ({
   isDeleteDisabled = false,
   cancelToggle = () => {},
   dishes = [],
+  updateDishToggle = () => {},
 }: MenuModalProps) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (visibility) {
+      if (modalVisibility) {
         document.body.style.overflow = "hidden";
       } else {
         document.body.style.overflow = "";
@@ -67,93 +70,80 @@ const MenuModal = ({
         document.body.style.overflow = "";
       }
     };
-  }, [visibility]);
+  }, [modalVisibility]);
 
   return (
     <section
-      aria-hidden={!visibility}
+      aria-hidden={!modalVisibility}
       className={`fixed inset-0 z-50 flex transition-all duration-300 ease-in-out ${
-        visibility ? "visible opacity-100" : "invisible opacity-0"
+        modalVisibility ? "visible opacity-100" : "invisible opacity-0"
       } `}
     >
       <div className="relative flex h-full w-full items-center justify-center px-10 py-10 lg:px-12 lg:py-12">
         <section
           className="absolute inset-0 z-40 cursor-pointer bg-dark-100 opacity-95 transition-all duration-300 ease-in-out hover:bg-dark-200"
-          onClick={cancelToggle}
+          onClick={closeToggle}
         ></section>
         <section
           className={`relative z-50 grid h-full w-full max-w-screen-xl grid-rows-auto1Xauto overflow-y-auto rounded border-2 border-dark-500 bg-dark-100 ${
-            visibility
+            modalVisibility
               ? "animate-fade-up animate-ease-in-out"
               : "invisible opacity-0"
           } `}
         >
-          <HeaderBar
-            title={title}
-            createDish={createDish}
-            eraseDishes={eraseDishes}
-            isEraseDishesDisabled={isEraseDishesDisabled}
-            deleteToggle={deleteToggle}
-            isDeleteDisabled={isDeleteDisabled}
-          />
+          <HeaderBar title={title} createDishToggle={createDishToggle} />
           <section className="grid grid-cols-30X70">
             <MenuSettings
               title={title}
-              changeTitle={changeTitle}
-              isTitleValid={isTitleValid}
+              setTitle={setTitle}
               location={location}
-              changeLocation={changeLocation}
-              isLocationValid={isLocationValid}
+              setLocation={setLocation}
               date={date}
-              changeDate={changeDate}
-              isDateValid={isDateValid}
+              setDate={setDate}
               startTime={startTime}
-              changeStartTime={changeStartTime}
-              isStartTimeValid={isStartTimeValid}
+              setStartTime={setStartTime}
               endTime={endTime}
-              changeEndTime={changeEndTime}
-              isEndTimeValid={isEndTimeValid}
+              setEndTime={setEndTime}
             />
             <div className="pattern relative overflow-scroll">
               <ul className="absolute inset-0 flex flex-col gap-8 px-8 py-8">
-                {dishes.map((dish) => (
+                {dishes.map((dish, index) => (
                   <Dish
                     key={dish.dish_id}
-                    count={dishes.indexOf(dish) + 1}
+                    count={index + 1}
                     title={dish.dish_title}
                     changeTitle={(newTitle) =>
-                      updateDish(dish.dish_id, {
+                      updateDishToggle(dish.dish_id, {
                         dish_title: newTitle,
                       })
                     }
                     subtitle={dish.dish_subtitle}
                     changeSubtitle={(newSubtitle) =>
-                      updateDish(dish.dish_id, {
+                      updateDishToggle(dish.dish_id, {
                         dish_subtitle: newSubtitle,
                       })
                     }
                     description={dish.dish_description}
                     changeDescription={(newDescription) =>
-                      updateDish(dish.dish_id, {
+                      updateDishToggle(dish.dish_id, {
                         dish_description: newDescription,
                       })
                     }
                     thumbnailValue={dish.dish_thumbnail_value}
                     changeThumbnailValue={(newValue) => {
-                      console.log(newValue);
-                      updateDish(dish.dish_id, {
+                      updateDishToggle(dish.dish_id, {
                         dish_thumbnail_value: newValue,
                       });
                     }}
                     thumbnailFile={dish.dish_thumbnail_file}
                     changeThumbnailFile={(newFile) =>
-                      updateDish(dish.dish_id, {
+                      updateDishToggle(dish.dish_id, {
                         dish_thumbnail_file: newFile,
                       })
                     }
                     thumbnailURL={dish.dish_thumbnail_url}
                     changeThumbnailURL={(newUrl) =>
-                      updateDish(dish.dish_id, {
+                      updateDishToggle(dish.dish_id, {
                         dish_thumbnail_url: newUrl,
                       })
                     }
@@ -163,7 +153,7 @@ const MenuModal = ({
               </ul>
             </div>
           </section>
-          <FooterBar cancelToggle={cancelToggle} createToggle={createToggle} />
+          <FooterBar closeToggle={closeToggle} uploadToggle={uploadToggle} />
         </section>
       </div>
     </section>

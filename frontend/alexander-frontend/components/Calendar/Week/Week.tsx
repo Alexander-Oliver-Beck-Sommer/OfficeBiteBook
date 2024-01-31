@@ -4,8 +4,10 @@ import HourCell from "@/components/Calendar/Week/child-components/HourCell";
 import MenuModal from "@/components/Modals/MenuModal/MenuModal";
 import CardButton from "@/components/Buttons/CardButton";
 import useCalendar from "@/hooks/useCalendar";
+import useCalendarSystem from "@/hooks/useCalendar/useCalendarSystem";
 
 type WeekProps = {
+  userId?: string;
   days?: string[];
   type?: boolean;
   hours?: string[];
@@ -13,46 +15,33 @@ type WeekProps = {
 };
 
 const Week = ({
-  user = null,
+  userId = "",
   days = [],
   type = true,
   hours = [],
   weekNumber = 0,
 }: WeekProps) => {
   const {
+    updateDish,
+    createDish,
+    uploadMenu,
+    modalVisibility,
+    closeModal,
+    createMenu,
     menus,
+    setMenus,
     dishes,
     title,
-    changeTitle,
-    isTitleValid,
+    setTitle,
     location,
-    changeLocation,
-    isLocationValid,
+    setLocation,
     date,
-    changeDate,
-    isDateValid,
+    setDate,
     startTime,
-    changeStartTime,
-    isStartTimeValid,
+    setStartTime,
     endTime,
-    changeEndTime,
-    isEndTimeValid,
-    visibility,
-    createToggle,
-    cancelToggle,
-    deleteToggle,
-    isDeleteDisabled,
-    dishCreate,
-    dishUpdate,
-    dishesErase,
-    dishesEraseDisabled,
-    deleteDish,
-    dayCellHighlight,
-    hourCellToggle,
-    cardButtonToggle,
-    cardButtonPosition,
-    cardButtonHeight,
-  } = useCalendar(user, weekNumber);
+    setEndTime,
+  } = useCalendarSystem(userId);
 
   return (
     <>
@@ -85,7 +74,7 @@ const Week = ({
           return (
             <li
               key={`${day.name}-${day.date}`}
-              className="flex-1 last:border-r-0 border-r border-r-dark-500"
+              className="flex-1 border-r border-r-dark-500 last:border-r-0"
             >
               <DayCell date={date} day={day.name} currentDay={isCurrentDay} />
               <SettingsCell />
@@ -96,16 +85,12 @@ const Week = ({
                       key={`${day.name}-${hour.fullHour}`}
                       date={day.date}
                       fullHour={hour.fullHour}
-                      fullHourToggle={() =>
-                        hourCellToggle(hour.fullHour, day.date)
-                      }
+                      fullHourToggle={() => createMenu(hour.fullHour, day.date)}
                       halfHour={hour.halfHour}
-                      halfHourToggle={() =>
-                        hourCellToggle(hour.halfHour, day.date)
-                      }
+                      halfHourToggle={() => createMenu(hour.halfHour, day.date)}
                     />
                   ))}
-                  {cardButtons.map((cardButton) => (
+                  {/* {cardButtons.map((cardButton) => (
                     <CardButton
                       key={`cardButton-${cardButton.menu_id}`}
                       title={cardButton.menu_title}
@@ -122,7 +107,7 @@ const Week = ({
                         )}px`,
                       }}
                     />
-                  ))}
+                  ))} */}
                 </li>
               </ul>
             </li>
@@ -130,32 +115,22 @@ const Week = ({
         })}
       </ul>
       <MenuModal
+        modalVisibility={modalVisibility}
+        closeToggle={closeModal}
+        uploadToggle={uploadMenu}
         title={title}
-        changeTitle={changeTitle}
-        isTitleValid={isTitleValid}
+        setTitle={setTitle}
         location={location}
-        changeLocation={changeLocation}
-        isLocationValid={isLocationValid}
+        setLocation={setLocation}
         date={date}
-        changeDate={changeDate}
-        isDateValid={isDateValid}
+        setDate={setDate}
         startTime={startTime}
-        changeStartTime={changeStartTime}
-        isStartTimeValid={isStartTimeValid}
+        setStartTime={setStartTime}
         endTime={endTime}
-        changeEndTime={changeEndTime}
-        isEndTimeValid={isEndTimeValid}
-        visibility={visibility}
-        cancelToggle={cancelToggle}
-        createToggle={createToggle}
-        deleteToggle={deleteToggle}
-        isDeleteDisabled={isDeleteDisabled}
-        createDish={dishCreate}
-        updateDish={dishUpdate}
-        eraseDishes={dishesErase}
-        isEraseDishesDisabled={dishesEraseDisabled}
-        deleteDish={deleteDish}
+        setEndTime={setEndTime}
         dishes={dishes}
+        createDishToggle={createDish}
+        updateDishToggle={updateDish}
       />
     </>
   );

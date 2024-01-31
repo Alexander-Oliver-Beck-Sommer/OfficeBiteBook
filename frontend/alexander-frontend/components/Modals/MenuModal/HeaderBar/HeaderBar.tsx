@@ -3,6 +3,7 @@ import ActionButton from "@/components/Buttons/ActionButton";
 
 type HeaderBarProps = {
   title?: string;
+  createDishToggle?: () => void;
   createDish?: () => void;
   headerBarImport?: () => void;
   eraseDishes?: () => void;
@@ -13,6 +14,7 @@ type HeaderBarProps = {
 
 const HeaderBar = ({
   title = "",
+  createDishToggle = () => {},
   createDish = () => {},
   headerBarImport = () => {},
   eraseDishes = () => {},
@@ -41,7 +43,7 @@ const HeaderBar = ({
             title="Add a new dish"
             name="Add"
             label="Add a new dish"
-            toggle={createDish}
+            toggle={createDishToggle}
           />
         </li>
         <li>

@@ -5,9 +5,10 @@ import Week from "@/components/Calendar/Week/Week";
 
 type CalendarProps = {
   user?: any;
+  userId?: string;
 };
 
-export default function Calendar({ user }: CalendarProps) {
+export default function Calendar({ user, userId, userEmail }: CalendarProps) {
   const {
     week,
     type,
@@ -33,7 +34,7 @@ export default function Calendar({ user }: CalendarProps) {
         typeToggle={weekTypeSwitcher}
       />
       <Week
-        user={user}
+        userId={userId}
         days={week.week_days}
         type={type}
         hours={hours()}
