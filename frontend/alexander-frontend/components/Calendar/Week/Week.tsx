@@ -22,13 +22,13 @@ const Week = ({
   weekNumber = 0,
 }: WeekProps) => {
   const {
-    updateMenu,
-    updateDish,
-    createDish,
-    uploadMenu,
+    prepareMenuForEditing,
+    modifyExistingDish,
+    addNewDishToMenu,
+    saveMenuChanges,
     modalVisibility,
-    closeModal,
-    createMenu,
+    hideModal,
+    initializeNewMenu,
     menus,
     setMenus,
     fetchedMenus,
@@ -44,8 +44,8 @@ const Week = ({
     setStartTime,
     endTime,
     setEndTime,
-    cardButtonPosition,
-    cardButtonHeight,
+    calculateCardButtonPosition,
+    calculateCardButtonHeight,
   } = useCalendarSystem(userId);
 
   return (
@@ -90,9 +90,13 @@ const Week = ({
                       key={`${day.name}-${hour.fullHour}`}
                       date={day.date}
                       fullHour={hour.fullHour}
-                      fullHourToggle={() => createMenu(hour.fullHour, day.date)}
+                      fullHourToggle={() =>
+                        initializeNewMenu(hour.fullHour, day.date)
+                      }
                       halfHour={hour.halfHour}
-                      halfHourToggle={() => createMenu(hour.halfHour, day.date)}
+                      halfHourToggle={() =>
+                        initializeNewMenu(hour.halfHour, day.date)
+                      }
                     />
                   ))}
                   {cardButtons.map((cardButton) => (
@@ -101,12 +105,12 @@ const Week = ({
                       title={cardButton.menu_title}
                       location={cardButton.menu_location}
                       dishesAmount={cardButton.menu_dishes_amount}
-                      toggle={() => updateMenu(cardButton)}
+                      toggle={() => prepareMenuForEditing(cardButton)}
                       className={{
-                        top: `${cardButtonPosition(
+                        top: `${calculateCardButtonPosition(
                           cardButton.menu_start_time,
                         )}px`,
-                        height: `${cardButtonHeight(
+                        height: `${calculateCardButtonHeight(
                           cardButton.menu_start_time,
                           cardButton.menu_end_time,
                         )}px`,
@@ -121,8 +125,8 @@ const Week = ({
       </ul>
       <MenuModal
         modalVisibility={modalVisibility}
-        closeToggle={closeModal}
-        uploadToggle={uploadMenu}
+        closeToggle={hideModal}
+        uploadToggle={saveMenuChanges}
         title={title}
         setTitle={setTitle}
         location={location}
@@ -134,8 +138,8 @@ const Week = ({
         endTime={endTime}
         setEndTime={setEndTime}
         dishes={dishes}
-        createDishToggle={createDish}
-        updateDishToggle={updateDish}
+        createDishToggle={addNewDishToMenu}
+        updateDishToggle={modifyExistingDish}
       />
     </>
   );

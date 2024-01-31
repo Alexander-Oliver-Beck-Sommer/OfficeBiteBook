@@ -24,7 +24,6 @@ type Dish = {
 
 const useCalendarStates = () => {
   const [menuSource, setMenuSource] = useState<string>(""); // The source of the menu can be either "create" or "update"
-  const [generatedMenuUUID, setGeneratedMenuUUID] = useState<string>(""); // The UUID is exclusively used for creating a new menu
   const [menus, setMenus] = useState<Menu[]>([]);
   const [fetchedMenus, setFetchedMenus] = useState<Menu[]>([]);
   const [menuId, setMenuId] = useState<typeof Menu.prototype.menu_id>("");
@@ -40,8 +39,6 @@ const useCalendarStates = () => {
   return {
     menuSource,
     setMenuSource,
-    generatedMenuUUID,
-    setGeneratedMenuUUID,
     menus,
     setMenus,
     fetchedMenus,
