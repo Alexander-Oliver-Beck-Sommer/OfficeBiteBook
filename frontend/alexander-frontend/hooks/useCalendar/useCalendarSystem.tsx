@@ -34,7 +34,8 @@ const useCalendarSystem = (userId) => {
     setDishesToRemove,
   } = useCalendarStates();
 
-  const { uploadFile, getFileUrl, deleteFile, loading, error } = useBucket();
+  const { uploadFile, getFileUrl, deleteFile, updateFile, loading, error } =
+    useBucket();
 
   ///////////// Modal and Menu Management /////////////
   const initializeNewMenu = (newStartTime: string, newDate: string) => {
@@ -252,6 +253,20 @@ const useCalendarSystem = (userId) => {
       }
     } else if (menuSource === "updateExistingMenu") {
       try {
+        if (dishes.length > 0) {
+          for (let i = 0; i < dishes.length; i++) {
+            const dish = dishes[i];
+            if (dish.dish_thumbnail_file) {
+              const bucket = "dishes_thumbnails"; // Specify your bucket name
+              const path = `${dish.dish_id}/${dish.dish_id}`; // Customize the path as needed
+              const file = dish.dish_thumbnail_file; // The File object for upload
+              const uploadResult = await uploadFile(bucket, path, file);
+              const publicUrl = await getFileUrl(bucket, path);
+              dishes[i] = { ...dish, dish_thumbnail_url: publicUrl };
+            }
+          }
+        }
+
         const { error: menuError } = await supabase
           .from("menus")
           .update({

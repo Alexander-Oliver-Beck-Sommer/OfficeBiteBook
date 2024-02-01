@@ -12,7 +12,7 @@ const useBucket = () => {
         .from(bucket)
         .upload(path, file, {
           cacheControl: "3600",
-          upsert: false,
+          upsert: true,
         });
     } catch (error) {
       setError(error.message);
@@ -51,9 +51,29 @@ const useBucket = () => {
     }
   };
 
-  
+  const updateFile = async (bucket: string, path: string, file: File) => {
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.storage
+        .from(bucket)
+        .upload(path, file, {
+          cacheControl: "3600",
+          upsert: true, // Use upsert: true to indicate an update intent
+        });
 
-  return { uploadFile, getFileUrl, deleteFile, loading, error };
+      if (error) {
+        throw error;
+      }
+
+      return data; // Assuming the data includes the necessary details post-upload
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { uploadFile, getFileUrl, deleteFile, updateFile, loading, error };
 };
 
 export default useBucket;
