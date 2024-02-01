@@ -3,7 +3,7 @@ import SettingsCell from "@/components/Calendar/Week/child-components/SettingsCe
 import HourCell from "@/components/Calendar/Week/child-components/HourCell";
 import MenuModal from "@/components/Modals/MenuModal/MenuModal";
 import CardButton from "@/components/Buttons/CardButton";
-import useCalendarSystem from "@/hooks/useCalendar/useCalendarSystem";
+import useCalendar from "@/hooks/useCalendar/useCalendar";
 
 type WeekProps = {
   userId?: string;
@@ -45,7 +45,7 @@ const Week = ({
     removeDishFromMenu,
     removeMenu,
     eraseDishesFromMenu,
-  } = useCalendarSystem(userId);
+  } = useCalendar(userId);
 
   return (
     <>

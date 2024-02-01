@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { supabase } from "@/components/Supabase/supabaseClient";
 import { v4 as uuidv4 } from "uuid";
-import useCalendarStates from "@/hooks/useCalendar/child-hooks/useCalendarStates";
+import useStates from "@/hooks/useCalendar/child-hooks/useStates";
 import useBucket from "@/hooks/useBucket";
 
-const useCalendarSystem = (userId) => {
+const useCalendar = (userId) => {
   const {
     menuSource,
     setMenuSource,
@@ -32,7 +32,7 @@ const useCalendarSystem = (userId) => {
     setEndTime,
     dishesToRemove,
     setDishesToRemove,
-  } = useCalendarStates();
+  } = useStates();
 
   const { uploadFile, getFileUrl, deleteFile, updateFile, loading, error } =
     useBucket();
@@ -425,7 +425,7 @@ const useCalendarSystem = (userId) => {
   };
 };
 
-export default useCalendarSystem;
+export default useCalendar;
 
 // Dirty Bug Report ಠ╭╮ಠ 🪳
 // 1?. Create menu with dishes => edit menu => add new dish => delete enitre menu => error will occur due to the new added dish - although funnily enough, both the menu and the dish will be deleted from the database...

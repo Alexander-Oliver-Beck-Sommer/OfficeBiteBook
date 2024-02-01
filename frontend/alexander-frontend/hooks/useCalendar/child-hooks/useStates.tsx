@@ -23,7 +23,7 @@ type Dish = {
   dish_thumbnail_url?: string; // text
 };
 
-const useCalendarStates = () => {
+const useStates = () => {
   const [menuSource, setMenuSource] = useState<string>(""); // The source of the menu can be either "create" or "update"
   const [menus, setMenus] = useState<Menu[]>([]);
   const [fetchedMenus, setFetchedMenus] = useState<Menu[]>([]);
@@ -68,4 +68,4 @@ const useCalendarStates = () => {
   };
 };
 
-export default useCalendarStates;
+export default useStates;
