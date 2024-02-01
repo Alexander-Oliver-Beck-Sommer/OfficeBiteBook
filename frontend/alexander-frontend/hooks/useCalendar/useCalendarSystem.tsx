@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { supabase } from "@/components/Supabase/supabaseClient";
 import { v4 as uuidv4 } from "uuid";
 import useCalendarStates from "@/hooks/useCalendar/child-hooks/useCalendarStates";
+import useBucket from "@/hooks/useBucket";
 
 const useCalendarSystem = (userId) => {
   const {
@@ -32,6 +33,8 @@ const useCalendarSystem = (userId) => {
     dishesToRemove,
     setDishesToRemove,
   } = useCalendarStates();
+
+  const { uploadFile, getFileUrl, deleteFile, loading, error } = useBucket();
 
   ///////////// Modal and Menu Management /////////////
   const initializeNewMenu = (newStartTime: string, newDate: string) => {
@@ -218,6 +221,20 @@ const useCalendarSystem = (userId) => {
       };
 
       try {
+        if (dishes.length > 0) {
+          for (let i = 0; i < dishes.length; i++) {
+            const dish = dishes[i];
+            if (dish.dish_thumbnail_file) {
+              const bucket = "dishes_thumbnails"; // Specify your bucket name
+              const path = `${dish.dish_id}/${dish.dish_id}`; // Customize the path as needed
+              const file = dish.dish_thumbnail_file; // The File object for upload
+              const uploadResult = await uploadFile(bucket, path, file);
+              const publicUrl = await getFileUrl(bucket, path);
+              dishes[i] = { ...dish, dish_thumbnail_url: publicUrl };
+            }
+          }
+        }
+
         const { error: menuError } = await supabase
           .from("menus")
           .insert(newMenu);
@@ -225,9 +242,9 @@ const useCalendarSystem = (userId) => {
         if (menuError) {
           throw menuError;
         }
-        console.log("Menu uploaded successfully");
 
-        await saveNewDishesToDatabase();
+        // Proceed with dish uploads or updates
+        await saveNewDishesToDatabase(); // This function should handle the updated dishes array
 
         hideModal();
       } catch (error) {
