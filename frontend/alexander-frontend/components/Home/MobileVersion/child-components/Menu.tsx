@@ -58,7 +58,7 @@ const Menu = ({
 
   return (
     <li className="animate-fade-up overflow-hidden rounded border-2 border-dark-500 animate-ease-in-out">
-      <div className="grid grid-cols-autoX1 items-center gap-4 bg-dark-100 p-4 md:px-12">
+      <div className="grid grid-cols-autoX1 items-center gap-4 bg-dark-100 p-4">
         <CheckboxInput
           label={title}
           initialChecked={checked}
@@ -90,7 +90,7 @@ const Menu = ({
           {menuSections.map(({ Icon, text }, index) => (
             <li
               key={index}
-              className="flex items-center justify-center bg-dark-300 p-4 md:px-12"
+              className="flex items-center justify-center bg-dark-300 p-4"
             >
               <div className="flex w-full items-center gap-2">
                 <Icon className="h-5 w-5 fill-white" />
@@ -98,7 +98,7 @@ const Menu = ({
               </div>
             </li>
           ))}
-          <li className="bg-dark-100 fill-white p-4 text-white md:px-12">
+          <li className="bg-dark-100 fill-white p-4 text-white">
             <div className="grid grid-cols-2 gap-[1px] overflow-hidden rounded border border-dark-500 bg-dark-500 md:flex md:justify-end md:gap-8 md:overflow-visible md:rounded-none md:border-none md:bg-transparent">
               <Button title="Guestlist" icon="guest" toggle={guestToggle} />
               <Button title="Read More" icon="zoom" toggle={modalToggle} />
