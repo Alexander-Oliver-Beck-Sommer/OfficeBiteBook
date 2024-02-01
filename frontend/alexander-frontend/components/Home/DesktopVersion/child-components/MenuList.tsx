@@ -102,7 +102,7 @@ const MenuList = ({
                       title={dish.dish_title}
                       subtitle={dish.dish_subtitle}
                       description={dish.dish_description}
-                      thumbnail={dish.dish_thumbnail}
+                      thumbnail={dish.dish_thumbnail_url}
                     />
                   ))}
                 </ul>

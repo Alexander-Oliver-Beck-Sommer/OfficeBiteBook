@@ -19,27 +19,7 @@ const useHome = (userId, userEmail) => {
       return;
     }
 
-    const dishesWithThumbnails = await Promise.all(
-      dishesData.map(async (dish) => {
-        if (dish.dish_thumbnail_value) {
-          const { data: thumbnailData, error: thumbnailError } =
-            supabase.storage
-              .from("dishes_thumbnails")
-              .getPublicUrl(dish.dish_thumbnail_value);
-
-          if (thumbnailError) {
-            console.error("Error fetching dish thumbnail:", thumbnailError);
-            return dish;
-          }
-
-          return { ...dish, dish_thumbnail: thumbnailData.publicUrl };
-        } else {
-          return dish;
-        }
-      }),
-    );
-
-    return dishesWithThumbnails;
+    return dishesData;
   };
 
   useEffect(() => {
