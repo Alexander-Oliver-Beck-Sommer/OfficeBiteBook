@@ -43,9 +43,9 @@ const Dish = ({
   const [titleInput, setTitleInput] = useState(title);
   const [subtitleInput, setSubtitleInput] = useState(subtitle);
   const [descriptionInput, setDescriptionInput] = useState(description);
-  const [thumbnailName, setThumbnailName] = useState<string>("");
-  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
-  const [thumbnailUrl, setThumbnailUrl] = useState<string>("");
+  const [thumbnailName, setThumbnailName] = useState<string>(name);
+  const [thumbnailFile, setThumbnailFile] = useState<File | null>(file);
+  const [thumbnailUrl, setThumbnailUrl] = useState<string>(url);
   const [isDishOpen, setIsDishOpen] = useState(false);
 
   const dishAccordion = isDishOpen
