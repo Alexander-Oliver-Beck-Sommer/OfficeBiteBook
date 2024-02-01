@@ -18,7 +18,9 @@ type Dish = {
   dish_title?: string; // text
   dish_subtitle?: string; // text
   dish_description?: string; // text
-  dish_thumbnail?: string; // text
+  dish_thumbnail_name?: string; // text
+  dish_thumbnail_file?: string; // text
+  dish_thumbnail_url?: string; // text
 };
 
 const useCalendarStates = () => {

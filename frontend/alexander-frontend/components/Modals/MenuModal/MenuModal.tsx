@@ -6,8 +6,8 @@ import FooterBar from "@/components/Modals/MenuModal/FooterBar/FooterBar";
 
 type MenuModalProps = {
   modalVisibility?: boolean;
-  closeToggle?: () => void;
-  uploadToggle?: () => void;
+  hideModal?: () => void;
+  saveMenuChanges?: () => void;
   title?: string;
   setTitle?: (newTitle: string) => void;
   location?: string;
@@ -18,49 +18,36 @@ type MenuModalProps = {
   setStartTime?: (newStartTime: string) => void;
   endTime?: string;
   setEndTime?: (newEndTime: string) => void;
-  createDishToggle?: () => void;
+  addNewDishToMenu?: () => void;
   dishes?: [];
-  updateDishToggle?: (dishId: string, dish: {}) => void;
+  modifyExistingDish?: (dishId: string, dish: {}) => void;
   removeDishFromMenu?: (dishId: string) => void;
   removeMenu?: () => void;
   eraseDishesFromMenu?: () => void;
+  menuId?: string;
 };
 
 const MenuModal = ({
   modalVisibility = false,
-  closeToggle = () => {},
-  uploadToggle = () => {},
+  hideModal = () => {},
+  saveMenuChanges = () => {},
   title = "",
   setTitle = () => {},
-  isTitleValid = false,
   location = "",
   setLocation = () => {},
-  isLocationValid = false,
   date = "",
   setDate = () => {},
-  isDateValid = false,
   startTime = "",
   setStartTime = () => {},
-  isStartTimeValid = false,
   endTime = "",
   setEndTime = () => {},
-  createDishToggle = () => {},
-  isEndTimeValid = false,
-  visibility = false,
-  createToggle = () => {},
-  createDish = () => {},
-  updateDish = () => {},
-  eraseDishes = () => {},
-  isEraseDishesDisabled = false,
-  deleteDish = () => {},
-  deleteToggle = () => {},
-  isDeleteDisabled = false,
-  cancelToggle = () => {},
+  addNewDishToMenu = () => {},
   dishes = [],
-  updateDishToggle = () => {},
+  modifyExistingDish = () => {},
   removeDishFromMenu = () => {},
   removeMenu = () => {},
   eraseDishesFromMenu = () => {},
+  menuId = "",
 }: MenuModalProps) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -88,7 +75,7 @@ const MenuModal = ({
       <div className="relative flex h-full w-full items-center justify-center px-10 py-10 lg:px-12 lg:py-12">
         <section
           className="absolute inset-0 z-40 cursor-pointer bg-dark-100 opacity-95 transition-all duration-300 ease-in-out hover:bg-dark-200"
-          onClick={closeToggle}
+          onClick={hideModal}
         ></section>
         <section
           className={`relative z-50 grid h-full w-full max-w-screen-xl grid-rows-auto1Xauto overflow-y-auto rounded border-2 border-dark-500 bg-dark-100 ${
@@ -100,7 +87,7 @@ const MenuModal = ({
           <HeaderBar
             title={title}
             eraseDishesFromMenu={eraseDishesFromMenu}
-            createDishToggle={createDishToggle}
+            addNewDishToMenu={addNewDishToMenu}
             removeMenu={removeMenu}
           />
           <section className="grid grid-cols-30X70">
@@ -121,40 +108,41 @@ const MenuModal = ({
                 {dishes.map((dish, index) => (
                   <Dish
                     key={dish.dish_id}
+                    menuId={menuId}
                     count={index + 1}
                     title={dish.dish_title}
-                    changeTitle={(newTitle) =>
-                      updateDishToggle(dish.dish_id, {
+                    setTitle={(newTitle) =>
+                      modifyExistingDish(dish.dish_id, {
                         dish_title: newTitle,
                       })
                     }
                     subtitle={dish.dish_subtitle}
-                    changeSubtitle={(newSubtitle) =>
-                      updateDishToggle(dish.dish_id, {
+                    setSubtitle={(newSubtitle) =>
+                      modifyExistingDish(dish.dish_id, {
                         dish_subtitle: newSubtitle,
                       })
                     }
                     description={dish.dish_description}
-                    changeDescription={(newDescription) =>
-                      updateDishToggle(dish.dish_id, {
+                    setDescription={(newDescription) =>
+                      modifyExistingDish(dish.dish_id, {
                         dish_description: newDescription,
                       })
                     }
-                    thumbnailValue={dish.dish_thumbnail_value}
-                    changeThumbnailValue={(newValue) => {
-                      updateDishToggle(dish.dish_id, {
-                        dish_thumbnail_value: newValue,
-                      });
-                    }}
-                    thumbnailFile={dish.dish_thumbnail_file}
-                    changeThumbnailFile={(newFile) =>
-                      updateDishToggle(dish.dish_id, {
+                    name={dish.dish_thumbnail_name}
+                    setName={(newName) =>
+                      modifyExistingDish(dish.dish_id, {
+                        dish_thumbnail_name: newName,
+                      })
+                    }
+                    file={dish.dish_thumbnail_file}
+                    setFile={(newFile) =>
+                      modifyExistingDish(dish.dish_id, {
                         dish_thumbnail_file: newFile,
                       })
                     }
-                    thumbnailURL={dish.dish_thumbnail_url}
-                    changeThumbnailURL={(newUrl) =>
-                      updateDishToggle(dish.dish_id, {
+                    url={dish.dish_thumbnail_url}
+                    setUrl={(newUrl) =>
+                      modifyExistingDish(dish.dish_id, {
                         dish_thumbnail_url: newUrl,
                       })
                     }
@@ -164,7 +152,7 @@ const MenuModal = ({
               </ul>
             </div>
           </section>
-          <FooterBar closeToggle={closeToggle} uploadToggle={uploadToggle} />
+          <FooterBar hideModal={hideModal} saveMenuChanges={saveMenuChanges} />
         </section>
       </div>
     </section>

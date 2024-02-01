@@ -1,13 +1,13 @@
 import ActionButton from "@/components/Buttons/ActionButton";
 
 type FooterBarProps = {
-  closeToggle?: () => void;
-  uploadToggle?: () => void;
+  hideModal?: () => void;
+  saveMenuChanges?: () => void;
 };
 
 const FooterBar = ({
-  closeToggle = () => {},
-  uploadToggle = () => {},
+  hideModal = () => {},
+  saveMenuChanges = () => {},
 }: FooterBarProps) => {
   return (
     <footer className="flex items-center justify-end bg-dark-300 px-6 py-4">
@@ -19,7 +19,7 @@ const FooterBar = ({
             title="Cancel the menu without saving"
             name="Cancel"
             label="Cancel the menu without saving"
-            toggle={closeToggle}
+            toggle={hideModal}
           />
         </li>
         <li>
@@ -29,7 +29,7 @@ const FooterBar = ({
             title="Accept and save menu"
             name="Accept"
             label="Accept and save menu"
-            toggle={uploadToggle}
+            toggle={saveMenuChanges}
           />
         </li>
       </ul>

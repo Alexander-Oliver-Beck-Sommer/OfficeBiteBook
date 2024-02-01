@@ -8,46 +8,44 @@ import UploadThumbnail from "@/components/Inputs/UploadThumbnail";
 type DishProps = {
   count?: number;
   title?: string;
-  changeTitle?: (newTitle: string) => void;
+  setTitle?: (newTitle: string) => void;
   subtitle?: string;
-  changeSubtitle?: (newSubtitle: string) => void;
+  setSubtitle?: (newSubtitle: string) => void;
   description?: string;
-  changeDescription?: (newDescription: string) => void;
-  thumbnailValue?: string;
-  changeThumbnailValue?: (newValue: string) => void;
-  thumbnailFile?: File | null;
-  changeThumbnailFile?: (newFile: File | null) => void;
-  thumbnailURL?: string;
-  changeThumbnailURL?: (newUrl: string) => void;
-  dishArchive?: () => void;
-  dishReplace?: () => void;
+  setDescription?: (newDescription: string) => void;
+  name?: string;
+  setName?: (newName: string) => void;
+  file?: File;
+  setFile?: (newFile: File) => void;
+  url?: string;
+  setUrl?: (newUrl: string) => void;
   removeDishFromMenu?: () => void;
+  menuId?: string;
 };
 
 const Dish = ({
   count = 0,
   title = "",
-  changeTitle = () => {},
+  setTitle = () => {},
   subtitle = "",
-  changeSubtitle = () => {},
+  setSubtitle = () => {},
   description = "",
-  changeDescription = () => {},
-  thumbnailValue = "",
-  changeThumbnailValue = () => {},
-  thumbnailFile = null,
-  changeThumbnailFile = () => {},
-  thumbnailURL = "",
-  changeThumbnailURL = () => {},
-  dishArchive = () => {},
-  dishReplace = () => {},
+  setDescription = () => {},
+  name = "",
+  setName = () => {},
+  file = null,
+  setFile = () => {},
+  url = "",
+  setUrl = () => {},
   removeDishFromMenu = () => {},
+  menuId = "",
 }: DishProps) => {
   const [titleInput, setTitleInput] = useState(title);
   const [subtitleInput, setSubtitleInput] = useState(subtitle);
   const [descriptionInput, setDescriptionInput] = useState(description);
-  const [thumbnailInputValue, setThumbnailInputValue] = useState(thumbnailValue); // prettier-ignore
-  const [thumbnailInputFile, setThumbnailInputFile] = useState(thumbnailFile); // prettier-ignore
-  const [thumbnailInputUrl, setThumbnailInputUrl] = useState(thumbnailURL); // prettier-ignore
+  const [thumbnailName, setThumbnailName] = useState<string>("");
+  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+  const [thumbnailUrl, setThumbnailUrl] = useState<string>("");
   const [isDishOpen, setIsDishOpen] = useState(false);
 
   const dishAccordion = isDishOpen
@@ -60,56 +58,106 @@ const Dish = ({
 
   const handleTitleChange = (newTitle: string) => {
     setTitleInput(newTitle);
-    if (changeTitle) {
-      changeTitle(newTitle);
+    if (setTitle) {
+      setTitle(newTitle);
     }
   };
 
   const handleSubtitleChange = (newSubtitle: string) => {
     setSubtitleInput(newSubtitle);
-    if (changeSubtitle) {
-      changeSubtitle(newSubtitle);
+    if (setSubtitle) {
+      setSubtitle(newSubtitle);
     }
   };
 
   const handleDescriptionChange = (newDescription: string) => {
     setDescriptionInput(newDescription);
-    if (changeDescription) {
-      changeDescription(newDescription);
+    if (setDescription) {
+      setDescription(newDescription);
     }
   };
 
-  const handleThumbnailValueChange = (newValue: string) => {
-    setThumbnailInputValue(newValue);
-    console.log(newValue);
-    if (changeThumbnailValue) {
-      changeThumbnailValue(newValue);
+  const changeThumbnail = async (event) => {
+    const file = event.target.files[0];
+    if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
+      let processedFile = file;
+      if (file.type === "image/png") {
+        processedFile = await convertPNGtoJPG(file);
+      }
+      const fileExtension = processedFile.type.split("/").pop();
+      const fileName = `${menuId}.${fileExtension}`;
+      setThumbnailFile(processedFile);
+      setThumbnailName(fileName);
+      setThumbnailUrl(URL.createObjectURL(processedFile));
+    } else {
+      alert("Please select a JPEG or PNG image.");
     }
   };
 
-  const handleThumbnailFileChange = (newFile: File | null) => {
-    setThumbnailInputFile(newFile);
-    console.log(newFile);
-    if (changeThumbnailFile) {
-      changeThumbnailFile(newFile);
-    }
+  const removeThumbnail = () => {
+    setThumbnailFile(null);
+    setThumbnailName("");
+    setThumbnailUrl("");
+
+    // Update parent component
+    if (setFile) setFile(null);
+    if (setName) setName("");
+    if (setUrl) setUrl("");
   };
 
-  const handleThumbnailUrlChange = (newUrl: string) => {
-    setThumbnailInputUrl(newUrl);
-    console.log(newUrl);
-    if (changeThumbnailURL) {
-      changeThumbnailURL(newUrl);
-    }
+  const convertPNGtoJPG = async (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+          canvas.toBlob((blob) => {
+            resolve(new File([blob], `${menuId}.jpg`, { type: "image/jpeg" }));
+          }, "image/jpeg");
+        };
+        img.onerror = reject;
+        img.src = event.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
   };
 
   useEffect(() => {
     setTitleInput(title);
     setSubtitleInput(subtitle);
     setDescriptionInput(description);
-    setThumbnailInputValue(thumbnailValue);
-    setThumbnailInputFile(thumbnailFile);
-  }, [title, subtitle, description, thumbnailValue, thumbnailFile]);
+  }, [title, subtitle, description]);
+
+  // I swear to god, if someone touches this useEffect, i will smash their both femurs with a sledgehammer
+  // Why does it work? I don't know. I don't care. It works.
+  // TOUCH IT (◎﹏◎) AND I CAN'T GURANTEE WHAT WILL COME NEXT
+  useEffect(() => {
+    if (thumbnailFile && setFile && file !== thumbnailFile) {
+      setFile(thumbnailFile);
+    }
+    if (thumbnailName && setName && name !== thumbnailName) {
+      setName(thumbnailName);
+    }
+    if (thumbnailUrl && setUrl && url !== thumbnailUrl) {
+      setUrl(thumbnailUrl);
+    }
+  }, [
+    thumbnailFile,
+    thumbnailName,
+    thumbnailUrl,
+    file,
+    name,
+    url,
+    setFile,
+    setName,
+    setUrl,
+  ]);
 
   return (
     <li
@@ -123,7 +171,6 @@ const Dish = ({
         </div>
         <div className="flex">
           <ActionButton
-            toggle={dishArchive}
             icon="inventory"
             label="Click to save the dish to the archive"
             variant="icon"
@@ -131,7 +178,6 @@ const Dish = ({
             name="Save"
           />
           <ActionButton
-            toggle={dishReplace}
             icon="replace"
             label="Click to replace the dish with a dish from the archive"
             variant="icon"
@@ -194,15 +240,10 @@ const Dish = ({
             </li>
             <li>
               <UploadThumbnail
-                uploadThumbnailTitle="Thumbnail"
-                uploadThumbnailDescription="Upload Thumbnail"
-                uploadThumbnailId={count}
-                uploadThumbnailValue={thumbnailInputValue}
-                uploadThumbnailValueChange={handleThumbnailValueChange}
-                uploadThumbnailFile={thumbnailInputFile}
-                uploadThumbnailFileChange={handleThumbnailFileChange}
-                uploadThumbnailUrl={thumbnailInputUrl}
-                uploadThumbnailUrlChange={handleThumbnailUrlChange}
+                id={count}
+                thumbnailURL={thumbnailUrl}
+                changeThumbnail={changeThumbnail}
+                removeThumbnail={removeThumbnail}
               />
             </li>
           </ul>

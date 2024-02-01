@@ -359,6 +359,10 @@ const useCalendarSystem = (userId) => {
     return [currentDate.getFullYear(), weekNo];
   };
 
+  useEffect(() => {
+    console.log(dishes);
+  }, [dishes]);
+
   return {
     prepareMenuForEditing,
     modifyExistingDish,
@@ -370,6 +374,7 @@ const useCalendarSystem = (userId) => {
     menus,
     fetchedMenus,
     dishes,
+    menuId,
     title,
     setTitle,
     location,

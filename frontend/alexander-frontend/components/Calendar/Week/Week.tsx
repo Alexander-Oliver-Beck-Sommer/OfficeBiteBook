@@ -28,6 +28,7 @@ const Week = ({
     initializeNewMenu,
     menus,
     fetchedMenus,
+    menuId,
     dishes,
     title,
     setTitle,
@@ -123,8 +124,8 @@ const Week = ({
       </ul>
       <MenuModal
         modalVisibility={modalVisibility}
-        closeToggle={hideModal}
-        uploadToggle={saveMenuChanges}
+        hideModal={hideModal}
+        saveMenuChanges={saveMenuChanges}
         title={title}
         setTitle={setTitle}
         location={location}
@@ -136,11 +137,12 @@ const Week = ({
         endTime={endTime}
         setEndTime={setEndTime}
         dishes={dishes}
-        createDishToggle={addNewDishToMenu}
-        updateDishToggle={modifyExistingDish}
+        addNewDishToMenu={addNewDishToMenu}
+        modifyExistingDish={modifyExistingDish}
         removeDishFromMenu={removeDishFromMenu}
         removeMenu={removeMenu}
         eraseDishesFromMenu={eraseDishesFromMenu}
+        menuId={menuId}
       />
     </>
   );
