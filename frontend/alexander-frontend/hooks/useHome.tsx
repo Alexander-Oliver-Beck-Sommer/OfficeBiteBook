@@ -12,7 +12,7 @@ const useHome = (userId, userEmail) => {
     const { data: dishesData, error: dishesError } = await supabase
       .from("dishes")
       .select("*")
-      .eq("menu_id", menuId);
+      .contains("menus_id", `["${menuId}"]`); // Don't ask me why this is the way of doing it, but it works
 
     if (dishesError) {
       console.error("Error fetching dishes:", dishesError);

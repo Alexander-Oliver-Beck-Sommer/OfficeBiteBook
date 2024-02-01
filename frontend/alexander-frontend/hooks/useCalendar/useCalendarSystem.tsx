@@ -116,7 +116,7 @@ const useCalendarSystem = (userId) => {
       dish_title: "",
       dish_subtitle: "",
       dish_description: "",
-      dish_thumbnail: "",
+      dish_thumbnail_url: "",
     };
 
     setDishes((prevDishes) => [...prevDishes, newDish]);
