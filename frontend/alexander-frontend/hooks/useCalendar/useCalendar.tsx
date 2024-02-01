@@ -3,6 +3,11 @@ import { supabase } from "@/components/Supabase/supabaseClient";
 import { v4 as uuidv4 } from "uuid";
 import useStates from "@/hooks/useCalendar/child-hooks/useStates";
 import useBucket from "@/hooks/useBucket";
+import useModalAndMenuManagement from "@/hooks/useCalendar/child-hooks/useModalAndMenuManagement";
+import useDataFetchingAndStateInitialization from "@/hooks/useCalendar/child-hooks/useDataFetchingAndStateInitialization";
+import useDishManagement from "@/hooks/useCalendar/child-hooks/useDishManagement";
+import useDataSavingUpdatingAndDeleting from "@/hooks/useCalendar/child-hooks/useDataSavingUpdatingAndDeleting";
+import useUICalculations from "@/hooks/useCalendar/child-hooks/useUICalculations";
 
 const useCalendar = (userId) => {
   const {
@@ -34,349 +39,6 @@ const useCalendar = (userId) => {
     setDishesToRemove,
   } = useStates();
 
-  const { uploadFile, getFileUrl, deleteFile, updateFile, loading, error } =
-    useBucket();
-
-  ///////////// Modal and Menu Management /////////////
-  const initializeNewMenu = (newStartTime: string, newDate: string) => {
-    setModalVisibility(true);
-    setMenuSource("saveNewMenu");
-    setMenuId(uuidv4());
-    setStartTime(newStartTime);
-    setDate(newDate);
-  };
-
-  const prepareMenuForEditing = (cardButton) => {
-    setModalVisibility(true);
-    setMenuSource("updateExistingMenu");
-    setMenuId(cardButton.menu_id);
-    setTitle(cardButton.menu_title);
-    setLocation(cardButton.menu_location);
-    setDate(cardButton.menu_date);
-    setStartTime(cardButton.menu_start_time);
-    setEndTime(cardButton.menu_end_time);
-    filterDishesByMenuId(cardButton.menu_id);
-  };
-
-  const hideModal = () => {
-    setModalVisibility(false);
-  };
-
-  ///////////// Data Fetching and State Initialization /////////////
-  useEffect(() => {
-    if (modalVisibility === false) {
-      const loadUserMenusAndDishes = async () => {
-        try {
-          const { data: menusData, error: menusError } = await supabase
-            .from("menus")
-            .select("*")
-            .eq("user_id", userId);
-
-          if (menusError) {
-            throw menusError;
-            console.error("Error fetching menus:", menusError);
-          }
-
-          setFetchedMenus(menusData);
-
-          const { data: dishesData, error: dishesError } = await supabase
-            .from("dishes")
-            .select("*");
-
-          if (dishesError) {
-            throw dishesError;
-            console.error("Error fetching dishes:", dishesError);
-          }
-
-          const connectedDishes = dishesData.filter((dish) =>
-            dish.menus_id.some((menuId) =>
-              menusData.some((menu) => menu.menu_id === menuId),
-            ),
-          );
-
-          setFetchedDishes(connectedDishes);
-        } catch (error) {
-          console.error("Error fetching menus and dishes:", error);
-        }
-      };
-      loadUserMenusAndDishes();
-      setMenuId("");
-      setTitle("");
-      setLocation("");
-      setDate("");
-      setStartTime("");
-      setEndTime("");
-      setDishes([]);
-      setDishesToRemove([]);
-      setMenuSource("");
-    }
-  }, [modalVisibility]);
-
-  ///////////// Dish Management /////////////
-  const addNewDishToMenu = () => {
-    const newDish = {
-      dish_id: uuidv4(),
-      menus_id: [menuId],
-      dish_title: "",
-      dish_subtitle: "",
-      dish_description: "",
-      dish_thumbnail_url: "",
-    };
-
-    setDishes((prevDishes) => [...prevDishes, newDish]);
-  };
-
-  const modifyExistingDish = (dishId: string, dishData) => {
-    setDishes(
-      dishes.map((dish) => {
-        return dish.dish_id === dishId ? { ...dish, ...dishData } : dish;
-      }),
-    );
-  };
-
-  const filterDishesByMenuId = (menuId: string) => {
-    const filteredDishes = fetchedDishes.filter((dish) =>
-      dish.menus_id.includes(menuId),
-    );
-    setDishes(filteredDishes);
-  };
-
-  const removeDishFromMenu = (dishId: string) => {
-    if (menuSource === "updateExistingMenu") {
-      setDishesToRemove((prev) => [...prev, dishId]);
-    }
-
-    const updatedDishes = dishes.filter((dish) => dish.dish_id !== dishId);
-    setDishes(updatedDishes);
-  };
-
-  const eraseDishesFromMenu = () => {
-    if (menuSource === "updateExistingMenu") {
-      const dishIdsToRemove = dishes.map((dish) => dish.dish_id);
-      setDishesToRemove(dishIdsToRemove);
-    }
-    setDishes([]);
-  };
-
-  ///////////// Data Saving, Updating & Deleting /////////////
-  const saveNewDishesToDatabase = async () => {
-    if (dishes.length === 0) {
-      return;
-    }
-
-    const dishesToUpload = dishes.map((dish) => ({
-      ...dish,
-      menus_id: [menuId],
-    }));
-
-    try {
-      const { error } = await supabase.from("dishes").insert(dishesToUpload);
-
-      if (error) {
-        throw error;
-      }
-      console.log("Dishes uploaded successfully");
-    } catch (error) {
-      console.error("Error uploading dishes to Supabase:", error);
-    }
-  };
-
-  const saveOrUpdateDishes = async () => {
-    if (dishes.length === 0) {
-      console.log("No dishes to upsert.");
-      return;
-    }
-
-    const dishesToUpsert = dishes.map((dish) => ({
-      ...dish,
-      menus_id: dish.menus_id.includes(menuId)
-        ? dish.menus_id
-        : [...dish.menus_id, menuId],
-    }));
-
-    try {
-      const { error } = await supabase.from("dishes").upsert(dishesToUpsert);
-
-      if (error) {
-        throw error;
-      }
-      console.log("Dishes upserted successfully");
-    } catch (error) {
-      console.error("Error upserting dishes to Supabase:", error);
-    }
-  };
-
-  const saveMenuChanges = async () => {
-    const [year, week] = getWeekNumber(date);
-    if (menuSource === "saveNewMenu") {
-      const newMenu = {
-        menu_id: menuId,
-        user_id: userId,
-        menu_title: title,
-        menu_location: location,
-        menu_date: date,
-        menu_start_time: startTime,
-        menu_end_time: endTime,
-        menu_week: week,
-        menu_dishes_amount: dishes.length,
-      };
-
-      try {
-        if (dishes.length > 0) {
-          for (let i = 0; i < dishes.length; i++) {
-            const dish = dishes[i];
-            if (dish.dish_thumbnail_file) {
-              const bucket = "dishes_thumbnails"; // Specify your bucket name
-              const path = `${dish.dish_id}/${dish.dish_id}`; // Customize the path as needed
-              const file = dish.dish_thumbnail_file; // The File object for upload
-              const uploadResult = await uploadFile(bucket, path, file);
-              const publicUrl = await getFileUrl(bucket, path);
-              dishes[i] = { ...dish, dish_thumbnail_url: publicUrl };
-            }
-          }
-        }
-
-        const { error: menuError } = await supabase
-          .from("menus")
-          .insert(newMenu);
-
-        if (menuError) {
-          throw menuError;
-        }
-
-        // Proceed with dish uploads or updates
-        await saveNewDishesToDatabase(); // This function should handle the updated dishes array
-
-        hideModal();
-      } catch (error) {
-        console.error("The saveMenuChanges function failed:", error);
-      }
-    } else if (menuSource === "updateExistingMenu") {
-      try {
-        if (dishes.length > 0) {
-          for (let i = 0; i < dishes.length; i++) {
-            const dish = dishes[i];
-            if (dish.dish_thumbnail_file) {
-              const bucket = "dishes_thumbnails"; // Specify your bucket name
-              const path = `${dish.dish_id}/${dish.dish_id}`; // Customize the path as needed
-              const file = dish.dish_thumbnail_file; // The File object for upload
-              const uploadResult = await uploadFile(bucket, path, file);
-              const publicUrl = await getFileUrl(bucket, path);
-              dishes[i] = { ...dish, dish_thumbnail_url: publicUrl };
-            }
-          }
-        }
-
-        const { error: menuError } = await supabase
-          .from("menus")
-          .update({
-            menu_title: title,
-            menu_location: location,
-            menu_date: date,
-            menu_start_time: startTime,
-            menu_end_time: endTime,
-            menu_week: week,
-            menu_dishes_amount: dishes.length,
-          })
-          .eq("menu_id", menuId)
-          .select();
-
-        if (menuError) {
-          throw menuError;
-          console.log("Failed to update menu");
-        }
-
-        await saveOrUpdateDishes();
-
-        await Promise.all(
-          dishesToRemove.map((dishId) =>
-            supabase.from("dishes").delete().eq("dish_id", dishId),
-          ),
-        );
-
-        hideModal();
-      } catch (error) {
-        console.error("Error in saveMenuChanges:", error);
-      }
-    }
-  };
-
-  const removeMenu = async () => {
-    if (menuSource === "updateExistingMenu") {
-      try {
-        // Delete the menu
-        const { error: menuError } = await supabase
-          .from("menus")
-          .delete()
-          .eq("menu_id", menuId);
-
-        if (menuError) {
-          throw menuError;
-        }
-
-        // Check and delete associated dishes
-        for (const dish of dishes) {
-          // Check if the dish exists in the database
-          const { data, error } = await supabase
-            .from("dishes")
-            .select("*")
-            .eq("dish_id", dish.dish_id)
-            .single();
-
-          if (error) {
-            throw error;
-          }
-
-          if (data) {
-            // Dish exists in the database, delete it
-            const { error: dishDeleteError } = await supabase
-              .from("dishes")
-              .delete()
-              .eq("dish_id", dish.dish_id);
-
-            if (dishDeleteError) {
-              throw dishDeleteError;
-            }
-          }
-        }
-
-        hideModal();
-      } catch (error) {
-        console.error("Error in removeMenu:", error);
-      }
-    } else if (menuSource === "saveNewMenu") {
-      hideModal();
-    }
-  };
-
-  ///////////// UI Calculations /////////////
-  const calculateCardButtonPosition = (startTime: string): number => {
-    const baseTime = new Date();
-    baseTime.setHours(8, 0, 0);
-
-    const menuTime = new Date();
-    const [hours, minutes] = startTime.split(":");
-    menuTime.setHours(parseInt(hours), parseInt(minutes), 0);
-
-    return ((menuTime - baseTime) / (1000 * 60 * 30)) * 40;
-  };
-
-  const calculateCardButtonHeight = (
-    startTime: string,
-    endTime: string,
-  ): number => {
-    const [startHours, startMinutes] = startTime.split(":").map(Number);
-    const [endHours, endMinutes] = endTime.split(":").map(Number);
-
-    const startDate = new Date();
-    startDate.setHours(startHours, startMinutes, 0);
-
-    const endDate = new Date();
-    endDate.setHours(endHours, endMinutes, 0);
-
-    return ((endDate - startDate) / (1000 * 60 * 30)) * 40;
-  };
-
   ///////////// Utility Functions /////////////
   const getWeekNumber = (date) => {
     const currentDate = typeof date === "string" ? new Date(date) : date;
@@ -391,9 +53,93 @@ const useCalendar = (userId) => {
     return [currentDate.getFullYear(), weekNo];
   };
 
+  // Logic and functions for bucket management
+  const { uploadFile, getFileUrl, deleteFile, updateFile, loading, error } =
+    useBucket();
+
+  // Logic and functions for dish management
+  const {
+    addNewDishToMenu,
+    modifyExistingDish,
+    removeDishFromMenu,
+    eraseDishesFromMenu,
+    filterDishesByMenuId,
+  } = useDishManagement(
+    uuidv4,
+    dishes,
+    setDishes,
+    menuId,
+    menuSource,
+    setDishesToRemove,
+    fetchedDishes,
+  );
+
+  // Logic and functions for modal and menu management
+  const { initializeNewMenu, prepareMenuForEditing, hideModal } =
+    useModalAndMenuManagement(
+      setModalVisibility,
+      setMenuSource,
+      setMenuId,
+      setTitle,
+      setLocation,
+      setDate,
+      setStartTime,
+      setEndTime,
+      filterDishesByMenuId,
+    );
+
+  // Logic and functions for data saving, updating and deleting
+  const {
+    saveNewDishesToDatabase,
+    saveOrUpdateDishes,
+    saveMenuChanges,
+    removeMenu,
+  } = useDataSavingUpdatingAndDeleting(
+    dishes,
+    menuId,
+    userId,
+    title,
+    location,
+    startTime,
+    endTime,
+    menuSource,
+    supabase,
+    date,
+    getWeekNumber,
+    uploadFile,
+    getFileUrl,
+    hideModal,
+    dishesToRemove,
+  );
+
+  // Logic and functions for data fetching and state initialization
+  const { loadUserMenusAndDishes, initializeStates } =
+    useDataFetchingAndStateInitialization(
+      supabase,
+      userId,
+      setMenuId,
+      setTitle,
+      setLocation,
+      setDate,
+      setStartTime,
+      setEndTime,
+      setDishes,
+      setDishesToRemove,
+      setMenuSource,
+      setFetchedMenus,
+      setFetchedDishes,
+    );
+
+  // Logic and functions for UI calculations
+  const { calculateCardButtonPosition, calculateCardButtonHeight } =
+    useUICalculations(startTime, endTime);
+
   useEffect(() => {
-    console.log(dishes);
-  }, [dishes]);
+    if (modalVisibility === false) {
+      loadUserMenusAndDishes();
+      initializeStates();
+    }
+  }, [modalVisibility]);
 
   return {
     prepareMenuForEditing,
