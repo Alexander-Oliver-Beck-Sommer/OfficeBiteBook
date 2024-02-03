@@ -1,159 +1,48 @@
-import { supabase } from "@/components/Supabase/supabaseClient";
 import { useEffect, useState } from "react";
+import useDateCalculator from "./useDateCalculator";
+import useMenus from "./useMenus"; // Assuming useMenus is in the right path
 
-const useHome = (userId, userEmail) => {
+const useHome = (userId: string, userEmail: string) => {
+  const { getDayNameFromDate, getCurrentWeekNumber } = useDateCalculator();
+  const { getMenusFromGivenWeek } = useMenus();
+  const [menus, setMenus] = useState([]);
+  const [week, setWeek] = useState(1);
   const [weekNumber, setWeekNumber] = useState(0);
-  const [menusAndDishes, setMenusAndDishes] = useState([]);
-  const [accordionId, setAccordionId] = useState(null);
-  const [checkedMenus, setCheckedMenus] = useState([]);
-  const [areAllMenusChecked, setAreAllMenusChecked] = useState(false);
-
-  const fetchDishesForMenu = async (menuId) => {
-    const { data: dishesData, error: dishesError } = await supabase
-      .from("dishes")
-      .select("*")
-      .contains("menus_id", `["${menuId}"]`); // Don't ask me why this is the way of doing it, but it works
-
-    if (dishesError) {
-      console.error("Error fetching dishes:", dishesError);
-      return;
-    }
-
-    return dishesData;
-  };
 
   useEffect(() => {
-    const calculateWeekNumber = () => {
-      const currentDate = new Date();
-      const startOfYear = new Date(currentDate.getFullYear(), 0, 1);
-      const pastDaysOfYear = Math.floor(
-        (currentDate - startOfYear) / (24 * 60 * 60 * 1000),
-      );
-      return Math.ceil((pastDaysOfYear + startOfYear.getDay() + 1) / 7);
+    const fetchMenus = async () => {
+      const weekNumber = getCurrentWeekNumber(week);
+      setWeekNumber(weekNumber);
+      const retrievedMenus = await getMenusFromGivenWeek(weekNumber);
+      setMenus(retrievedMenus);
     };
 
-    const fetchMenusData = async () => {
-      try {
-        const calculatedWeekNumber = calculateWeekNumber();
-        const { data: menusData, error } = await supabase
-          .from("menus")
-          .select("*")
-          .eq("menu_week", calculatedWeekNumber);
-
-        if (error) {
-          throw error;
-        }
-
-        const combinedMenusAndDishes = await Promise.all(
-          menusData.map(async (menu) => {
-            const dishes = await fetchDishesForMenu(menu.menu_id);
-            const isChecked = menu.menu_participants?.includes(userId);
-            return { ...menu, dishes, checked: isChecked ?? false };
-          }),
-        );
-
-        setMenusAndDishes(combinedMenusAndDishes);
-      } catch (error) {
-        console.error("Error fetching menus:", error);
-      }
-    };
-
-    if (userId && userEmail) {
-      setWeekNumber(calculateWeekNumber());
-      fetchMenusData();
-    }
-  }, [userId, userEmail]);
+    fetchMenus();
+  }, [week]);
 
   useEffect(() => {
-    menusAndDishes.forEach((menu) => {
-      if (menu.checked) {
-        addParticipant(menu.menu_id, userId);
-      } else {
-        removeParticipant(menu.menu_id, userId);
-      }
-    });
-  }, [menusAndDishes]);
+    console.log(menus);
+  }, [menus]);
 
-  const handleAccordion = (menuId) => {
-    setAccordionId(accordionId === menuId ? null : menuId);
+  const decreaseWeek = () => {
+    setWeek(week - 1);
   };
 
-  const checkAll = () => {
-    setAreAllMenusChecked(!areAllMenusChecked);
-    const updatedMenus = menusAndDishes.map((menu) => ({
-      ...menu,
-      checked: areAllMenusChecked ? false : true,
-    }));
-
-    setMenusAndDishes(updatedMenus);
+  const increaseWeek = () => {
+    setWeek(week + 1);
   };
 
-  const checkIndividual = (menuId) => {
-    const updatedMenus = menusAndDishes.map((menu) => {
-      if (menu.menu_id === menuId) {
-        return { ...menu, checked: !menu.checked };
-      } else {
-        return menu;
-      }
-    });
-
-    setMenusAndDishes(updatedMenus);
-  };
-
-  const addParticipant = async (menuId, userId) => {
-    try {
-      const { data, error } = await supabase
-        .from("menus")
-        .select("menu_participants")
-        .eq("menu_id", menuId)
-        .single();
-
-      if (error) throw error;
-
-      const currentParticipants = data.menu_participants || [];
-      if (!currentParticipants.includes(userId)) {
-        const updatedParticipants = [...currentParticipants, userId];
-
-        await supabase
-          .from("menus")
-          .update({ menu_participants: updatedParticipants })
-          .eq("menu_id", menuId);
-      }
-    } catch (error) {
-      console.error("Error adding participant:", error);
-    }
-  };
-
-  const removeParticipant = async (menuId, userId) => {
-    try {
-      const { data, error } = await supabase
-        .from("menus")
-        .select("menu_participants")
-        .eq("menu_id", menuId)
-        .single();
-
-      if (error) throw error;
-
-      const updatedParticipants = data.menu_participants.filter(
-        (id) => id !== userId,
-      );
-
-      await supabase
-        .from("menus")
-        .update({ menu_participants: updatedParticipants })
-        .eq("menu_id", menuId);
-    } catch (error) {
-      console.error("Error removing participant:", error);
-    }
+  const resetWeek = () => {
+    setWeek(1);
   };
 
   return {
+    getCurrentWeekNumber,
     weekNumber,
-    menusAndDishes,
-    handleAccordion,
-    accordionId,
-    checkAll,
-    checkIndividual,
+    menus,
+    decreaseWeek,
+    increaseWeek,
+    resetWeek,
   };
 };
 
