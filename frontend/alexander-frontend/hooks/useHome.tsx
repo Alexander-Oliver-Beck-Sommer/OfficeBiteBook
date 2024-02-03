@@ -3,9 +3,11 @@ import useDateCalculator from "./useDateCalculator";
 import useMenus from "./useMenus"; // Assuming useMenus is in the right path
 
 const useHome = (userId: string, userEmail: string) => {
-  const { getDayNameFromDate, getCurrentWeekNumber } = useDateCalculator();
+  const { getDayNameFromDate, getCurrentWeekNumber, formatDateToDDMMYYYY } =
+    useDateCalculator();
   const { getMenusFromGivenWeek } = useMenus();
   const [menus, setMenus] = useState([]);
+  const [organizedMenus, setOrganizedMenus] = useState({});
   const [week, setWeek] = useState(1);
   const [weekNumber, setWeekNumber] = useState(0);
 
@@ -19,6 +21,42 @@ const useHome = (userId: string, userEmail: string) => {
 
     fetchMenus();
   }, [week]);
+
+  useEffect(() => {
+    // Organize menus by day names
+    const organizeMenusByDay = () => {
+      const dayOrder = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ];
+      const organized = dayOrder.reduce(
+        (acc, day) => ({ ...acc, [day]: { menus: [], date: "" } }), // Initialize each day with menus and a date
+        {},
+      );
+
+      menus.forEach((menu) => {
+        const dayName = getDayNameFromDate(menu.menu_date);
+        const date = formatDateToDDMMYYYY(menu.menu_date);
+        if (organized[dayName]) {
+          organized[dayName].menus.push(menu);
+          if (!organized[dayName].date) {
+            organized[dayName].date = date; // Assuming all menus of the same day have the same date
+          }
+        }
+      });
+
+      setOrganizedMenus(organized);
+    };
+
+    if (menus.length > 0) {
+      organizeMenusByDay();
+    }
+  }, [menus, getDayNameFromDate, formatDateToDDMMYYYY]);
 
   useEffect(() => {
     console.log(menus);
@@ -40,6 +78,7 @@ const useHome = (userId: string, userEmail: string) => {
     getCurrentWeekNumber,
     weekNumber,
     menus,
+    organizedMenus, // Make sure to return this
     decreaseWeek,
     increaseWeek,
     resetWeek,

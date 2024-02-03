@@ -1,13 +1,12 @@
 "use client";
 import useHome from "@/hooks/useHome";
-import HeaderBar from "@/components/Home/HeaderBar/HeaderBar";
-import MobileVersion from "@/components/Home/MobileVersion/MobileVersion";
-import DesktopVersion from "@/components/Home/DesktopVersion/DesktopVersion";
 import CheckboxInput from "../Inputs/CheckboxInput";
-import UserAddIcon from "../Icons/UserAddIcon";
-import ArrowIcon from "../Icons/ArrowIcon";
-import ResetIcon from "../Icons/ResetIcon";
 import IconButton from "../Buttons/IconButton";
+import UnderlineButton from "../Buttons/UnderlineButton";
+import TextIcon from "../Icons/TextIcon";
+import LocationIcon from "../Icons/LocationIcon";
+import TimeIcon from "../Icons/TimeIcon";
+import RestaurantIcon from "../Icons/RestaurantIcon";
 
 type HomeComponentProps = {
   userId?: string;
@@ -15,8 +14,15 @@ type HomeComponentProps = {
 };
 
 const HomeComponent = ({ userId = "", userEmail = "" }: HomeComponentProps) => {
-  const { menus, loading, decreaseWeek, increaseWeek, resetWeek, weekNumber } =
-    useHome(userId, userEmail);
+  const {
+    menus,
+    organizedMenus,
+    loading,
+    decreaseWeek,
+    increaseWeek,
+    resetWeek,
+    weekNumber,
+  } = useHome(userId, userEmail);
 
   return (
     <section className="fill-body pattern flex flex-col">
@@ -50,28 +56,74 @@ const HomeComponent = ({ userId = "", userEmail = "" }: HomeComponentProps) => {
           </div>
         </div>
       </section>
-      <section className="flex justify-center px-4 pt-4 md:px-12">
+      <section className="flex w-full justify-center px-4 pt-6 md:px-12">
         <div className="flex w-full max-w-screen-xl gap-4">
-          <CheckboxInput />
-          <IconButton
-            icon="user-add"
-            size="small"
-            title="Add guests"
-            label="Add guests"
-          />
+          <li className="flex w-full gap-4">
+            <CheckboxInput />
+            <div className="grid flex-1 grid-cols-1Xauto items-center gap-4 fill-grey uppercase sm:grid-cols-3 md:grid-cols-5 md:gap-8">
+              <div className="flex items-center gap-2">
+                <TextIcon className="h-5 w-5" />
+                <h4 class="truncate">Title</h4>
+              </div>
+              <div className="flex items-center gap-2">
+                <LocationIcon className="h-5 w-5" />
+                <h4 class="truncate">Location</h4>
+              </div>
+              <div className="flex items-center gap-2">
+                <TimeIcon className="h-5 w-5" />
+                <h4 class="truncate">Hours</h4>
+              </div>
+              <div className="flex items-center gap-2">
+                <RestaurantIcon className="h-5 w-5" />
+                <h4 class="truncate">Hours</h4>
+              </div>
+            </div>
+          </li>
         </div>
       </section>
-      <section className=" flex flex-1 justify-center px-4 py-6 md:px-12">
-        <ul className="flex w-full max-w-screen-xl flex-col">
+      <section className=" flex flex-1 justify-center px-4 pb-4 md:px-12">
+        <ul className="flex w-full max-w-screen-xl flex-col gap-14">
           {menus.length > 0 ? (
-            menus.map((menu) => (
-              <li
-                className="animate-fade-up border animate-ease-in-out"
-                key={menu.menu_id}
-              >
-                {menu.menu_title}
-              </li>
-            ))
+            Object.entries(organizedMenus).map(
+              ([dayName, { menus, date }]) =>
+                menus.length > 0 && (
+                  <li
+                    key={dayName}
+                    className="group flex flex-col items-end gap-4"
+                  >
+                    <h5 className="font-semibold uppercase text-grey">
+                      {dayName} | {date}
+                    </h5>
+                    <div className="h-0.5 w-full rounded-full bg-dark-400"></div>
+                    <ul className="flex w-full max-w-screen-xl flex-col gap-8">
+                      {menus.map((menu) => (
+                        <li key={menu.menu_id} className="flex gap-4">
+                          <CheckboxInput />
+                          <div className="grid flex-1 grid-cols-1Xauto items-center gap-4 text-grey sm:grid-cols-3 md:grid-cols-5 md:gap-8">
+                            <p class="truncate">{menu.menu_title}</p>
+                            <p class="hidden truncate sm:block">
+                              {menu.menu_location}
+                            </p>
+                            <p class="hidden truncate md:block">
+                              {menu.menu_start_time} - {menu.menu_end_time}
+                            </p>
+                            <p class="hidden truncate md:block">
+                              {menu.menu_dishes_amount} Dishes
+                            </p>
+                            <div className="flex justify-end">
+                              <UnderlineButton
+                                icon="arrow-right"
+                                label="Details"
+                                direction="right"
+                              />
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ),
+            )
           ) : (
             <li className="flex flex-1 animate-fade flex-col items-center justify-center gap-4 animate-ease-in-out">
               <svg
@@ -95,7 +147,6 @@ const HomeComponent = ({ userId = "", userEmail = "" }: HomeComponentProps) => {
           )}
         </ul>
       </section>
-      <section className="border border-red px-4 py-6 md:px-12"></section>
     </section>
   );
 };

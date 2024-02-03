@@ -66,7 +66,7 @@ const IconButton = ({
       onClick={toggle}
       aria-label={label}
       title={title}
-      className={`flex items-center justify-center rounded border-2 border-dark-500 fill-grey outline-0 transition-all duration-300 ease-in-out hover:fill-dark-100 focus-visible:fill-dark-100 ${colorValue} ${sizeValue.button}`}
+      className={`flex items-center justify-center rounded border-2 border-dark-500 bg-dark-100 fill-grey outline-0 transition-all duration-300 ease-in-out hover:fill-dark-100 focus-visible:fill-dark-100 ${colorValue} ${sizeValue.button}`}
     >
       {iconValue}
     </button>
