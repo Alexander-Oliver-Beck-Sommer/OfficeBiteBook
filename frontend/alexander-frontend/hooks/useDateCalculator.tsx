@@ -54,7 +54,6 @@ const useDateCalculator = () => {
     },
     [],
   );
-
   // Usage:
   // Right now the date is 2024-02-03, so getCurrentWeekNumber() => 5
 

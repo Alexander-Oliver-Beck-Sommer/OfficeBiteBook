@@ -61,13 +61,13 @@ const Dish = ({
           <ul className="flex flex-col gap-4 pt-4 lg:gap-4 lg:p-4 lg:py-4">
             {/* We basically don't want to render any of the list items if there isn't any data to show */}
             {title && (
-              <li className="border-b-2 border-dark-400 pb-4">
+              <li className="border-b-2 border-dark-300 pb-4">
                 <p className="mb-1 text-sm font-medium">Title</p>
                 <p className="text-sm text-grey">{title}</p>
               </li>
             )}
             {subtitle && (
-              <li className="border-b-2 border-dark-400 pb-4">
+              <li className="border-b-2 border-dark-300 pb-4">
                 <p className="mb-1 text-sm font-medium">Subtitle</p>
                 <p className="text-sm text-grey">{subtitle}</p>
               </li>

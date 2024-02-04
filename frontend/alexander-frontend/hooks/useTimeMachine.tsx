@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import weekData from "@/data/weekData";
+import useDateCalculator from "./useDateCalculator";
 
 type Week = {
   week_number: number;
@@ -18,15 +19,7 @@ const useTimeMachine = () => {
   const [weekStartTime, setWeekStartTime] = useState("08:00");
   const [weekEndTime, setWeekEndTime] = useState("17:00");
   const [currentDate, setCurrentDate] = useState(new Date());
-
-  const getCurrentWeekNumber = () => {
-    const currentDate = new Date();
-    const startOfYear = new Date(currentDate.getFullYear(), 0, 1);
-    const pastDaysOfYear = Math.floor(
-      (currentDate - startOfYear) / (24 * 60 * 60 * 1000),
-    );
-    return Math.ceil((pastDaysOfYear + startOfYear.getDay() + 1) / 7);
-  };
+  const { getCurrentWeekNumber } = useDateCalculator();
 
   const [weekHighlighter, setWeekHighlighter] = useState(
     getCurrentWeekNumber(),

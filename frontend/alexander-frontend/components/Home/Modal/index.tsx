@@ -49,7 +49,9 @@ const Modal = ({ isVisible, menu, onClose }: ModalProps) => {
     <section
       aria-hidden={!isVisible}
       className={`fixed inset-0 z-50 flex transition-all duration-300 ease-in-out ${
-        isVisible ? "visible opacity-100" : "invisible opacity-0"
+        isVisible
+          ? "pointer-events-auto visible opacity-100"
+          : "pointer-events-none invisible opacity-0"
       } `}
     >
       <div className="relative flex h-full w-full items-center justify-center p-4 md:px-12 md:py-8 lg:p-12">

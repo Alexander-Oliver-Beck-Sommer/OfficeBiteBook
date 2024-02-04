@@ -24,13 +24,14 @@ const HomeComponent = ({ userId = "", userEmail = "" }: HomeComponentProps) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentMenuData, setCurrentMenuData] = useState(null);
 
-  const handleMenuClick = (menuData) => {
-    setCurrentMenuData(menuData);
+  const handleMenuClick = (menu) => {
+    setCurrentMenuData(menu);
     setIsModalVisible(true);
-    if (menuData === currentMenuData) {
-      setIsModalVisible(false);
-      setCurrentMenuData(null);
-    }
+  };
+
+  const handleModalClose = () => {
+    setIsModalVisible(false);
+    setCurrentMenuData(null);
   };
 
   return (
@@ -119,8 +120,7 @@ const HomeComponent = ({ userId = "", userEmail = "" }: HomeComponentProps) => {
               )
             ) : (
               <li className="flex flex-1 flex-col items-center justify-center gap-2">
-                <h1>0</h1>
-                <h4 className="uppercase text-grey">menus found</h4>
+                <h3 className="uppercase text-grey">0 menus found</h3>
               </li>
             )}
           </ul>
@@ -129,7 +129,7 @@ const HomeComponent = ({ userId = "", userEmail = "" }: HomeComponentProps) => {
       <Modal
         isVisible={isModalVisible}
         menu={currentMenuData}
-        onClose={() => setIsModalVisible(false)}
+        onClose={handleModalClose}
       />
     </>
   );
