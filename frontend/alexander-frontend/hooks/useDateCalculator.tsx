@@ -9,12 +9,12 @@ const useDateCalculator = () => {
   // Usage:
   // getDayNameFromDate("2024-02-03") => "Sunday"
 
-  const formatDateToDDMMYYYY = useCallback((dateString: string): string => {
+  const formatDate = useCallback((dateString: string): string => {
     const [year, month, day] = dateString.split("-");
     return `${day}-${month}-${year}`;
   }, []);
   // Usage:
-  // formatDateToDDMMYYYY("2024-02-03") => "03-02-2024"
+  // formatDate("2024-02-03") => "03-02-2024"
 
   const getWeekNumberFromDate = useCallback((dateString: string): number => {
     const date = new Date(dateString);
@@ -60,7 +60,7 @@ const useDateCalculator = () => {
 
   return {
     getDayNameFromDate,
-    formatDateToDDMMYYYY,
+    formatDate,
     getWeekNumberFromDate,
     getCurrentWeekNumber,
   };

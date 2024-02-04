@@ -15,8 +15,22 @@ const useMenus = () => {
     return menus;
   };
 
+  const getDishesFromMenu = async (menuId: string) => {
+    const { data: dishes, error } = await supabase
+      .from("dishes")
+      .select("*")
+      .contains("menus_id", `["${menuId}"]`);
+
+    if (error) {
+      throw new Error("Error fetching dishes");
+    }
+
+    return dishes;
+  };
+
   return {
     getMenusFromGivenWeek,
+    getDishesFromMenu,
   };
 };
 

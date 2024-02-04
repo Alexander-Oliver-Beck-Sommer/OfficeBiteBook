@@ -4,8 +4,11 @@ const sizes = (size) => {
   switch (size) {
     case "normal":
       return { button: "h-20 w-20", icon: "h-10 w-10" };
-    case "small":
-      return { button: "h-12 w-12", icon: "h-6 w-6" };
+    case "responsive":
+      return {
+        button: "h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20",
+        icon: "h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10",
+      };
     default:
       return { button: "h-20 w-20", icon: "h-10 w-10" };
   }

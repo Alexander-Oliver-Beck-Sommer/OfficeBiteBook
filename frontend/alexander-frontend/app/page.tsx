@@ -1,7 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import MessageModal from "@/components/Modals/MessageModal/MessageModal";
-import HomeComponent from "@/components/Home/HomeComponent";
+import HomeComponent from "@/components/Home";
 
 export default async function Home() {
   const cookieStore = cookies();
