@@ -1,8 +1,8 @@
-import { useEffect } from "react";
 import HeaderBar from "@/components/Modals/MenuModal/HeaderBar/HeaderBar";
 import MenuSettings from "@/components/Modals/MenuModal/MenuSettings/MenuSettings";
 import Dish from "@/components/Modals/MenuModal/Dish/Dish";
 import FooterBar from "@/components/Modals/MenuModal/FooterBar/FooterBar";
+import useUtilities from "@/hooks/useUtilities";
 
 type MenuModalProps = {
   modalVisibility?: boolean;
@@ -49,21 +49,8 @@ const MenuModal = ({
   eraseDishesFromMenu = () => {},
   menuId = "",
 }: MenuModalProps) => {
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (modalVisibility) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "";
-      }
-    }
-
-    return () => {
-      if (typeof window !== "undefined") {
-        document.body.style.overflow = "";
-      }
-    };
-  }, [modalVisibility]);
+  const { disableBodyScroll } = useUtilities();
+  disableBodyScroll(modalVisibility);
 
   return (
     <section

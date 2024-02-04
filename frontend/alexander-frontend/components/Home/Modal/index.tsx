@@ -1,5 +1,6 @@
 import IconButton from "@/components/Buttons/IconButton";
-import { useEffect, useState } from "react";
+import useUtilities from "@/hooks/useUtilities";
+import { useState } from "react";
 import useDateCalculator from "@/hooks/useDateCalculator";
 import ImageButton from "@/components/Buttons/ImageButton";
 import Dish from "./Dish";
@@ -16,22 +17,8 @@ const Modal = ({ isVisible, menu, onClose }: ModalProps) => {
   const [openDishId, setOpenDishId] = useState<string | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const { formatDate } = useDateCalculator();
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (isVisible) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "";
-      }
-    }
-
-    return () => {
-      if (typeof window !== "undefined") {
-        document.body.style.overflow = "";
-      }
-    };
-  }, [isVisible]);
+  const { disableBodyScroll } = useUtilities();
+  disableBodyScroll(isVisible);
 
   const detailsExpand = () => {
     setIsDetailsOpen(!isDetailsOpen);

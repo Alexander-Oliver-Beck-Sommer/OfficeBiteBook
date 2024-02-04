@@ -14,7 +14,7 @@ export default async function Home() {
   } = await supabase.auth.getUser();
 
   if (user) {
-    return <HomeComponent userId={user?.id} userEmail={user?.email} />;
+    return <HomeComponent userId={user?.id} />;
   }
 
   return <MessageModal variant={401} />;

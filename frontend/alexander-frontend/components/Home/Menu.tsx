@@ -42,7 +42,9 @@ const Menu = ({
           <UnderlineButton
             toggle={modalToggle}
             icon="arrow-right"
+            label="More"
             direction="right"
+            className="text-sm"
           />
         </div>
       </div>

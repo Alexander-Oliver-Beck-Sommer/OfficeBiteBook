@@ -1,29 +1,16 @@
 "use client";
 import { Slant } from "hamburger-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import NavigationMenu from "./child-components/NavigationMenu";
 import HamburgerMenu from "@/components/Header/child-components/HamburgerMenu";
+import useUtilities from "@/hooks/useUtilities";
 
 const Header = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+  const { disableBodyScroll } = useUtilities();
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (isHamburgerOpen) {
-        document.body.style.overflow = "hidden";
-        window.scrollTo(0, 0);
-      } else {
-        document.body.style.overflow = "";
-      }
-    }
-
-    return () => {
-      if (typeof window !== "undefined") {
-        document.body.style.overflow = "";
-      }
-    };
-  }, [isHamburgerOpen]);
+  disableBodyScroll(isHamburgerOpen);
 
   const handleBurgerMenu = () => {
     setIsHamburgerOpen(!isHamburgerOpen);

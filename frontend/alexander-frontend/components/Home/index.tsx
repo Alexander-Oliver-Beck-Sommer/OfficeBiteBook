@@ -7,14 +7,12 @@ import Modal from "./Modal";
 
 type HomeComponentProps = {
   userId?: string;
-  userEmail?: string;
 };
 
-const HomeComponent = ({ userId = "", userEmail = "" }: HomeComponentProps) => {
+const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
   const {
     menus,
     organizedMenus,
-    loading,
     decreaseWeek,
     increaseWeek,
     resetWeek,
@@ -23,7 +21,7 @@ const HomeComponent = ({ userId = "", userEmail = "" }: HomeComponentProps) => {
     handleModalClose,
     modalStatus,
     modalData,
-  } = useHome(userId, userEmail);
+  } = useHome(userId);
 
   return (
     <>

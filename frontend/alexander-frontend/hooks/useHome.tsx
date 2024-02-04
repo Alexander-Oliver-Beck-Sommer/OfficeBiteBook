@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useDateCalculator from "./useDateCalculator";
 import useMenus from "./useMenus";
 
-const useHome = (userId: string, userEmail: string) => {
+const useHome = (userId: string) => {
   const { getDayNameFromDate, getCurrentWeekNumber, formatDate } =
     useDateCalculator();
   const { getMenusFromGivenWeek, getDishesFromMenu } = useMenus();
