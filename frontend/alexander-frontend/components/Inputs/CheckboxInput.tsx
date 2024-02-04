@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import CheckIcon from "../Icons/CheckIcon"; // Icon for "accepted"
-import CloseIcon from "../Icons/CloseIcon"; // Icon for "declined"
+import CheckIcon from "../Icons/CheckIcon";
+import CloseIcon from "../Icons/CloseIcon";
 import QuestionIcon from "../Icons/QuestionIcon";
 
 type CheckboxInputProps = {
@@ -33,15 +33,13 @@ const CheckboxInput = ({
     }
   };
 
-  // Adjust styling based on the state
   const checkboxStyles =
     state === "accepted"
       ? "border-primary fill-primary"
       : state === "declined"
         ? "border-red fill-red"
-        : "border-orange fill-orange";
+        : "border-dark-500 fill-grey";
 
-  // Adjust icons based on the state
   const checkboxIcons =
     state === "accepted" ? (
       <CheckIcon />
@@ -58,7 +56,7 @@ const CheckboxInput = ({
         aria-label={label}
         type="checkbox"
         checked={state !== "notResponded"}
-        readOnly // This input is now just for semantic purposes, actual state managed via div
+        readOnly
       />
       <label
         className={`absolute inset-0 flex cursor-pointer items-center justify-center rounded border-2 bg-dark-100 p-1 outline-primary transition-all duration-300 ease-in-out group-focus:outline ${checkboxStyles}`}

@@ -8,8 +8,10 @@ const useHome = (userId: string, userEmail: string) => {
   const { getMenusFromGivenWeek, getDishesFromMenu } = useMenus();
   const [menus, setMenus] = useState([]);
   const [organizedMenus, setOrganizedMenus] = useState({});
-  const [week, setWeek] = useState(1);
+  const [week, setWeek] = useState(0);
   const [weekNumber, setWeekNumber] = useState(0);
+  const [modalStatus, setModalStatus] = useState(false);
+  const [modalData, setModalData] = useState(null);
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -79,6 +81,16 @@ const useHome = (userId: string, userEmail: string) => {
     setWeek(1);
   };
 
+  const handleModalOpen = (menu) => {
+    setModalData(menu);
+    setModalStatus(true);
+  };
+
+  const handleModalClose = () => {
+    setModalData(null);
+    setModalStatus(false);
+  };
+
   return {
     getCurrentWeekNumber,
     weekNumber,
@@ -87,6 +99,10 @@ const useHome = (userId: string, userEmail: string) => {
     decreaseWeek,
     increaseWeek,
     resetWeek,
+    handleModalOpen,
+    handleModalClose,
+    modalStatus,
+    modalData,
   };
 };
 
