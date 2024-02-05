@@ -17,6 +17,8 @@ const variants = (variant: string) => {
       return <CalendarIcon />;
     case "time":
       return <TimeIcon />;
+    case "location":
+      return <LocationIcon />;
     case "tel":
       return <PhoneIcon />;
     case "email":

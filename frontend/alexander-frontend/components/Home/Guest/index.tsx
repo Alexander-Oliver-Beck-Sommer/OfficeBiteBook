@@ -1,3 +1,7 @@
+import IconButton from "@/components/Buttons/IconButton";
+import LocationIcon from "@/components/Icons/LocationIcon";
+import InputField from "@/components/InputField";
+
 type GuestProps = {
   isVisible?: boolean;
   toggle: () => void;
@@ -19,14 +23,22 @@ const Guest = ({ isVisible = false, toggle = () => {} }: GuestProps) => {
           onClick={toggle}
         ></div>
         <section
-          className={`pattern relative z-50 grid h-full w-full max-w-screen-xl grid-cols-autoX1 overflow-y-auto rounded border-2 border-dark-500 ${
+          className={`pattern relative z-50 flex h-full w-full max-w-screen-md flex-col overflow-y-auto rounded border-2 border-dark-500 ${
             isVisible
               ? "animate-fade-up animate-ease-in-out"
               : "invisible opacity-0"
           } `}
         >
-          <div className="border border-orange p-12"></div>
-          <div className="border"></div>
+          <header className="flex items-center justify-between bg-dark-300 p-4">
+            <h3>Guestlist</h3>
+            <IconButton icon="close" onClick={toggle} />
+          </header>
+          <div className="flex-1 px-4"></div>
+          <form className="flex flex-col gap-4 bg-dark-300 p-4">
+            <div className="grid grid-cols-1Xauto">
+              <input className="" />
+            </div>
+          </form>
         </section>
       </div>
     </section>
