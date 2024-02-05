@@ -14,6 +14,7 @@ const useHome = (userId: string) => {
   const [weekNumber, setWeekNumber] = useState(0);
   const [modalStatus, setModalStatus] = useState(false);
   const [modalData, setModalData] = useState(null);
+  const [guestOpen, setGuestOpen] = useState(false);
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -100,6 +101,10 @@ const useHome = (userId: string) => {
     setModalStatus(false);
   };
 
+  const handleGuest = () => {
+    setGuestOpen(!guestOpen);
+  };
+
   const checkAllMenus = async () => {
     console.log("Tired");
   };
@@ -166,6 +171,8 @@ const useHome = (userId: string) => {
     modalData,
     checkAllMenus,
     checkMenu,
+    handleGuest,
+    guestOpen,
   };
 };
 

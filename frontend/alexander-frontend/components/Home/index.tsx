@@ -5,6 +5,7 @@ import Header from "./Header";
 import Menu from "./Menu";
 import Modal from "./Modal";
 import IconButton from "../Buttons/IconButton";
+import Guest from "./Guest";
 
 type HomeComponentProps = {
   userId?: string;
@@ -24,6 +25,8 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
     modalData,
     checkAllMenus,
     checkMenu,
+    handleGuest,
+    guestOpen,
   } = useHome(userId);
 
   return (
@@ -43,7 +46,7 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
               label="Add guests"
               icon="user-add"
               title="Add guests"
-              toggle={() => {}}
+              toggle={handleGuest}
             />
           </div>
         </section>
@@ -90,6 +93,7 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
         menu={modalData}
         onClose={handleModalClose}
       />
+      <Guest isVisible={guestOpen} toggle={handleGuest} />
     </>
   );
 };
