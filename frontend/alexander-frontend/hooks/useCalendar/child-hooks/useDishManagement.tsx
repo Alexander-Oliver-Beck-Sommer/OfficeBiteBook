@@ -15,6 +15,7 @@ const useDishManagement = (
       dish_subtitle: "",
       dish_description: "",
       dish_thumbnail_url: "",
+      dish_recipe: "",
     };
 
     setDishes((prevDishes) => [...prevDishes, newDish]);

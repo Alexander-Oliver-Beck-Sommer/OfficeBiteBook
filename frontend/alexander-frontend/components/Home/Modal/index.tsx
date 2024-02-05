@@ -72,6 +72,7 @@ const Modal = ({ isVisible, menu, onClose }: ModalProps) => {
                   title={dish.dish_title}
                   subtitle={dish.dish_subtitle}
                   description={dish.dish_description}
+                  recipe={dish.dish_recipe}
                   thumbnailUrl={dish.dish_thumbnail_url}
                   accordionOpen={openDishId === dish.dish_id}
                   accordionToggle={() => toggleDish(dish.dish_id)}

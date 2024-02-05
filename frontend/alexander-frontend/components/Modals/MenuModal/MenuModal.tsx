@@ -134,6 +134,12 @@ const MenuModal = ({
                       })
                     }
                     removeDishFromMenu={() => removeDishFromMenu(dish.dish_id)}
+                    recipe={dish.dish_recipe}
+                    setRecipe={(newRecipe) =>
+                      modifyExistingDish(dish.dish_id, {
+                        dish_recipe: newRecipe,
+                      })
+                    }
                   />
                 ))}
               </ul>

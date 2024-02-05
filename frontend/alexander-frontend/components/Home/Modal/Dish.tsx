@@ -7,6 +7,7 @@ type DishProps = {
   title?: string;
   subtitle?: string;
   description?: string;
+  recipe?: string;
   thumbnailUrl?: string;
   thumbnailToggle?: () => void;
   accordionOpen: boolean;
@@ -18,6 +19,7 @@ const Dish = ({
   title = "",
   subtitle = "",
   description = "",
+  recipe = "",
   thumbnailUrl = "",
   thumbnailToggle = () => {},
   accordionOpen,
@@ -26,7 +28,7 @@ const Dish = ({
   return (
     <li
       className="
-          border-dark-500 lg:rounded lg:border-2"
+          border-dark-500 lg:rounded lg:border-2 lg:bg-dark-200"
     >
       <div className="grid grid-cols-auto1Xauto items-center gap-4 border-b-2 border-dark-500 pb-4 lg:grid-cols-autoX1 lg:items-end lg:border-0 lg:bg-dark-100 lg:p-4">
         <ImageButton
@@ -57,7 +59,7 @@ const Dish = ({
             : "invisible grid-rows-[0fr] opacity-0 lg:visible lg:grid-rows-[1fr] lg:opacity-100"
         }`}
       >
-        <div className="overflow-hidden bg-dark-100 lg:bg-dark-200">
+        <div className="overflow-hidden ">
           <ul className="flex flex-col gap-4 pt-4 lg:gap-4 lg:p-4 lg:py-4">
             {/* We basically don't want to render any of the list items if there isn't any data to show */}
             {title && (
@@ -73,9 +75,22 @@ const Dish = ({
               </li>
             )}
             {description && (
-              <li>
+              <li className="border-b-2 border-dark-300 pb-4">
                 <p className="mb-1 text-sm font-medium">Description</p>
                 <p className="text-sm text-grey">{description}</p>
+              </li>
+            )}
+            {recipe && (
+              <li>
+                <p className="mb-1 text-sm font-medium">Recipe</p>
+                <a
+                  href={recipe}
+                  target="_blank"
+                  aria-label="Open link"
+                  className="text-sm text-grey underline underline-offset-4 transition-all duration-300 ease-in-out hover:text-white"
+                >
+                  {recipe}
+                </a>
               </li>
             )}
           </ul>

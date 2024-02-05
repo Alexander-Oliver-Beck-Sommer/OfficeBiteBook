@@ -20,6 +20,8 @@ type DishProps = {
   url?: string;
   setUrl?: (newUrl: string) => void;
   removeDishFromMenu?: () => void;
+  recipe?: string;
+  setRecipe?: (newRecipe: string) => void;
   menuId?: string;
 };
 
@@ -38,6 +40,8 @@ const Dish = ({
   url = "",
   setUrl = () => {},
   removeDishFromMenu = () => {},
+  recipe = "",
+  setRecipe = () => {},
   menuId = "",
 }: DishProps) => {
   const [titleInput, setTitleInput] = useState(title);
@@ -46,6 +50,7 @@ const Dish = ({
   const [thumbnailName, setThumbnailName] = useState<string>(name);
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(file);
   const [thumbnailUrl, setThumbnailUrl] = useState<string>(url);
+  const [recipeInput, setRecipeInput] = useState(recipe);
   const [isDishOpen, setIsDishOpen] = useState(false);
 
   const dishAccordion = isDishOpen
@@ -72,8 +77,17 @@ const Dish = ({
 
   const handleDescriptionChange = (newDescription: string) => {
     setDescriptionInput(newDescription);
+    console.log(newDescription);
     if (setDescription) {
       setDescription(newDescription);
+    }
+  };
+
+  const handleRecipeChange = (newRecipe: string) => {
+    setRecipeInput(newRecipe);
+    console.log(newRecipe);
+    if (setRecipe) {
+      setRecipe(newRecipe);
     }
   };
 
@@ -132,7 +146,8 @@ const Dish = ({
     setTitleInput(title);
     setSubtitleInput(subtitle);
     setDescriptionInput(description);
-  }, [title, subtitle, description]);
+    setRecipeInput(recipe);
+  }, [title, subtitle, description, recipe]);
 
   // I swear to god, if someone touches this useEffect, i will smash their both femurs with a sledgehammer
   // Why does it work? I don't know. I don't care. It works.
@@ -244,6 +259,16 @@ const Dish = ({
                 thumbnailURL={thumbnailUrl}
                 changeThumbnail={changeThumbnail}
                 removeThumbnail={removeThumbnail}
+              />
+            </li>
+            <li className="col-span-2">
+              <TextInput
+                variant="link"
+                label="Click to change the recipe of the dish"
+                name="Recipe"
+                placeholder="Recipe"
+                valueChange={handleRecipeChange}
+                value={recipeInput}
               />
             </li>
           </ul>

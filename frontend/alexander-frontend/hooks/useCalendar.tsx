@@ -31,6 +31,7 @@ type Dish = {
   dish_thumbnail_value: string;
   dish_thumbnail_file?: File;
   dish_thumbnail_url?: string;
+  dish_recipe: string;
   dish_saved: boolean;
 };
 
@@ -351,7 +352,8 @@ const useCalendar = (user, weekNumber) => {
             (dish.dish_title !== originalDish.dish_title ||
               dish.dish_subtitle !== originalDish.dish_subtitle ||
               dish.dish_description !== originalDish.dish_description ||
-              dish.dish_thumbnail_value !== originalDish.dish_thumbnail_value)
+              dish.dish_thumbnail_value !== originalDish.dish_thumbnail_value ||
+              dish.dish_recipe !== originalDish.dish_recipe)
           );
         });
 
@@ -431,6 +433,7 @@ const useCalendar = (user, weekNumber) => {
                 dish_subtitle: dish.dish_subtitle,
                 dish_description: dish.dish_description,
                 dish_thumbnail_value: dish.dish_thumbnail_value,
+                dish_recipe: dish.dish_recipe,
                 dish_saved: true,
               }));
 
@@ -553,6 +556,7 @@ const useCalendar = (user, weekNumber) => {
       dish_thumbnail_value: "",
       dish_thumbnail_file: null,
       dish_thumbnail_url: "",
+      dish_recipe: "",
       dish_saved: false,
     };
     setDishes([...dishes, newDish]);

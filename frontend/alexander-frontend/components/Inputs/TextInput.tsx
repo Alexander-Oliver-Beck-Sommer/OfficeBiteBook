@@ -7,6 +7,7 @@ import TextIcon from "@/components/Icons/TextIcon";
 import PhoneIcon from "../Icons/PhoneIcon";
 import EmailIcon from "@/components/Icons/EmailIcon";
 import KeyIcon from "@/components/Icons/KeyIcon";
+import LinkIcon from "../Icons/LinkIcon";
 
 const variants = (variant: string) => {
   switch (variant) {
@@ -22,6 +23,8 @@ const variants = (variant: string) => {
       return <EmailIcon />;
     case "password":
       return <KeyIcon />;
+    case "link":
+      return <LinkIcon />;
     default:
       return null;
   }

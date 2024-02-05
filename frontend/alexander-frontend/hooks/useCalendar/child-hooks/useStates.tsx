@@ -21,6 +21,7 @@ type Dish = {
   dish_thumbnail_name?: string; // text
   dish_thumbnail_file?: string; // text
   dish_thumbnail_url?: string; // text
+  dish_recipe?: string; // text
 };
 
 const useStates = () => {
