@@ -103,7 +103,8 @@ const Week = ({
                       key={`cardButton-${cardButton.menu_id}`}
                       title={cardButton.menu_title}
                       location={cardButton.menu_location}
-                      dishesAmount={cardButton.menu_dishes_amount}
+                      acceptedParticipants={cardButton.menu_accepted?.length}
+                      declinedParticipants={cardButton.menu_declined?.length}
                       toggle={() => prepareMenuForEditing(cardButton)}
                       className={{
                         top: `${calculateCardButtonPosition(

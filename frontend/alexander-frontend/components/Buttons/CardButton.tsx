@@ -1,11 +1,9 @@
-import BowlIcon from "@/components/Icons/BowlIcon";
-import RestaurantIcon from "../Icons/RestaurantIcon";
-
 type CardButtonProps = {
   title?: string;
   location?: string;
   className?: string;
-  dishesAmount?: number;
+  acceptedParticipants?: number;
+  declinedParticipants?: number;
   toggle?: () => void;
 };
 
@@ -13,7 +11,8 @@ const CardButton = ({
   title = "",
   location = "",
   className = "",
-  dishesAmount,
+  acceptedParticipants = 0,
+  declinedParticipants = 0,
   toggle = () => {},
 }: CardButtonProps) => {
   return (
@@ -23,16 +22,24 @@ const CardButton = ({
       aria-label={`Click to open the menu for ${title}`}
       onClick={toggle}
     >
-      <section className="flex h-full w-full flex-col items-start justify-between overflow-auto rounded border-l-4 border-l-primary bg-dark-100 px-2 py-3 transition-all duration-300 ease-in-out group-hover:bg-dark-300">
-        <h5>{title}</h5>
-        <div className="flex w-full items-center justify-between">
-          <h6 className="text-grey">{location}</h6>
-          {dishesAmount !== 0 && (
-            <div className="flex items-center gap-1">
-              <h6>{dishesAmount}</h6>
-              <RestaurantIcon className="h-5 w-5 fill-primary" />
-            </div>
-          )}
+      <section className="grid h-full w-full grid-cols-1Xauto gap-4 overflow-auto rounded border-l-4 border-l-primary bg-dark-100 px-2 py-3 transition-all duration-300 ease-in-out group-hover:bg-dark-300">
+        <div className="flex flex-col items-start justify-between overflow-hidden">
+          <h5 className="truncate">{title}</h5>
+          <h6 className="truncate text-grey">{location}</h6>
+        </div>
+        <div className="flex flex-col justify-between">
+          <div className="grid grid-cols-2 items-center gap-2">
+            <h6>{acceptedParticipants}</h6>
+            <span className="h-2.5 w-2.5 rounded-full bg-primary"></span>
+          </div>
+          <div className="grid grid-cols-2 items-center gap-2">
+            <h6>0</h6>
+            <span className="h-2.5 w-2.5 rounded-full bg-orange"></span>
+          </div>
+          <div className="grid grid-cols-2 items-center gap-2">
+            <h6>{declinedParticipants}</h6>
+            <span className="h-2.5 w-2.5 rounded-full bg-red"></span>
+          </div>
         </div>
       </section>
     </button>

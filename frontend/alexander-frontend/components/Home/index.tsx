@@ -4,6 +4,7 @@ import CheckboxInput from "../Inputs/CheckboxInput";
 import Header from "./Header";
 import Menu from "./Menu";
 import Modal from "./Modal";
+import IconButton from "../Buttons/IconButton";
 
 type HomeComponentProps = {
   userId?: string;
@@ -37,6 +38,13 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
         <section className="flex w-full justify-center px-4 pt-6 md:px-12">
           <div className="flex w-full max-w-screen-xl gap-4">
             <CheckboxInput onChange={checkAllMenus} />
+            <IconButton
+              size="small"
+              label="Add guests"
+              icon="user-add"
+              title="Add guests"
+              toggle={() => {}}
+            />
           </div>
         </section>
         <section className="flex flex-1 justify-center px-4 pb-12 md:px-12 ">
