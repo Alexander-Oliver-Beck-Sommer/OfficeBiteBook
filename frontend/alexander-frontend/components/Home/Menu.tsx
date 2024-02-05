@@ -1,4 +1,4 @@
-import CheckboxInput from "../Inputs/CheckboxInput";
+import CheckboxThree from "../CheckboxThree";
 import UnderlineButton from "../Buttons/UnderlineButton";
 
 type MenuProps = {
@@ -20,12 +20,12 @@ const Menu = ({
   dishesAmount = 0,
   modalToggle = () => {},
   checkboxToggle = () => {},
-  checkboxState = false,
+  checkboxState = null,
 }: MenuProps) => {
   return (
     <li className="group/menu flex items-center gap-4">
-      <CheckboxInput
-        initialState={checkboxState}
+      <CheckboxThree
+        initialValue={checkboxState}
         onChange={checkboxToggle}
         label={checkboxState ? "Accepted" : "Declined"}
       />

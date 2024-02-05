@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import useDateCalculator from "./useDateCalculator";
 import useMenus from "./useMenus";
+import { supabase } from "@/components/Supabase/supabaseClient";
 
 const useHome = (userId: string) => {
   const { getDayNameFromDate, getCurrentWeekNumber, formatDate } =
     useDateCalculator();
   const { getMenusFromGivenWeek, getDishesFromMenu } = useMenus();
+  const [checkedMenus, setCheckedMenus] = useState([]);
   const [menus, setMenus] = useState([]);
   const [organizedMenus, setOrganizedMenus] = useState({});
   const [week, setWeek] = useState(0);
@@ -21,13 +23,20 @@ const useHome = (userId: string) => {
       setMenus(retrievedMenus);
 
       if (retrievedMenus.length > 0) {
-        const menusWithDishes = await Promise.all(
+        const menusWithDishesAndChecked = await Promise.all(
           retrievedMenus.map(async (menu) => {
             const dishes = await getDishesFromMenu(menu.menu_id);
-            return { ...menu, dishes };
+            const menu_declined = menu.menu_declined || [];
+            const menu_accepted = menu.menu_accepted || [];
+            const menu_checked = menu_accepted.includes(userId)
+              ? true
+              : menu_declined.includes(userId)
+                ? false
+                : null;
+            return { ...menu, dishes, menu_checked };
           }),
         );
-        setMenus(menusWithDishes);
+        setMenus(menusWithDishesAndChecked);
       }
     };
 
@@ -91,6 +100,58 @@ const useHome = (userId: string) => {
     setModalStatus(false);
   };
 
+  const checkAllMenus = async () => {
+    console.log("Tired");
+  };
+
+  const checkMenu = async (menuId, checked) => {
+    const updatedMenus = menus.map((menu) => {
+      if (menu.menu_id === menuId) {
+        return { ...menu, menu_checked: checked };
+      }
+      return menu;
+    });
+
+    let { data: menuData, error: menuError } = await supabase
+      .from("menus")
+      .select("menu_accepted, menu_declined")
+      .eq("menu_id", menuId)
+      .single();
+
+    if (menuError) {
+      console.error("Error fetching menu:", menuError);
+      return;
+    }
+
+    let menu_accepted = menuData.menu_accepted || [];
+    let menu_declined = menuData.menu_declined || [];
+
+    if (checked) {
+      if (!menu_accepted.includes(userId)) {
+        menu_accepted.push(userId);
+      }
+      menu_declined = menu_declined.filter((id) => id !== userId);
+    } else {
+      if (!menu_declined.includes(userId)) {
+        menu_declined.push(userId);
+      }
+      menu_accepted = menu_accepted.filter((id) => id !== userId);
+    }
+
+    const { data: updateData, error: updateError } = await supabase
+      .from("menus")
+      .update({
+        menu_accepted: menu_accepted,
+        menu_declined: menu_declined,
+      })
+      .eq("menu_id", menuId);
+
+    if (updateError) {
+      console.error("Error updating menu:", updateError);
+      return;
+    }
+  };
+
   return {
     getCurrentWeekNumber,
     weekNumber,
@@ -103,6 +164,8 @@ const useHome = (userId: string) => {
     handleModalClose,
     modalStatus,
     modalData,
+    checkAllMenus,
+    checkMenu,
   };
 };
 

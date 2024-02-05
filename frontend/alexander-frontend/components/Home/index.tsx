@@ -21,6 +21,8 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
     handleModalClose,
     modalStatus,
     modalData,
+    checkAllMenus,
+    checkMenu,
   } = useHome(userId);
 
   return (
@@ -34,7 +36,7 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
         />
         <section className="flex w-full justify-center px-4 pt-6 md:px-12">
           <div className="flex w-full max-w-screen-xl gap-4">
-            <CheckboxInput />
+            <CheckboxInput onChange={checkAllMenus} />
           </div>
         </section>
         <section className="flex flex-1 justify-center px-4 pb-12 md:px-12 ">
@@ -57,6 +59,10 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
                             endTime={menu.menu_end_time}
                             dishesAmount={menu.menu_dishes_amount}
                             modalToggle={() => handleModalOpen(menu)}
+                            checkboxState={menu.menu_checked}
+                            checkboxToggle={() =>
+                              checkMenu(menu.menu_id, !menu.menu_checked)
+                            }
                           />
                         ))}
                       </ul>
