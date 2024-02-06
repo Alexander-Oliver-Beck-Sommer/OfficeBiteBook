@@ -32,9 +32,6 @@ const DayCell = ({
         <button onClick={dayCellLock}>
           <LockIcon />
         </button>
-        <button onClick={dayCellSettings}>
-          <SettingsIcon />
-        </button>
       </div>
     </section>
   );

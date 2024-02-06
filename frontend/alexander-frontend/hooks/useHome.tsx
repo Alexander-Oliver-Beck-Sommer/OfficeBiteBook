@@ -10,7 +10,7 @@ const useHome = (userId: string) => {
   const [checkedMenus, setCheckedMenus] = useState([]);
   const [menus, setMenus] = useState([]);
   const [organizedMenus, setOrganizedMenus] = useState({});
-  const [week, setWeek] = useState(0);
+  const [week, setWeek] = useState(1);
   const [weekNumber, setWeekNumber] = useState(0);
   const [modalStatus, setModalStatus] = useState(false);
   const [modalData, setModalData] = useState(null);

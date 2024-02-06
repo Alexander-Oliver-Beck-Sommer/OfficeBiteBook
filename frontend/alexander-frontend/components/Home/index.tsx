@@ -93,7 +93,12 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
         menu={modalData}
         onClose={handleModalClose}
       />
-      <Guest isVisible={guestOpen} toggle={handleGuest} />
+      <Guest
+        isVisible={guestOpen}
+        toggle={handleGuest}
+        weekNumber={weekNumber}
+        userId={userId}
+      />
     </>
   );
 };
