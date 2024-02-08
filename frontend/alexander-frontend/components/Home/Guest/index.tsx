@@ -18,8 +18,8 @@ const Guest = ({
   userId = "",
   weekNumber = 0,
 }: GuestProps) => {
-  const { addGuest, getGuestsFromWeek } = useGuests();
-  const { formatDate } = useDateCalculator();
+  const { addGuest, getGuestsFromWeek, deleteGuest } = useGuests();
+  const { currentDate, formatDate } = useDateCalculator();
   const [guests, setGuests] = useState([]);
   const [guestOpen, setGuestOpen] = useState(false);
   const [openAccordionId, setOpenAccordionId] = useState(null);
@@ -31,6 +31,12 @@ const Guest = ({
     } else {
       setOpenAccordionId(id);
     }
+  };
+
+  const handleDeleteGuest = (userId: string, guestId: string) => {
+    deleteGuest(guestId, userId);
+    const newGuests = guests.filter((guest) => guest.guest_id !== guestId);
+    setGuests(newGuests);
   };
 
   useEffect(() => {
@@ -57,6 +63,8 @@ const Guest = ({
       !endDate
     ) {
       console.log("(ㆆ_ㆆ) fill the damn form.");
+      form.target.guestName.value = "";
+      form.target.guestDepartment.value = "";
     } else {
       console.log("(•_•) Nice, you filled the form.");
       addGuest(userId, name, department, weekNumber, startDate, endDate);
@@ -100,18 +108,18 @@ const Guest = ({
           onClick={toggle}
         ></div>
         <section
-          className={`pattern relative z-50 flex h-full w-full max-w-screen-xl flex-col overflow-y-auto rounded border-2 border-dark-500 ${
+          className={`pattern relative z-50 flex h-full w-full max-w-screen-md flex-col overflow-y-auto rounded border-2 border-dark-500 ${
             isVisible
               ? "animate-fade-up animate-ease-in-out"
               : "invisible opacity-0"
           } `}
         >
-          <header className="relative z-50 flex items-center justify-between bg-dark-300 p-4">
+          <header className="relative z-50 flex items-center justify-between bg-dark-300 p-4 md:px-8">
             <h3>Guestlist</h3>
             <IconButton icon="close" toggle={toggle} />
           </header>
           <ul
-            className={`scrollbar-gutter flex h-full flex-1 flex-col gap-6 overflow-y-auto px-4 pb-24 pt-6`}
+            className={`scrollbar-gutter flex h-full flex-1 flex-col gap-6 overflow-y-auto px-4 pb-24 pt-6 md:px-8`}
           >
             {guests.length > 0 ? (
               guests.map((guest, index) => (
@@ -120,7 +128,9 @@ const Guest = ({
                     count={index + 1}
                     variant="guest"
                     text={guest.name}
-                    deleteToggle={() => console.log("delete")}
+                    deleteToggle={() =>
+                      handleDeleteGuest(userId, guest.guest_id)
+                    }
                     deleteDisabled={userId === guest.user_id ? false : true}
                     id={guest.guest_id}
                     accordionState={openAccordionId === guest.guest_id}
@@ -130,12 +140,14 @@ const Guest = ({
                   >
                     <ul className="flex flex-col gap-3 p-3">
                       <li>
-                        <p className="mb-1 text-sm">Department</p>
-                        <p className="text-sm text-grey">{guest.department}</p>
+                        <p className="mb-1 text-sm md:text-base">Department</p>
+                        <p className="text-sm text-grey md:text-base">
+                          {guest.department}
+                        </p>
                       </li>
                       <li>
-                        <p className="mb-1 text-sm">Duration</p>
-                        <p className="text-sm text-grey">
+                        <p className="mb-1 text-sm md:text-base">Duration</p>
+                        <p className="text-sm text-grey md:text-base">
                           {formatDate(guest.start_date)}
                           {" - "}
                           {formatDate(guest.end_date)}
@@ -162,7 +174,7 @@ const Guest = ({
               id="add-guest-accordion"
             >
               <form onSubmit={submitForm}>
-                <div className="flex flex-col gap-6 px-4 py-6">
+                <div className="flex grid-cols-2 flex-col gap-6 px-4 py-6 md:grid md:px-8">
                   <div className="flex flex-col gap-2">
                     <label htmlFor="guestName" className="text-grey">
                       <p>Name</p>
@@ -203,6 +215,7 @@ const Guest = ({
                         aria-label="Enter for how long the guest will stay"
                         id="guestStartDate"
                         type="date"
+                        defaultValue={currentDate}
                         className="rounded border-2 border-dark-500 bg-dark-100 p-3 outline-none placeholder:opacity-100 placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus:placeholder:opacity-0"
                       />
                     </div>
@@ -219,6 +232,7 @@ const Guest = ({
                         aria-label="Enter for how long the guest will stay"
                         id="guestEndDate"
                         type="date"
+                        defaultValue={currentDate}
                         className="rounded border-2 border-dark-500 bg-dark-100 p-3 outline-none placeholder:opacity-100 placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus:placeholder:opacity-0"
                       />
                     </div>
@@ -226,7 +240,7 @@ const Guest = ({
                   <button
                     type="submit"
                     value="Submit"
-                    className="flex items-center justify-center gap-2 rounded border-2 border-dark-500 bg-dark-100 fill-white p-3 transition-all duration-300 ease-in-out hover:bg-dark-500 focus-visible:bg-dark-500"
+                    className="col-start-2 flex items-center justify-center gap-2 rounded border-2 border-dark-500 bg-dark-100 fill-white p-3 transition-all duration-300 ease-in-out hover:bg-dark-500 focus-visible:bg-dark-500"
                   >
                     <h4>Add Guest</h4>
                     <UserAddIcon className="h-5 w-5" />

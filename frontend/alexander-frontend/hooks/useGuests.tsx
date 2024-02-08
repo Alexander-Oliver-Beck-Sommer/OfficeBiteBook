@@ -33,7 +33,16 @@ const useGuests = () => {
     return data;
   };
 
-  const deleteGuest = async (guestId: string, userId: string) => {};
+  const deleteGuest = async (guestId: string, userId: string) => {
+    const { error } = await supabase
+      .from("guests")
+      .delete()
+      .eq("guest_id", guestId)
+      .eq("user_id", userId);
+    if (error) {
+      console.log("Error deleting guest", error);
+    }
+  };
 
   return {
     addGuest,

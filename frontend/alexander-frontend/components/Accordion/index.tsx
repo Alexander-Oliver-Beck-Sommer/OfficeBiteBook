@@ -49,8 +49,9 @@ const variants = (variant: string): VariantConfig => {
       return {
         container: "",
         icon_sizes: "small",
-        control_bar: "bg-dark-300 p-4 items-center flex justify-between",
-        text: "",
+        control_bar:
+          "bg-dark-300 p-4 items-center flex justify-between md:px-8",
+        text: "font-medium",
         content_panel: "bg-dark-200",
         show_count: false,
         show_delete: false,

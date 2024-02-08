@@ -1,6 +1,8 @@
 import { useCallback } from "react";
 
 const useDateCalculator = () => {
+  const currentDate = new Date().toISOString().split("T")[0];
+
   const getDayNameFromDate = useCallback((dateString: string): string => {
     const date = new Date(dateString);
     const dayName = date.toLocaleDateString("en-US", { weekday: "long" });
@@ -58,6 +60,7 @@ const useDateCalculator = () => {
   // Right now the date is 2024-02-03, so getCurrentWeekNumber() => 5
 
   return {
+    currentDate,
     getDayNameFromDate,
     formatDate,
     getWeekNumberFromDate,
