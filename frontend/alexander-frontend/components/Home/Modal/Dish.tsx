@@ -1,6 +1,6 @@
 import UnderlineButton from "../../Buttons/UnderlineButton";
 import ImageButton from "../../Buttons/ImageButton";
-import IconButton from "../../Buttons/IconButton";
+import IconButton from "../../IconButton";
 
 type DishProps = {
   count?: number;

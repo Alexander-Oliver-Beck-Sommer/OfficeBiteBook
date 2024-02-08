@@ -4,7 +4,7 @@ import CheckboxInput from "../Inputs/CheckboxInput";
 import Header from "./Header";
 import Menu from "./Menu";
 import Modal from "./Modal";
-import IconButton from "../Buttons/IconButton";
+import IconButton from "../IconButton";
 import Guest from "./Guest";
 
 type HomeComponentProps = {

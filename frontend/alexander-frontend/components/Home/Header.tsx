@@ -1,4 +1,4 @@
-import IconButton from "../Buttons/IconButton";
+import IconButton from "../IconButton";
 
 type HeaderProps = {
   weekNumber?: number;

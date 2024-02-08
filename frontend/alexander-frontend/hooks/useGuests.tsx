@@ -7,6 +7,8 @@ const useGuests = () => {
     name: string,
     department: string,
     weekNumber: number,
+    startDate: string,
+    endDate: string,
   ) => {
     const { error } = await supabase.from("guests").insert([
       {
@@ -14,6 +16,8 @@ const useGuests = () => {
         name: name,
         department: department,
         week_number: weekNumber,
+        start_date: startDate,
+        end_date: endDate,
       },
     ]);
     if (error) {
@@ -29,9 +33,12 @@ const useGuests = () => {
     return data;
   };
 
+  const deleteGuest = async (guestId: string, userId: string) => {};
+
   return {
     addGuest,
     getGuestsFromWeek,
+    deleteGuest,
   };
 };
 

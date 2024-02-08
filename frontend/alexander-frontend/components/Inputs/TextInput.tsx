@@ -125,17 +125,6 @@ const TextInput = ({
           required={required}
           {...(disabled ? { disabled: true } : {})}
         />
-        <button
-          tabIndex={-1}
-          aria-label={label}
-          onBlur={textInputBlur}
-          onFocus={textInputFocus}
-          onClick={textInputIconClick}
-          className={`absolute inset-y-0 right-0 flex w-16 cursor-auto items-center justify-center bg-dark-100 ${invalidIcon} ${buttonDisabled}`}
-          {...(disabled ? { disabled: true } : {})}
-        >
-          {textInputIcon}
-        </button>
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import IconButton from "@/components/Buttons/IconButton";
+import IconButton from "@/components/IconButton";
 
 type HeaderProps = {
   title?: string;
