@@ -50,7 +50,7 @@ const variants = (variant: string): VariantConfig => {
         container: "",
         icon_sizes: "small",
         control_bar:
-          "bg-dark-300 p-4 items-center flex justify-between md:px-8",
+          "bg-dark-300 p-5 items-center flex justify-between md:px-10",
         text: "font-medium",
         content_panel: "bg-dark-200",
         show_count: false,

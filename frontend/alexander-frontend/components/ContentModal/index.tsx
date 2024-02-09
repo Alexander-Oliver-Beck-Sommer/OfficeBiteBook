@@ -75,7 +75,7 @@ const ContentModal: React.FC<ContentModalProps> = ({
           onClick={toggle}
         ></div>
         <div
-          className={`pattern relative z-50 flex h-full w-full flex-col overflow-hidden rounded border-2 border-dark-500 ${size} ${containerStyles}`}
+          className={`pattern relative z-50 flex h-full w-full flex-col overflow-auto rounded border-2 border-dark-500 ${size} ${containerStyles}`}
         >
           <header className="relative z-50 grid grid-cols-1Xauto items-center gap-5 bg-dark-300 p-5 md:px-10">
             <h3 className="truncate font-semibold">{title}</h3>
@@ -130,6 +130,7 @@ const ContentModal: React.FC<ContentModalProps> = ({
               </li>
             </ul>
           </header>
+          {children}
         </div>
       </div>
     </section>
