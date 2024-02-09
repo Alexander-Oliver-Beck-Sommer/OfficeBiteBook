@@ -4,6 +4,9 @@ import ResetIcon from "../Icons/ResetIcon";
 import UserAddIcon from "../Icons/UserAddIcon";
 import CloseIcon from "../Icons/CloseIcon";
 import DeleteIcon from "../Icons/DeleteIcon";
+import EraseIcon from "../Icons/EraseIcon";
+import ArchiveIcon from "../Icons/ArchiveIcon";
+import AddIcon from "../Icons/AddIcon";
 
 type Size = "normal" | "small";
 type Color = "primary" | "red" | "orange";
@@ -15,7 +18,10 @@ type Icon =
   | "reset"
   | "user-add"
   | "close"
-  | "delete";
+  | "delete"
+  | "erase"
+  | "archive"
+  | "add";
 type Variant = "filled" | "icon";
 
 interface IconButtonProps {
@@ -47,6 +53,11 @@ const sizes = (size: Size = "normal"): { button: string; icon: string } => {
       return { button: "h-10 w-10", icon: "h-5 w-5" };
     case "small":
       return { button: "h-8 w-8", icon: "h-4 w-4" };
+    case "responsive":
+      return {
+        button: "h-8 w-8 lg:h-10 lg:w-10",
+        icon: "h-4 w-4 lg:h-5 lg:w-5",
+      };
     default:
       return { button: "", icon: "" };
   }
@@ -81,6 +92,12 @@ const icons = (icon: Icon, size: Size): JSX.Element | null => {
       return <CloseIcon className={sizeClasses.icon} />;
     case "delete":
       return <DeleteIcon className={sizeClasses.icon} />;
+    case "erase":
+      return <EraseIcon className={sizeClasses.icon} />;
+    case "archive":
+      return <ArchiveIcon className={sizeClasses.icon} />;
+    case "add":
+      return <AddIcon className={sizeClasses.icon} />;
     default:
       return null;
   }

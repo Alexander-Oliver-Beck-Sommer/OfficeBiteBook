@@ -5,7 +5,7 @@ import ReplaceIcon from "@/components/Icons/ReplaceIcon";
 import DeleteIcon from "@/components/Icons/DeleteIcon";
 import ArrowIcon from "@/components/Icons/ArrowIcon";
 import SettingsIcon from "@/components/Icons/SettingsIcon";
-import InventoryIcon from "@/components/Icons/InventoryIcon";
+import ArchiveIcon from "@/components/Icons/ArchiveIcon";
 import EraseIcon from "@/components/Icons/EraseIcon";
 import UploadIcon from "@/components/Icons/UploadIcon";
 import InfoIcon from "@/components/Icons/InfoIcon";
@@ -26,7 +26,7 @@ const icons = (icon: string) => {
     case "downArrow":
       return <ArrowIcon variant="down" />;
     case "inventory":
-      return <InventoryIcon />;
+      return <ArchiveIcon />;
     case "erase":
       return <EraseIcon />;
     case "info":

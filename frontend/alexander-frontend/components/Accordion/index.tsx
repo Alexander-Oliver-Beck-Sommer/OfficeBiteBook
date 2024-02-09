@@ -1,7 +1,7 @@
 import React, { ReactNode, useMemo } from "react";
 import IconButton from "../IconButton";
 
-type Variant = "guest";
+type Variant = "guest" | "add-guest" | "default";
 
 interface VariantConfig {
   container: string;

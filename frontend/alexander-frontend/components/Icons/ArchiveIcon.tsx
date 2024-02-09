@@ -1,8 +1,8 @@
-type InventoryIconProps = {
+type ArchiveIconProps = {
   className?: string;
 };
 
-const InventoryIcon = ({ className = "" }: InventoryIconProps) => {
+const ArchiveIcon = ({ className = "" }: ArchiveIconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -16,4 +16,4 @@ const InventoryIcon = ({ className = "" }: InventoryIconProps) => {
   );
 };
 
-export default InventoryIcon;
+export default ArchiveIcon;
