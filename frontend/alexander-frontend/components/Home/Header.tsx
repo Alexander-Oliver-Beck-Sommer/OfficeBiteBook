@@ -5,6 +5,7 @@ type HeaderProps = {
   decreaseWeek?: () => void;
   increaseWeek?: () => void;
   resetWeek?: () => void;
+  handleGuest?: () => void;
 };
 
 const Header = ({
@@ -12,6 +13,7 @@ const Header = ({
   decreaseWeek = () => {},
   increaseWeek = () => {},
   resetWeek = () => {},
+  handleGuest = () => {},
 }: HeaderProps) => {
   return (
     <header className="flex justify-center border-b border-dark-400 bg-dark-200 p-4 md:px-12 md:py-6">
@@ -19,29 +21,44 @@ const Header = ({
         <div>
           <h2>WEEK {weekNumber}</h2>
         </div>
-        <div className="flex gap-4">
-          <IconButton
-            size="small"
-            toggle={decreaseWeek}
-            icon="arrow-left"
-            label="Rewind one week"
-            title="Rewind one week"
-          />
-          <IconButton
-            size="small"
-            toggle={increaseWeek}
-            icon="arrow-right"
-            label="Fast forward one week"
-            title="Fast forward one week"
-          />
-          <IconButton
-            size="small"
-            toggle={resetWeek}
-            icon="reset"
-            label="Reset week"
-            title="Reset week"
-          />
-        </div>
+        <ul className="flex gap-4">
+          <li>
+            <IconButton
+              size="small"
+              toggle={decreaseWeek}
+              icon="arrow-left"
+              label="Rewind one week"
+              title="Rewind one week"
+            />
+          </li>
+          <li>
+            <IconButton
+              size="small"
+              toggle={increaseWeek}
+              icon="arrow-right"
+              label="Fast forward one week"
+              title="Fast forward one week"
+            />
+          </li>
+          <li>
+            <IconButton
+              size="small"
+              toggle={resetWeek}
+              icon="reset"
+              label="Reset week"
+              title="Reset week"
+            />
+          </li>
+          <li>
+            <IconButton
+              size="small"
+              label="Add guests"
+              icon="user-add"
+              title="Add guests"
+              toggle={handleGuest}
+            />
+          </li>
+        </ul>
       </div>
     </header>
   );

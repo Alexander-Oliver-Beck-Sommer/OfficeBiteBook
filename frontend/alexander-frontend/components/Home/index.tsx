@@ -37,21 +37,22 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
           decreaseWeek={decreaseWeek}
           increaseWeek={increaseWeek}
           resetWeek={resetWeek}
+          handleGuest={handleGuest}
         />
-        <section className="flex w-full justify-center px-4 pt-6 md:px-12">
-          <div className="flex w-full max-w-screen-xl gap-4">
-            <CheckboxInput onChange={checkAllMenus} />
-            <IconButton
-              size="small"
-              label="Add guests"
-              icon="user-add"
-              title="Add guests"
-              toggle={handleGuest}
-            />
-          </div>
-        </section>
-        <section className="flex flex-1 justify-center px-4 pb-12 md:px-12 ">
-          <ul className="flex w-full max-w-screen-xl flex-col gap-10 ">
+
+        <section className="flex flex-1 justify-center px-4 py-8 md:px-12">
+          <ul className="flex w-full max-w-screen-xl flex-col gap-10">
+            <li className="-mb-8 flex w-full max-w-screen-xl items-center gap-4">
+              <div className="flex flex-col gap-4">
+                <CheckboxInput onChange={checkAllMenus} />
+              </div>
+              <div className="grid w-full grid-cols-1Xauto items-center gap-4 border-dark-500 group-first/menu:border-t-2 sm:grid-cols-3 md:grid-cols-5 md:gap-8">
+                <h4 className="truncate">TITLE:</h4>
+                <h4 className="hidden truncate sm:block">LOCATION</h4>
+                <h4 className="hidden truncate md:block">HOURS</h4>
+                <h4 className="hidden truncate md:block">DISHES</h4>
+              </div>
+            </li>
             {menus.length > 0 ? (
               Object.entries(organizedMenus).map(
                 ([dayName, { menus, date }]) =>
