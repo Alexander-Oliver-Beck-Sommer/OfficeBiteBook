@@ -80,23 +80,13 @@ const ContentModal: React.FC<ContentModalProps> = ({
           <header className="relative z-50 grid grid-cols-1Xauto items-center gap-5 bg-dark-300 p-5 md:px-10">
             <h3 className="truncate font-semibold">{title}</h3>
             <ul className="flex gap-5" aria-label="Function buttons">
-              {showDeleteButton && (
+              {showAddDishButton && (
                 <li>
                   <IconButton
-                    icon="delete"
-                    toggle={deleteToggle}
-                    label="Delete menu"
-                    title="Delete menu"
-                  />
-                </li>
-              )}
-              {showEraseButton && (
-                <li>
-                  <IconButton
-                    icon="erase"
-                    toggle={eraseToggle}
-                    label="Erase menu"
-                    title="Erase menu"
+                    icon="add"
+                    toggle={addDishToggle}
+                    label="Add dish"
+                    title="Add dish"
                   />
                 </li>
               )}
@@ -110,13 +100,23 @@ const ContentModal: React.FC<ContentModalProps> = ({
                   />
                 </li>
               )}
-              {showAddDishButton && (
+              {showEraseButton && (
                 <li>
                   <IconButton
-                    icon="add"
-                    toggle={addDishToggle}
-                    label="Add dish"
-                    title="Add dish"
+                    icon="erase"
+                    toggle={eraseToggle}
+                    label="Erase menu"
+                    title="Erase menu"
+                  />
+                </li>
+              )}
+              {showDeleteButton && (
+                <li>
+                  <IconButton
+                    icon="delete"
+                    toggle={deleteToggle}
+                    label="Delete menu"
+                    title="Delete menu"
                   />
                 </li>
               )}

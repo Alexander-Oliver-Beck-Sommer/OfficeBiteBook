@@ -33,6 +33,13 @@
     cursor: pointer;
   }
 
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    background-position: center;
+    background-size: 20px;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0icmdiYSgxNjksMTY5LDE2OSwxKSI+PHBhdGggZD0iTTEyIDIyQzYuNDc3MTUgMjIgMiAxNy41MjI4IDIgMTJDMiA2LjQ3NzE1IDYuNDc3MTUgMiAxMiAyQzE3LjUyMjggMiAyMiA2LjQ3NzE1IDIyIDEyQzIyIDE3LjUyMjggMTcuNTIyOCAyMiAxMiAyMlpNMTIgMjBDMTYuNDE4MyAyMCAyMCAxNi40MTgzIDIwIDEyQzIwIDcuNTgxNzIgMTYuNDE4MyA0IDEyIDRDNy41ODE3MiA0IDQgNy41ODE3MiA0IDEyQzQgMTYuNDE4MyA3LjU4MTcyIDIwIDEyIDIwWk0xMyAxMkgxN1YxNEgxMVY3SDEzVjEyWiI+PC9wYXRoPjwvc3ZnPg==");
+    cursor: pointer;
+  }
+
   h1 {
     @apply text-3xl font-semibold;
   }

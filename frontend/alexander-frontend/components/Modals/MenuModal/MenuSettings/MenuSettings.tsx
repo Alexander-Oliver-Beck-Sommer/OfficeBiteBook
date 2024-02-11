@@ -87,7 +87,7 @@ const MenuSettings = ({
   }, [title, location, date, startTime, endTime]);
 
   return (
-    <ul className="flex flex-col gap-5 border-y-2 border-dark-100 bg-dark-300 px-6 py-4">
+    <ul className="my-0.5 flex flex-col gap-5 bg-dark-300 px-10 py-5">
       <li>
         <TextInput
           variant="text"

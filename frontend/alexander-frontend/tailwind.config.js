@@ -21,6 +21,7 @@ module.exports = {
         auto1Xauto: "auto 1fr auto;",
       },
       gridTemplateRows: {
+        "1xauto": "1fr auto;",
         autoX1: "auto 1fr;",
         auto1Xauto: "auto 1fr auto;",
       },

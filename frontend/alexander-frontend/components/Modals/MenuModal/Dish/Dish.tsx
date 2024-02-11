@@ -149,9 +149,7 @@ const Dish = ({
     setRecipeInput(recipe);
   }, [title, subtitle, description, recipe]);
 
-  // I swear to god, if someone touches this useEffect, i will smash their both femurs with a sledgehammer
-  // Why does it work? I don't know. I don't care. It works.
-  // TOUCH IT (◎﹏◎) AND I CAN'T GURANTEE WHAT WILL COME NEXT
+  // It works. But it's not the best way to do it. 
   useEffect(() => {
     if (thumbnailFile && setFile && file !== thumbnailFile) {
       setFile(thumbnailFile);
