@@ -1,14 +1,14 @@
 import ActionButton from "@/components/Buttons/ActionButton";
 
-type FooterBarProps = {
+type FooterProps = {
   hideModal?: () => void;
   saveMenuChanges?: () => void;
 };
 
-const FooterBar = ({
+const Footer = ({
   hideModal = () => {},
   saveMenuChanges = () => {},
-}: FooterBarProps) => {
+}: FooterProps) => {
   return (
     <footer className="flex items-center justify-end bg-dark-300 px-6 py-4">
       <ul className="flex gap-5">
@@ -37,4 +37,4 @@ const FooterBar = ({
   );
 };
 
-export default FooterBar;
+export default Footer;

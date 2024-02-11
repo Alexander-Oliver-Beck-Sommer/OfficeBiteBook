@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import data from "@/data/MenuModal.js";
 import TextInput from "@/components/Inputs/TextInput";
 
-type MenuSettingsProps = {
+type DetailsProps = {
   title?: string;
   setTitle?: (newTitle: string) => void;
   isTitleValid?: boolean;
@@ -20,7 +19,7 @@ type MenuSettingsProps = {
   isEndTimeValid?: boolean;
 };
 
-const MenuSettings = ({
+const Details = ({
   title = "",
   setTitle = () => {},
   isTitleValid = false,
@@ -36,7 +35,7 @@ const MenuSettings = ({
   endTime = "",
   setEndTime = () => {},
   isEndTimeValid = false,
-}: MenuSettingsProps) => {
+}: DetailsProps) => {
   const [titleInput, setTitleInput] = useState(title);
   const [locationInput, setLocationInput] = useState(location);
   const [dateInput, setDateInput] = useState(date);
@@ -91,9 +90,8 @@ const MenuSettings = ({
       <li>
         <TextInput
           variant="text"
-          placeholder={data.location_section.title.placeholder}
-          name={data.location_section.title.name}
-          label={data.location_section.title.label}
+          name="Title"
+          label="Title"
           valueChange={handleTitleChange}
           value={titleInput}
           valid={isTitleValid}
@@ -103,9 +101,8 @@ const MenuSettings = ({
       <li>
         <TextInput
           variant="text"
-          placeholder={data.location_section.location.placeholder}
-          name={data.location_section.location.name}
-          label={data.location_section.location.label}
+          name="Location"
+          label="Location"
           valueChange={handleLocationChange}
           valid={isLocationValid}
           value={locationInput}
@@ -115,8 +112,8 @@ const MenuSettings = ({
       <li>
         <TextInput
           variant="date"
-          name={data.location_section.date.name}
-          label={data.location_section.date.label}
+          name="Date"
+          label="Date"
           valueChange={handleDateChange}
           valid={isDateValid}
           value={dateInput}
@@ -126,8 +123,8 @@ const MenuSettings = ({
       <li>
         <TextInput
           variant="time"
-          name={data.location_section.start_time.name}
-          label={data.location_section.start_time.label}
+          name="Start time"
+          label="Start time"
           valueChange={handleStartTimeChange}
           valid={isStartTimeValid}
           value={startTimeInput}
@@ -137,8 +134,8 @@ const MenuSettings = ({
       <li>
         <TextInput
           variant="time"
-          name={data.location_section.end_time.name}
-          label={data.location_section.end_time.label}
+          name="End time"
+          label="End time"
           valueChange={handleEndTimeChange}
           valid={isEndTimeValid}
           value={endTimeInput}
@@ -149,4 +146,4 @@ const MenuSettings = ({
   );
 };
 
-export default MenuSettings;
+export default Details;

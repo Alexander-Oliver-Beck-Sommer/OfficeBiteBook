@@ -1,7 +1,6 @@
-import HeaderBar from "@/components/Modals/MenuModal/HeaderBar/HeaderBar";
-import MenuSettings from "@/components/Modals/MenuModal/MenuSettings/MenuSettings";
-import Dish from "@/components/Modals/MenuModal/Dish/Dish";
-import FooterBar from "@/components/Modals/MenuModal/FooterBar/FooterBar";
+import Details from "./Details";
+import Dish from "./Dish";
+import Footer from "./Footer";
 import useUtilities from "@/hooks/useUtilities";
 import ContentModal from "@/components/ContentModal";
 
@@ -67,7 +66,7 @@ const MenuModal = ({
     >
       <section className="grid-rows-1xauto grid flex-1">
         <div className="grid grid-cols-30X70">
-          <MenuSettings
+          <Details
             title={title}
             setTitle={setTitle}
             location={location}
@@ -134,7 +133,7 @@ const MenuModal = ({
             </ul>
           </div>
         </div>
-        <FooterBar hideModal={hideModal} saveMenuChanges={saveMenuChanges} />
+        <Footer hideModal={hideModal} saveMenuChanges={saveMenuChanges} />
       </section>
     </ContentModal>
   );
