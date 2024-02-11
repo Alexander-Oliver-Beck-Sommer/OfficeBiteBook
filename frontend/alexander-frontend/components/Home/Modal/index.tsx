@@ -6,19 +6,20 @@ import ImageButton from "@/components/Buttons/ImageButton";
 import Dish from "./Dish";
 import Details from "./Details";
 import Header from "./Header";
+import ContentModal from "@/components/ContentModal";
 
 type ModalProps = {
-  isVisible: boolean;
+  visibility: boolean;
   menu: any;
   onClose: () => void;
 };
 
-const Modal = ({ isVisible, menu, onClose }: ModalProps) => {
+const Modal = ({ visibility, menu, onClose }: ModalProps) => {
   const [openDishId, setOpenDishId] = useState<string | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const { formatDate } = useDateCalculator();
   const { disableBodyScroll } = useUtilities();
-  disableBodyScroll(isVisible);
+  disableBodyScroll(visibility);
 
   const detailsExpand = () => {
     setIsDetailsOpen(!isDetailsOpen);
@@ -33,55 +34,40 @@ const Modal = ({ isVisible, menu, onClose }: ModalProps) => {
   };
 
   return (
-    <section
-      aria-hidden={!isVisible}
-      className={`fixed inset-0 z-50 flex transition-all duration-300 ease-in-out ${
-        isVisible
-          ? "pointer-events-auto visible opacity-100"
-          : "pointer-events-none invisible opacity-0"
-      } `}
+    <ContentModal
+      visibility={visibility}
+      toggle={onClose}
+      title={menu && menu.menu_title}
     >
-      <div className="relative flex h-full w-full items-center justify-center p-4 md:px-12 md:py-8 lg:p-12">
-        <div
-          className="absolute inset-0 z-40 bg-dark-100 opacity-95 transition-all duration-300 ease-in-out hover:bg-dark-200"
-          onClick={onClose}
-        ></div>
-        <section
-          className={`pattern relative z-50 flex h-full w-full max-w-screen-xl flex-col overflow-y-auto rounded border-2 border-dark-500 ${
-            isVisible
-              ? "animate-fade-up animate-ease-in-out"
-              : "invisible opacity-0"
-          } `}
-        >
-          <Header title={menu && menu.menu_title} toggle={onClose} />
-          <Details
-            location={menu && menu.menu_location}
-            date={menu && formatDate(menu.menu_date)}
-            startTime={menu && menu.menu_start_time}
-            endTime={menu && menu.menu_end_time}
-            isDetailsOpen={isDetailsOpen}
-            toggle={detailsExpand}
-          />
-          <ul className="grid flex-1 auto-rows-max gap-12 overflow-auto px-4 py-8 md:p-8 lg:grid-cols-2 lg:gap-8">
-            {menu &&
-              menu.dishes.length > 0 &&
-              menu.dishes.map((dish, index) => (
-                <Dish
-                  key={dish.dish_id}
-                  count={index + 1}
-                  title={dish.dish_title}
-                  subtitle={dish.dish_subtitle}
-                  description={dish.dish_description}
-                  recipe={dish.dish_recipe}
-                  thumbnailUrl={dish.dish_thumbnail_url}
-                  accordionOpen={openDishId === dish.dish_id}
-                  accordionToggle={() => toggleDish(dish.dish_id)}
-                />
-              ))}
-          </ul>
-        </section>
-      </div>
-    </section>
+      {menu && (
+        <Details
+          location={menu.menu_location}
+          date={formatDate(menu.menu_date)}
+          startTime={menu.menu_start_time}
+          endTime={menu.menu_end_time}
+          isDetailsOpen={isDetailsOpen}
+          toggle={detailsExpand}
+        />
+      )}
+
+      <ul className="grid flex-1 auto-rows-max gap-12 overflow-auto px-4 py-8 md:p-8 lg:grid-cols-2 lg:gap-8">
+        {menu &&
+          menu.dishes.length > 0 &&
+          menu.dishes.map((dish, index) => (
+            <Dish
+              key={dish.dish_id}
+              count={index + 1}
+              title={dish.dish_title}
+              subtitle={dish.dish_subtitle}
+              description={dish.dish_description}
+              recipe={dish.dish_recipe}
+              thumbnailUrl={dish.dish_thumbnail_url}
+              accordionOpen={openDishId === dish.dish_id}
+              accordionToggle={() => toggleDish(dish.dish_id)}
+            />
+          ))}
+      </ul>
+    </ContentModal>
   );
 };
 export default Modal;

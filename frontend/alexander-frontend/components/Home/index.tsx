@@ -1,10 +1,9 @@
 "use client";
 import useHome from "@/hooks/useHome";
-import CheckboxInput from "../Inputs/CheckboxInput";
 import Header from "./Header";
+import CheckboxInput from "../Inputs/CheckboxInput";
 import Menu from "./Menu";
 import Modal from "./Modal";
-import IconButton from "../IconButton";
 import Guest from "./Guest";
 
 type HomeComponentProps = {
@@ -42,18 +41,16 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
 
         <section className="flex flex-1 justify-center px-4 py-8 md:px-12">
           <ul className="flex w-full max-w-screen-xl flex-col gap-10">
-            <li className="-mb-10 flex w-full max-w-screen-xl items-center gap-4">
-              <div className="flex flex-col gap-4">
-                <CheckboxInput onChange={checkAllMenus} />
-              </div>
-              <div className="grid w-full grid-cols-1Xauto items-center gap-4 border-dark-500 group-first/menu:border-t-2 sm:grid-cols-3 md:grid-cols-5 md:gap-8">
-                <h4 className="truncate">TITLE</h4>
-                <h4 className="hidden truncate sm:block">LOCATION</h4>
-                <h4 className="hidden truncate md:block">HOURS</h4>
-                <h4 className="hidden truncate md:block">DISHES</h4>
+            <li className="-mb-10 flex items-center gap-4">
+              <CheckboxInput onChange={checkAllMenus} />
+              <div className="grid w-full grid-cols-3 gap-4 md:grid-cols-5 md:gap-8">
+                <h4>TITLE</h4>
+                <h4 className="hidden sm:block">LOCATION</h4>
+                <h4 className="hidden md:block">HOURS</h4>
+                <h4 className="hidden md:block">DISHES</h4>
               </div>
             </li>
-            {menus.length > 0 ? (
+            {menus && menus.length > 0 ? (
               Object.entries(organizedMenus).map(
                 ([dayName, { menus, date }]) =>
                   menus.length > 0 && (
@@ -61,7 +58,7 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
                       <h6 className="text-right font-semibold uppercase text-grey">
                         {dayName} | {date}
                       </h6>
-                      <ul className="flex w-full max-w-screen-xl flex-col gap-5">
+                      <ul className="flex w-full flex-col gap-5">
                         {menus.map((menu) => (
                           <Menu
                             key={menu.menu_id}
@@ -82,15 +79,15 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
                   ),
               )
             ) : (
-              <li className="flex flex-1 flex-col items-center justify-center gap-2">
-                <h3 className="uppercase text-grey">0 menus found</h3>
+              <li className="flex flex-1 items-center justify-center uppercase text-grey">
+                <h3>no menus found</h3>
               </li>
             )}
           </ul>
         </section>
       </section>
       <Modal
-        isVisible={modalStatus}
+        visibility={modalStatus}
         menu={modalData}
         onClose={handleModalClose}
       />
