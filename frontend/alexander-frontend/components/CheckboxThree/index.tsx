@@ -21,7 +21,7 @@ const CheckboxThree = ({
   }, [initialValue]);
 
   const handleInputChange = () => {
-    const newValue = value === null ? false : value === false ? true : false;
+    const newValue = value === null ? true : value === true ? false : true;
     setValue(newValue);
     if (onChange) {
       onChange(newValue);

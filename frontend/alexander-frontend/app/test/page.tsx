@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Accordion from "@/components/Accordion";
 import ContentModal from "@/components/ContentModal";
+import CheckboxThree from "@/components/CheckboxThree";
 
 const page = () => {
   // const [modalVisibility, setModalVisibility] = useState(false);
@@ -20,6 +21,7 @@ const page = () => {
       >
         <p>Hej!</p>
       </ContentModal> */}
+      <CheckboxThree />
     </>
   );
 };
