@@ -1,14 +1,16 @@
-import { useState } from "react";
+import ContentModal from "@/components/ContentModal";
 import Details from "./Details";
 import Dish from "./Dish";
-import useUtilities from "@/hooks/useUtilities";
-import ContentModal from "@/components/ContentModal";
 import TextButton from "@/components/TextButton";
+import useUtilities from "@/hooks/useUtilities";
+import DishType from "@/types/DishType";
+import useDish from "./Dish/useDish";
 
 type MenuEditorProps = {
   visibility?: boolean;
   closeToggle?: () => void;
   saveToggle?: () => void;
+  // Details Fields:
   title?: string;
   setTitle?: (newTitle: string) => void;
   location?: string;
@@ -20,7 +22,8 @@ type MenuEditorProps = {
   endTime?: string;
   setEndTime?: (newEndTime: string) => void;
   addNewDishToMenu?: () => void;
-  dishes?: [];
+  // Dishes:
+  dishes?: DishType[];
   modifyExistingDish?: (dishId: string, dish: {}) => void;
   removeDishFromMenu?: (dishId: string) => void;
   removeMenu?: () => void;
@@ -50,17 +53,8 @@ const MenuEditor = ({
   eraseDishesFromMenu = () => {},
   menuId = "",
 }: MenuEditorProps) => {
-  const [openAccordionId, setOpenAccordionId] = useState(null);
-  const { disableBodyScroll } = useUtilities();
+  const { disableBodyScroll, handleAccordion, accordionId } = useUtilities();
   disableBodyScroll(visibility);
-
-  const handleAccordionToggle = (id) => {
-    if (openAccordionId === id) {
-      setOpenAccordionId(null);
-    } else {
-      setOpenAccordionId(id);
-    }
-  };
 
   return (
     <ContentModal
@@ -90,58 +84,61 @@ const MenuEditor = ({
           />
           <div className="relative overflow-hidden">
             <ul className="absolute inset-0 flex flex-col gap-5 overflow-y-scroll px-10 py-5">
-              {dishes.map((dish, index) => (
-                <Dish
-                  key={dish.dish_id}
-                  menuId={menuId}
-                  count={index + 1}
-                  title={dish.dish_title}
-                  setTitle={(newTitle) =>
-                    modifyExistingDish(dish.dish_id, {
-                      dish_title: newTitle,
-                    })
-                  }
-                  subtitle={dish.dish_subtitle}
-                  setSubtitle={(newSubtitle) =>
-                    modifyExistingDish(dish.dish_id, {
-                      dish_subtitle: newSubtitle,
-                    })
-                  }
-                  description={dish.dish_description}
-                  setDescription={(newDescription) =>
-                    modifyExistingDish(dish.dish_id, {
-                      dish_description: newDescription,
-                    })
-                  }
-                  name={dish.dish_thumbnail_name}
-                  setName={(newName) =>
-                    modifyExistingDish(dish.dish_id, {
-                      dish_thumbnail_name: newName,
-                    })
-                  }
-                  file={dish.dish_thumbnail_file}
-                  setFile={(newFile) =>
-                    modifyExistingDish(dish.dish_id, {
-                      dish_thumbnail_file: newFile,
-                    })
-                  }
-                  url={dish.dish_thumbnail_url}
-                  setUrl={(newUrl) =>
-                    modifyExistingDish(dish.dish_id, {
-                      dish_thumbnail_url: newUrl,
-                    })
-                  }
-                  removeDishFromMenu={() => removeDishFromMenu(dish.dish_id)}
-                  recipe={dish.dish_recipe}
-                  setRecipe={(newRecipe) =>
-                    modifyExistingDish(dish.dish_id, {
-                      dish_recipe: newRecipe,
-                    })
-                  }
-                  accordionState={openAccordionId === dish.dish_id}
-                  handleAccordion={() => handleAccordionToggle(dish.dish_id)}
-                />
-              ))}
+              {dishes.map((dish, index) => {
+                const {
+                  dish_id: id,
+                  dish_title,
+                  dish_subtitle,
+                  dish_description,
+                  dish_thumbnail_name,
+                  dish_thumbnail_file,
+                  dish_thumbnail_url,
+                  dish_recipe,
+                } = dish;
+
+                return (
+                  <Dish
+                    key={id}
+                    menuId={menuId}
+                    count={index + 1}
+                    title={dish_title}
+                    setTitle={(newTitle) =>
+                      modifyExistingDish(id, { dish_title: newTitle })
+                    }
+                    subtitle={dish_subtitle}
+                    setSubtitle={(newSubtitle) =>
+                      modifyExistingDish(id, { dish_subtitle: newSubtitle })
+                    }
+                    description={dish_description}
+                    setDescription={(newDescription) =>
+                      modifyExistingDish(id, {
+                        dish_description: newDescription,
+                      })
+                    }
+                    name={dish_thumbnail_name}
+                    setName={(newName) =>
+                      modifyExistingDish(id, { dish_thumbnail_name: newName })
+                    }
+                    file={dish_thumbnail_file}
+                    setFile={(newFile) =>
+                      modifyExistingDish(id, { dish_thumbnail_file: newFile })
+                    }
+                    url={dish_thumbnail_url}
+                    setUrl={(newUrl) =>
+                      modifyExistingDish(id, { dish_thumbnail_url: newUrl })
+                    }
+                    removeToggle={() => removeDishFromMenu(id)}
+                    recipe={dish_recipe}
+                    setRecipe={(newRecipe) =>
+                      modifyExistingDish(id, { dish_recipe: newRecipe })
+                    }
+                    accordionState={accordionId === id}
+                    handleAccordion={() =>
+                      handleAccordion(accordionId === id ? null : id)
+                    }
+                  />
+                );
+              })}
             </ul>
           </div>
         </div>
