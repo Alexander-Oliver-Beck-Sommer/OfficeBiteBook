@@ -1,8 +1,9 @@
+import { useState } from "react";
 import Details from "./Details";
 import Dish from "./Dish";
-import Footer from "./Footer";
 import useUtilities from "@/hooks/useUtilities";
 import ContentModal from "@/components/ContentModal";
+import TextButton from "@/components/TextButton";
 
 type MenuModalProps = {
   modalVisibility?: boolean;
@@ -49,8 +50,17 @@ const MenuModal = ({
   eraseDishesFromMenu = () => {},
   menuId = "",
 }: MenuModalProps) => {
+  const [openAccordionId, setOpenAccordionId] = useState(null);
   const { disableBodyScroll } = useUtilities();
   disableBodyScroll(modalVisibility);
+
+  const handleAccordionToggle = (id) => {
+    if (openAccordionId === id) {
+      setOpenAccordionId(null);
+    } else {
+      setOpenAccordionId(id);
+    }
+  };
 
   return (
     <ContentModal
@@ -64,7 +74,7 @@ const MenuModal = ({
       showEraseButton={true}
       eraseToggle={eraseDishesFromMenu}
     >
-      <section className="grid-rows-1xauto grid flex-1">
+      <section className="grid flex-1 grid-rows-1xauto">
         <div className="grid grid-cols-30X70">
           <Details
             title={title}
@@ -79,7 +89,7 @@ const MenuModal = ({
             setEndTime={setEndTime}
           />
           <div className="relative overflow-hidden">
-            <ul className="absolute inset-0 flex flex-col gap-10 overflow-y-scroll p-10">
+            <ul className="absolute inset-0 flex flex-col gap-5 overflow-y-scroll px-10 py-5">
               {dishes.map((dish, index) => (
                 <Dish
                   key={dish.dish_id}
@@ -128,12 +138,29 @@ const MenuModal = ({
                       dish_recipe: newRecipe,
                     })
                   }
+                  accordionState={openAccordionId === dish.dish_id}
+                  handleAccordion={() => handleAccordionToggle(dish.dish_id)}
                 />
               ))}
             </ul>
           </div>
         </div>
-        <Footer hideModal={hideModal} saveMenuChanges={saveMenuChanges} />
+        <footer className="flex items-center justify-end gap-5 bg-dark-300 p-5 md:px-10">
+          <TextButton
+            text="Cancel"
+            label="Cancel menu"
+            title="Cancel menu"
+            icon="close"
+            toggle={hideModal}
+          />
+          <TextButton
+            text="Save"
+            label="Save menu"
+            title="Save menu"
+            icon="save"
+            toggle={saveMenuChanges}
+          />
+        </footer>
       </section>
     </ContentModal>
   );

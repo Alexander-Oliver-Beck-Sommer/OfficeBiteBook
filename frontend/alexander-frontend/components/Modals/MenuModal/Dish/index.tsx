@@ -4,6 +4,7 @@ import TextInput from "@/components/Inputs/TextInput";
 import ActionButton from "@/components/Buttons/ActionButton";
 import TextArea from "@/components/Inputs/TextArea";
 import UploadThumbnail from "@/components/Inputs/UploadThumbnail";
+import Accordion from "@/components/Accordion";
 
 type DishProps = {
   count?: number;
@@ -43,6 +44,8 @@ const Dish = ({
   recipe = "",
   setRecipe = () => {},
   menuId = "",
+  accordionState,
+  handleAccordion,
 }: DishProps) => {
   const [titleInput, setTitleInput] = useState(title);
   const [subtitleInput, setSubtitleInput] = useState(subtitle);
@@ -52,10 +55,6 @@ const Dish = ({
   const [thumbnailUrl, setThumbnailUrl] = useState<string>(url);
   const [recipeInput, setRecipeInput] = useState(recipe);
   const [isDishOpen, setIsDishOpen] = useState(false);
-
-  const dishAccordion = isDishOpen
-    ? "grid-rows-[1fr] visible opacity-100"
-    : "grid-rows-[0fr] invisible opacity-0";
 
   const dishExpand = () => {
     setIsDishOpen(!isDishOpen);
@@ -149,7 +148,7 @@ const Dish = ({
     setRecipeInput(recipe);
   }, [title, subtitle, description, recipe]);
 
-  // It works. But it's not the best way to do it. 
+  // It works. But it's not the best way to do it.
   useEffect(() => {
     if (thumbnailFile && setFile && file !== thumbnailFile) {
       setFile(thumbnailFile);
@@ -173,106 +172,67 @@ const Dish = ({
   ]);
 
   return (
-    <li
-      aria-label={titleInput}
-      className="grid w-full flex-shrink-0 animate-fade-up grid-rows-autoX1 overflow-hidden rounded border-2 border-dark-500 bg-dark-100 animate-ease-in-out"
+    <Accordion
+      variant="dish"
+      text={titleInput}
+      count={count}
+      deleteToggle={removeDishFromMenu}
+      accordionState={accordionState}
+      setAccordionState={handleAccordion}
+      id={`dish-${count}`}
     >
-      <section className="flex items-center justify-between pl-3">
-        <div className="flex items-center gap-3">
-          <h3 className="font-semibold">#{count}</h3>
-          <p className="text-grey">{titleInput}</p>
-        </div>
-        <div className="flex">
-          <ActionButton
-            icon="inventory"
-            label="Click to save the dish to the archive"
-            variant="icon"
-            title="Save the dish to the archive"
-            name="Save"
+      <ul className="grid grid-cols-2 gap-5 p-5">
+        <li>
+          <TextInput
+            variant="text"
+            label="Click to change the title of the dish"
+            name="Title"
+            placeholder="Title"
+            valueChange={handleTitleChange}
+            value={titleInput}
+            required
           />
-          <ActionButton
-            icon="replace"
-            label="Click to replace the dish with a dish from the archive"
-            variant="icon"
-            title="Replace the dish with a dish from the archive"
-            name="Replace"
+        </li>
+        <li>
+          <TextInput
+            variant="text"
+            label="Click to change the subtitle of the dish"
+            name="Subtitle"
+            placeholder="Subtitle"
+            valueChange={handleSubtitleChange}
+            value={subtitleInput}
           />
-          <ActionButton
-            toggle={removeDishFromMenu}
-            icon="delete"
-            label="Click to delete the dish from the menu"
-            variant="icon"
-            title="Delete the dish from the menu"
-            name="Delete"
+        </li>
+        <li>
+          <TextArea
+            rows={5}
+            label="Click to change the subtitle of the dish"
+            name="Description"
+            placeholder="Description"
+            onValueChange={handleDescriptionChange}
+            value={descriptionInput}
           />
-          <ActionButton
-            toggle={dishExpand}
-            icon="downArrow"
-            label="Click to expand and collapse the dish"
-            variant="icon"
-            title="Expand and collapse the dish"
-            name="Expand/Collapse"
+        </li>
+        <li>
+          <UploadThumbnail
+            id={count}
+            thumbnailURL={thumbnailUrl}
+            changeThumbnail={changeThumbnail}
+            removeThumbnail={removeThumbnail}
           />
-        </div>
-      </section>
-      <section
-        className={`grid bg-dark-300 transition-all duration-300 ease-in-out ${dishAccordion}`}
-      >
-        <div className="overflow-hidden">
-          <ul className="grid w-full grid-cols-2 gap-6 p-6">
-            <li>
-              <TextInput
-                variant="text"
-                label="Click to change the title of the dish"
-                name="Title"
-                placeholder="Title"
-                valueChange={handleTitleChange}
-                value={titleInput}
-                required
-              />
-            </li>
-            <li>
-              <TextInput
-                variant="text"
-                label="Click to change the subtitle of the dish"
-                name="Subtitle"
-                placeholder="Subtitle"
-                valueChange={handleSubtitleChange}
-                value={subtitleInput}
-              />
-            </li>
-            <li>
-              <TextArea
-                rows={5}
-                label="Click to change the subtitle of the dish"
-                name="Description"
-                placeholder="Description"
-                onValueChange={handleDescriptionChange}
-                value={descriptionInput}
-              />
-            </li>
-            <li>
-              <UploadThumbnail
-                id={count}
-                thumbnailURL={thumbnailUrl}
-                changeThumbnail={changeThumbnail}
-                removeThumbnail={removeThumbnail}
-              />
-            </li>
-            <li className="col-span-2">
-              <TextInput
-                variant="link"
-                label="Click to change the recipe of the dish"
-                name="Recipe"
-                placeholder="Recipe"
-                valueChange={handleRecipeChange}
-                value={recipeInput}
-              />
-            </li>
-          </ul>
-        </div>
-      </section>
-    </li>
+        </li>
+        <li className="col-span-2">
+          <TextInput
+            variant="link"
+            label="Click to change the recipe of the dish"
+            name="Recipe"
+            placeholder="Recipe"
+            valueChange={handleRecipeChange}
+            value={recipeInput}
+          />
+        </li>
+      </ul>
+    </Accordion>
   );
 };
 

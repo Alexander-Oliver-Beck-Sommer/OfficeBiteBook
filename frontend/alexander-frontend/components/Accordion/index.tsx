@@ -1,7 +1,7 @@
 import React, { ReactNode, useMemo } from "react";
 import IconButton from "../IconButton";
 
-type Variant = "guest" | "add-guest" | "default";
+type Variant = "guest" | "add-guest" | "dish" | "default";
 
 interface VariantConfig {
   container: string;
@@ -57,6 +57,18 @@ const variants = (variant: string): VariantConfig => {
         show_delete: false,
       };
     }
+    case "dish": {
+      return {
+        container:
+          "rounded border-2 border-dark-500 bg-dark-200 animate-fade-up",
+        icon_sizes: "",
+        control_bar:
+          "grid-cols-auto1Xauto py-1 px-5 py-2.5 grid items-center gap-2",
+        content_panel: "bg-dark-300",
+        show_count: true,
+        show_delete: true,
+      };
+    }
     default:
       return {
         container: "",
@@ -92,7 +104,7 @@ const Accordion: React.FC<AccordionProps> = ({
           <h4 className="text-white">#{count}</h4>
         )}
         <p className={`truncate text-grey ${variantValue.text}`}>{text}</p>
-        <div className="flex items-center">
+        <div className="flex items-center gap-5">
           {variantValue.show_delete && (
             <IconButton
               icon="delete"
