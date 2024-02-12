@@ -5,10 +5,10 @@ import useUtilities from "@/hooks/useUtilities";
 import ContentModal from "@/components/ContentModal";
 import TextButton from "@/components/TextButton";
 
-type MenuModalProps = {
-  modalVisibility?: boolean;
-  hideModal?: () => void;
-  saveMenuChanges?: () => void;
+type MenuEditorProps = {
+  visibility?: boolean;
+  closeToggle?: () => void;
+  saveToggle?: () => void;
   title?: string;
   setTitle?: (newTitle: string) => void;
   location?: string;
@@ -28,10 +28,10 @@ type MenuModalProps = {
   menuId?: string;
 };
 
-const MenuModal = ({
-  modalVisibility = false,
-  hideModal = () => {},
-  saveMenuChanges = () => {},
+const MenuEditor = ({
+  visibility = false,
+  closeToggle = () => {},
+  saveToggle = () => {},
   title = "",
   setTitle = () => {},
   location = "",
@@ -49,10 +49,10 @@ const MenuModal = ({
   removeMenu = () => {},
   eraseDishesFromMenu = () => {},
   menuId = "",
-}: MenuModalProps) => {
+}: MenuEditorProps) => {
   const [openAccordionId, setOpenAccordionId] = useState(null);
   const { disableBodyScroll } = useUtilities();
-  disableBodyScroll(modalVisibility);
+  disableBodyScroll(visibility);
 
   const handleAccordionToggle = (id) => {
     if (openAccordionId === id) {
@@ -64,9 +64,9 @@ const MenuModal = ({
 
   return (
     <ContentModal
-      visibility={modalVisibility}
+      visibility={visibility}
       title={title}
-      toggle={hideModal}
+      toggle={closeToggle}
       showAddDishButton={true}
       addDishToggle={addNewDishToMenu}
       showDeleteButton={true}
@@ -74,7 +74,7 @@ const MenuModal = ({
       showEraseButton={true}
       eraseToggle={eraseDishesFromMenu}
     >
-      <section className="grid flex-1 grid-rows-1xauto">
+      <div className="grid flex-1 grid-rows-1xauto">
         <div className="grid grid-cols-30X70">
           <Details
             title={title}
@@ -151,19 +151,19 @@ const MenuModal = ({
             label="Cancel menu"
             title="Cancel menu"
             icon="close"
-            toggle={hideModal}
+            toggle={closeToggle}
           />
           <TextButton
             text="Save"
             label="Save menu"
             title="Save menu"
             icon="save"
-            toggle={saveMenuChanges}
+            toggle={saveToggle}
           />
         </footer>
-      </section>
+      </div>
     </ContentModal>
   );
 };
 
-export default MenuModal;
+export default MenuEditor;

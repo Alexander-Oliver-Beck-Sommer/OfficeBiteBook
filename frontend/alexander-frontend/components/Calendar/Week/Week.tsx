@@ -1,7 +1,7 @@
 import DayCell from "@/components/Calendar/Week/child-components/DayCell";
 import SettingsCell from "@/components/Calendar/Week/child-components/SettingsCell";
 import HourCell from "@/components/Calendar/Week/child-components/HourCell";
-import MenuModal from "@/components/Modals/MenuModal/MenuModal";
+import MenuEditor from "../MenuEditor";
 import CardButton from "@/components/Buttons/CardButton";
 import useCalendar from "@/hooks/useCalendar/useCalendar";
 
@@ -123,10 +123,10 @@ const Week = ({
           );
         })}
       </ul>
-      <MenuModal
-        modalVisibility={modalVisibility}
-        hideModal={hideModal}
-        saveMenuChanges={saveMenuChanges}
+      <MenuEditor
+        visibility={modalVisibility}
+        closeToggle={hideModal}
+        saveToggle={saveMenuChanges}
         title={title}
         setTitle={setTitle}
         location={location}
