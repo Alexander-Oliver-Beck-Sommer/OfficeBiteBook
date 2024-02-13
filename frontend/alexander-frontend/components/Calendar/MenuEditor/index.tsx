@@ -88,56 +88,21 @@ const MenuEditor = ({
           <div className="relative overflow-hidden">
             <ul className="absolute inset-0 flex flex-col gap-5 overflow-y-scroll px-10 py-5">
               {dishes.map((dish, index) => {
-                const {
-                  dish_id: id,
-                  dish_title,
-                  dish_subtitle,
-                  dish_description,
-                  dish_thumbnail_name,
-                  dish_thumbnail_file,
-                  dish_thumbnail_url,
-                  dish_recipe,
-                } = dish;
-
                 return (
                   <Dish
-                    key={id}
+                    key={dish.dish_id}
                     menuId={menuId}
                     count={index + 1}
-                    title={dish_title}
-                    setTitle={(newTitle) =>
-                      modifyExistingDish(id, { dish_title: newTitle })
-                    }
-                    subtitle={dish_subtitle}
-                    setSubtitle={(newSubtitle) =>
-                      modifyExistingDish(id, { dish_subtitle: newSubtitle })
-                    }
-                    description={dish_description}
-                    setDescription={(newDescription) =>
-                      modifyExistingDish(id, {
-                        dish_description: newDescription,
-                      })
-                    }
-                    name={dish_thumbnail_name}
-                    setName={(newName) =>
-                      modifyExistingDish(id, { dish_thumbnail_name: newName })
-                    }
-                    file={dish_thumbnail_file}
-                    setFile={(newFile) =>
-                      modifyExistingDish(id, { dish_thumbnail_file: newFile })
-                    }
-                    url={dish_thumbnail_url}
-                    setUrl={(newUrl) =>
-                      modifyExistingDish(id, { dish_thumbnail_url: newUrl })
-                    }
-                    removeToggle={() => removeDishFromMenu(id)}
-                    recipe={dish_recipe}
-                    setRecipe={(newRecipe) =>
-                      modifyExistingDish(id, { dish_recipe: newRecipe })
-                    }
-                    accordionState={accordionId === id}
+                    title={dish.title}
+                    subtitle={dish.subtitle}
+                    description={dish.description}
+                    url={dish.thumbnail}
+                    recipe={dish.recipe}
+                    accordionState={accordionId === dish.dish_id}
                     handleAccordion={() =>
-                      handleAccordion(accordionId === id ? null : id)
+                      handleAccordion(
+                        accordionId === dish.dish_id ? null : dish.dish_id,
+                      )
                     }
                   />
                 );

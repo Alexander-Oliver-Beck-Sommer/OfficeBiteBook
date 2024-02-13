@@ -20,9 +20,10 @@ const Week = ({
   hours = [],
 }: WeekProps) => {
   const {
-    prepareNewMenu,
+    createMenu,
+    createDish,
     editMenu,
-    saveNewMenu,
+    saveMenu,
     closeMenu,
     visibility,
     loading,
@@ -84,13 +85,9 @@ const Week = ({
                       key={`${day.name}-${hour.fullHour}`}
                       date={day.date}
                       halfHour={hour.halfHour}
-                      halfHourToggle={() =>
-                        prepareNewMenu(day.date, hour.halfHour)
-                      }
+                      halfHourToggle={() => createMenu(day.date, hour.halfHour)}
                       fullHour={hour.fullHour}
-                      fullHourToggle={() =>
-                        prepareNewMenu(day.date, hour.fullHour)
-                      }
+                      fullHourToggle={() => createMenu(day.date, hour.fullHour)}
                     />
                   ))}
                   {cardButtons.map((cardButton) => (
@@ -136,24 +133,9 @@ const Week = ({
         endTime={endTime}
         setEndTime={setEndTime}
         closeToggle={closeMenu}
-        saveToggle={saveNewMenu}
-        // title={title}
-        // setTitle={setTitle}
-        // location={location}
-        // setLocation={setLocation}
-        // date={date}
-        // setDate={setDate}
-        // startTime={startTime}
-        // setStartTime={setStartTime}
-        // endTime={endTime}
-        // setEndTime={setEndTime}
-        // dishes={dishes}
-        // addNewDishToMenu={addNewDishToMenu}
-        // modifyExistingDish={modifyExistingDish}
-        // removeDishFromMenu={removeDishFromMenu}
-        // removeMenu={removeMenu}
-        // eraseDishesFromMenu={eraseDishesFromMenu}
-        // menuId={menuId}
+        saveToggle={saveMenu}
+        dishes={dishes}
+        addNewDishToMenu={createDish}
       />
     </>
   );

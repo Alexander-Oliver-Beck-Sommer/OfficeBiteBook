@@ -45,7 +45,7 @@ const useMenuCreator = (userId: string) => {
     return isEndTimeValid;
   };
 
-  const prepareNewMenu = (date: string, hour: string) => {
+  const createMenu = (date: string, hour: string) => {
     setMenuSource("create");
     setVisibility(true);
     setMenuId(uuidv4());
@@ -54,7 +54,40 @@ const useMenuCreator = (userId: string) => {
     setEndTime(hour);
   };
 
-  const saveNewMenu = async () => {
+  useEffect(() => {
+    console.log("Dishes:", dishes);
+  }, [dishes]);
+
+  const createDish = () => {
+    const dish: DishProps = {
+      dish_id: uuidv4(),
+      menus: [menuId],
+      title: "",
+      subtitle: "",
+      description: "",
+      recipe: "",
+      thumbnail: "",
+    };
+
+    setDishes((dishes) => [...dishes, dish]);
+  };
+
+  const deleteDish = (dishId: string) => {
+    setDishes((dishes) => dishes.filter((dish) => dish.dish_id !== dishId));
+  };
+
+  const editMenu = (menu: MenuProps) => {
+    setMenuSource("edit");
+    setVisibility(true);
+    setMenuId(menu.menu_id);
+    setTitle(menu.title);
+    setLocation(menu.location);
+    setDate(menu.date);
+    setStartTime(menu.start_time);
+    setEndTime(menu.end_time);
+  };
+
+  const saveMenu = async () => {
     setLoading(true);
 
     if (menuSource === "create") {
@@ -93,17 +126,6 @@ const useMenuCreator = (userId: string) => {
     }
   };
 
-  const editMenu = (menu: MenuProps) => {
-    setMenuSource("edit");
-    setVisibility(true);
-    setMenuId(menu.menu_id);
-    setTitle(menu.title);
-    setLocation(menu.location);
-    setDate(menu.date);
-    setStartTime(menu.start_time);
-    setEndTime(menu.end_time);
-  };
-
   const closeMenu = () => {
     setVisibility(false);
   };
@@ -135,9 +157,11 @@ const useMenuCreator = (userId: string) => {
   }, [visibility]);
 
   return {
-    prepareNewMenu,
+    createMenu,
+    createDish,
+    deleteDish,
     editMenu,
-    saveNewMenu,
+    saveMenu,
     closeMenu,
     visibility,
     loading,
