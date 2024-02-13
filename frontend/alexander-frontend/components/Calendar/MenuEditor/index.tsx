@@ -3,11 +3,12 @@ import Details from "./Details";
 import Dish from "./Dish";
 import TextButton from "@/components/TextButton";
 import useUtilities from "@/hooks/useUtilities";
-import DishType from "@/types/DishType";
+import DishProps from "@/types/DishProps";
 import useDish from "./Dish/useDish";
 
 type MenuEditorProps = {
   visibility?: boolean;
+  loading?: boolean;
   closeToggle?: () => void;
   saveToggle?: () => void;
   // Details Fields:
@@ -23,7 +24,7 @@ type MenuEditorProps = {
   setEndTime?: (newEndTime: string) => void;
   addNewDishToMenu?: () => void;
   // Dishes:
-  dishes?: DishType[];
+  dishes?: DishProps[];
   modifyExistingDish?: (dishId: string, dish: {}) => void;
   removeDishFromMenu?: (dishId: string) => void;
   removeMenu?: () => void;
@@ -33,6 +34,7 @@ type MenuEditorProps = {
 
 const MenuEditor = ({
   visibility = false,
+  loading = false,
   closeToggle = () => {},
   saveToggle = () => {},
   title = "",
@@ -59,6 +61,7 @@ const MenuEditor = ({
   return (
     <ContentModal
       visibility={visibility}
+      loading={loading}
       title={title}
       toggle={closeToggle}
       showAddDishButton={true}
@@ -144,6 +147,7 @@ const MenuEditor = ({
         </div>
         <footer className="flex items-center justify-end gap-5 bg-dark-300 p-5 md:px-10">
           <TextButton
+            color="red"
             text="Cancel"
             label="Cancel menu"
             title="Cancel menu"

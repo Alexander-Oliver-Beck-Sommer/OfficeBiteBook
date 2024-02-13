@@ -4,6 +4,7 @@ import HourCell from "@/components/Calendar/Week/child-components/HourCell";
 import MenuEditor from "../MenuEditor";
 import CardButton from "@/components/Buttons/CardButton";
 import useCalendar from "@/hooks/useCalendar/useCalendar";
+import useMenuCreator from "@/hooks/useMenuCreator";
 
 type WeekProps = {
   userId?: string;
@@ -19,16 +20,13 @@ const Week = ({
   hours = [],
 }: WeekProps) => {
   const {
-    prepareMenuForEditing,
-    modifyExistingDish,
-    addNewDishToMenu,
-    saveMenuChanges,
-    modalVisibility,
-    hideModal,
-    initializeNewMenu,
+    prepareNewMenu,
+    editMenu,
+    saveNewMenu,
+    closeMenu,
+    visibility,
+    loading,
     menus,
-    fetchedMenus,
-    menuId,
     dishes,
     title,
     setTitle,
@@ -42,10 +40,7 @@ const Week = ({
     setEndTime,
     calculateCardButtonPosition,
     calculateCardButtonHeight,
-    removeDishFromMenu,
-    removeMenu,
-    eraseDishesFromMenu,
-  } = useCalendar(userId);
+  } = useMenuCreator(userId);
 
   return (
     <>
@@ -72,8 +67,8 @@ const Week = ({
           const dayDate = day.date;
           const isCurrentDay = todaysDate === dayDate;
           const date = day.date.split("-")[2];
-          const cardButtons = fetchedMenus.filter((menu) =>
-            menu.menu_date.startsWith(day.date),
+          const cardButtons = menus.filter((menu) =>
+            menu.date.startsWith(day.date),
           );
           return (
             <li
@@ -88,31 +83,35 @@ const Week = ({
                     <HourCell
                       key={`${day.name}-${hour.fullHour}`}
                       date={day.date}
-                      fullHour={hour.fullHour}
-                      fullHourToggle={() =>
-                        initializeNewMenu(hour.fullHour, day.date)
-                      }
                       halfHour={hour.halfHour}
                       halfHourToggle={() =>
-                        initializeNewMenu(hour.halfHour, day.date)
+                        prepareNewMenu(day.date, hour.halfHour)
+                      }
+                      fullHour={hour.fullHour}
+                      fullHourToggle={() =>
+                        prepareNewMenu(day.date, hour.fullHour)
                       }
                     />
                   ))}
                   {cardButtons.map((cardButton) => (
                     <CardButton
                       key={`cardButton-${cardButton.menu_id}`}
-                      title={cardButton.menu_title}
-                      location={cardButton.menu_location}
-                      acceptedParticipants={cardButton.menu_accepted?.length}
-                      declinedParticipants={cardButton.menu_declined?.length}
-                      toggle={() => prepareMenuForEditing(cardButton)}
+                      title={cardButton.title}
+                      location={cardButton.location}
+                      acceptedParticipants={
+                        cardButton.accepted_participants?.length
+                      }
+                      declinedParticipants={
+                        cardButton.declined_participants?.length
+                      }
+                      toggle={() => editMenu(cardButton)}
                       className={{
                         top: `${calculateCardButtonPosition(
-                          cardButton.menu_start_time,
+                          cardButton.start_time,
                         )}px`,
                         height: `${calculateCardButtonHeight(
-                          cardButton.menu_start_time,
-                          cardButton.menu_end_time,
+                          cardButton.start_time,
+                          cardButton.end_time,
                         )}px`,
                       }}
                     />
@@ -124,9 +123,8 @@ const Week = ({
         })}
       </ul>
       <MenuEditor
-        visibility={modalVisibility}
-        closeToggle={hideModal}
-        saveToggle={saveMenuChanges}
+        visibility={visibility}
+        loading={loading}
         title={title}
         setTitle={setTitle}
         location={location}
@@ -137,13 +135,25 @@ const Week = ({
         setStartTime={setStartTime}
         endTime={endTime}
         setEndTime={setEndTime}
-        dishes={dishes}
-        addNewDishToMenu={addNewDishToMenu}
-        modifyExistingDish={modifyExistingDish}
-        removeDishFromMenu={removeDishFromMenu}
-        removeMenu={removeMenu}
-        eraseDishesFromMenu={eraseDishesFromMenu}
-        menuId={menuId}
+        closeToggle={closeMenu}
+        saveToggle={saveNewMenu}
+        // title={title}
+        // setTitle={setTitle}
+        // location={location}
+        // setLocation={setLocation}
+        // date={date}
+        // setDate={setDate}
+        // startTime={startTime}
+        // setStartTime={setStartTime}
+        // endTime={endTime}
+        // setEndTime={setEndTime}
+        // dishes={dishes}
+        // addNewDishToMenu={addNewDishToMenu}
+        // modifyExistingDish={modifyExistingDish}
+        // removeDishFromMenu={removeDishFromMenu}
+        // removeMenu={removeMenu}
+        // eraseDishesFromMenu={eraseDishesFromMenu}
+        // menuId={menuId}
       />
     </>
   );

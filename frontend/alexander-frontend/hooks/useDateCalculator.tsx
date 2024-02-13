@@ -59,12 +59,18 @@ const useDateCalculator = () => {
   // Usage:
   // Right now the date is 2024-02-03, so getCurrentWeekNumber() => 5
 
+  const convertStringToMinutes = (time: string) => {
+    const [hours, minutes] = time.split(":").map(Number);
+    return hours * 60 + minutes;
+  };
+
   return {
     currentDate,
     getDayNameFromDate,
     formatDate,
     getWeekNumberFromDate,
     getCurrentWeekNumber,
+    convertStringToMinutes,
   };
 };
 
