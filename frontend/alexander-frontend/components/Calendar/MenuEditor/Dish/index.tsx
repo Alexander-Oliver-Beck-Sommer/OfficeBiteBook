@@ -1,145 +1,105 @@
 "use client";
 import React from "react";
 import Accordion from "@/components/Accordion";
-import TextInput from "@/components/Inputs/TextInput";
-import TextArea from "@/components/Inputs/TextArea";
-import UploadThumbnail from "@/components/Inputs/UploadThumbnail";
-import useDish from "./useDish";
+import InputField from "@/components/InputField";
 
 interface DishProps {
+  /** Number of the dish object inside the dishes array. */
   count?: number;
-  menuId?: string;
+  /** State of the accordion. */
   accordionState?: boolean;
+  /** Function to handle the accordion state. */
   handleAccordion?: (state: boolean) => void;
+  /** Function to remove the accordion. */
   removeToggle?: () => void;
+  /** Id of the dish. */
+  dishId?: string;
+  /** Title of the dish. */
   title?: string;
-  setTitle?: (newTitle: string) => void;
+  /** Subtitle of the dish. */
   subtitle?: string;
-  setSubtitle?: (newSubtitle: string) => void;
+  /** Description of the dish. */
   description?: string;
-  setDescription?: (newDescription: string) => void;
+  /** Recipe of the dish. */
   recipe?: string;
-  setRecipe?: (newRecipe: string) => void;
-  name?: string;
-  setName?: (newName: string) => void;
-  file?: File | null;
-  setFile?: (newFile: File | null) => void;
-  url?: string;
-  setUrl?: (newUrl: string) => void;
+  /** Thumbnail of the dish - default value will always be a url to display a background image. */
+  thumbnailUrl?: string;
 }
 
 const Dish: React.FC<DishProps> = ({
   count = 0,
-  menuId,
   accordionState,
   handleAccordion,
   removeToggle,
+  dishId,
   title,
-  setTitle,
   subtitle,
-  setSubtitle,
   description,
-  setDescription,
   recipe,
-  setRecipe,
-  name,
-  setName,
-  file,
-  setFile,
-  url,
-  setUrl,
+  thumbnailUrl,
 }) => {
-  const {
-    titleInput,
-    handleTitleChange,
-    subtitleInput,
-    handleSubtitleChange,
-    descriptionInput,
-    handleDescriptionChange,
-    thumbnailUrl,
-    changeThumbnail,
-    removeThumbnail,
-    recipeInput,
-    handleRecipeChange,
-  } = useDish(
-    title,
-    setTitle,
-    subtitle,
-    setSubtitle,
-    description,
-    setDescription,
-    recipe,
-    setRecipe,
-    name,
-    setName,
-    file,
-    setFile,
-    url,
-    setUrl,
-    menuId,
-  );
-
   return (
     <Accordion
       variant="dish"
-      text={titleInput}
+      text={title || "Dish"}
       count={count}
       deleteToggle={removeToggle}
       accordionState={accordionState}
       setAccordionState={handleAccordion}
       id={`dish-${count}`}
     >
-      <ul className="grid grid-cols-2 gap-5 p-5">
-        <li>
-          <TextInput
-            variant="text"
-            label="Click to change the title of the dish"
-            name="Title"
-            placeholder="Title"
-            value={titleInput}
-            valueChange={handleTitleChange}
-            required
-          />
-        </li>
-        <li>
-          <TextInput
-            variant="text"
-            label="Click to change the subtitle of the dish"
-            name="Subtitle"
-            placeholder="Subtitle"
-            valueChange={handleSubtitleChange}
-            value={subtitleInput}
-          />
-        </li>
-        <li>
-          <TextArea
-            rows={5}
-            label="Click to change the subtitle of the dish"
-            name="Description"
-            placeholder="Description"
-            onValueChange={handleDescriptionChange}
-            value={descriptionInput}
-          />
-        </li>
-        <li>
-          <UploadThumbnail
-            id={count}
-            thumbnailURL={thumbnailUrl}
-            changeThumbnail={changeThumbnail}
-            removeThumbnail={removeThumbnail}
-          />
-        </li>
-        <li className="col-span-2">
-          <TextInput
-            variant="link"
-            label="Click to change the recipe of the dish"
-            name="Recipe"
-            placeholder="Recipe"
-            valueChange={handleRecipeChange}
-            value={recipeInput}
-          />
-        </li>
-      </ul>
+      <form data-dish-id={dishId}>
+        <ul className="flex auto-rows-max grid-cols-2 flex-col gap-x-10 gap-y-5 p-5 lg:grid">
+          <li>
+            <InputField
+              label="Change the title of the dish"
+              name="Title"
+              placeholder="Title"
+              defaultValue={title}
+              id={`dish-${count}-title`}
+              required
+            />
+          </li>
+          <li>
+            <InputField
+              label="Change the subtitle of the dish"
+              name="Subtitle"
+              placeholder="Subtitle"
+              defaultValue={subtitle}
+              id={`dish-${count}-subtitle`}
+            />
+          </li>
+          <li>
+            <InputField
+              label="Change the description of the dish"
+              name="Description"
+              placeholder="Description"
+              defaultValue={description}
+              id={`dish-${count}-description`}
+              type="textarea"
+            />
+          </li>
+          <li>
+            <InputField
+              label="Change thumbnail of the dish"
+              name="Thumbnail"
+              defaultValue={thumbnailUrl}
+              id={`dish-${count}-thumbnail`}
+              type="file"
+            />
+          </li>
+          <li className="col-span-2">
+            <InputField
+              label="Change the recipe of the dish"
+              name="Recipe"
+              placeholder="https://example.com"
+              defaultValue={recipe}
+              id={`dish-${count}-recipe`}
+              type="url"
+            />
+          </li>
+        </ul>
+      </form>
     </Accordion>
   );
 };

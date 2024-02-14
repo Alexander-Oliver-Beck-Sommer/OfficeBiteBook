@@ -93,10 +93,11 @@ const MenuEditor = ({
                     key={dish.dish_id}
                     menuId={menuId}
                     count={index + 1}
+                    dishId={dish.dish_id}
                     title={dish.title}
                     subtitle={dish.subtitle}
                     description={dish.description}
-                    url={dish.thumbnail}
+                    thumbnailUrl={dish.thumbnail_url}
                     recipe={dish.recipe}
                     accordionState={accordionId === dish.dish_id}
                     handleAccordion={() =>

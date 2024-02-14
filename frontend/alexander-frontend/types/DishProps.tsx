@@ -5,6 +5,7 @@ export interface DishProps {
   subtitle?: string;
   description?: string;
   recipe?: string;
-  thumbnail?: string;
+  thumbnail_url?: string;
+  thumbnail_file?: File;
   created_at?: string;
 }

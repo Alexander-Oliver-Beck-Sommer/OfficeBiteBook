@@ -3,8 +3,11 @@ import { v4 as uuidv4 } from "uuid";
 import useMenus from "./useMenus";
 import useDateCalculator from "./useDateCalculator";
 import useUtilities from "./useUtilities";
+import useDishes from "./useDishes";
+import useBucket from "./useBucket";
 import { MenuProps } from "@/types/MenuProps";
 import { DishProps } from "@/types/DishProps";
+import { title } from "process";
 
 type MenuSource = "create" | "edit" | "";
 
@@ -30,6 +33,8 @@ const useMenuCreator = (userId: string) => {
   } = useDateCalculator();
   const { calculateCardButtonPosition, calculateCardButtonHeight } =
     useUtilities();
+  const { getDish, getDishesFromMenu, insertDish, updateDish } = useDishes();
+  const { uploadFile, getFileUrl, deleteFile, updateFile } = useBucket();
 
   // Utility Functions:
   const verifyMenu = () => {
@@ -56,7 +61,7 @@ const useMenuCreator = (userId: string) => {
 
   useEffect(() => {
     console.log("Dishes:", dishes);
-  }, [dishes]);
+  }, [dishes, title]);
 
   const createDish = () => {
     const dish: DishProps = {
@@ -66,7 +71,8 @@ const useMenuCreator = (userId: string) => {
       subtitle: "",
       description: "",
       recipe: "",
-      thumbnail: "",
+      thumbnail_url: "",
+      thumbnail_file: null,
     };
 
     setDishes((dishes) => [...dishes, dish]);
@@ -107,6 +113,8 @@ const useMenuCreator = (userId: string) => {
         end_time: endTime,
         week: getCurrentWeekNumber(),
       };
+      await collectDishes(); // 1 - Save all data into the dishes array.
+      await uploadDishes();
       await uploadMenu(menu);
       setVisibility(false);
     }
@@ -133,6 +141,80 @@ const useMenuCreator = (userId: string) => {
   const loadMenus = async () => {
     const fetchedMenus = await getMenusFromUser(userId);
     setMenus(fetchedMenus);
+  };
+
+  const uploadDishes = async () => {
+    for (const dish of dishes) {
+      // if (dish.thumbnail_file) {
+      //   const path = `${menuId}/${dish.dish_id}.jpg`;
+      //   await uploadFile("dishes_thumbnails", path, dish.thumbnail_file);
+      // }
+      console.log("Uploading dish:", dish);
+    }
+  };
+
+  const collectDishes = async () => {
+    console.log("Collecting dishes...");
+    const forms = document.querySelectorAll("form");
+
+    forms.forEach((form, index) => {
+      const dishId = form.getAttribute("data-dish-id");
+      const formCount = index + 1;
+      const fields = [
+        "title",
+        "subtitle",
+        "description",
+        "thumbnail",
+        "recipe",
+      ];
+      const dishData = {};
+
+      fields.forEach((field) => {
+        const inputId = `dish-${formCount}-${field}`;
+        const inputElement = form.querySelector(`#${inputId}`);
+        if (inputElement) {
+          if (inputElement.type === "file") {
+            const file = inputElement.files[0];
+            if (file) {
+              dishData[field] = file;
+            } else {
+              dishData[field] = null;
+            }
+          } else {
+            dishData[field] = inputElement.value;
+          }
+        } else {
+          console.warn(`Input with ID ${inputId} not found.`);
+        }
+      });
+
+      const newDish = {
+        dish_id: dishId || uuidv4(),
+        menus: [menuId],
+        title: dishData.title,
+        subtitle: dishData.subtitle,
+        description: dishData.description,
+        thumbnail_url: "",
+        thumbnail_file: dishData.thumbnail,
+        recipe: dishData.recipe,
+      };
+
+      setDishes((prevDishes) => {
+        const dishIndex = prevDishes.findIndex(
+          (dish) => dish.dish_id === dishId,
+        );
+        if (dishIndex !== -1) {
+          const updatedDishes = [...prevDishes];
+          updatedDishes[dishIndex] = {
+            ...updatedDishes[dishIndex],
+            ...newDish,
+          };
+          return updatedDishes;
+        } else {
+          return [...prevDishes, newDish];
+        }
+      });
+    });
   };
 
   // useEffect Hooks:
@@ -179,6 +261,7 @@ const useMenuCreator = (userId: string) => {
     setEndTime,
     calculateCardButtonPosition,
     calculateCardButtonHeight,
+    collectDishes,
   };
 };
 

@@ -32,7 +32,17 @@ const useDishes = () => {
   };
 
   const insertDish = async (dish: DishProps) => {
-    const { error } = await supabase.from("dishes").insert(dish);
+    const { error } = await supabase.from("dishes").insert([
+      {
+        dish_id: dish.dish_id,
+        menus: dish.menus,
+        title: dish.title,
+        subtitle: dish.subtitle,
+        description: dish.description,
+        thumbnail_url: dish.thumbnail_url,
+        recipe: dish.recipe,
+      },
+    ]);
 
     if (error) {
       throw new Error("Error uploading dish");
@@ -48,7 +58,7 @@ const useDishes = () => {
         title: dish.title,
         subtitle: dish.subtitle,
         description: dish.description,
-        thumbnail: dish.thumbnail,
+        thumbnail_url: dish.thumbnail_url,
         recipe: dish.recipe,
       })
       .eq("dish_id", dishId);

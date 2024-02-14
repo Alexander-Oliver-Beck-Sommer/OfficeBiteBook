@@ -1,60 +1,118 @@
-import React, { useRef, useState } from "react";
+import React from "react";
+import ImageIcon from "../Icons/ImageIcon";
+import DeleteIcon from "../Icons/DeleteIcon";
+import UploadIcon from "../Icons/UploadIcon";
 
-type Type = "text" | "password" | "email" | "tel" | "date" | "time" | "url";
-type Size = "small" | "normal";
+type Type =
+  | "text"
+  | "password"
+  | "email"
+  | "tel"
+  | "date"
+  | "time"
+  | "url"
+  | "textarea"
+  | "file";
+type AutoComplete = "on" | "off";
 
 interface InputFieldProps {
-  /** Defines what type the input should serve. */
-  type?: string;
   /** Defines a string value that labels the current element. */
   label?: string;
-  /** Adds a label for the input field, and connects it to the input element. */
+  /** Defines the name of the input element. */
   name?: string;
+  /** Supported types: text, password, email, tel, date, time, url. */
+  type?: Type;
+  /** Defines if the input is required. */
+  required?: boolean;
+  /** Defines a string value that specifies a short hint that describes the expected value of the input field. */
+  placeholder?: string;
+  /** Defines a string value that specifies the default value of the input field. */
+  defaultValue?: string;
+  /** Defines if the input is disabled. */
+  disabled?: boolean;
+  /** Used to link the label element together with the input field. */
+  id?: string;
+  /** Supported: on, off. */
+  autoComplete?: AutoComplete;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
+  label,
+  name,
   type = "text",
-  label = "",
-  name = "",
+  required = false,
+  placeholder,
+  defaultValue,
+  disabled = false,
+  id,
+  autoComplete = "off",
 }) => {
-  const input = useRef<HTMLInputElement>(null);
-  const [isFocused, setIsFocused] = useState(false);
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let timeValue = event.target.value;
-    if (variant === "time") {
-      timeValue = timeValue.substring(0, 5);
-    }
-    valueChange(timeValue);
-  };
-
-  const textInputIconClick = () => {
-    inputField.current?.focus();
-  };
-
-  const textInputFocus = () => {
-    setIsFocused(true);
-  };
-
-  const textInputBlur = () => {
-    setIsFocused(false);
+  const props = {
+    autoComplete,
+    ...(placeholder && { placeholder }),
+    ...(required && { required }),
+    ...(label && { "aria-label": label }),
+    ...(id && { id }),
+    ...(defaultValue && { defaultValue }),
+    disabled,
   };
 
   return (
-    <section className="relative flex flex-col gap-2 md:gap-4">
-      <label className="w-fit" htmlFor={name}>
-        <p
-          className={`text_white origin-bottom-left text-sm text-grey transition-all duration-300 ease-in-out md:text-base`}
-        >
-          {name}
-        </p>
-      </label>
-
-      <input
-        type="date"
-        id={name}
-        className={`text_white placeholder:text-test_grey w-full rounded border-2 border-dark-500 bg-dark-100 p-3 placeholder-opacity-100 outline-0 transition-all duration-300 ease-in-out placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus-visible:placeholder:opacity-0 md:p-4`}
-      />
-    </section>
+    <>
+      {type === "textarea" ? (
+        <div className="flex h-full flex-col gap-3">
+          {name && (
+            <label htmlFor={id} className="text-grey">
+              <p>{name}</p>
+            </label>
+          )}
+          <textarea
+            {...props}
+            className="h-full rounded border-2 border-dark-500 bg-dark-100 p-3 outline-none placeholder:opacity-100 placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus:placeholder:opacity-0"
+          />
+        </div>
+      ) : type === "file" ? (
+        <div className="flex h-full flex-col gap-3">
+          {name && <p className="text-grey">{name}</p>}
+          <div className="grid grid-cols-30X70">
+            <div className="relative flex aspect-square items-center justify-center rounded border-2 border-dark-500 bg-dark-100 fill-grey">
+              {defaultValue ? (
+                <div
+                  className="absolute inset-0"
+                  style={{ backgroundImage: `url(${defaultValue})` }}
+                ></div>
+              ) : (
+                <ImageIcon className="h-10 w-10" />
+              )}
+            </div>
+            <label className="ml-3 flex cursor-pointer flex-col items-center justify-center gap-1 rounded border-2 border-dark-500 bg-dark-100 fill-grey p-3 text-grey outline-none transition-all duration-300 ease-in-out hover:border-primary hover:bg-primary hover:fill-dark-100 hover:text-dark-100 focus-visible:border-primary focus-visible:bg-primary focus-visible:fill-dark-100 focus-visible:text-dark-100">
+              <input
+                {...props}
+                type={type}
+                className="hidden"
+                accept="image/png, image/jpeg"
+              />
+              <UploadIcon className="h-10 w-10" />
+              <h4>Upload Thumbnail</h4>
+              <h6>JPEG & PNG</h6>
+            </label>
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-3">
+          {name && (
+            <label htmlFor={id} className="text-grey">
+              <p>{name}</p>
+            </label>
+          )}
+          <input
+            {...props}
+            type={type}
+            className="rounded border-2 border-dark-500 bg-dark-100 p-3 outline-none placeholder:opacity-100 placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus:placeholder:opacity-0"
+          />
+        </div>
+      )}
+    </>
   );
 };
 
