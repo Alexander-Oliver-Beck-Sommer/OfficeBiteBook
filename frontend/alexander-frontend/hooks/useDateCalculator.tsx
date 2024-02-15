@@ -64,6 +64,15 @@ const useDateCalculator = () => {
     return hours * 60 + minutes;
   };
 
+  const increaseWithOneHour = (time: string) => {
+    const [hour, minutes] = time.split(":");
+    const newHour = String(Number(hour) + 1);
+    return `${newHour}:${minutes}`;
+  };
+  // Usage:
+  // increaseWithOneHour("12:00") => "13:00"
+  // increaseWithOneHour("12:30") => "13:30"
+
   return {
     currentDate,
     getDayNameFromDate,
@@ -71,6 +80,7 @@ const useDateCalculator = () => {
     getWeekNumberFromDate,
     getCurrentWeekNumber,
     convertStringToMinutes,
+    increaseWithOneHour,
   };
 };
 

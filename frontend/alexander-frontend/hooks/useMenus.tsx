@@ -40,23 +40,17 @@ const useMenus = () => {
 
   const getMenusFromUser = async (userId: string) => {
     try {
-      const { data: menusData, error: menusError } = await supabase
+      const { data, error } = await supabase
         .from("menus")
         .select("*")
         .eq("user_id", userId);
 
-      if (menusError) {
+      if (error) {
         throw new Error("Error fetching menus");
-        console.error("Error fetching menus:", menusError);
+        console.error("Error fetching menus:", error);
       }
 
-      if (menusData) {
-        menusData.forEach((menu) => {
-          console.log(menu);
-        });
-      }
-
-      return menusData;
+      return data;
     } catch (error) {
       console.error("Error fetching menus:", error);
     }

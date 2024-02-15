@@ -4,7 +4,6 @@ import Dish from "./Dish";
 import TextButton from "@/components/TextButton";
 import useUtilities from "@/hooks/useUtilities";
 import DishProps from "@/types/DishProps";
-import useDish from "./Dish/useDish";
 
 type MenuEditorProps = {
   visibility?: boolean;
@@ -25,7 +24,6 @@ type MenuEditorProps = {
   addNewDishToMenu?: () => void;
   // Dishes:
   dishes?: DishProps[];
-  modifyExistingDish?: (dishId: string, dish: {}) => void;
   removeDishFromMenu?: (dishId: string) => void;
   removeMenu?: () => void;
   eraseDishesFromMenu?: () => void;
@@ -49,7 +47,6 @@ const MenuEditor = ({
   setEndTime = () => {},
   addNewDishToMenu = () => {},
   dishes = [],
-  modifyExistingDish = () => {},
   removeDishFromMenu = () => {},
   removeMenu = () => {},
   eraseDishesFromMenu = () => {},

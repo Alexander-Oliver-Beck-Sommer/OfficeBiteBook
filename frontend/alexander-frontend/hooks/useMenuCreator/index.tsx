@@ -1,73 +1,80 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import useMenus from "./useMenus";
-import useDateCalculator from "./useDateCalculator";
-import useUtilities from "./useUtilities";
-import useDishes from "./useDishes";
-import useBucket from "./useBucket";
+import useMenus from "../useMenus";
+import useDateCalculator from "../useDateCalculator";
+import useUtilities from "../useUtilities";
+import useDishes from "../useDishes";
+import useBucket from "../useBucket";
 import { MenuProps } from "@/types/MenuProps";
 import { DishProps } from "@/types/DishProps";
-import { title } from "process";
-
-type MenuSource = "create" | "edit" | "";
+import states from "./States";
 
 const useMenuCreator = (userId: string) => {
-  // States:
-  const [menuSource, setMenuSource] = useState<MenuSource>("");
-  const [visibility, setVisibility] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [menuId, setMenuId] = useState<string>("");
-  const [menus, setMenus] = useState<MenuProps[]>([]);
-  const [dishes, setDishes] = useState<DishProps[]>([]);
-  const [title, setTitle] = useState<string>("");
-  const [location, setLocation] = useState<string>("");
-  const [date, setDate] = useState<string>("");
-  const [startTime, setStartTime] = useState<string>("");
-  const [endTime, setEndTime] = useState<string>("");
-  // Hooks:
+  const {
+    mode,
+    setMode,
+    visibility,
+    setVisibility,
+    loading,
+    setLoading,
+    menuID,
+    setMenuID,
+    menus,
+    setMenus,
+    dishes,
+    setDishes,
+    title,
+    setTitle,
+    location,
+    setLocation,
+    date,
+    setDate,
+    startTime,
+    setStartTime,
+    endTime,
+    setEndTime,
+  } = states();
   const { uploadMenu, getMenusFromUser, updateMenu } = useMenus();
   const {
     getCurrentWeekNumber,
     getWeekNumberFromDate,
     convertStringToMinutes,
+    increaseWithOneHour,
   } = useDateCalculator();
   const { calculateCardButtonPosition, calculateCardButtonHeight } =
     useUtilities();
-  const { getDish, getDishesFromMenu, insertDish, updateDish } = useDishes();
-  const { uploadFile, getFileUrl, deleteFile, updateFile } = useBucket();
+  const { getDishesFromMenu, insertDish } = useDishes();
+  const { uploadFile, getFileUrl } = useBucket();
 
-  // Utility Functions:
   const verifyMenu = () => {
     if (!title || !location || !date || !startTime || !endTime) {
       return false;
     }
 
-    const startTimeInMinutes = convertStringToMinutes(startTime);
-    const endTimeInMinutes = convertStringToMinutes(endTime);
+    const startConverted = convertStringToMinutes(startTime);
+    const endConverted = convertStringToMinutes(endTime);
 
-    const isEndTimeValid = endTimeInMinutes - startTimeInMinutes >= 60;
+    const areTimesValid = endConverted - startConverted >= 60;
 
-    return isEndTimeValid;
+    return areTimesValid;
   };
 
+  // The createMenu function is called upon clicking a <HourCell/> button.
   const createMenu = (date: string, hour: string) => {
-    setMenuSource("create");
+    setMode("create");
     setVisibility(true);
-    setMenuId(uuidv4());
+    setMenuID(uuidv4()); // This could technically be done automatically in the backend, but we need the menuID to be available for the dishes.
     setDate(date);
     setStartTime(hour);
-    setEndTime(hour);
+    setEndTime(increaseWithOneHour(hour)); // Automatically set the end time to be one hour after the start time.
   };
 
-  useEffect(() => {
-    console.log("Dishes:", dishes);
-  }, [dishes, title]);
-
+  // Create a new dish object and add it to the dishes array - a unique dish_id is generated using uuidv4().
   const createDish = () => {
-    const dish: DishProps = {
+    const newDish: DishProps = {
       dish_id: uuidv4(),
       user_id: userId,
-      menu_id: [menuId],
+      menu_id: [menuID],
       title: "",
       subtitle: "",
       description: "",
@@ -76,17 +83,14 @@ const useMenuCreator = (userId: string) => {
       thumbnail_file: null,
     };
 
-    setDishes((dishes) => [...dishes, dish]);
+    setDishes((dishes) => [...dishes, newDish]);
   };
 
-  const deleteDish = (dishId: string) => {
-    setDishes((dishes) => dishes.filter((dish) => dish.dish_id !== dishId));
-  };
-
+  // The editMenu function is called upon clicking a <CardButton/> button.
   const editMenu = (menu: MenuProps) => {
-    setMenuSource("edit");
+    setMode("edit");
     setVisibility(true);
-    setMenuId(menu.menu_id);
+    setMenuID(menu.menu_id);
     setTitle(menu.title);
     setLocation(menu.location);
     setDate(menu.date);
@@ -95,8 +99,15 @@ const useMenuCreator = (userId: string) => {
     loadDishes(menu.menu_id);
   };
 
-  const loadDishes = async (menuId: string) => {
-    const fetchedDishes = await getDishesFromMenu(menuId);
+  // Function that is triggered upon whenever the modal is closed, automatically fetching newly added menus.
+  const loadMenus = async () => {
+    const fetchedMenus = await getMenusFromUser(userId);
+    setMenus(fetchedMenus);
+  };
+
+  // Load the dishes from a specific menu - only used when editing a menu.
+  const loadDishes = async (menuID: string) => {
+    const fetchedDishes = await getDishesFromMenu(menuID);
     setDishes(fetchedDishes);
   };
 
@@ -105,15 +116,14 @@ const useMenuCreator = (userId: string) => {
 
     const dishIds = dishes.map((dish) => dish.dish_id);
 
-    if (menuSource === "create") {
+    if (mode === "create") {
       if (!verifyMenu()) {
         setLoading(false);
-        console.log("Invalid menu data.");
         return;
       }
 
       const menu: MenuProps = {
-        menu_id: menuId,
+        menu_id: menuID,
         user_id: userId,
         title: title,
         location: location,
@@ -128,7 +138,7 @@ const useMenuCreator = (userId: string) => {
       setVisibility(false);
     }
 
-    if (menuSource === "edit") {
+    if (mode === "edit") {
       const menu: MenuProps = {
         title: title,
         location: location,
@@ -139,7 +149,7 @@ const useMenuCreator = (userId: string) => {
         dishes: dishIds,
       };
       await uploadDishes();
-      await updateMenu(menuId, menu);
+      await updateMenu(menuID, menu);
       setVisibility(false);
     }
   };
@@ -148,40 +158,41 @@ const useMenuCreator = (userId: string) => {
     setVisibility(false);
   };
 
-  const loadMenus = async () => {
-    const fetchedMenus = await getMenusFromUser(userId);
-    setMenus(fetchedMenus);
-  };
-
+  // This is a hefty function, so let's break it down:
+  // 1️⃣ The function is called upon saving a menu.
   const uploadDishes = async () => {
+    // 2️⃣ We loop through each form (dish) in the modal.
     const forms = document.querySelectorAll("form");
 
+    // 3️⃣ We grab the dish_id from the form and begin saving whatever data we can find inside the form.
     for (const [index, form] of Array.from(forms).entries()) {
       const dishId = form.getAttribute("data-dish-id");
-      const formCount = index + 1;
+      const formCount = index + 1; // Since there can be multiple dishes at once with the same id’s, we need to differentiate them.
       const fields = [
         "title",
         "subtitle",
         "description",
-        "thumbnail",
+        "thumbnail", // The thumbnail in this point carries the File (if there is one), and not the url.
         "recipe",
       ];
       const dishData = {};
 
+      // 4️⃣ We loop through each field in the form and slowly build up the dishData object.
       for (const field of fields) {
         const inputId = `dish-${formCount}-${field}`;
         const inputElement = form.querySelector(`#${inputId}`);
         if (inputElement) {
+          // If we find a file inside our file input, we upload it to the bucket and save the publicURL to the dishData object.
           if (inputElement.type === "file") {
-            console.log("File found.");
-
             const file = inputElement.files[0];
             if (file) {
               dishData[field] = file;
-              console.log("File:", file);
+              // This is pretty weird without context, but rest assured:
+              // 1. Define the bucket name, which in this case is "dishes_thumbnails".
+              // 2. Define the file path, which is the menuID and the dishId with the file extension. The menuId will become a folder, where our files are stored under.
               await uploadFile(
                 "dishes_thumbnails",
-                `${menuId}/${dishId}.${file.type.split("/")[1]}`,
+                `${menuID}/${dishId}.${file.type.split("/")[1]}`,
                 file,
               );
             } else {
@@ -190,49 +201,44 @@ const useMenuCreator = (userId: string) => {
           } else {
             dishData[field] = inputElement.value;
           }
-        } else {
-          console.warn(`Input with ID ${inputId} not found.`);
         }
       }
 
-      const newDish = {
+      // 5️⃣ We create a new dish object and add it to the dishes array.
+      const newDish: DishProps = {
         dish_id: dishId,
         user_id: userId,
-        menu_id: [menuId],
+        menu_id: [menuID],
         title: dishData.title,
         subtitle: dishData.subtitle,
         description: dishData.description,
         recipe: dishData.recipe,
       };
 
-      // Only add thumbnail_url if a thumbnail file was uploaded
+      // 6️⃣ If we have a thumbnail, we fetch the publicURL and add it to the newDish object. This is to avoid pre-existing thumbnails from being overwritten, if they don't have a file.
       if (dishData.thumbnail) {
         const mimeType = dishData.thumbnail.type;
         const extension = mimeType.split("/")[1];
-        const thumbnailFile = `${menuId}/${dishId}.${extension}`;
+        const thumbnailFile = `${menuID}/${dishId}.${extension}`;
         newDish.thumbnail_url = await getFileUrl(
           "dishes_thumbnails",
           thumbnailFile,
         );
       }
 
+      // 7️⃣ We ship the newDish object to the dishes table.
+      // This function works both for creating and updating dishes.
       await insertDish(newDish);
     }
   };
 
-  // useEffect Hooks:
-  useEffect(() => {
-    console.log("Menu ID:", menuId);
-    console.log("Menu Source:", menuSource);
-  }, [menuId]);
-
   useEffect(() => {
     if (visibility === false) {
-      setMenuSource("");
+      setMode("");
       loadMenus();
       setDishes([]);
       setLoading(false);
-      setMenuId("");
+      setMenuID("");
       setTitle("");
       setLocation("");
       setDate("");
@@ -244,7 +250,6 @@ const useMenuCreator = (userId: string) => {
   return {
     createMenu,
     createDish,
-    deleteDish,
     editMenu,
     saveMenu,
     closeMenu,

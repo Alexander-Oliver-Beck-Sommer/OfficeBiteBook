@@ -105,10 +105,6 @@ const useHome = (userId: string) => {
     setGuestOpen(!guestOpen);
   };
 
-  const checkAllMenus = async () => {
-    console.log("Tired");
-  };
-
   const checkMenu = async (menuId, checked) => {
     const updatedMenus = menus.map((menu) => {
       if (menu.menu_id === menuId) {
@@ -135,12 +131,16 @@ const useHome = (userId: string) => {
       if (!accepted_participants.includes(userId)) {
         accepted_participants.push(userId);
       }
-      declined_participants = declined_participants.filter((id) => id !== userId);
+      declined_participants = declined_participants.filter(
+        (id) => id !== userId,
+      );
     } else {
       if (!declined_participants.includes(userId)) {
         declined_participants.push(userId);
       }
-      accepted_participants = accepted_participants.filter((id) => id !== userId);
+      accepted_participants = accepted_participants.filter(
+        (id) => id !== userId,
+      );
     }
 
     const { data: updateData, error: updateError } = await supabase
