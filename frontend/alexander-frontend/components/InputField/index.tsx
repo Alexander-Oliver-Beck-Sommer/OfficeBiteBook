@@ -78,7 +78,7 @@ const InputField: React.FC<InputFieldProps> = ({
             <div className="relative flex aspect-square items-center justify-center rounded border-2 border-dark-500 bg-dark-100 fill-grey">
               {defaultValue ? (
                 <div
-                  className="absolute inset-0"
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                   style={{ backgroundImage: `url(${defaultValue})` }}
                 ></div>
               ) : (
@@ -87,7 +87,8 @@ const InputField: React.FC<InputFieldProps> = ({
             </div>
             <label className="ml-3 flex cursor-pointer flex-col items-center justify-center gap-1 rounded border-2 border-dark-500 bg-dark-100 fill-grey p-3 text-grey outline-none transition-all duration-300 ease-in-out hover:border-primary hover:bg-primary hover:fill-dark-100 hover:text-dark-100 focus-visible:border-primary focus-visible:bg-primary focus-visible:fill-dark-100 focus-visible:text-dark-100">
               <input
-                {...props}
+                {...(label && { "aria-label": label })}
+                {...(id && { id })}
                 type={type}
                 className="hidden"
                 accept="image/png, image/jpeg"

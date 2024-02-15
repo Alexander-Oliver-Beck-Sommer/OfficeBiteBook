@@ -20,7 +20,7 @@ const useMenus = () => {
     const { data: dishes, error } = await supabase
       .from("dishes")
       .select("*")
-      .contains("menus_id", `["${menuId}"]`);
+      .contains("menu_id", `["${menuId}"]`);
 
     if (error) {
       throw new Error("Error fetching dishes");
@@ -39,17 +39,27 @@ const useMenus = () => {
   };
 
   const getMenusFromUser = async (userId: string) => {
-    const { data, error } = await supabase
-      .from("menus")
-      .select("*")
-      .eq("user_id", userId);
+    try {
+      const { data: menusData, error: menusError } = await supabase
+        .from("menus")
+        .select("*")
+        .eq("user_id", userId);
 
-    if (error) {
-      throw new Error("Error fetching menus");
+      if (menusError) {
+        throw new Error("Error fetching menus");
+        console.error("Error fetching menus:", menusError);
+      }
+
+      if (menusData) {
+        menusData.forEach((menu) => {
+          console.log(menu);
+        });
+      }
+
+      return menusData;
+    } catch (error) {
       console.error("Error fetching menus:", error);
     }
-
-    return data;
   };
 
   const updateMenu = async (menuId: string, menu: MenuProps) => {

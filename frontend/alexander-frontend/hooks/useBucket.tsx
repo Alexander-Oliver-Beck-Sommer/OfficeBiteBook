@@ -6,19 +6,16 @@ const useBucket = () => {
   const [error, setError] = useState(null);
 
   const uploadFile = async (bucket: string, path: string, file: File) => {
-    if (file && file.type === "image/jpeg") {
-      setLoading(true);
+    if (file || file.type === "image/jpeg" || file.type === "image/png") {
       try {
-        const { data, error } = await supabase.storage
+        const { error } = await supabase.storage
           .from(bucket)
           .upload(path, file, {
-            cacheControl: "3600",
             upsert: true,
           });
+        console.log("File uploaded.");
       } catch (error) {
         setError(error.message);
-      } finally {
-        setLoading(false);
       }
     }
   };

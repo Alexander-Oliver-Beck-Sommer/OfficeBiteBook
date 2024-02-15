@@ -66,7 +66,8 @@ const useMenuCreator = (userId: string) => {
   const createDish = () => {
     const dish: DishProps = {
       dish_id: uuidv4(),
-      menus: [menuId],
+      user_id: userId,
+      menu_id: [menuId],
       title: "",
       subtitle: "",
       description: "",
@@ -91,10 +92,18 @@ const useMenuCreator = (userId: string) => {
     setDate(menu.date);
     setStartTime(menu.start_time);
     setEndTime(menu.end_time);
+    loadDishes(menu.menu_id);
+  };
+
+  const loadDishes = async (menuId: string) => {
+    const fetchedDishes = await getDishesFromMenu(menuId);
+    setDishes(fetchedDishes);
   };
 
   const saveMenu = async () => {
     setLoading(true);
+
+    const dishIds = dishes.map((dish) => dish.dish_id);
 
     if (menuSource === "create") {
       if (!verifyMenu()) {
@@ -112,8 +121,8 @@ const useMenuCreator = (userId: string) => {
         start_time: startTime,
         end_time: endTime,
         week: getCurrentWeekNumber(),
+        dishes: dishIds,
       };
-      await collectDishes(); // 1 - Save all data into the dishes array.
       await uploadDishes();
       await uploadMenu(menu);
       setVisibility(false);
@@ -127,8 +136,9 @@ const useMenuCreator = (userId: string) => {
         start_time: startTime,
         end_time: endTime,
         week: getWeekNumberFromDate(date),
-        dishes: dishes,
+        dishes: dishIds,
       };
+      await uploadDishes();
       await updateMenu(menuId, menu);
       setVisibility(false);
     }
@@ -144,20 +154,9 @@ const useMenuCreator = (userId: string) => {
   };
 
   const uploadDishes = async () => {
-    for (const dish of dishes) {
-      // if (dish.thumbnail_file) {
-      //   const path = `${menuId}/${dish.dish_id}.jpg`;
-      //   await uploadFile("dishes_thumbnails", path, dish.thumbnail_file);
-      // }
-      console.log("Uploading dish:", dish);
-    }
-  };
-
-  const collectDishes = async () => {
-    console.log("Collecting dishes...");
     const forms = document.querySelectorAll("form");
 
-    forms.forEach((form, index) => {
+    for (const [index, form] of Array.from(forms).entries()) {
       const dishId = form.getAttribute("data-dish-id");
       const formCount = index + 1;
       const fields = [
@@ -169,14 +168,22 @@ const useMenuCreator = (userId: string) => {
       ];
       const dishData = {};
 
-      fields.forEach((field) => {
+      for (const field of fields) {
         const inputId = `dish-${formCount}-${field}`;
         const inputElement = form.querySelector(`#${inputId}`);
         if (inputElement) {
           if (inputElement.type === "file") {
+            console.log("File found.");
+
             const file = inputElement.files[0];
             if (file) {
               dishData[field] = file;
+              console.log("File:", file);
+              await uploadFile(
+                "dishes_thumbnails",
+                `${menuId}/${dishId}.${file.type.split("/")[1]}`,
+                file,
+              );
             } else {
               dishData[field] = null;
             }
@@ -186,35 +193,26 @@ const useMenuCreator = (userId: string) => {
         } else {
           console.warn(`Input with ID ${inputId} not found.`);
         }
-      });
+      }
+
+      const mimeType = dishData.thumbnail.type;
+      const extension = mimeType.split("/")[1];
+
+      const thumbnailFile = `${menuId}/${dishId}.${extension}`;
 
       const newDish = {
-        dish_id: dishId || uuidv4(),
-        menus: [menuId],
+        dish_id: dishId,
+        user_id: userId,
+        menu_id: [menuId],
         title: dishData.title,
         subtitle: dishData.subtitle,
         description: dishData.description,
-        thumbnail_url: "",
-        thumbnail_file: dishData.thumbnail,
+        thumbnail_url: await getFileUrl("dishes_thumbnails", thumbnailFile),
         recipe: dishData.recipe,
       };
 
-      setDishes((prevDishes) => {
-        const dishIndex = prevDishes.findIndex(
-          (dish) => dish.dish_id === dishId,
-        );
-        if (dishIndex !== -1) {
-          const updatedDishes = [...prevDishes];
-          updatedDishes[dishIndex] = {
-            ...updatedDishes[dishIndex],
-            ...newDish,
-          };
-          return updatedDishes;
-        } else {
-          return [...prevDishes, newDish];
-        }
-      });
-    });
+      await insertDish(newDish);
+    }
   };
 
   // useEffect Hooks:
@@ -261,7 +259,6 @@ const useMenuCreator = (userId: string) => {
     setEndTime,
     calculateCardButtonPosition,
     calculateCardButtonHeight,
-    collectDishes,
   };
 };
 

@@ -1,6 +1,7 @@
 export interface DishProps {
   dish_id?: string;
-  menus?: string[];
+  user_id?: string;
+  menu_id?: string[];
   title?: string;
   subtitle?: string;
   description?: string;

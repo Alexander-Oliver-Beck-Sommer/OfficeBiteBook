@@ -21,7 +21,7 @@ const useDishes = () => {
     const { data, error } = await supabase
       .from("dishes")
       .select("*")
-      .contains("menus", `["${menuId}"]`);
+      .contains("menu_id", `["${menuId}"]`);
 
     if (error) {
       throw new Error("Error fetching the menus dishes");
@@ -32,10 +32,11 @@ const useDishes = () => {
   };
 
   const insertDish = async (dish: DishProps) => {
-    const { error } = await supabase.from("dishes").insert([
+    const { error } = await supabase.from("dishes").upsert([
       {
         dish_id: dish.dish_id,
-        menus: dish.menus,
+        user_id: dish.user_id,
+        menu_id: dish.menu_id,
         title: dish.title,
         subtitle: dish.subtitle,
         description: dish.description,
@@ -54,7 +55,7 @@ const useDishes = () => {
     const { error } = await supabase
       .from("dishes")
       .update({
-        menus: dish.menus,
+        menu_id: dish.menu_id,
         title: dish.title,
         subtitle: dish.subtitle,
         description: dish.description,
