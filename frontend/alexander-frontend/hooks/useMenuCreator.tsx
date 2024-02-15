@@ -1,39 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import useMenus from "../useMenus";
-import useDateCalculator from "../useDateCalculator";
-import useUtilities from "../useUtilities";
-import useDishes from "../useDishes";
-import useBucket from "../useBucket";
+import useMenus from "./useMenus";
+import useDateCalculator from "./useDateCalculator";
+import useUtilities from "./useUtilities";
+import useDishes from "./useDishes";
+import useBucket from "./useBucket";
 import { MenuProps } from "@/types/MenuProps";
 import { DishProps } from "@/types/DishProps";
-import states from "./States";
+
+type Mode = "create" | "edit" | "";
 
 const useMenuCreator = (userId: string) => {
-  const {
-    mode,
-    setMode,
-    visibility,
-    setVisibility,
-    loading,
-    setLoading,
-    menuID,
-    setMenuID,
-    menus,
-    setMenus,
-    dishes,
-    setDishes,
-    title,
-    setTitle,
-    location,
-    setLocation,
-    date,
-    setDate,
-    startTime,
-    setStartTime,
-    endTime,
-    setEndTime,
-  } = states();
+  const [mode, setMode] = useState<Mode>("");
+  const [visibility, setVisibility] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [menuID, setMenuID] = useState<string>("");
+  const [menus, setMenus] = useState<MenuProps[]>([]);
+  const [dishes, setDishes] = useState<DishProps[]>([]);
+  const [title, setTitle] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
+  const [date, setDate] = useState<string>("");
+  const [startTime, setStartTime] = useState<string>("");
+  const [endTime, setEndTime] = useState<string>("");
   const { uploadMenu, getMenusFromUser, updateMenu } = useMenus();
   const {
     getCurrentWeekNumber,
