@@ -195,11 +195,6 @@ const useMenuCreator = (userId: string) => {
         }
       }
 
-      const mimeType = dishData.thumbnail.type;
-      const extension = mimeType.split("/")[1];
-
-      const thumbnailFile = `${menuId}/${dishId}.${extension}`;
-
       const newDish = {
         dish_id: dishId,
         user_id: userId,
@@ -207,9 +202,19 @@ const useMenuCreator = (userId: string) => {
         title: dishData.title,
         subtitle: dishData.subtitle,
         description: dishData.description,
-        thumbnail_url: await getFileUrl("dishes_thumbnails", thumbnailFile),
         recipe: dishData.recipe,
       };
+
+      // Only add thumbnail_url if a thumbnail file was uploaded
+      if (dishData.thumbnail) {
+        const mimeType = dishData.thumbnail.type;
+        const extension = mimeType.split("/")[1];
+        const thumbnailFile = `${menuId}/${dishId}.${extension}`;
+        newDish.thumbnail_url = await getFileUrl(
+          "dishes_thumbnails",
+          thumbnailFile,
+        );
+      }
 
       await insertDish(newDish);
     }

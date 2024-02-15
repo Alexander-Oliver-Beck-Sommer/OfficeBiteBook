@@ -32,22 +32,37 @@ const useDishes = () => {
   };
 
   const insertDish = async (dish: DishProps) => {
-    const { error } = await supabase.from("dishes").upsert([
-      {
-        dish_id: dish.dish_id,
-        user_id: dish.user_id,
-        menu_id: dish.menu_id,
-        title: dish.title,
-        subtitle: dish.subtitle,
-        description: dish.description,
-        thumbnail_url: dish.thumbnail_url,
-        recipe: dish.recipe,
-      },
-    ]);
+    const {
+      dish_id,
+      user_id,
+      menu_id,
+      title,
+      subtitle,
+      description,
+      recipe,
+      thumbnail_url,
+    } = dish;
+
+    let dishToInsert = {
+      dish_id,
+      user_id,
+      menu_id,
+      title,
+      subtitle,
+      description,
+      recipe,
+    };
+
+    // Conditionally add thumbnail_url if it exists
+    if (thumbnail_url) {
+      dishToInsert = { ...dishToInsert, thumbnail_url };
+    }
+
+    const { error } = await supabase.from("dishes").upsert([dishToInsert]);
 
     if (error) {
+      console.error("Error uploading dish:", error);
       throw new Error("Error uploading dish");
-      console.log("Error uploading dish:", error);
     }
   };
 

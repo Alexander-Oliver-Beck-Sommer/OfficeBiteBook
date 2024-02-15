@@ -7,7 +7,7 @@ const useMenus = () => {
     const { data: menus, error } = await supabase
       .from("menus")
       .select("*")
-      .eq("menu_week", weekNumber);
+      .eq("week", weekNumber);
 
     if (error) {
       throw new Error("Error fetching menus");
