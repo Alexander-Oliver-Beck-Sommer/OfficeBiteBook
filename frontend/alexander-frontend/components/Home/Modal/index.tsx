@@ -37,14 +37,14 @@ const Modal = ({ visibility, menu, onClose }: ModalProps) => {
     <ContentModal
       visibility={visibility}
       toggle={onClose}
-      title={menu && menu.menu_title}
+      title={menu && menu.title}
     >
       {menu && (
         <Details
-          location={menu.menu_location}
-          date={formatDate(menu.menu_date)}
-          startTime={menu.menu_start_time}
-          endTime={menu.menu_end_time}
+          location={menu.location}
+          date={formatDate(menu.date)}
+          startTime={menu.start_time}
+          endTime={menu.end_time}
           isDetailsOpen={isDetailsOpen}
           toggle={detailsExpand}
         />
@@ -57,11 +57,11 @@ const Modal = ({ visibility, menu, onClose }: ModalProps) => {
             <Dish
               key={dish.dish_id}
               count={index + 1}
-              title={dish.dish_title}
-              subtitle={dish.dish_subtitle}
-              description={dish.dish_description}
+              title={dish.title}
+              subtitle={dish.subtitle}
+              description={dish.description}
               recipe={dish.dish_recipe}
-              thumbnailUrl={dish.dish_thumbnail_url}
+              thumbnailUrl={dish.thumbnail_url}
               accordionOpen={openDishId === dish.dish_id}
               accordionToggle={() => toggleDish(dish.dish_id)}
             />

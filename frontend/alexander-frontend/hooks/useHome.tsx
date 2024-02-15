@@ -27,11 +27,11 @@ const useHome = (userId: string) => {
         const menusWithDishesAndChecked = await Promise.all(
           retrievedMenus.map(async (menu) => {
             const dishes = await getDishesFromMenu(menu.menu_id);
-            const menu_declined = menu.menu_declined || [];
-            const menu_accepted = menu.menu_accepted || [];
-            const menu_checked = menu_accepted.includes(userId)
+            const declined_participants = menu.declined_participants || [];
+            const accepted_participants = menu.accepted_participants || [];
+            const menu_checked = accepted_participants.includes(userId)
               ? true
-              : menu_declined.includes(userId)
+              : declined_participants.includes(userId)
                 ? false
                 : null;
             return { ...menu, dishes, menu_checked };
@@ -61,8 +61,8 @@ const useHome = (userId: string) => {
       );
 
       menus.forEach((menu) => {
-        const dayName = getDayNameFromDate(menu.menu_date);
-        const date = formatDate(menu.menu_date);
+        const dayName = getDayNameFromDate(menu.date);
+        const date = formatDate(menu.date);
         if (organized[dayName]) {
           organized[dayName].menus.push(menu);
           if (!organized[dayName].date) {
@@ -119,7 +119,7 @@ const useHome = (userId: string) => {
 
     let { data: menuData, error: menuError } = await supabase
       .from("menus")
-      .select("menu_accepted, menu_declined")
+      .select("accepted_participants, declined_participants")
       .eq("menu_id", menuId)
       .single();
 
@@ -128,26 +128,26 @@ const useHome = (userId: string) => {
       return;
     }
 
-    let menu_accepted = menuData.menu_accepted || [];
-    let menu_declined = menuData.menu_declined || [];
+    let accepted_participants = menuData.accepted_participants || [];
+    let declined_participants = menuData.declined_participants || [];
 
     if (checked) {
-      if (!menu_accepted.includes(userId)) {
-        menu_accepted.push(userId);
+      if (!accepted_participants.includes(userId)) {
+        accepted_participants.push(userId);
       }
-      menu_declined = menu_declined.filter((id) => id !== userId);
+      declined_participants = declined_participants.filter((id) => id !== userId);
     } else {
-      if (!menu_declined.includes(userId)) {
-        menu_declined.push(userId);
+      if (!declined_participants.includes(userId)) {
+        declined_participants.push(userId);
       }
-      menu_accepted = menu_accepted.filter((id) => id !== userId);
+      accepted_participants = accepted_participants.filter((id) => id !== userId);
     }
 
     const { data: updateData, error: updateError } = await supabase
       .from("menus")
       .update({
-        menu_accepted: menu_accepted,
-        menu_declined: menu_declined,
+        accepted_participants: accepted_participants,
+        declined_participants: declined_participants,
       })
       .eq("menu_id", menuId);
 

@@ -3,7 +3,6 @@ import SettingsCell from "@/components/Calendar/Week/child-components/SettingsCe
 import HourCell from "@/components/Calendar/Week/child-components/HourCell";
 import MenuEditor from "../MenuEditor";
 import CardButton from "@/components/Buttons/CardButton";
-import useCalendar from "@/hooks/useCalendar/useCalendar";
 import useMenuCreator from "@/hooks/useMenuCreator";
 
 type WeekProps = {

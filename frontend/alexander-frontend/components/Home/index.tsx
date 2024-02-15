@@ -62,11 +62,11 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
                         {menus.map((menu) => (
                           <Menu
                             key={menu.menu_id}
-                            title={menu.menu_title}
-                            location={menu.menu_location}
-                            startTime={menu.menu_start_time}
-                            endTime={menu.menu_end_time}
-                            dishesAmount={menu.menu_dishes_amount}
+                            title={menu.title}
+                            location={menu.location}
+                            startTime={menu.start_time}
+                            endTime={menu.end_time}
+                            dishesAmount={menu.dishes.length}
                             modalToggle={() => handleModalOpen(menu)}
                             checkboxState={menu.menu_checked}
                             checkboxToggle={() =>
