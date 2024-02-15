@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const useUser = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [isSession, setIsSession] = useState<boolean>(false);
+  const [user, setUser] = useState<boolean>(false);
   const router = useRouter();
   const supabase = createClientComponentClient();
 
@@ -33,8 +33,9 @@ const useUser = () => {
         toast.error("Invalid email or password");
         return;
       } else if (data) {
-        setIsSession(true);
+        setUser(true);
         router.push("/");
+        router.refresh();
         toast.success("Signed in");
         console.log("This console is 42% more awesome now that you're here.");
       }
@@ -48,31 +49,25 @@ const useUser = () => {
   const handleLogout = async () => {
     setLoading(true);
 
-    try {
-      const { error } = await supabase.auth.signOut();
-      if (error) {
-        console.log("Error logging out", error);
-        return;
-      } else {
-        setIsSession(false);
-        router.refresh();
-        console.log("So long, and thanks for all the fish. Until next time.");
-      }
-    } catch (error) {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
       console.log("Error logging out", error);
+      return;
     }
+    setUser(false);
+    router.refresh();
+    console.log("So long, and thanks for all the fish. Until next time.");
 
     setLoading(false);
   };
 
-  const checkSession = async () => {
+  const checkIfUser = async () => {
     try {
-      const { data, error } = await supabase.auth.getSession();
+      const { data, error } = await supabase.auth.getUser();
       if (error) {
-        console.log("Error checking session", error);
         return;
       } else if (data) {
-        setIsSession(true);
+        setUser(true);
       }
     } catch (error) {
       console.log("Error checking session", error);
@@ -84,14 +79,14 @@ const useUser = () => {
   }, []);
 
   useEffect(() => {
-    checkSession();
-  }, [isSession]);
+    checkIfUser();
+  }, [user]);
 
   return {
     loading,
     handleLogin,
     handleLogout,
-    isSession,
+    user,
   };
 };
 

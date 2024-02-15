@@ -6,13 +6,13 @@ import TextButton from "@/components/TextButton";
 import useUser from "@/hooks/useUser";
 
 export default function Login() {
-  const { loading, handleLogin, isSession } = useUser();
+  const { loading, handleLogin, handleLogout, user } = useUser();
 
-  return (
-    <section className="pattern fill-body flex items-center justify-center p-10 px-5 py-10">
-      {!isSession ? (
-        <div className="grid w-full max-w-screen-xl">
-          <div className="flex w-full animate-fade-up flex-col gap-8 rounded border-2 border-dark-500 bg-dark-100 px-5 py-10 animate-ease-in-out">
+  if (user === false) {
+    return (
+      <section className="pattern fill-body flex items-center justify-center p-10 px-5 py-10 md:p-10">
+        <div className="grid w-full max-w-screen-md">
+          <div className="flex w-full animate-fade-up flex-col gap-8 rounded border-2 border-dark-500 bg-dark-100 px-5 py-10 animate-ease-in-out md:p-10">
             <div>
               <h2>Log in</h2>
               <h4 className="pt-2.5 text-grey">Welcome to OfficeBiteBook!</h4>
@@ -70,9 +70,30 @@ export default function Login() {
             </div>
           </div>
         </div>
-      ) : (
-        <div className="border"></div>
-      )}
-    </section>
-  );
+      </section>
+    );
+  } else if (user === true) {
+    return (
+      <section className="pattern fill-body flex animate-fade-up items-center justify-center p-10 px-5 py-10 animate-ease-in-out md:p-10">
+        <div className="w-full max-w-screen-md rounded border-2 border-dark-500 bg-dark-100 px-5 py-10 md:p-10">
+          <div>
+            <h2>Log out</h2>
+            <p className="pt-2.5 text-sm text-grey">
+              Already logged in. Do you want to log out?
+            </p>
+          </div>
+          <TextButton
+            className="my-6 w-full"
+            text="Log out"
+            label="Log out"
+            icon="arrow-right"
+            toggle={handleLogout}
+          />
+          <Link href="/" aria-label="Go to home" className="text-grey">
+            <h5>Go back home</h5>
+          </Link>
+        </div>
+      </section>
+    );
+  }
 }
