@@ -22,7 +22,6 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
     handleModalClose,
     modalStatus,
     modalData,
-    checkAllMenus,
     checkMenu,
     handleGuest,
     guestOpen,
@@ -42,7 +41,7 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
         <section className="flex flex-1 justify-center px-4 py-8 md:px-12">
           <ul className="flex w-full max-w-screen-xl flex-col gap-10">
             <li className="-mb-10 flex items-center gap-4">
-              <CheckboxInput onChange={checkAllMenus} />
+              <CheckboxInput />
               <div className="grid w-full grid-cols-3 gap-4 md:grid-cols-5 md:gap-8">
                 <h4>TITLE</h4>
                 <h4 className="hidden sm:block">LOCATION</h4>

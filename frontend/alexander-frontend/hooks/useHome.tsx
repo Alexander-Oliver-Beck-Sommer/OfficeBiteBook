@@ -169,7 +169,6 @@ const useHome = (userId: string) => {
     handleModalClose,
     modalStatus,
     modalData,
-    checkAllMenus,
     checkMenu,
     handleGuest,
     guestOpen,

@@ -62,18 +62,18 @@ const InputField: React.FC<InputFieldProps> = ({
       {type === "textarea" ? (
         <div className="flex h-full flex-col gap-3">
           {name && (
-            <label htmlFor={id} className="text-grey">
-              <p>{name}</p>
+            <label htmlFor={id}>
+              <p className="text-sm text-grey md:text-base">{name}</p>
             </label>
           )}
           <textarea
             {...props}
-            className="h-full rounded border-2 border-dark-500 bg-dark-100 p-3 outline-none placeholder:opacity-100 placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus:placeholder:opacity-0"
+            className="h-full rounded border-2 border-dark-500 bg-dark-100 p-3 text-sm outline-none placeholder:opacity-100 placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus:placeholder:opacity-0 md:text-base"
           />
         </div>
       ) : type === "file" ? (
         <div className="flex h-full flex-col gap-3">
-          {name && <p className="text-grey">{name}</p>}
+          {name && <p className="text-sm text-grey md:text-base">{name}</p>}
           <div className="grid grid-cols-30X70">
             <div className="relative flex aspect-square items-center justify-center rounded border-2 border-dark-500 bg-dark-100 fill-grey">
               {defaultValue ? (
@@ -102,14 +102,14 @@ const InputField: React.FC<InputFieldProps> = ({
       ) : (
         <div className="flex flex-col gap-3">
           {name && (
-            <label htmlFor={id} className="text-grey">
-              <p>{name}</p>
+            <label htmlFor={id}>
+              <p className="text-sm text-grey md:text-base">{name}</p>
             </label>
           )}
           <input
             {...props}
             type={type}
-            className="rounded border-2 border-dark-500 bg-dark-100 p-3 outline-none placeholder:opacity-100 placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus:placeholder:opacity-0"
+            className="rounded border-2 border-dark-500 bg-dark-100 p-3 text-sm outline-none placeholder:opacity-100 placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus:placeholder:opacity-0 md:text-base"
           />
         </div>
       )}

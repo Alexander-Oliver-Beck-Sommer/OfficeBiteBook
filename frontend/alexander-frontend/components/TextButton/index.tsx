@@ -1,9 +1,17 @@
 import React from "react";
 import SaveIcon from "../Icons/SaveIcon";
 import CloseIcon from "../Icons/CloseIcon";
+import ArrowIcon from "../Icons/ArrowIcon";
 
-type Icon = "save" | "close";
+type Icon =
+  | "save"
+  | "close"
+  | "arrow-up"
+  | "arrow-right"
+  | "arrow-down"
+  | "arrow-left";
 type Color = "primary" | "red" | "orange";
+type Type = "button" | "submit" | "reset";
 
 interface TextButtonProps {
   /** Declare styling for the component if necessary */
@@ -22,6 +30,7 @@ interface TextButtonProps {
   disabled?: boolean;
   /** Attach functionality to the button. */
   toggle?: () => void;
+  type?: Type;
 }
 
 const icons = (icon: Icon): JSX.Element | null => {
@@ -30,6 +39,11 @@ const icons = (icon: Icon): JSX.Element | null => {
       return <SaveIcon />;
     case "close":
       return <CloseIcon />;
+    case "arrow-up":
+    case "arrow-right":
+    case "arrow-down":
+    case "arrow-left":
+      return <ArrowIcon variant={icon.split("-")[1]} />;
     default:
       return null;
   }
@@ -55,6 +69,7 @@ const TextButton: React.FC<TextButtonProps> = ({
   color = "primary",
   disabled = false,
   toggle = () => {},
+  type = "button",
 }) => {
   const colorValue = colors(color);
   const iconValue = icons(icon);
@@ -65,6 +80,7 @@ const TextButton: React.FC<TextButtonProps> = ({
   return (
     <button
       onClick={disabled ? undefined : toggle}
+      type={type}
       {...(label ? { "aria-label": label } : {})}
       {...(title ? { title: title } : {})}
       {...(disabled ? { disabled: true } : {})}
