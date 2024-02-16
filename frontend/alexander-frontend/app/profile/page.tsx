@@ -17,5 +17,9 @@ export default async function Profile() {
     return <ProfileComponent userId={user?.id} userEmail={user?.email} />;
   }
 
-  return <MessageModal variant={401} />;
+  return (
+    <section className="fill-body pattern flex items-center justify-center px-5 py-10">
+      <MessageModal variant={401} />
+    </section>
+  );
 }
