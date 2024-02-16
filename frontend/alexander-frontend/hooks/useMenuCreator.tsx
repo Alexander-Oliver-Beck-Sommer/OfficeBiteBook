@@ -7,6 +7,7 @@ import useDishes from "./useDishes";
 import useBucket from "./useBucket";
 import { MenuProps } from "@/types/MenuProps";
 import { DishProps } from "@/types/DishProps";
+import { supabase } from "@/components/Supabase/supabaseClient";
 
 type Mode = "create" | "edit" | "";
 
@@ -146,6 +147,33 @@ const useMenuCreator = (userId: string) => {
     setVisibility(false);
   };
 
+  const deleteMenu = async () => {
+    if (window.confirm("Are you sure you want to delete this menu?")) {
+      setLoading(true);
+      try {
+        const { error } = await supabase
+          .from("menus")
+          .delete()
+          .eq("menu_id", menuID);
+
+        if (error) {
+          console.log("Error deleting menu", error);
+          return;
+        }
+      } catch (error) {
+        console.log("Error deleting menu", error);
+      }
+
+      setVisibility(false);
+      setLoading(false);
+    }
+  };
+
+  const deleteDish = async (dishId: string) => {
+    const newDishes = dishes.filter((dish) => dish.dish_id !== dishId);
+    setDishes(newDishes);
+  };
+
   // This is a hefty function, so let's break it down:
   // 1️⃣ The function is called upon saving a menu.
   const uploadDishes = async () => {
@@ -257,6 +285,8 @@ const useMenuCreator = (userId: string) => {
     setEndTime,
     calculateCardButtonPosition,
     calculateCardButtonHeight,
+    deleteMenu,
+    deleteDish,
   };
 };
 

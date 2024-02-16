@@ -87,6 +87,7 @@ const MenuEditor = ({
               {dishes.map((dish, index) => {
                 return (
                   <Dish
+                    removeToggle={() => removeDishFromMenu(dish.dish_id)}
                     key={dish.dish_id}
                     menuId={menuId}
                     count={index + 1}

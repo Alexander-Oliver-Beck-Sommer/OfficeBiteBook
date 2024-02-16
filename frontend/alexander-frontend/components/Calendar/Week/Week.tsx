@@ -40,6 +40,8 @@ const Week = ({
     setEndTime,
     calculateCardButtonPosition,
     calculateCardButtonHeight,
+    deleteMenu,
+    deleteDish,
   } = useMenuCreator(userId);
 
   return (
@@ -119,6 +121,8 @@ const Week = ({
         })}
       </ul>
       <MenuEditor
+        removeDishFromMenu={deleteDish}
+        removeMenu={deleteMenu}
         visibility={visibility}
         loading={loading}
         title={title}
