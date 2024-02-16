@@ -42,20 +42,32 @@ const useTimeMachine = (userId: string) => {
   );
 
   useEffect(() => {
-    // Fetch locked dates for the user
-    const fetchLockedDates = async () => {
-      const { data, error } = await supabase
+    const fetchData = async () => {
+      const { data: lockedData, error: lockedError } = await supabase
         .from("locked_dates")
         .select("date")
         .eq("user_id", userId);
 
-      if (error) {
-        console.error("Error fetching locked dates", error);
+      if (lockedError) {
+        console.error("Error fetching locked dates", lockedError);
         return;
       }
 
-      // Ensure we have data before proceeding. If not, treat it as an empty set.
-      const lockedDatesSet = new Set(data?.map((item) => item.date) || []);
+      const lockedDatesSet = new Set(lockedData?.map((item) => item.date));
+
+      const { data: publishedData, error: publishedError } = await supabase
+        .from("unpublished_dates")
+        .select("date")
+        .eq("user_id", userId);
+
+      if (publishedError) {
+        console.error("Error fetching published dates", publishedError);
+        return;
+      }
+
+      const publishedDatesSet = new Set(
+        publishedData?.map((item) => item.date),
+      );
 
       const { weekStart } = weekDates(currentWeekNumber);
       const language = weekData[navigator.language] ? navigator.language : "en";
@@ -70,8 +82,14 @@ const useTimeMachine = (userId: string) => {
         const day = date.getDate().toString().padStart(2, "0");
         const formattedDate = `${year}-${month}-${day}`;
         const isLocked = lockedDatesSet.has(formattedDate);
+        const isPublished = publishedDatesSet.has(formattedDate);
 
-        return { name: dayName, date: formattedDate, locked: isLocked };
+        return {
+          name: dayName,
+          date: formattedDate,
+          locked: isLocked,
+          published: isPublished,
+        };
       });
 
       setWeek({
@@ -81,7 +99,7 @@ const useTimeMachine = (userId: string) => {
       });
     };
 
-    fetchLockedDates();
+    fetchData();
   }, [userId, currentWeekNumber, type, supabase]);
 
   const lockDay = async (dayDate: string, lockedValue: boolean) => {
@@ -130,6 +148,53 @@ const useTimeMachine = (userId: string) => {
       }
     } catch (error) {
       console.log("Error locking day", error);
+    }
+  };
+
+  const togglePublished = async (dayDate: string, publishedValue: boolean) => {
+    const dayIndex = week.week_days.findIndex((day) => day.date === dayDate);
+    if (dayIndex === -1) return;
+
+    const day = week.week_days[dayIndex];
+    const newPublishedStatus = !day.published;
+
+    // Update in Supabase
+    if (newPublishedStatus) {
+      await supabase
+        .from("unpublished_dates")
+        .insert([{ user_id: userId, date: dayDate }]);
+    } else {
+      await supabase
+        .from("unpublished_dates")
+        .delete()
+        .match({ user_id: userId, date: dayDate });
+    }
+
+    // Update local state
+    const updatedWeekDays = [...week.week_days];
+    updatedWeekDays[dayIndex] = { ...day, published: newPublishedStatus };
+    setWeek((currentWeek) => ({ ...currentWeek, week_days: updatedWeekDays }));
+
+    try {
+      const { data, error } = await supabase
+        .from("menus")
+        .select("*")
+        .eq("date", dayDate)
+        .eq("user_id", userId);
+
+      if (error) {
+        console.log("Error publishing day", error);
+        return;
+      } else if (data) {
+        for (const menu of data) {
+          const { error } = await supabase
+            .from("menus")
+            .update({ published: !publishedValue })
+            .eq("menu_id", menu.menu_id);
+        }
+      }
+    } catch (error) {
+      console.log("Error publishing day", error);
     }
   };
 
@@ -193,6 +258,7 @@ const useTimeMachine = (userId: string) => {
     weekBackward,
     weekReset,
     lockDay,
+    togglePublished,
   };
 };
 

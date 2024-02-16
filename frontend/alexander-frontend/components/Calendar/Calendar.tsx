@@ -22,6 +22,7 @@ export default function Calendar({ userId }: CalendarProps) {
     weekReset,
     currentWeekNumber,
     lockDay,
+    togglePublished,
   } = useTimeMachine(userId);
   const supabase = createClientComponentClient();
 
@@ -67,6 +68,7 @@ export default function Calendar({ userId }: CalendarProps) {
             type={type}
             hours={hours()}
             lockDay={lockDay}
+            togglePublished={togglePublished}
           />
         </>
       ) : (

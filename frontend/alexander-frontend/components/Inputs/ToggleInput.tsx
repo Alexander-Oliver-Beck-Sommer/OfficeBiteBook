@@ -1,51 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 type ToggleInputProps = {
-  label?: string;
-  trueValue: string;
-  falseValue: string;
-  toggle?: () => void;
-  className?: string;
+  initialValue?: boolean | null;
+  onChange?: (value: boolean | null) => void;
 };
 
 const ToggleInput = ({
   label = "",
-  trueValue,
-  falseValue,
-  toggle = () => {},
+  onChange,
+  initialValue = false,
   className = "",
 }: ToggleInputProps) => {
-  const [isChecked, setIsChecked] = useState(true);
+  const [value, setValue] = useState<boolean | null>(initialValue);
 
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+  useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
+
+  const handleInputChange = () => {
+    const newValue = value ? false : true;
+    setValue(newValue);
+    if (onChange) {
+      onChange(newValue);
+    }
   };
 
   return (
     <>
-      <h5 className={`${isChecked ? "text-primary" : "text-red"}`}>
-        {isChecked ? trueValue : falseValue}
+      <h5
+        className={`${value ? " text-red" : "text-primary"}`}
+        onClick={handleInputChange}
+      >
+        {value ? "Unpublished" : "Published"}
       </h5>
       <label
         className={`flex cursor-pointer select-none items-center ${className}`}
       >
         <div className="relative">
           <input
-            onClick={toggle}
+            onClick={handleInputChange}
             aria-label={label}
             type="checkbox"
-            checked={isChecked}
-            onChange={handleCheckboxChange}
             className="sr-only"
+            readOnly
+            checked={value === true}
           />
           <div
             className={`box block h-6 w-12 rounded-full border transition-all duration-300 ease-in-out ${
-              isChecked ? "border-primary" : "border-red"
+              value ? "border-red" : "border-primary"
             }`}
           ></div>
           <div
             className={`absolute left-1 top-1 flex h-4 w-4 items-center justify-center rounded-full transition-all duration-300 ease-in-out ${
-              isChecked ? "bg-primary translate-x-6" : "bg-red"
+              value ? "bg-red" : "translate-x-6 bg-primary"
             }`}
           ></div>
         </div>

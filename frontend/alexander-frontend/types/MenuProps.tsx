@@ -8,6 +8,7 @@ export interface MenuProps {
   end_time?: string;
   week?: number;
   locked?: boolean;
+  published?: boolean;
   dishes?: string[];
   accepted_participants?: string[];
   declined_participants?: string[];

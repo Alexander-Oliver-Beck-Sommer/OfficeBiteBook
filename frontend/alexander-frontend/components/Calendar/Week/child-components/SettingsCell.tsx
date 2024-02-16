@@ -1,17 +1,20 @@
 import ToggleInput from "@/components/Inputs/ToggleInput";
 
 type SettingsCellProps = {
-  toggle?: () => void;
+  publishToggle?: () => void;
+  publishedValue?: boolean;
 };
 
-const SettingsCell = ({ toggle = () => {} }: SettingsCellProps) => {
+const SettingsCell = ({
+  publishToggle = () => {},
+  publishedValue = false,
+}: SettingsCellProps) => {
   return (
     <section className="flex h-12 w-full items-center justify-between border-t border-t-dark-500 bg-dark-300 px-4">
       <ToggleInput
         label="Toggle the day to be either visible, or private."
-        toggle={toggle}
-        trueValue="Published"
-        falseValue="Unpublished"
+        onChange={publishToggle}
+        initialValue={publishedValue}
       />
     </section>
   );
