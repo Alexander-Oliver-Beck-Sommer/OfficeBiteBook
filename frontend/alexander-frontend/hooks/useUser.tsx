@@ -75,6 +75,43 @@ const useUser = () => {
     }
   };
 
+  const createUser = async (form: any) => {
+    form.preventDefault();
+    const email = form.target.emailField.value;
+    const password = form.target.passwordField.value;
+
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          emailRedirectTo: "https://example.com/welcome",
+        },
+      });
+
+      if (error) {
+        console.log("Error signing up", error);
+        toast.error(
+          "Email is either in use, or the password is not 6 characters long. Please try again.",
+        );
+        return;
+      } else if (data) {
+        const { error: userError } = await supabase
+          .from("users")
+          .insert({ user_id: data.user.id, user_email: email });
+
+        if (userError) {
+          console.log("Error creating user", userError);
+          return;
+        }
+
+        router.push("/login/sign-up/verification-pending");
+      }
+    } catch (error) {
+      console.log("Error signing up", error);
+    }
+  };
+
   useEffect(() => {
     fetchUser();
   }, []);
@@ -88,6 +125,7 @@ const useUser = () => {
     handleLogin,
     handleLogout,
     user,
+    createUser,
   };
 };
 

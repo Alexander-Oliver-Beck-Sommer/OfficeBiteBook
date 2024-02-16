@@ -62,7 +62,7 @@ export default function Login() {
 
             <div className="flex justify-center gap-1 text-grey">
               <p className="text-sm">Not registered?</p>
-              <Link href="/login/signup" aria-label="Go to sign up">
+              <Link href="/login/sign-up" aria-label="Go to sign up">
                 <p className="border-b-2 pb-0.5 text-sm font-medium">
                   Sign up here
                 </p>
@@ -74,7 +74,7 @@ export default function Login() {
     );
   } else if (user === true) {
     return (
-      <section className="pattern fill-body flex  items-center justify-center p-10 px-5 py-10  md:p-10">
+      <section className="pattern fill-body flex items-center justify-center p-10 px-5 py-10  md:p-10">
         <div className="w-full max-w-screen-md animate-fade-up rounded border-2 border-dark-500 bg-dark-100 px-5 py-10 animate-ease-in-out md:p-10">
           <div>
             <h2>Log out</h2>
