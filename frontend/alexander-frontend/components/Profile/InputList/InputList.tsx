@@ -28,9 +28,9 @@ const InputList = ({
   email = "",
 }: InputListProps) => {
   return (
-    <section className="flex justify-center px-4 pb-12 pt-6 md:px-12">
+    <section className="flex flex-1 justify-center px-4 pb-12 pt-6 md:px-12">
       <div className="w-full max-w-screen-xl">
-        <ul className="grid h-fit max-w-screen-md auto-rows-max gap-6">
+        <ul className="grid h-fit auto-rows-max gap-6 lg:grid-cols-2">
           <li>
             <TextInput
               placeholder="Name"

@@ -157,6 +157,47 @@ const useHome = (userId: string) => {
     }
   };
 
+  const toggleAllMenusStatus = async (acceptAll) => {
+    // First, update the local state to reflect the changes immediately on the UI
+    const updatedMenus = menus.map((menu) => {
+      const accepted_participants = acceptAll
+        ? [...menu.accepted_participants, userId]
+        : menu.accepted_participants.filter((id) => id !== userId);
+      const declined_participants = acceptAll
+        ? menu.declined_participants.filter((id) => id !== userId)
+        : [...menu.declined_participants, userId];
+      return {
+        ...menu,
+        accepted_participants,
+        declined_participants,
+        menu_checked: acceptAll,
+      };
+    });
+
+    setMenus(updatedMenus);
+
+    // Then, update each menu in the database
+    updatedMenus.forEach(async (menu) => {
+      const { menu_id, accepted_participants, declined_participants } = menu;
+
+      const { error } = await supabase
+        .from("menus")
+        .update({
+          accepted_participants: accepted_participants.filter(
+            (id) => id !== null,
+          ),
+          declined_participants: declined_participants.filter(
+            (id) => id !== null,
+          ),
+        })
+        .eq("menu_id", menu_id);
+
+      if (error) {
+        console.error("Error updating menu status:", error);
+      }
+    });
+  };
+
   return {
     getCurrentWeekNumber,
     weekNumber,
@@ -172,6 +213,7 @@ const useHome = (userId: string) => {
     checkMenu,
     handleGuest,
     guestOpen,
+    toggleAllMenusStatus,
   };
 };
 

@@ -118,7 +118,7 @@ const useMenuCreator = (userId: string) => {
         date: date,
         start_time: startTime,
         end_time: endTime,
-        week: getCurrentWeekNumber(),
+        week: getWeekNumberFromDate(date),
         dishes: dishIds,
       };
       await uploadDishes();

@@ -40,7 +40,7 @@ const ProfileComponent = ({
   } = useProfile(userId, userEmail);
 
   return (
-    <section className="pattern flex flex-col">
+    <section className="pattern fill-body flex flex-col justify-between">
       <HeaderBar
         fileRef={fileInputRef}
         changeAvatar={handleAvatarChange}

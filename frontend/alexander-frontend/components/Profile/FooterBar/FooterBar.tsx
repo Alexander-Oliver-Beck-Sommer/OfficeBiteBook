@@ -10,7 +10,7 @@ const FooterBar = ({
   saveProfile = () => {},
 }: FooterBarProps) => {
   return (
-    <footer className="sticky bottom-0 z-40 flex w-full justify-center border-t border-dark-400 bg-dark-200 px-4 py-3 md:px-12 md:py-4">
+    <footer className=" flex w-full justify-center border-t border-dark-400 bg-dark-200 px-4 py-3 md:px-12 md:py-4">
       <div className="flex w-full max-w-screen-xl items-center justify-between">
         <div className="flex gap-1">
           <h4 className="text-sm text-grey md:text-base">Last updated:</h4>
