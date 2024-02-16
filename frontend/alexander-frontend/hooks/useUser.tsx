@@ -61,6 +61,7 @@ const useUser = () => {
     setLoading(false);
   };
 
+  // Check if a user is logged in - pretty much used to shift between login/logoug states.
   const checkIfUser = async () => {
     try {
       const { data, error } = await supabase.auth.getUser();

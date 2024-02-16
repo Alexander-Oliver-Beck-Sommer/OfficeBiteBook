@@ -74,8 +74,8 @@ export default function Login() {
     );
   } else if (user === true) {
     return (
-      <section className="pattern fill-body flex animate-fade-up items-center justify-center p-10 px-5 py-10 animate-ease-in-out md:p-10">
-        <div className="w-full max-w-screen-md rounded border-2 border-dark-500 bg-dark-100 px-5 py-10 md:p-10">
+      <section className="pattern fill-body flex  items-center justify-center p-10 px-5 py-10  md:p-10">
+        <div className="w-full max-w-screen-md animate-fade-up rounded border-2 border-dark-500 bg-dark-100 px-5 py-10 animate-ease-in-out md:p-10">
           <div>
             <h2>Log out</h2>
             <p className="pt-2.5 text-sm text-grey">
