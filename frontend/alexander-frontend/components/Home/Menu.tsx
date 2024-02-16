@@ -11,6 +11,7 @@ type MenuProps = {
   checkboxToggle?: () => void;
   checkboxState?: boolean;
   locked?: boolean;
+  published?: boolean;
 };
 
 const Menu = ({
@@ -23,6 +24,7 @@ const Menu = ({
   checkboxToggle = () => {},
   checkboxState = null,
   locked = false,
+  published = false,
 }: MenuProps) => {
   return (
     <li className="group/menu flex items-center gap-4">

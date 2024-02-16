@@ -31,9 +31,14 @@ const DayCell = ({
         <h3 className="font-bold">{date}</h3>
         <h5 className="text-grey">{day}</h5>
       </div>
-      <div className="flex items-center gap-4 fill-white">
+      <div className="flex items-center gap-4">
         <button onClick={lockToggle}>
-          <LockIcon variant={lockedValue ? "locked" : "unlocked"} />
+          <LockIcon
+            className={`transition-all duration-300 ease-in-out ${
+              lockedValue ? "fill-red" : "fill-primary"
+            }`}
+            variant={lockedValue ? "locked" : "unlocked"}
+          />
         </button>
       </div>
     </section>

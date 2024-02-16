@@ -93,7 +93,11 @@ const Week = ({
                 publishedValue={day.published}
               />
               <ul className="relative flex flex-col bg-dark-400">
-                <li className="relative flex flex-col  bg-dark-400">
+                <li
+                  className={`relative flex flex-col transition-all duration-300 ease-in-out  ${
+                    day.published ? "bg-dark-300" : "bg-dark-400"
+                  }`}
+                >
                   {hours.map((hour) => (
                     <HourCell
                       key={`${day.name}-${hour.fullHour}`}

@@ -65,6 +65,7 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
                             title={menu.title}
                             locked={menu.locked}
                             location={menu.location}
+                            published={menu.published}
                             startTime={menu.start_time}
                             endTime={menu.end_time}
                             dishesAmount={menu.dishes.length}

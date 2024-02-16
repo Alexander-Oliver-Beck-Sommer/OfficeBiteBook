@@ -20,7 +20,10 @@ const useHome = (userId: string) => {
     const fetchMenus = async () => {
       const weekNumber = getCurrentWeekNumber(week);
       setWeekNumber(weekNumber);
-      const retrievedMenus = await getMenusFromGivenWeek(weekNumber);
+      let retrievedMenus = await getMenusFromGivenWeek(weekNumber);
+
+      retrievedMenus = retrievedMenus.filter((menu) => !menu.published);
+
       setMenus(retrievedMenus);
 
       if (retrievedMenus.length > 0) {
@@ -42,7 +45,7 @@ const useHome = (userId: string) => {
     };
 
     fetchMenus();
-  }, [week]);
+  }, [week, userId]);
 
   useEffect(() => {
     const organizeMenusByDay = () => {
