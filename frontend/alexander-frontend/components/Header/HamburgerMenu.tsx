@@ -1,4 +1,4 @@
-import LinkItem from "@/components/Header/child-components/LinkItem";
+import LinkItem from "@/components/Header/LinkItem";
 import HomeIcon from "@/components/Icons/HomeIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
 import ProfileIcon from "@/components/Icons/ProfileIcon";
@@ -7,11 +7,13 @@ import LogIcon from "@/components/icons/LogIcon";
 type HamburgerMenuProps = {
   visible?: boolean;
   toggle?: () => void;
+  user?: boolean;
 };
 
 const HamburgerMenu = ({
   visible = false,
   toggle = () => {},
+  user,
 }: HamburgerMenuProps) => {
   const visibleStyles = visible
     ? "opacity-100 visible max-w-full"
@@ -31,16 +33,18 @@ const HamburgerMenu = ({
           icon={<CalendarIcon variant="fullWeek" />}
           toggle={toggle}
         />
-        <LinkItem
-          label="Profile"
-          href="/profile"
-          icon={<ProfileIcon />}
-          toggle={toggle}
-        />
+        {user && (
+          <LinkItem
+            label="Profile"
+            href="/profile"
+            icon={<ProfileIcon />}
+            toggle={toggle}
+          />
+        )}
         <LinkItem
           label="Login"
           href="/login"
-          icon={<LogIcon variant="login" />}
+          icon={<LogIcon variant={user ? "logout" : "login"} />}
           toggle={toggle}
         />
       </ul>

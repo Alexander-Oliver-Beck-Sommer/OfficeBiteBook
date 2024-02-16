@@ -3,7 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 import localfont from "next/font/local";
 import siteSettings from "@/data/siteSettings";
 import { ToastContainer, toast } from "react-toastify";
-import Header from "@/components/Header/Header";
+import Header from "@/components/Header";
 import NextTopLoader from "nextjs-toploader";
 
 const poppins = localfont({

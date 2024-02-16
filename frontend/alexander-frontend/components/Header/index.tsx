@@ -1,14 +1,31 @@
 "use client";
 import { Slant } from "hamburger-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import NavigationMenu from "./child-components/NavigationMenu";
-import HamburgerMenu from "@/components/Header/child-components/HamburgerMenu";
+import NavigationMenu from "./NavigationMenu";
+import HamburgerMenu from "@/components/Header/HamburgerMenu";
 import useUtilities from "@/hooks/useUtilities";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const Header = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const { disableBodyScroll } = useUtilities();
+  const supabase = createClientComponentClient();
+  const [isLoggedIn, setIsLoggedIn] = useState<false | null>(false);
+
+  const fetchUser = async () => {
+    const { data, error } = await supabase.auth.getUser();
+    if (error) {
+      setIsLoggedIn(false);
+      return;
+    } else if (data) {
+      setIsLoggedIn(true);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   disableBodyScroll(isHamburgerOpen);
 
@@ -32,7 +49,11 @@ const Header = () => {
         </div>
         <NavigationMenu />
       </section>
-      <HamburgerMenu visible={isHamburgerOpen} toggle={handleBurgerMenu} />
+      <HamburgerMenu
+        user={isLoggedIn}
+        visible={isHamburgerOpen}
+        toggle={handleBurgerMenu}
+      />
     </header>
   );
 };

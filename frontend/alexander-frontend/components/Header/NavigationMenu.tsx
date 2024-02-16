@@ -1,4 +1,4 @@
-import LinkItem from "@/components/Header/child-components/LinkItem";
+import LinkItem from "@/components/Header/LinkItem";
 import HomeIcon from "@/components/Icons/HomeIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
 import ProfileIcon from "@/components/Icons/ProfileIcon";
