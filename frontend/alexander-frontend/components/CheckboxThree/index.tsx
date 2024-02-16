@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 import CheckIcon from "../Icons/CheckIcon";
 import CloseIcon from "../Icons/CloseIcon";
 import QuestionIcon from "../Icons/QuestionIcon";
+import LockIcon from "../Icons/LockIcon";
 
 type CheckboxThreeProps = {
   initialValue?: boolean | null;
   label?: string;
   onChange?: (value: boolean | null) => void;
+  disabled?: boolean;
 };
 
 const CheckboxThree = ({
   initialValue = null,
   label = "",
   onChange,
+  disabled = false, // Default value for disabled
 }: CheckboxThreeProps) => {
   const [value, setValue] = useState<boolean | null>(initialValue);
 
@@ -21,7 +24,10 @@ const CheckboxThree = ({
   }, [initialValue]);
 
   const handleInputChange = () => {
-    const newValue = value === null ? true : value === true ? false : true;
+    // Prevent any change if the component is disabled
+    if (disabled) return;
+
+    const newValue = value === null ? true : value === true ? false : null;
     setValue(newValue);
     if (onChange) {
       onChange(newValue);
@@ -29,7 +35,9 @@ const CheckboxThree = ({
   };
 
   const getCheckboxStyles = () => {
-    if (value === true) {
+    if (disabled) {
+      return "border-dark-500 fill-grey"; // Adjusted styles for disabled state
+    } else if (value === true) {
       return "border-primary fill-primary";
     } else if (value === false) {
       return "border-red fill-red";
@@ -37,14 +45,15 @@ const CheckboxThree = ({
     return "border-orange fill-orange";
   };
 
-  const checkboxIcons =
-    value === true ? (
-      <CheckIcon />
-    ) : value === false ? (
-      <CloseIcon />
-    ) : value === null ? (
-      <QuestionIcon />
-    ) : null;
+  const checkboxIcons = disabled ? (
+    <LockIcon />
+  ) : value === true ? (
+    <CheckIcon />
+  ) : value === false ? (
+    <CloseIcon />
+  ) : (
+    <QuestionIcon />
+  );
 
   return (
     <div className="relative h-8 w-8 overflow-hidden">
@@ -54,13 +63,14 @@ const CheckboxThree = ({
         type="checkbox"
         checked={value === true}
         readOnly
+        disabled={disabled} // Disable input when component is disabled
       />
       <label
         className={`absolute inset-0 flex cursor-pointer items-center justify-center rounded border-2 bg-dark-100 p-1 outline-primary transition-all duration-300 ease-in-out group-focus:outline ${getCheckboxStyles()}`}
         onClick={handleInputChange}
-        tabIndex={0}
+        tabIndex={disabled ? -1 : 0} // Prevent focusing when disabled
         onKeyPress={(e) => {
-          if (e.key === " " || e.key === "Enter") {
+          if (!disabled && (e.key === " " || e.key === "Enter")) {
             handleInputChange();
           }
         }}

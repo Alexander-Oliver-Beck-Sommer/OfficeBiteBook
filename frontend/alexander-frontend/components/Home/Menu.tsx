@@ -10,6 +10,7 @@ type MenuProps = {
   modalToggle?: () => void;
   checkboxToggle?: () => void;
   checkboxState?: boolean;
+  locked?: boolean;
 };
 
 const Menu = ({
@@ -21,10 +22,12 @@ const Menu = ({
   modalToggle = () => {},
   checkboxToggle = () => {},
   checkboxState = null,
+  locked = false,
 }: MenuProps) => {
   return (
     <li className="group/menu flex items-center gap-4">
       <CheckboxThree
+        disabled={locked}
         initialValue={checkboxState}
         onChange={checkboxToggle}
         label={checkboxState ? "Accepted" : "Declined"}
