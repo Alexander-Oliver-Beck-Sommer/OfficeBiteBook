@@ -21,7 +21,8 @@ export default function Calendar({ userId }: CalendarProps) {
     weekForward,
     weekReset,
     currentWeekNumber,
-  } = useTimeMachine();
+    lockDay,
+  } = useTimeMachine(userId);
   const supabase = createClientComponentClient();
 
   // State to track if user data has been fetched
@@ -65,6 +66,7 @@ export default function Calendar({ userId }: CalendarProps) {
             days={week.week_days}
             type={type}
             hours={hours()}
+            lockDay={lockDay}
           />
         </>
       ) : (

@@ -20,6 +20,7 @@ const useMenuCreator = (userId: string) => {
   const [dishes, setDishes] = useState<DishProps[]>([]);
   const [title, setTitle] = useState<string>("");
   const [location, setLocation] = useState<string>("");
+  const [locked, setLocked] = useState<boolean>(false);
   const [date, setDate] = useState<string>("");
   const [startTime, setStartTime] = useState<string>("");
   const [endTime, setEndTime] = useState<string>("");
@@ -49,12 +50,13 @@ const useMenuCreator = (userId: string) => {
   };
 
   // The createMenu function is called upon clicking a <HourCell/> button.
-  const createMenu = (date: string, hour: string) => {
+  const createMenu = (date: string, hour: string, locked: boolean) => {
     setMode("create");
     setVisibility(true);
     setMenuID(uuidv4()); // This could technically be done automatically in the backend, but we need the menuID to be available for the dishes.
     setDate(date);
     setStartTime(hour);
+    setLocked(locked);
     setEndTime(increaseWithOneHour(hour)); // Automatically set the end time to be one hour after the start time.
   };
 
@@ -83,6 +85,7 @@ const useMenuCreator = (userId: string) => {
     setTitle(menu.title);
     setLocation(menu.location);
     setDate(menu.date);
+    setLocked(menu.locked);
     setStartTime(menu.start_time);
     setEndTime(menu.end_time);
     loadDishes(menu.menu_id);
@@ -117,6 +120,7 @@ const useMenuCreator = (userId: string) => {
         title: title,
         location: location,
         date: date,
+        locked: locked,
         start_time: startTime,
         end_time: endTime,
         week: getWeekNumberFromDate(date),
@@ -135,6 +139,7 @@ const useMenuCreator = (userId: string) => {
         start_time: startTime,
         end_time: endTime,
         week: getWeekNumberFromDate(date),
+        locked: locked,
         dishes: dishIds,
       };
       await uploadDishes();
@@ -258,6 +263,7 @@ const useMenuCreator = (userId: string) => {
       setTitle("");
       setLocation("");
       setDate("");
+      setLocked(false);
       setStartTime("");
       setEndTime("");
     }

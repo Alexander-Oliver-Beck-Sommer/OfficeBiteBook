@@ -66,6 +66,7 @@ const useMenus = () => {
         start_time: menu.start_time,
         end_time: menu.end_time,
         week: menu.week,
+        locked: menu.locked,
         dishes: menu.dishes,
       })
       .eq("menu_id", menuId);

@@ -1,20 +1,23 @@
 import LockIcon from "@/components/Icons/LockIcon";
 import SettingsIcon from "@/components/Icons/SettingsIcon";
+import { useEffect } from "react";
 
 type DayCellProps = {
   day?: string;
   date?: number;
-  dayCellLock?: () => void;
+  lockToggle?: () => void;
   dayCellSettings?: () => void;
   currentDay: boolean;
+  lockedValue?: boolean;
 };
 
 const DayCell = ({
   day = "",
   date = 0,
-  dayCellLock = () => {},
+  lockToggle = () => {},
   dayCellSettings = () => {},
   currentDay = false,
+  lockedValue = false,
 }: DayCellProps) => {
   const currentDateStyling = currentDay
     ? "border-primary"
@@ -29,8 +32,8 @@ const DayCell = ({
         <h5 className="text-grey">{day}</h5>
       </div>
       <div className="flex items-center gap-4 fill-white">
-        <button onClick={dayCellLock}>
-          <LockIcon />
+        <button onClick={lockToggle}>
+          <LockIcon variant={lockedValue ? "locked" : "unlocked"} />
         </button>
       </div>
     </section>

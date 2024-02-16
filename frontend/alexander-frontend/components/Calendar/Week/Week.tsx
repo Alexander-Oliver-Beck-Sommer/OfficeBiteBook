@@ -10,6 +10,7 @@ type WeekProps = {
   days?: string[];
   type?: boolean;
   hours?: string[];
+  lockDay?: (date: string, locked: boolean) => void;
 };
 
 const Week = ({
@@ -17,6 +18,7 @@ const Week = ({
   days = [],
   type = true,
   hours = [],
+  lockDay = () => {},
 }: WeekProps) => {
   const {
     createMenu,
@@ -77,18 +79,25 @@ const Week = ({
               key={`${day.name}-${day.date}`}
               className="flex-1 border-r border-r-dark-500 last:border-r-0"
             >
-              <DayCell date={date} day={day.name} currentDay={isCurrentDay} />
+              <DayCell
+                date={date}
+                day={day.name}
+                currentDay={isCurrentDay}
+                lockToggle={() => lockDay(day.date, day.locked)} // Pass the date to toggle the correct day
+                lockedValue={day.locked}
+              />
               <SettingsCell />
               <ul className="relative flex flex-col bg-dark-400">
                 <li className="relative flex flex-col  bg-dark-400">
                   {hours.map((hour) => (
                     <HourCell
                       key={`${day.name}-${hour.fullHour}`}
+                      locked={day.locked}
                       date={day.date}
                       halfHour={hour.halfHour}
-                      halfHourToggle={() => createMenu(day.date, hour.halfHour)}
+                      halfHourToggle={() => createMenu(day.date, hour.halfHour, day.locked)}
                       fullHour={hour.fullHour}
-                      fullHourToggle={() => createMenu(day.date, hour.fullHour)}
+                      fullHourToggle={() => createMenu(day.date, hour.fullHour, day.locked)}
                     />
                   ))}
                   {cardButtons.map((cardButton) => (
