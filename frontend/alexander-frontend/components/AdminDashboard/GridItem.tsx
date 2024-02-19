@@ -82,7 +82,7 @@ const GridItem: React.FC<GridItemProps> = ({
         title={disabled ? "Disabled" : label}
       >
         <div
-          className={`flex h-12 w-12 items-center justify-center rounded border-2 bg-dark-100 transition-all duration-300  ease-in-out  ${
+          className={`flex h-12 w-12 items-center justify-center rounded border-2 bg-dark-100 transition-all duration-300 ease-in-out  ${
             disabled
               ? "border-dark-300 fill-dark-500"
               : "border-dark-500 fill-grey group-hover/grid-item:border-primary group-hover/grid-item:bg-primary group-hover/grid-item:fill-dark-100 group-focus-visible/grid-item:border-primary group-focus-visible/grid-item:bg-primary group-focus-visible/grid-item:fill-dark-100"

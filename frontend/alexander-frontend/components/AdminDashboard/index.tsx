@@ -2,6 +2,7 @@ import React from "react";
 import useUtilities from "@/hooks/useUtilities";
 import GridItem from "./GridItem";
 import IconButton from "../IconButton";
+import useAdminDashboard from "@/hooks/useAdminDashboard";
 
 interface AdminDashboardProps {
   /** Visibility of the admin dashboard. TRUE = OPEN | FALSE = CLOSED */
@@ -23,6 +24,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({
     : "invisible opacity-0";
   const { disableBodyScroll } = useUtilities();
   disableBodyScroll(visibility);
+  const { enabledItems, disabledItems } = useAdminDashboard();
 
   return (
     <section
@@ -56,71 +58,17 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <div className="flex flex-col gap-5">
               <h3>Ready and Available</h3>
               <ul className="grid grid-cols-3 gap-10">
-                <GridItem
-                  icon="settings"
-                  label="Inspect General Settings"
-                  title="General Settings"
-                  description="View and update your department details"
-                />
-                <GridItem
-                  icon="group"
-                  label="Inspect User Management"
-                  title="User Management"
-                  description="View and manage current users in your department, including roles & registrations"
-                />
-                <GridItem
-                  icon="archive"
-                  label="Inspect Archive"
-                  title="Archive"
-                  description="Manage and access your department’s archive, containing menus and dishes"
-                />
+                {enabledItems.map((item) => (
+                  <GridItem key={item.title} {...item} />
+                ))}
               </ul>
             </div>
             <div className="flex flex-col gap-5">
               <h3>Under Development</h3>
               <ul className="grid grid-cols-3 gap-10">
-                <GridItem
-                  disabled
-                  icon="statistics"
-                  title="Statistics"
-                  label="Inspect Statistics"
-                  description="Read and get an oversight of your departments in an variety of forms"
-                />
-                <GridItem
-                  disabled
-                  icon="finances"
-                  title="Finances"
-                  label="Inspect Finances"
-                  description="Handle and maintain billing for dishes and menus in terms of costs"
-                />
-                <GridItem
-                  disabled
-                  icon="feedback"
-                  title="Feedback"
-                  label="Inspect Feedback"
-                  description="Read what users in your department has to say about your dishes & menus"
-                />
-                <GridItem
-                  disabled
-                  icon="celebrations"
-                  title="Celebrations"
-                  label="Inspect Celebrations"
-                  description="Get an oversight of current, or upcoming, user anniversaries or birthdays"
-                />
-                <GridItem
-                  disabled
-                  icon="notification"
-                  title="Notifications"
-                  label="Inspect Notifications"
-                  description="Manage notifications sent to you and your department’s users"
-                />
-                <GridItem
-                  disabled
-                  icon="robot"
-                  title="Robot"
-                  label="Inspect Robot"
-                  description="Manage and customize your department’s bot and when, and what, it sends and alerts"
-                />
+                {disabledItems.map((item) => (
+                  <GridItem key={item.title} {...item} disabled />
+                ))}
               </ul>
             </div>
           </div>
