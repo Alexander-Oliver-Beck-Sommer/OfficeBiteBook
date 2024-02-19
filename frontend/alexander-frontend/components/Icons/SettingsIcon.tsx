@@ -1,8 +1,8 @@
-type SaveIconProps = {
+type SettingsIconProps = {
   className?: string;
 };
 
-const SaveIcon = ({ className = "" }: SaveIconProps) => {
+const SettingsIcon = ({ className = "" }: SettingsIconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -16,4 +16,4 @@ const SaveIcon = ({ className = "" }: SaveIconProps) => {
   );
 };
 
-export default SaveIcon;
+export default SettingsIcon;

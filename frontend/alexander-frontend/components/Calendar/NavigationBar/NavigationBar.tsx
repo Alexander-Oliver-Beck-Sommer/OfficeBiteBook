@@ -5,7 +5,7 @@ import WeekHighlighter from "@/components/Calendar/NavigationBar/child-component
 import ArrowIcon from "@/components/Icons/ArrowIcon";
 import WeekTypeSwitcher from "./child-components/WeekTypeSwitcher";
 import { Slant } from "hamburger-react";
-import AdminDashboard from "@/components/AdminDashboard/AdminDashboard";
+import AdminDashboard from "@/components/AdminDashboard";
 
 type NavigationBarProps = {
   jumpBack: () => void;
@@ -31,16 +31,14 @@ const NavigationBar = ({
 
   return (
     <section className="grid h-14 grid-cols-autoX1">
-      <section className="relative flex w-sidebar_width items-center justify-center bg-dark-100">
-        <div className="absolute z-50">
-          <Slant
-            label="Open admin dashboard"
-            direction="right"
-            rounded
-            toggled={menuOpen}
-            toggle={adminDashboardToggle}
-          />
-        </div>
+      <section className="flex w-sidebar_width items-center justify-center bg-dark-100">
+        <Slant
+          label="Open admin dashboard"
+          direction="right"
+          rounded
+          toggled={menuOpen}
+          toggle={adminDashboardToggle}
+        />
       </section>
       <section className="flex items-center justify-between border-b border-dark-500 px-4">
         <ul className="flex items-center gap-4">
@@ -67,10 +65,7 @@ const NavigationBar = ({
           </li>
         </ul>
       </section>
-      <AdminDashboard
-        adminDashboardVisibility={menuOpen}
-        adminDashboardClose={adminDashboardToggle}
-      />
+      <AdminDashboard visibility={menuOpen} toggle={adminDashboardToggle} />
     </section>
   );
 };
