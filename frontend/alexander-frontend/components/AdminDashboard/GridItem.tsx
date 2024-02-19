@@ -91,8 +91,22 @@ const GridItem: React.FC<GridItemProps> = ({
           {iconValue}
         </div>
         <div className="text-left">
-          <h4 className={disabled ? "text-dark-500" : "text-white"}>{title}</h4>
-          <p className={`text-sm ${disabled ? "text-dark-500" : "text-grey"}`}>
+          <h4
+            className={`transition-all duration-300 ease-in-out ${
+              disabled
+                ? "text-dark-500"
+                : "text-white group-hover/grid-item:text-primary group-focus-visible/grid-item:text-primary"
+            }`}
+          >
+            {title}
+          </h4>
+          <p
+            className={`text-sm transition-all duration-300 ease-in-out ${
+              disabled
+                ? "text-dark-500"
+                : "text-grey group-hover/grid-item:text-white group-focus-visible/grid-item:text-white"
+            }`}
+          >
             {description}
           </p>
         </div>
