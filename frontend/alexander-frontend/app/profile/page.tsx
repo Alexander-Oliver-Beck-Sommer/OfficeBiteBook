@@ -1,7 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import ProfileComponent from "@/components/Profile/ProfileComponent";
-import MessageModal from "@/components/Modals/MessageModal/MessageModal";
+import ProfileComponent from "@/components/Profile";
+import ErrorModal from "@/components/ErrorModal";
 
 export default async function Profile() {
   const cookieStore = cookies();
@@ -19,7 +19,7 @@ export default async function Profile() {
 
   return (
     <section className="fill-body pattern flex items-center justify-center px-5 py-10">
-      <MessageModal variant={401} />
+      <ErrorModal variant={401} />
     </section>
   );
 }

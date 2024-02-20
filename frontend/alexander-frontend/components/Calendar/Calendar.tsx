@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import useTimeMachine from "@/hooks/useTimeMachine";
 import NavigationBar from "@/components/Calendar/NavigationBar/NavigationBar";
-import Week from "@/components/Calendar/Week/Week";
-import MessageModal from "../Modals/MessageModal/MessageModal";
+import Week from "@/components/Calendar/Week";
+import ErrorModal from "../ErrorModal";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 type CalendarProps = {
@@ -73,7 +73,7 @@ export default function Calendar({ userId }: CalendarProps) {
         </>
       ) : (
         <section className="fill-body pattern flex items-center justify-center px-5 py-10">
-          <MessageModal variant={403} />
+          <ErrorModal variant={403} />
         </section>
       )}
     </>

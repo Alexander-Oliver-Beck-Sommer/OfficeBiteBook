@@ -3,11 +3,14 @@ import React from "react";
 import useUtilities from "@/hooks/useUtilities";
 import IconButton from "../IconButton";
 
-type Size =
-  | "max-w-screen-sm"
-  | "max-w-screen-md"
-  | "max-w-screen-lg"
-  | "max-w-screen-xl";
+// ContentModal:
+// - A modal component that can be used to display content by inserting children.
+// - Four different sizes can be used to restrict the width of the modal - default is max-w-screen-xl.
+// - Several buttons can be enabled. All buttons except the close button are disabled by default.
+// - When the visibility is set to true, the body will be locked to prevent scrolling.
+// - A loading spinner can be shown while certain data is being processed f.x. saving data to supabase.
+
+type Size = "small" | "medium" | "large" | "xl";
 
 interface ContentModalProps {
   /** The visibility of the modal. FALSE = hidden | TRUE = visible. */
@@ -39,12 +42,27 @@ interface ContentModalProps {
   children?: React.ReactNode;
 }
 
+const sizes = (size: Size) => {
+  switch (size) {
+    case "small":
+      return "max-w-screen-sm";
+    case "medium":
+      return "max-w-screen-md";
+    case "large":
+      return "max-w-screen-lg";
+    case "xl":
+      return "max-w-screen-xl";
+    default:
+      return "max-w-screen-xl";
+  }
+};
+
 const ContentModal: React.FC<ContentModalProps> = ({
   visibility = false,
   loading = false,
   toggle = () => {},
   size = "max-w-screen-xl",
-  title = "No title specified",
+  title,
   showDeleteButton = false,
   deleteToggle = () => {},
   showEraseButton = false,
@@ -57,18 +75,17 @@ const ContentModal: React.FC<ContentModalProps> = ({
 }) => {
   const { disableBodyScroll } = useUtilities();
   disableBodyScroll(visibility);
-  const modalStyles = visibility
-    ? "pointer-events-auto visible opacity-100"
-    : "pointer-events-none invisible opacity-0";
-  const containerStyles = visibility
-    ? "animate-fade-up animate-ease-in-out"
-    : "invisible opacity-0";
+  const sizeValue = sizes(size);
 
   return (
     <section
       aria-modal="true"
       aria-hidden={!visibility}
-      className={`fixed inset-0 z-50 flex transition-all duration-300 ease-in-out ${modalStyles}`}
+      className={`fixed inset-0 z-50 flex transition-all duration-300 ease-in-out ${
+        visibility
+          ? "pointer-events-auto visible opacity-100"
+          : "pointer-events-none invisible opacity-0"
+      }`}
     >
       <div className="relative flex flex-1 items-center justify-center px-5 py-10 md:p-10">
         <div
@@ -78,7 +95,9 @@ const ContentModal: React.FC<ContentModalProps> = ({
           onClick={toggle}
         ></div>
         <div
-          className={`pattern relative z-50 flex h-full w-full flex-col overflow-auto rounded border-2 border-dark-500 ${size} ${containerStyles}`}
+          className={`pattern relative z-50 flex h-full w-full flex-col overflow-auto rounded border-2 border-dark-500 animate-ease-in-out ${sizeValue} ${
+            visibility ? "animate-fade-up " : "invisible opacity-0"
+          }`}
         >
           <header className="relative z-50 grid grid-cols-1Xauto items-center gap-5 bg-dark-300 p-5 md:px-10">
             <h3 className="truncate font-semibold">{title}</h3>
@@ -158,7 +177,7 @@ const ContentModal: React.FC<ContentModalProps> = ({
                       fill="currentFill"
                     />
                   </svg>
-                  <p>Saving...</p>
+                  <p>Processing...</p>
                 </div>
               </div>
             </div>

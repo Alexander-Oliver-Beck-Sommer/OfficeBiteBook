@@ -1,3 +1,4 @@
+// Needs a rework.
 import React, { useState, useEffect } from "react";
 import CheckIcon from "../Icons/CheckIcon";
 import CloseIcon from "../Icons/CloseIcon";
@@ -34,7 +35,7 @@ const CheckboxThree = ({
     }
   };
 
-  const getCheckboxStyles = () => {
+  const checkboxStyles = () => {
     if (disabled) {
       return "border-dark-500 fill-grey"; // Adjusted styles for disabled state
     } else if (value === true) {
@@ -66,7 +67,7 @@ const CheckboxThree = ({
         disabled={disabled} // Disable input when component is disabled
       />
       <label
-        className={`absolute inset-0 flex cursor-pointer items-center justify-center rounded border-2 bg-dark-100 p-1 outline-primary transition-all duration-300 ease-in-out group-focus:outline ${getCheckboxStyles()}`}
+        className={`absolute inset-0 flex cursor-pointer items-center justify-center rounded border-2 bg-dark-100 p-1 outline-primary transition-all duration-300 ease-in-out group-focus:outline ${checkboxStyles()}`}
         onClick={handleInputChange}
         tabIndex={disabled ? -1 : 0} // Prevent focusing when disabled
         onKeyPress={(e) => {

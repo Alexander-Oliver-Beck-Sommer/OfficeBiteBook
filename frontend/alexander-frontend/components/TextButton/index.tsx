@@ -30,6 +30,7 @@ interface TextButtonProps {
   disabled?: boolean;
   /** Attach functionality to the button. */
   toggle?: () => void;
+  /** Define the type of button. */
   type?: Type;
 }
 

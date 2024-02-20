@@ -98,7 +98,7 @@ const Guest = ({
       visibility={isVisible}
       toggle={toggle}
       title="Guestlist"
-      size="max-w-screen-md"
+      size="medium"
     >
       <ul
         className={`flex h-full flex-1 flex-col gap-5 overflow-y-auto p-5 md:px-10`}

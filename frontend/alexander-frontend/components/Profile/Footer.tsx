@@ -1,14 +1,11 @@
-import ActionButton from "@/components/Buttons/ActionButton";
+import TextButton from "../TextButton";
 
-type FooterBarProps = {
+type FooterProps = {
   lastUpdated?: string;
   saveProfile?: () => void;
 };
 
-const FooterBar = ({
-  lastUpdated = "",
-  saveProfile = () => {},
-}: FooterBarProps) => {
+const Footer = ({ lastUpdated = "", saveProfile = () => {} }: FooterProps) => {
   return (
     <footer className=" flex w-full justify-center border-t border-dark-400 bg-dark-200 px-4 py-3 md:px-12 md:py-4">
       <div className="flex w-full max-w-screen-xl items-center justify-between">
@@ -16,17 +13,18 @@ const FooterBar = ({
           <h4 className="text-sm text-grey md:text-base">Last updated:</h4>
           <h4 className="text-sm md:text-base">{lastUpdated}</h4>
         </div>
-        <ActionButton
+        <TextButton
           icon="save"
-          variant="outlined-small"
+          text="Save"
           label="Save Changes"
-          name="Save"
           title="Save Changes"
+          color="primary"
           toggle={saveProfile}
+          type="button"
         />
       </div>
     </footer>
   );
 };
 
-export default FooterBar;
+export default Footer;

@@ -1,8 +1,10 @@
+// Needs a rework to use form instead of state logic and proper TypeScript practices
 "use client";
 import useProfile from "@/hooks/useProfile";
-import HeaderBar from "@/components/Profile/HeaderBar/HeaderBar";
-import FooterBar from "./FooterBar/FooterBar";
-import InputList from "./InputList/InputList";
+import Header from "./Header";
+import Footer from "./Footer";
+import InputList from "./InputList";
+
 type ProfileComponentProps = {
   userId?: string;
   userEmail?: string;
@@ -41,7 +43,7 @@ const ProfileComponent = ({
 
   return (
     <section className="pattern fill-body flex flex-col justify-between">
-      <HeaderBar
+      <Header
         fileRef={fileInputRef}
         changeAvatar={handleAvatarChange}
         avatarToggle={() => fileInputRef.current.click()}
@@ -61,7 +63,7 @@ const ProfileComponent = ({
         changeAllergies={setUserAllergies}
         email={userEmail}
       />
-      <FooterBar
+      <Footer
         lastUpdated={updatedAt ? formatDate(updatedAt) : "00-00-0000 | 00:00"}
         saveProfile={handleSubmit}
       />

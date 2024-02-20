@@ -1,10 +1,18 @@
+import React from "react";
 import ShieldIcon from "@/components/Icons/ShieldIcon";
-import FileDamagedIcon from "../../Icons/FileDamagedIcon";
+import FileDamagedIcon from "@/components/Icons/FileDamagedIcon";
 import LogIcon from "@/components/icons/LogIcon";
 import HomeIcon from "@/components/Icons/HomeIcon";
 import Link from "next/link";
 
-const variants = (variant: number) => {
+type Variant = 401 | 403 | 404;
+
+interface ErrorModalProps {
+  /** Supported: 401, 403, 404. */
+  variant?: Variant;
+}
+
+const variants = (variant: Variant): number => {
   switch (variant) {
     case 401:
       return {
@@ -64,44 +72,32 @@ const variants = (variant: number) => {
   }
 };
 
-type MessageModalProps = {
-  variant?: number;
-};
-
-const MessageModal = ({ variant = 401 }: MessageModalProps) => {
+const ErrorModal: React.FC<ErrorModalProps> = ({ variant = 404 }) => {
   const { landmark, title, message, icon, description, link } =
     variants(variant);
 
   return (
-    <section
-      aria-label={landmark}
-      className="flex w-full items-center justify-center"
-    >
-      <section className="mx-4 my-8 flex justify-center md:mx-12 md:my-6">
-        <section className="flex w-full animate-fade-up flex-col gap-4 animate-ease-in-out md:max-w-2xl md:gap-6 md:rounded md:border-2 md:border-dark-500 md:bg-dark-100 md:px-8 md:py-10">
-          <div className="flex items-center justify-between">
-            <div className="flex items-end gap-3">
-              <h1>{title}</h1>
-              <h4 className="text-grey">{message}</h4>
-            </div>
-            {icon}
-          </div>
-          <div className="h-[2px] rounded bg-red"></div>
-          <p className="text-grey">{description}</p>
-          <div className="flex justify-end">
-            <Link
-              aria-label={link.label}
-              title={link.label}
-              href={link.href}
-              className="flex w-full items-center justify-center gap-3 rounded border-2 border-dark-500 bg-dark-100 px-5 py-3 transition-colors duration-300 ease-in-out hover:bg-dark-500 md:w-fit"
-            >
-              <h4>{link.text}</h4>
-            </Link>
-          </div>
-        </section>
-      </section>
+    <section className="flex w-full max-w-screen-md animate-fade-up flex-col gap-2.5 rounded border-2 border-dark-500 bg-dark-100 px-5 py-10 animate-ease-in-out md:p-10">
+      <div className="flex items-center justify-between border-b-2 border-red pb-2.5">
+        <div className="flex items-end gap-2.5">
+          <h1>{title}</h1>
+          <h4 className="text-grey">{message}</h4>
+        </div>
+        {icon}
+      </div>
+      <p className="text-grey">{description}</p>
+      <div className="flex justify-end">
+        <Link
+          aria-label={link.label}
+          title={link.label}
+          href={link.href}
+          className="w-full rounded border-2 border-dark-500 bg-dark-100 px-5 py-2.5 text-center transition-colors duration-300 ease-in-out hover:bg-dark-500 md:w-fit"
+        >
+          <h4>{link.text}</h4>
+        </Link>
+      </div>
     </section>
   );
 };
 
-export default MessageModal;
+export default ErrorModal;

@@ -1,7 +1,7 @@
 "use client";
 import useHome from "@/hooks/useHome";
 import Header from "./Header";
-import CheckboxInput from "../Inputs/CheckboxInput";
+import CheckboxTwo from "../CheckboxTwo";
 import Menu from "./Menu";
 import Modal from "./Modal";
 import Guest from "./Guest";
@@ -42,7 +42,7 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
         <section className="flex flex-1 justify-center px-4 py-8 md:px-12">
           <ul className="flex w-full max-w-screen-xl flex-col gap-10">
             <li className="-mb-10 flex items-center gap-4">
-              <CheckboxInput onChange={toggleAllMenusStatus} />
+              <CheckboxTwo onChange={toggleAllMenusStatus} disabled />
               <div className="grid w-full grid-cols-3 gap-4 md:grid-cols-5 md:gap-8">
                 <h4>TITLE</h4>
                 <h4 className="hidden sm:block">LOCATION</h4>
