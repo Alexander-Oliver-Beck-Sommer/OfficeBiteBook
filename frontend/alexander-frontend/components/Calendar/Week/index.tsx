@@ -50,21 +50,16 @@ const Week = ({
   return (
     <>
       <ul className="flex">
-        <li className="w-sidebar_width bg-dark-100">
-          <ul className="flex flex-col">
-            <li className="flex flex-col">
-              <section className="h-12"></section>
-              <section className="h-12"></section>
-            </li>
-            {hours.map((hour) => (
-              <li
-                key={`sidebar-${hour.fullHour}`}
-                className="flex h-20 w-full items-start justify-center"
-              >
-                <p className="text-sm text-grey">{hour.fullHour}</p>
-              </li>
-            ))}
-          </ul>
+        <li className="w-16 bg-dark-100">
+          <div className="h-24"></div>
+          {hours.map((hour) => (
+            <span
+              key={`sidebar-${hour.fullHour}`}
+              className="flex h-20 w-full justify-center"
+            >
+              <p className="text-sm text-grey">{hour.fullHour}</p>
+            </span>
+          ))}
         </li>
         {days.map((day) => {
           const getTodaysDate = new Date();
@@ -97,12 +92,12 @@ const Week = ({
                     key={`${day.name}-${hour.fullHour}`}
                     locked={day.locked}
                     date={day.date}
-                    halfHour={hour.halfHour}
-                    halfHourToggle={() =>
+                    half={hour.halfHour}
+                    halfToggle={() =>
                       createMenu(day.date, hour.halfHour, day.locked)
                     }
-                    fullHour={hour.fullHour}
-                    fullHourToggle={() =>
+                    full={hour.fullHour}
+                    fullToggle={() =>
                       createMenu(day.date, hour.fullHour, day.locked)
                     }
                   />

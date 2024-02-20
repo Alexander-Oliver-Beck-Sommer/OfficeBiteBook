@@ -35,7 +35,7 @@ const MenuCard: React.FC<MenuCardProps> = ({
 }) => {
   return (
     <button
-      className="group/card-button absolute w-full animate-fade p-1 animate-ease-in-out"
+      className="group/card-button absolute w-full animate-fade p-1 pl-2 animate-ease-in-out"
       style={positioning}
       aria-label={`Inspect ${title}`}
       title={`Inspect ${title}`}

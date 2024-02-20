@@ -31,7 +31,7 @@ const NavigationBar = ({
 
   return (
     <section className="grid h-14 grid-cols-autoX1">
-      <section className="flex w-sidebar_width items-center justify-center bg-dark-100">
+      <section className="flex w-16 items-center justify-center bg-dark-100">
         <Slant
           label="Open admin dashboard"
           direction="right"
