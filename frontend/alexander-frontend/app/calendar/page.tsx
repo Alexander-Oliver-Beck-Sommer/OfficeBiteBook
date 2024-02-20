@@ -1,6 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import Calendar from "@/components/Calendar/Calendar";
+import Calendar from "@/components/Calendar";
 import ErrorModal from "@/components/ErrorModal";
 
 export default async function CalendarTest() {

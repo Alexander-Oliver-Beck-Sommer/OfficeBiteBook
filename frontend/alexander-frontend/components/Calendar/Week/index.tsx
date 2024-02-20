@@ -1,6 +1,6 @@
 import Hour from "./Hour";
 import MenuEditor from "../MenuEditor";
-import MenuCard from "./CardButton";
+import MenuCard from "./MenuCard";
 import useMenuCreator from "@/hooks/useMenuCreator";
 import Day from "./Day";
 
@@ -61,7 +61,7 @@ const Week = ({
                 key={`sidebar-${hour.fullHour}`}
                 className="flex h-20 w-full items-start justify-center"
               >
-                <h5>{hour.fullHour}</h5>
+                <p className="text-sm text-grey">{hour.fullHour}</p>
               </li>
             ))}
           </ul>
