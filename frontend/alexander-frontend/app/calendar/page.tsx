@@ -14,12 +14,20 @@ export default async function CalendarTest() {
   } = await supabase.auth.getUser();
 
   if (user) {
-    return <Calendar userId={user?.id} />;
+    const { data, error } = await supabase
+      .from("users")
+      .select("user_role")
+      .eq("user_id", user.id)
+      .single();
+
+    if (data && data.user_role === "admin") {
+      return <Calendar userId={user.id} />;
+    }
   }
 
   return (
     <section className="fill-body pattern flex items-center justify-center px-5 py-10">
-      <ErrorModal variant={401} />
+      <ErrorModal variant={403} />
     </section>
   );
 }
