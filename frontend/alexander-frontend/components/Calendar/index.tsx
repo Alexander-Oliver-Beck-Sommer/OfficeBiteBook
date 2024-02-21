@@ -1,7 +1,7 @@
 "use client";
 import useTimeMachine from "@/hooks/useTimeMachine";
-import NavigationBar from "@/components/Calendar/NavigationBar";
-import Week from "@/components/Calendar/Week";
+import NavigationBar from "./NavigationBar";
+import Week from "./Week";
 
 type CalendarProps = {
   userId?: string;
