@@ -9,8 +9,9 @@ import ArchiveIcon from "../Icons/ArchiveIcon";
 import AddIcon from "../Icons/AddIcon";
 import FilterIcon from "../Icons/FilterIcon";
 import SortAlphabetIcon from "../Icons/SortAlphabetIcon";
+import SettingsIcon from "../Icons/SettingsIcon";
 
-type Size = "normal" | "small";
+type Size = "normal" | "small" | "responsive";
 type Color = "primary" | "red" | "orange";
 type Icon =
   | "arrow-up"
@@ -26,7 +27,8 @@ type Icon =
   | "add"
   | "filter"
   | "alphabet-ascending"
-  | "alphabet-descending";
+  | "alphabet-descending"
+  | "settings";
 type Variant = "filled" | "icon";
 
 interface IconButtonProps {
@@ -36,7 +38,7 @@ interface IconButtonProps {
   label?: string;
   /**  Defines a string value that specifies the title of the current element, which typically appears as a tooltip. */
   title?: string;
-  /** Supported sizes: small, normal. */
+  /** Supported sizes: small, normal, responsive. */
   size?: Size;
   /** Supported: primary, red, orange. */
   color?: Color;
@@ -113,6 +115,8 @@ const icons = (icon: Icon, size: Size): JSX.Element | null => {
       return <AddIcon className={sizeClasses.icon} />;
     case "filter":
       return <FilterIcon className={sizeClasses.icon} />;
+    case "settings":
+      return <SettingsIcon className={sizeClasses.icon} />;
     default:
       return null;
   }
