@@ -16,10 +16,10 @@ const Department: React.FC<DepartmentProps> = ({ userEmail, userId }) => {
 
   return (
     <section className="fill-body pattern flex justify-center p-5 md:px-10">
-      <div className="flex w-full max-w-screen-xl flex-col gap-5">
+      <div className="flex w-full max-w-screen-xl flex-col gap-8">
         <Header amountOfDepartments={departments.length} />
         {departments.length > 0 ? (
-          <ul className="grid gap-5 border border-dark-300">
+          <ul className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {departments.map((department) => (
               <DepartmentCard
                 key={department.department_id}
