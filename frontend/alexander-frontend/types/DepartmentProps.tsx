@@ -1,0 +1,19 @@
+export interface DepartmentProps {
+  department_id?: string; // UUID
+  owner_id?: string; // UUID
+  name?: string; // text
+  description?: string; // text
+  status?: string; // text
+  users_collection?: string[]; // jsonb
+  users_invited?: string[]; // jsonb
+  users_count?: number; // int8
+  custom_roles?: string[]; // jsonb
+  menus_collection?: string[]; // jsonb
+  menus_count?: number; // int8
+  dishes_collection?: string[]; // jsonb
+  dishes_count?: number; // int8
+  logo_image?: string; // text
+  cover_image?: string; // text
+  updated_at?: string; // timestamptz
+  created_at?: string; // timestamptz
+}
