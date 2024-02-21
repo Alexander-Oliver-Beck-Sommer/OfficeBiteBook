@@ -7,6 +7,8 @@ import DeleteIcon from "../Icons/DeleteIcon";
 import EraseIcon from "../Icons/EraseIcon";
 import ArchiveIcon from "../Icons/ArchiveIcon";
 import AddIcon from "../Icons/AddIcon";
+import FilterIcon from "../Icons/FilterIcon";
+import SortAlphabetIcon from "../Icons/SortAlphabetIcon";
 
 type Size = "normal" | "small";
 type Color = "primary" | "red" | "orange";
@@ -21,7 +23,10 @@ type Icon =
   | "delete"
   | "erase"
   | "archive"
-  | "add";
+  | "add"
+  | "filter"
+  | "alphabet-ascending"
+  | "alphabet-descending";
 type Variant = "filled" | "icon";
 
 interface IconButtonProps {
@@ -84,6 +89,14 @@ const icons = (icon: Icon, size: Size): JSX.Element | null => {
       return (
         <ArrowIcon variant={icon.split("-")[1]} className={sizeClasses.icon} />
       );
+    case "alphabet-ascending":
+    case "alphabet-descending":
+      return (
+        <SortAlphabetIcon
+          variant={icon.split("-")[1]}
+          className={sizeClasses.icon}
+        />
+      );
     case "reset":
       return <ResetIcon className={sizeClasses.icon} />;
     case "user-add":
@@ -98,6 +111,8 @@ const icons = (icon: Icon, size: Size): JSX.Element | null => {
       return <ArchiveIcon className={sizeClasses.icon} />;
     case "add":
       return <AddIcon className={sizeClasses.icon} />;
+    case "filter":
+      return <FilterIcon className={sizeClasses.icon} />;
     default:
       return null;
   }
