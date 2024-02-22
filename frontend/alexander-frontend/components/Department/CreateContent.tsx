@@ -59,13 +59,11 @@ const CreateContent: React.FC<CreateContentProps> = ({
         <TextButton
           className="w-full md:w-fit"
           type="submit"
-          label="Submit and create department"
-          title="Submit and create department"
-          text="Submit"
-          icon="upload"
-        >
-          <h4>Create Department</h4>
-        </TextButton>
+          label="Save and create department"
+          title="Save and create department"
+          text="Save & Create"
+          icon="save"
+        />
       </section>
     </form>
   );

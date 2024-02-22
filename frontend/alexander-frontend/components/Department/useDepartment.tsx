@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import useDepartments from "@/hooks/useDepartments";
 import { DepartmentProps } from "@/types/DepartmentProps";
 import useUser from "@/hooks/useUser";
-import { v4 as uuidv4 } from "uuid";
 
 type Mode = "create" | "edit" | "";
 
@@ -11,13 +10,14 @@ const useDepartment = (userEmail: string, userId: string) => {
   const [visibility, setVisibility] = useState<boolean>(false);
   const [mode, setMode] = useState<Mode>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [departmentId, setDepartmentId] = useState<string>("");
-  const [ownerId, setOwnerId] = useState<string>("");
+  const [departmentId, setDepartmentId] = useState<string>(""); // Only really used for the view button inside the edit modal.
+  // Data that is displayed in the department card & edit modal.
   const [name, setName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [departmentStatus, setDepartmentStatus] = useState<string>("");
+  const [status, setStatus] = useState<string>("");
   const [owner, setOwner] = useState<string>("");
   const [usersAmount, setUsersAmount] = useState<number>(0);
+
+  const [description, setDescription] = useState<string>("");
 
   const { getUsersDepartments, addDepartment } = useDepartments();
 
@@ -32,21 +32,6 @@ const useDepartment = (userEmail: string, userId: string) => {
   const createDepartment = async (department: DepartmentProps) => {
     setMode("create");
     setVisibility(true);
-    setDepartmentId(uuidv4());
-  };
-
-  const verifiyDepartment = (
-    name: string,
-    description: string,
-    status: string,
-  ) => {
-    const trimmedName = name.trim();
-    const trimmedDescription = description.trim();
-
-    if (trimmedName.length < 2 || trimmedName.length > 25) {
-      return false;
-    }
-    return true;
   };
 
   const saveDepartment = async (form) => {
@@ -82,7 +67,7 @@ const useDepartment = (userEmail: string, userId: string) => {
     setDepartmentId(department.department_id);
     setName(department.name);
     setDescription(department.description);
-    setDepartmentStatus(department.status);
+    setStatus(department.status);
     const user = await getUserFromId(department.owner_id);
     setOwner(user[0].user_name);
     setUsersAmount(department.users_count);
@@ -101,7 +86,7 @@ const useDepartment = (userEmail: string, userId: string) => {
       setOwner("");
       setName("");
       setDescription("");
-      setDepartmentStatus("");
+      setStatus("");
       setUsersAmount(0);
     }
   }, [visibility]);
@@ -112,13 +97,12 @@ const useDepartment = (userEmail: string, userId: string) => {
     loading,
     closeModal,
     departmentId,
-    ownerId,
     owner,
     name,
     createDepartment,
     editDepartment,
     description,
-    departmentStatus,
+    status,
     usersAmount,
     mode,
     saveDepartment,
