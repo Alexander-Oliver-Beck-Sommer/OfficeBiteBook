@@ -6,14 +6,14 @@ interface DepartmentProps {
   amountOfDepartments?: number;
   /** Function to toggle the filter. */
   filterToggle?: () => void;
-  /** Function to toggle the sort. */
-  sortToggle?: () => void;
+  /** Function to toggle the create department modal. */
+  createToggle?: () => void;
 }
 
 const Header: React.FC<DepartmentProps> = ({
   amountOfDepartments = 0,
   filterToggle = () => {},
-  sortToggle = () => {},
+  createToggle = () => {},
 }) => {
   return (
     <header className="flex rounded border-dark-500 md:border-2 md:bg-dark-100 md:px-5 md:py-2.5">
@@ -26,18 +26,18 @@ const Header: React.FC<DepartmentProps> = ({
         </h4>
         <div className="flex gap-2.5">
           <IconButton
+            toggle={createToggle}
+            icon="add"
+            size="responsive"
+            title="Create Department"
+            label="Create Department"
+          />
+          <IconButton
             title="Filter departments"
             icon="filter"
             label="Filter departments"
             size="responsive"
             toggle={filterToggle}
-          />
-          <IconButton
-            title="Sort by alphabetical order"
-            icon="alphabet-ascending"
-            label="Sort by alphabetical order"
-            size="responsive"
-            toggle={sortToggle}
           />
         </div>
       </div>

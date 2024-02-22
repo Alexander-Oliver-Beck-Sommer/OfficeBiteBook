@@ -41,7 +41,7 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
   };
 
   return (
-    <li className="flex animate-fade-up flex-col gap-3.5 rounded border-2 border-dark-500 bg-dark-100 p-5 animate-ease-in-out">
+    <li className="flex animate-fade flex-col gap-3.5 rounded border-2 border-dark-500 bg-dark-100 p-5 animate-ease-in-out">
       <section className="flex flex-col gap-2">
         <div className="grid grid-cols-1Xauto items-center gap-2">
           <h4 className="truncate uppercase">{department?.name}</h4>

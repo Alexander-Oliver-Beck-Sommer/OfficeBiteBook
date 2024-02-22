@@ -34,6 +34,10 @@ interface InputFieldProps {
   id?: string;
   /** Supported: on, off. */
   autoComplete?: AutoComplete;
+  /** Defines the minimum number of characters allowed in the input field. */
+  minLength?: number;
+  /** Defines the maximum number of characters allowed in the input field. */
+  maxLength?: number;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -46,6 +50,8 @@ const InputField: React.FC<InputFieldProps> = ({
   disabled = false,
   id,
   autoComplete = "off",
+  minLength,
+  maxLength,
 }) => {
   const props = {
     autoComplete,
@@ -54,6 +60,8 @@ const InputField: React.FC<InputFieldProps> = ({
     ...(label && { "aria-label": label }),
     ...(id && { id }),
     ...(defaultValue && { defaultValue }),
+    ...(minLength && { minLength }),
+    ...(maxLength && { maxLength }),
     disabled,
   };
 
@@ -109,7 +117,11 @@ const InputField: React.FC<InputFieldProps> = ({
           <input
             {...props}
             type={type}
-            className="rounded border-2 border-dark-500 bg-dark-100 p-3 text-sm outline-none placeholder:opacity-100 placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus:placeholder:opacity-0 md:text-base"
+            className={`rounded border-2 bg-dark-100 p-3 text-sm outline-none placeholder:opacity-100 placeholder:transition-all placeholder:duration-300 placeholder:ease-in-out focus:placeholder:opacity-0 md:text-base ${
+              disabled
+                ? "border-dark-300 text-grey"
+                : "border-dark-500 text-white"
+            }`}
           />
         </div>
       )}

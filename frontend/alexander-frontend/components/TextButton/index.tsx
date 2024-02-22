@@ -2,6 +2,7 @@ import React from "react";
 import SaveIcon from "../Icons/SaveIcon";
 import CloseIcon from "../Icons/CloseIcon";
 import ArrowIcon from "../Icons/ArrowIcon";
+import UploadIcon from "../Icons/UploadIcon";
 
 type Icon =
   | "save"
@@ -9,7 +10,8 @@ type Icon =
   | "arrow-up"
   | "arrow-right"
   | "arrow-down"
-  | "arrow-left";
+  | "arrow-left"
+  | "upload";
 type Color = "primary" | "red" | "orange";
 type Type = "button" | "submit" | "reset";
 
@@ -40,6 +42,8 @@ const icons = (icon: Icon): JSX.Element | null => {
       return <SaveIcon />;
     case "close":
       return <CloseIcon />;
+    case "upload":
+      return <UploadIcon />;
     case "arrow-up":
     case "arrow-right":
     case "arrow-down":

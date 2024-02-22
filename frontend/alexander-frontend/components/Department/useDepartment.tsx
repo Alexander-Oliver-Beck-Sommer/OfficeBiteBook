@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useDepartments from "@/hooks/useDepartments";
 import { DepartmentProps } from "@/types/DepartmentProps";
 import useUser from "@/hooks/useUser";
+import { v4 as uuidv4 } from "uuid";
 
 type Mode = "create" | "edit" | "";
 
@@ -11,7 +12,8 @@ const useDepartment = (userEmail: string, userId: string) => {
   const [mode, setMode] = useState<Mode>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [departmentId, setDepartmentId] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
+  const [ownerId, setOwnerId] = useState<string>("");
+  const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [departmentStatus, setDepartmentStatus] = useState<string>("");
   const [owner, setOwner] = useState<string>("");
@@ -36,14 +38,16 @@ const useDepartment = (userEmail: string, userId: string) => {
   const createDepartment = async (department: DepartmentProps) => {
     setMode("create");
     setVisibility(true);
-    setTitle("New Department");
+    setDepartmentId(uuidv4());
+    setOwnerId(userId);
+    setDepartmentStatus("online");
   };
 
   const editDepartment = async (department: DepartmentProps) => {
     setMode("edit");
     setVisibility(true);
     setDepartmentId(department.department_id);
-    setTitle(department.name);
+    setName(department.name);
     setDescription(department.description);
     setDepartmentStatus(department.status);
     const user = await getUserFromId(department.owner_id);
@@ -62,6 +66,13 @@ const useDepartment = (userEmail: string, userId: string) => {
   useEffect(() => {
     if (visibility === false) {
       setMode("");
+      setLoading(false);
+      setDepartmentId("");
+      setOwner("");
+      setName("");
+      setDescription("");
+      setDepartmentStatus("");
+      setUsersAmount(0);
     }
   }, [visibility]);
 
@@ -71,13 +82,15 @@ const useDepartment = (userEmail: string, userId: string) => {
     loading,
     closeModal,
     departmentId,
-    title,
+    ownerId,
+    owner,
+    name,
     createDepartment,
     editDepartment,
     description,
     departmentStatus,
-    owner,
     usersAmount,
+    mode,
   };
 };
 
