@@ -31,6 +31,7 @@ const Department: React.FC<DepartmentProps> = ({ userEmail, userId }) => {
     departmentStatus,
     usersAmount,
     mode,
+    saveDepartment,
   } = useDepartment(userEmail, userId);
 
   const statusColor = (status: string) => {
@@ -61,7 +62,7 @@ const Department: React.FC<DepartmentProps> = ({ userEmail, userId }) => {
 
   return (
     <>
-      <section className="fill-body pattern flex justify-center p-5 md:px-10">
+      <section className="fill-body pattern flex justify-center p-5 pb-10 md:px-10">
         <div className="flex w-full max-w-screen-xl flex-col gap-10">
           <Header
             amountOfDepartments={departments.length}
@@ -120,11 +121,7 @@ const Department: React.FC<DepartmentProps> = ({ userEmail, userId }) => {
         loading={loading}
       >
         {mode === "create" ? (
-          <CreateContent
-            submitToggle={() => {}}
-            departmentId={departmentId}
-            ownerId={ownerId}
-          />
+          <CreateContent submitToggle={saveDepartment} />
         ) : (
           <section className="flex flex-1 flex-col gap-5 overflow-y-auto p-5 md:px-10">
             <ul className="flex grid-cols-2 flex-col gap-2.5 md:grid md:gap-5">

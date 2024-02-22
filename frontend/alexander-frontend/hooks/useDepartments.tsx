@@ -3,9 +3,12 @@ import { supabase } from "@/components/Supabase/supabaseClient";
 import { DepartmentProps } from "@/types/DepartmentProps";
 
 const useDepartments = () => {
+  const [departmentLoading, setDepartmentsLoading] = useState<boolean>(false);
+
   // Get a department by department_id (UUID)
   const getDepartment = async (departmentId: string) => {
     try {
+      setDepartmentsLoading(true);
       const { data, error } = await supabase
         .from("departments")
         .select("*")
@@ -22,12 +25,15 @@ const useDepartments = () => {
         "Try and catch failed when trying to execute getDepartment",
         error,
       );
+    } finally {
+      setDepartmentsLoading(false);
     }
   };
 
   // Get all departments that contains the provided user_id (UUID) inside the users_collection (jsonb)
   const getUsersDepartments = async (userId: string) => {
     try {
+      setDepartmentsLoading(true);
       const { data, error } = await supabase
         .from("departments")
         .select("*")
@@ -44,33 +50,35 @@ const useDepartments = () => {
         "Try and catch failed when trying to execute getUsersDepartments",
         error,
       );
+    } finally {
+      setDepartmentsLoading(false);
     }
   };
 
   // Add a department to the departments table
   const addDepartment = async (department: DepartmentProps) => {
     try {
-      const { data, error } = await supabase
-        .from("departments")
-        .insert([department]);
+      setDepartmentsLoading(true);
+      const { error } = await supabase.from("departments").insert(department);
 
       if (error) {
         throw new Error("Error adding department");
         console.log("Error adding department:", error);
       }
-
-      return data;
     } catch (error) {
       console.log(
         "Try and catch failed when trying to execute addDepartment",
         error,
       );
+    } finally {
+      setDepartmentsLoading(false);
     }
   };
 
   // Update a department in the departments table
   const updateDepartment = async (department: DepartmentProps) => {
     try {
+      setDepartmentsLoading(true);
       const { data, error } = await supabase
         .from("departments")
         .update(department)
@@ -87,12 +95,15 @@ const useDepartments = () => {
         "Try and catch failed when trying to execute updateDepartment",
         error,
       );
+    } finally {
+      setDepartmentsLoading(false);
     }
   };
 
   // Delete a department by department_id (UUID) & the user_id (UUID) that is the owner of the department
   const deleteDepartment = async (departmentId: string, userId: string) => {
     try {
+      setDepartmentsLoading(true);
       const { error } = await supabase
         .from("departments")
         .delete()
@@ -109,6 +120,8 @@ const useDepartments = () => {
         "Try and catch failed when trying to execute deleteDepartment",
         error,
       );
+    } finally {
+      setDepartmentsLoading(false);
     }
   };
 
@@ -116,6 +129,9 @@ const useDepartments = () => {
     getDepartment,
     getUsersDepartments,
     addDepartment,
+    updateDepartment,
+    deleteDepartment,
+    departmentLoading,
   };
 };
 

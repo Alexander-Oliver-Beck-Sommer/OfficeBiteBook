@@ -19,13 +19,7 @@ const useDepartment = (userEmail: string, userId: string) => {
   const [owner, setOwner] = useState<string>("");
   const [usersAmount, setUsersAmount] = useState<number>(0);
 
-  const {
-    getDepartment,
-    getUsersDepartments,
-    addDepartment,
-    updateDepartment,
-    deleteDepartment,
-  } = useDepartments();
+  const { getUsersDepartments, addDepartment } = useDepartments();
 
   const { getUserFromId } = useUser();
 
@@ -39,8 +33,47 @@ const useDepartment = (userEmail: string, userId: string) => {
     setMode("create");
     setVisibility(true);
     setDepartmentId(uuidv4());
-    setOwnerId(userId);
-    setDepartmentStatus("online");
+  };
+
+  const verifiyDepartment = (
+    name: string,
+    description: string,
+    status: string,
+  ) => {
+    const trimmedName = name.trim();
+    const trimmedDescription = description.trim();
+
+    if (trimmedName.length < 2 || trimmedName.length > 25) {
+      return false;
+    }
+    return true;
+  };
+
+  const saveDepartment = async (form) => {
+    setLoading(true);
+    form.preventDefault();
+    const nameData = form.target.departmentName.value.trim();
+    const descData = form.target.departmentDescription.value.trim();
+    const statusData = form.target.departmentStatus.value;
+
+    if (!nameData || !descData || !statusData) {
+      alert("Please fill in all fields.");
+      form.target.departmentName.value = "";
+      form.target.departmentDescription.value = "";
+      setLoading(false);
+    } else {
+      console.log("Very good!");
+      const newDepartment: DepartmentProps = {
+        owner_id: userId,
+        name: nameData,
+        description: descData,
+        status: statusData,
+        users_collection: [userId],
+        users_count: 1,
+      };
+      await addDepartment(newDepartment);
+      setVisibility(false);
+    }
   };
 
   const editDepartment = async (department: DepartmentProps) => {
@@ -60,11 +93,8 @@ const useDepartment = (userEmail: string, userId: string) => {
   };
 
   useEffect(() => {
-    fetchDepartments();
-  }, [userId]);
-
-  useEffect(() => {
     if (visibility === false) {
+      fetchDepartments();
       setMode("");
       setLoading(false);
       setDepartmentId("");
@@ -91,6 +121,7 @@ const useDepartment = (userEmail: string, userId: string) => {
     departmentStatus,
     usersAmount,
     mode,
+    saveDepartment,
   };
 };
 

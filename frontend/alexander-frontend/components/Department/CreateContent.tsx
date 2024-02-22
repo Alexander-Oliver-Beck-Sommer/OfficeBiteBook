@@ -5,26 +5,23 @@ import TextButton from "../TextButton";
 interface CreateContentProps {
   /** Function to submit the department. */
   submitToggle?: () => void;
-  /** UUID for the department. */
-  departmentId?: string;
 }
 
 const CreateContent: React.FC<CreateContentProps> = ({
   submitToggle = () => {},
-  departmentId,
 }) => {
   return (
     <form
+      onSubmit={submitToggle}
       className="grid flex-1 grid-rows-1xauto overflow-hidden"
-      data-department-id={departmentId}
     >
       <ul className="flex flex-col gap-5 overflow-y-auto p-5 md:px-10">
         <li>
           <InputField
-            minLength={5}
-            maxLength={50}
+            minLength={2}
+            maxLength={25}
             required
-            id="department-name"
+            id="departmentName"
             name="Name"
             label="Provide a name for the Department"
             placeholder="E.g. Frank's Diner"
@@ -35,7 +32,7 @@ const CreateContent: React.FC<CreateContentProps> = ({
             minLength={10}
             maxLength={100}
             required
-            id="department-description"
+            id="departmentDescription"
             name="Description"
             label="Provide a description for the Department"
             placeholder="E.g. A place to share menus."
@@ -47,7 +44,7 @@ const CreateContent: React.FC<CreateContentProps> = ({
             <p className="text-sm text-grey md:text-base">Initial Status</p>
           </label>
           <select
-            id="department-status"
+            id="departmentStatus"
             className="block w-full rounded border-2 border-dark-500 bg-dark-100 p-3 text-sm text-white outline-0 md:text-base"
           >
             <option defaultValue value="online">
@@ -61,7 +58,6 @@ const CreateContent: React.FC<CreateContentProps> = ({
       <section className="flex justify-end bg-dark-300 p-5 md:px-10">
         <TextButton
           className="w-full md:w-fit"
-          toggle={submitToggle}
           type="submit"
           label="Submit and create department"
           title="Submit and create department"
