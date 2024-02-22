@@ -16,7 +16,7 @@ const Header: React.FC<DepartmentProps> = ({
   sortToggle = () => {},
 }) => {
   return (
-    <header className="flex rounded-full border-dark-500 md:border-2 md:bg-dark-100 md:px-5 md:py-1.5 lg:py-0">
+    <header className="flex rounded border-dark-500 md:border-2 md:bg-dark-100 md:px-5 md:py-2.5">
       <div className="flex w-full items-center justify-between">
         <h4>
           Showing:{" "}
@@ -24,9 +24,8 @@ const Header: React.FC<DepartmentProps> = ({
             {amountOfDepartments} departments
           </span>
         </h4>
-        <div className="flex gap-2.5 md:gap-1">
+        <div className="flex gap-2.5">
           <IconButton
-            className="md:rounded-full md:border-0 md:hover:bg-transparent md:hover:fill-white md:focus-visible:bg-transparent md:focus-visible:fill-white"
             title="Filter departments"
             icon="filter"
             label="Filter departments"
@@ -34,7 +33,6 @@ const Header: React.FC<DepartmentProps> = ({
             toggle={filterToggle}
           />
           <IconButton
-            className="md:rounded-full md:border-0 md:hover:bg-transparent md:hover:fill-white md:focus-visible:bg-transparent md:focus-visible:fill-white"
             title="Sort by alphabetical order"
             icon="alphabet-ascending"
             label="Sort by alphabetical order"

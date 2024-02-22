@@ -112,6 +112,24 @@ const useUser = () => {
     }
   };
 
+  const getUserFromId = async (userId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .select()
+        .eq("user_id", userId);
+
+      if (error) {
+        console.log("Error getting user from ID", error);
+        return;
+      } else if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.log("Error getting user from ID", error);
+    }
+  };
+
   useEffect(() => {
     fetchUser();
   }, []);
@@ -126,6 +144,7 @@ const useUser = () => {
     handleLogout,
     user,
     createUser,
+    getUserFromId,
   };
 };
 
