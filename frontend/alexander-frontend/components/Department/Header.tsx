@@ -32,13 +32,13 @@ const Header: React.FC<DepartmentProps> = ({
             title="Create Department"
             label="Create Department"
           />
-          <IconButton
+          {/* <IconButton
             title="Filter departments"
             icon="filter"
             label="Filter departments"
             size="responsive"
             toggle={filterToggle}
-          />
+          /> */}
         </div>
       </div>
     </header>

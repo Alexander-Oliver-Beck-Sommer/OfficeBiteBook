@@ -71,7 +71,7 @@ const Department: React.FC<DepartmentProps> = ({ userEmail, userId }) => {
             </>
           ) : (
             <div className="flex flex-1 items-center justify-center">
-              <div className=" flex animate-fade-up flex-col items-center gap-5 animate-ease-in-out">
+              <div className=" flex animate-fade-up flex-col items-center gap-5 animate-delay-1000 animate-ease-in-out">
                 <h1 className="text-4xl">ಥ_ಥ</h1>
                 <div className="text-center">
                   <h4>No Departments Found</h4>
