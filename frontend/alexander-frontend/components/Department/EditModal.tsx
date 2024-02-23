@@ -16,6 +16,8 @@ interface EditModalProps {
   ownerName?: string;
   /** Function to leave the specific department. */
   leaveToggle?: () => void;
+  ownerId?: string;
+  userId?: string;
 }
 
 const EditModal: React.FC<EditModalProps> = ({
@@ -26,6 +28,8 @@ const EditModal: React.FC<EditModalProps> = ({
   usersAmount = 0,
   owner,
   leaveToggle,
+  ownerId,
+  userId,
 }) => {
   const statusColor = (status: string) => {
     switch (status) {
@@ -92,16 +96,29 @@ const EditModal: React.FC<EditModalProps> = ({
         <p className="text-sm text-grey md:text-base">{description}</p>
       </div>
       <ul className="flex flex-1 grid-cols-2 flex-col justify-end gap-5 md:grid md:items-end">
-        <li>
-          <button
-            onClick={() => leaveToggle(departmentId)}
-            title={`Leave ${name}`}
-            aria-label={`Leave ${name}`}
-            className="flex w-full items-center justify-center rounded border-2 border-dark-500 bg-dark-100 px-5 py-3 text-grey outline-0 transition-all duration-300 ease-in-out hover:border-red hover:bg-red hover:text-dark-100 focus-visible:border-red focus-visible:bg-red focus-visible:text-dark-100"
-          >
-            <h4>Leave Department</h4>
-          </button>
-        </li>
+        {ownerId === userId ? (
+          <li>
+            <Link
+              href={`/calendar/${departmentId}`}
+              title={`Administrate ${name}`}
+              aria-label={`Administrate ${name}`}
+              className="flex w-full items-center justify-center rounded border-2 border-dark-500 bg-dark-100 px-5 py-3 text-grey outline-0 transition-all duration-300 ease-in-out hover:border-primary hover:bg-primary hover:text-dark-100 focus-visible:border-primary focus-visible:bg-primary focus-visible:text-dark-100"
+            >
+              <h4>Admin Dashboard</h4>
+            </Link>
+          </li>
+        ) : (
+          <li>
+            <button
+              onClick={() => leaveToggle(departmentId)}
+              title={`Leave ${name}`}
+              aria-label={`Leave ${name}`}
+              className="flex w-full items-center justify-center rounded border-2 border-dark-500 bg-dark-100 px-5 py-3 text-grey outline-0 transition-all duration-300 ease-in-out hover:border-red hover:bg-red hover:text-dark-100 focus-visible:border-red focus-visible:bg-red focus-visible:text-dark-100"
+            >
+              <h4>Leave Department</h4>
+            </button>
+          </li>
+        )}
         <li>
           <Link
             href={`/department/${departmentId}`}

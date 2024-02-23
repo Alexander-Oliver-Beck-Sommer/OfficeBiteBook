@@ -6,6 +6,7 @@ import Day from "./Day";
 
 type WeekProps = {
   userId?: string;
+  departmentId?: string;
   days?: string[];
   type?: boolean;
   hours?: string[];
@@ -15,6 +16,7 @@ type WeekProps = {
 
 const Week = ({
   userId = "",
+  departmentId,
   days = [],
   type = true,
   hours = [],
@@ -45,7 +47,7 @@ const Week = ({
     calculateCardButtonHeight,
     deleteMenu,
     deleteDish,
-  } = useMenuCreator(userId);
+  } = useMenuCreator(userId, departmentId);
 
   return (
     <>
@@ -67,7 +69,7 @@ const Week = ({
           const dayDate = day.date;
           const currentDate = todaysDate === dayDate;
           const date = day.date.split("-")[2];
-          const menuCards = menus.filter((menu) =>
+          const menuCards = menus[0].filter((menu) =>
             menu.date.startsWith(day.date),
           );
           return (

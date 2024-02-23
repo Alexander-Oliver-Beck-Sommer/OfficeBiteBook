@@ -15,6 +15,7 @@ const useDepartment = (userEmail: string, userId: string) => {
   const [name, setName] = useState<string>("");
   const [status, setStatus] = useState<string>("");
   const [owner, setOwner] = useState<string>("");
+  const [ownerId, setOwnerId] = useState<string>("");
   const [usersAmount, setUsersAmount] = useState<number>(0);
 
   const [description, setDescription] = useState<string>("");
@@ -70,6 +71,7 @@ const useDepartment = (userEmail: string, userId: string) => {
     setStatus(department.status);
     const user = await getUserFromId(department.owner_id);
     setOwner(user[0].user_name);
+    setOwnerId(department.owner_id);
     setUsersAmount(department.users_count);
   };
 
@@ -106,6 +108,7 @@ const useDepartment = (userEmail: string, userId: string) => {
     usersAmount,
     mode,
     saveDepartment,
+    ownerId,
   };
 };
 

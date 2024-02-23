@@ -5,9 +5,10 @@ import Week from "./Week";
 
 type CalendarProps = {
   userId?: string;
+  departmentId?: string;
 };
 
-export default function Calendar({ userId }: CalendarProps) {
+export default function Calendar({ userId, departmentId }: CalendarProps) {
   const {
     week,
     type,
@@ -34,6 +35,7 @@ export default function Calendar({ userId }: CalendarProps) {
       />
       <Week
         userId={userId}
+        departmentId={departmentId}
         days={week.week_days}
         type={type}
         hours={hours()}

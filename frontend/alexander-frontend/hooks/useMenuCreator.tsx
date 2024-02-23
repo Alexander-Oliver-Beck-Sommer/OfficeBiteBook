@@ -11,7 +11,7 @@ import { supabase } from "@/components/Supabase/supabaseClient";
 
 type Mode = "create" | "edit" | "";
 
-const useMenuCreator = (userId: string) => {
+const useMenuCreator = (userId: string, departmentId: string) => {
   const [mode, setMode] = useState<Mode>("");
   const [visibility, setVisibility] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const useMenuCreator = (userId: string) => {
   const [date, setDate] = useState<string>("");
   const [startTime, setStartTime] = useState<string>("");
   const [endTime, setEndTime] = useState<string>("");
-  const { uploadMenu, getMenusFromUser, updateMenu } = useMenus();
+  const { uploadMenu, getMenusFromDepartment, updateMenu } = useMenus();
   const {
     getCurrentWeekNumber,
     getWeekNumberFromDate,
@@ -93,7 +93,8 @@ const useMenuCreator = (userId: string) => {
 
   // Function that is triggered upon whenever the modal is closed, automatically fetching newly added menus.
   const loadMenus = async () => {
-    const fetchedMenus = await getMenusFromUser(userId);
+    const fetchedMenus = await getMenusFromDepartment(departmentId);
+    console.log(fetchedMenus);
     setMenus(fetchedMenus);
   };
 

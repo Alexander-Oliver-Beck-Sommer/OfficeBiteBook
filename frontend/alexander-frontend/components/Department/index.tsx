@@ -31,6 +31,7 @@ const Department: React.FC<DepartmentProps> = ({ userEmail, userId }) => {
     mode,
     saveDepartment,
     allowed,
+    ownerId,
   } = useDepartment(userEmail, userId);
 
   if (allowed === false) {
@@ -109,6 +110,8 @@ const Department: React.FC<DepartmentProps> = ({ userEmail, userId }) => {
               description={description}
               status={status}
               ownerName={owner}
+              ownerId={ownerId}
+              userId={userId}
               usersAmount={usersAmount}
               leaveToggle={() => {}}
             />

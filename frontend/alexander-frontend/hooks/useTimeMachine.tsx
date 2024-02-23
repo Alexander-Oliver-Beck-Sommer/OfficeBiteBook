@@ -21,7 +21,6 @@ type HourCell = {
 };
 
 const useTimeMachine = (userId: string) => {
-  console.log(userId);
   const [week, setWeek] = useState<Week>({
     week_number: 0,
     week_location: "",
