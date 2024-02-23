@@ -1,6 +1,7 @@
 export interface MenuProps {
   menu_id?: string;
   user_id?: string;
+  department_id?: string;
   title?: string;
   location?: string;
   date?: string;

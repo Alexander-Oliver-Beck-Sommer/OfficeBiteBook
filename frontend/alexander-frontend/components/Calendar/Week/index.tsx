@@ -69,7 +69,7 @@ const Week = ({
           const dayDate = day.date;
           const currentDate = todaysDate === dayDate;
           const date = day.date.split("-")[2];
-          const menuCards = menus[0].filter((menu) =>
+          const menuCards = menus.filter((menu) =>
             menu.date.startsWith(day.date),
           );
           return (

@@ -118,6 +118,7 @@ const useMenuCreator = (userId: string, departmentId: string) => {
       const menu: MenuProps = {
         menu_id: menuID,
         user_id: userId,
+        department_id: departmentId,
         title: title,
         location: location,
         date: date,

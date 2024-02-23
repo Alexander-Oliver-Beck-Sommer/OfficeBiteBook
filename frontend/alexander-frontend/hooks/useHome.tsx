@@ -6,7 +6,7 @@ import { supabase } from "@/components/Supabase/supabaseClient";
 import useDateCalculator from "./useDateCalculator";
 
 const useHome = (userId: string, departmentId: string) => {
-  const { getMenusFromDepartmentByWeek, getDishesFromMenu } = useMenus();
+  const { getWeekMenusFromDepartment, getDishesFromMenu } = useMenus();
   const { checkIfApartOfDepartment, isAllowed } = useDepartments();
   const { getCurrentWeekNumber, formatDate, getDayNameFromDate } =
     useDateCalculator();
@@ -31,9 +31,9 @@ const useHome = (userId: string, departmentId: string) => {
     const fetchMenus = async () => {
       const weekNumber = getCurrentWeekNumber(week);
       setWeekNumber(weekNumber);
-      let retrievedMenus = await getMenusFromDepartmentByWeek(
-        departmentId,
+      let retrievedMenus = await getWeekMenusFromDepartment(
         weekNumber,
+        departmentId,
       );
 
       retrievedMenus = retrievedMenus.filter((menu) => !menu.published);
