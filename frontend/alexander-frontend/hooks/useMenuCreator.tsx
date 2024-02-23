@@ -94,7 +94,6 @@ const useMenuCreator = (userId: string, departmentId: string) => {
   // Function that is triggered upon whenever the modal is closed, automatically fetching newly added menus.
   const loadMenus = async () => {
     const fetchedMenus = await getMenusFromDepartment(departmentId);
-    console.log(fetchedMenus);
     setMenus(fetchedMenus);
   };
 

@@ -48,7 +48,6 @@ const useDepartment = (userEmail: string, userId: string) => {
       form.target.departmentDescription.value = "";
       setLoading(false);
     } else {
-      console.log("Very good!");
       const newDepartment: DepartmentProps = {
         owner_id: userId,
         name: nameData,

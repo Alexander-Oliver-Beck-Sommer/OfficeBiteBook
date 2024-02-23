@@ -62,11 +62,9 @@ const Guest = ({
       !startDate ||
       !endDate
     ) {
-      console.log("(ㆆ_ㆆ) fill the damn form.");
       form.target.guestName.value = "";
       form.target.guestDepartment.value = "";
     } else {
-      console.log("(•_•) Nice, you filled the form.");
       addGuest(userId, name, department, weekNumber, startDate, endDate);
       const newGuest = {
         user_id: userId,

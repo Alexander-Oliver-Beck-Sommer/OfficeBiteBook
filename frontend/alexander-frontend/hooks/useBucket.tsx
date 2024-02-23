@@ -13,7 +13,6 @@ const useBucket = () => {
           .upload(path, file, {
             upsert: true,
           });
-        console.log("File uploaded.");
       } catch (error) {
         setError(error.message);
       }
