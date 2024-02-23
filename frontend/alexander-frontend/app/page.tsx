@@ -1,9 +1,9 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import ErrorModal from "@/components/ErrorModal";
-import HomeComponent from "@/components/Home";
+import Department from "@/components/Department";
 
-export default async function Home() {
+export default async function Departments() {
   const cookieStore = cookies();
   const supabase = createServerComponentClient({
     cookies: () => cookieStore,
@@ -14,11 +14,14 @@ export default async function Home() {
   } = await supabase.auth.getUser();
 
   if (user) {
-    return <HomeComponent userId={user?.id} />;
+    return <Department userEmail={user.email} userId={user.id} />;
   }
 
   return (
-    <section className="fill-body pattern flex items-center justify-center px-5 py-10">
+    <section
+      className="fill-body pattern flex items-center justify-center px-5 py-10"
+      aria-label="Not logged in"
+    >
       <ErrorModal variant={401} />
     </section>
   );

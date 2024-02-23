@@ -77,7 +77,7 @@ const ErrorModal: React.FC<ErrorModalProps> = ({ variant = 404 }) => {
     variants(variant);
 
   return (
-    <section className="flex w-full max-w-screen-md animate-fade-up flex-col gap-2.5 rounded border-2 border-dark-500 bg-dark-100 px-5 py-10 animate-ease-in-out md:p-10">
+    <section className="flex w-full max-w-screen-md animate-fade-up flex-col gap-2.5 rounded border-2 border-dark-500 bg-dark-100 px-5 py-10 animate-delay-1000 animate-ease-in-out md:p-10">
       <div className="flex items-center justify-between border-b-2 border-red pb-2.5">
         <div className="flex items-end gap-2.5">
           <h1>{title}</h1>
