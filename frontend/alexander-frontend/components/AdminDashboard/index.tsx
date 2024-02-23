@@ -10,7 +10,7 @@ interface AdminDashboardProps {
   /** Function to close/open the admin dashboard */
   toggle?: () => void;
   /** Department ID - essential in retrieving the fully correct data in terms of the administration of the department. */
-  departmentId?: string;
+  departmentId: string;
 }
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({

@@ -3,7 +3,11 @@ import { cookies } from "next/headers";
 import ErrorModal from "@/components/ErrorModal";
 import HomeComponent from "@/components/Home";
 
-export default async function Department({ params }) {
+export default async function Department({
+  params,
+}: {
+  params: { department_id: string };
+}) {
   const cookieStore = cookies();
   const supabase = createServerComponentClient({
     cookies: () => cookieStore,

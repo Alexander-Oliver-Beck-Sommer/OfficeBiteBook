@@ -7,7 +7,7 @@ import Day from "./Day";
 type WeekProps = {
   userId?: string;
   departmentId?: string;
-  days?: string[];
+  days?: [];
   type?: boolean;
   hours?: string[];
   lockDay?: (date: string, locked: boolean) => void;

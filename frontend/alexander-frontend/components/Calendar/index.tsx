@@ -8,7 +8,10 @@ type CalendarProps = {
   departmentId?: string;
 };
 
-export default function Calendar({ userId, departmentId }: CalendarProps) {
+export default function Calendar({
+  userId = "",
+  departmentId = "",
+}: CalendarProps) {
   const {
     week,
     type,

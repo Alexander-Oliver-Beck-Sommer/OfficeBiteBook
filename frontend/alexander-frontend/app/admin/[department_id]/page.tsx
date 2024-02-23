@@ -3,7 +3,11 @@ import { cookies } from "next/headers";
 import Calendar from "@/components/Calendar";
 import ErrorModal from "@/components/ErrorModal";
 
-export default async function AdminDashboard({ params }) {
+export default async function AdminDashboard({
+  params,
+}: {
+  params: { department_id: string };
+}) {
   const cookieStore = cookies();
   const supabase = createServerComponentClient({
     cookies: () => cookieStore,

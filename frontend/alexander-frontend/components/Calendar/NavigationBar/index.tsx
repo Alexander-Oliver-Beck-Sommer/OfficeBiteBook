@@ -15,6 +15,7 @@ type NavigationBarProps = {
   currentDateReset?: () => void;
   typeToggle?: () => void;
   departmentId?: string;
+  currentDateHighlight?: number;
 };
 
 const NavigationBar = ({

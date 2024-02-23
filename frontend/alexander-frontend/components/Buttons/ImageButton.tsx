@@ -1,6 +1,6 @@
 import ImageIcon from "@/components/Icons/ImageIcon";
 
-const sizes = (size) => {
+const sizes = (size: string) => {
   switch (size) {
     case "normal":
       return { button: "h-20 w-20", icon: "h-10 w-10" };

@@ -39,7 +39,7 @@ interface IconButtonProps {
   /**  Defines a string value that specifies the title of the current element, which typically appears as a tooltip. */
   title?: string;
   /** Supported sizes: small, normal, responsive. */
-  size?: Size;
+  size?: Size | string;
   /** Supported: primary, red, orange. */
   color?: Color;
   /** Defines which icon to display. */

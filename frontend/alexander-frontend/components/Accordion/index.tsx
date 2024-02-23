@@ -15,22 +15,22 @@ interface VariantConfig {
 
 interface AccordionProps {
   /** The text to display in the accordion’s control bar. */
-  text?: string;
+  text: string;
   /** Attach a function to the delete button. */
-  deleteToggle?: () => void;
+  deleteToggle: () => void;
   /** Disable the delete button. */
-  deleteDisabled?: boolean;
+  deleteDisabled: boolean;
   /** The count to display in the accordion’s control bar. */
-  count?: number;
+  count: number;
   /** Used to identify the accordion, aswell for aria-controls */
-  id?: string;
-  children?: ReactNode;
+  id: string;
+  children: ReactNode;
   /** Choose which variant the accordion should be shown in. */
-  variant?: Variant;
+  variant: Variant;
   /** False = Closed | True = Expanded */
-  accordionState?: boolean;
+  accordionState: boolean;
   /** Attach a function to the accordion’s control bar. */
-  setAccordionState?: (state: boolean) => void;
+  setAccordionState: (state: boolean) => void;
 }
 
 const variants = (variant: string): VariantConfig => {
@@ -42,6 +42,7 @@ const variants = (variant: string): VariantConfig => {
         control_bar:
           "grid-cols-auto1Xauto py-1 pl-3 pr-1 grid items-center gap-2",
         content_panel: "bg-dark-300",
+        text: "",
         show_count: true,
         show_delete: true,
       };
@@ -65,6 +66,7 @@ const variants = (variant: string): VariantConfig => {
         control_bar:
           "grid-cols-auto1Xauto py-1 px-5 py-2.5 grid items-center gap-2",
         content_panel: "bg-dark-300",
+        text: "",
         show_count: true,
         show_delete: true,
       };
@@ -76,6 +78,7 @@ const variants = (variant: string): VariantConfig => {
         control_bar: "",
         content_panel: "",
         show_count: false,
+        text: "",
         show_delete: false,
       };
   }
@@ -86,7 +89,7 @@ const Accordion: React.FC<AccordionProps> = ({
   deleteToggle = () => {},
   deleteDisabled = false,
   count = 0,
-  id = "",
+  id,
   children = null,
   variant = "",
   accordionState = false,

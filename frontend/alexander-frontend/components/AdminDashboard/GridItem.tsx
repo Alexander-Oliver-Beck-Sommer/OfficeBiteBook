@@ -22,7 +22,7 @@ type Icon =
 
 interface GridItemProps {
   /** Define the icon to display. */
-  icon?: Icon;
+  icon?: Icon | string;
   /** Define the title of the grid item. */
   title?: string;
   /** Define the description of the grid item. */
@@ -35,7 +35,7 @@ interface GridItemProps {
   disabled?: boolean;
 }
 
-const icons = (icon: Icon): JSX.Element | null => {
+const icons = (icon: Icon | string): JSX.Element | null => {
   switch (icon) {
     case "archive":
       return <ArchiveIcon />;
