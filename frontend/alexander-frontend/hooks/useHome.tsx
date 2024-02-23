@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import useDateCalculator from "./useDateCalculator";
 import useMenus from "./useMenus";
+import useDepartments from "./useDepartments";
+import { MenuProps } from "@/types/MenuProps";
 import { supabase } from "@/components/Supabase/supabaseClient";
+import useDateCalculator from "./useDateCalculator";
 
 const useHome = (userId: string, departmentId: string) => {
-  const { getDayNameFromDate, getCurrentWeekNumber, formatDate } =
+  const { getMenusFromDepartmentByWeek, getDishesFromMenu } = useMenus();
+  const { checkIfApartOfDepartment, isAllowed } = useDepartments();
+  const { getCurrentWeekNumber, formatDate, getDayNameFromDate } =
     useDateCalculator();
-  const {
-    getMenusFromGivenWeek,
-    getDishesFromMenu,
-    getMenusFromDepartment,
-    getMenusFromDepartmentByWeek,
-  } = useMenus();
   const [checkedMenus, setCheckedMenus] = useState([]);
   const [menus, setMenus] = useState([]);
   const [organizedMenus, setOrganizedMenus] = useState({});
@@ -21,11 +19,15 @@ const useHome = (userId: string, departmentId: string) => {
   const [modalData, setModalData] = useState(null);
   const [guestOpen, setGuestOpen] = useState(false);
 
-  // useEffect(() => {
-  //   getMenusFromDepartment(departmentId);
-  // }, []);
+  useEffect(() => {
+    checkIfApartOfDepartment(departmentId, userId);
+  }, []);
 
   useEffect(() => {
+    if (!isAllowed) {
+      return;
+    }
+
     const fetchMenus = async () => {
       const weekNumber = getCurrentWeekNumber(week);
       setWeekNumber(weekNumber);
@@ -57,9 +59,13 @@ const useHome = (userId: string, departmentId: string) => {
     };
 
     fetchMenus();
-  }, [week, userId]);
+  }, [isAllowed, week, userId]);
 
   useEffect(() => {
+    if (!isAllowed) {
+      return;
+    }
+
     const organizeMenusByDay = () => {
       const dayOrder = [
         "Monday",
@@ -92,8 +98,20 @@ const useHome = (userId: string, departmentId: string) => {
     if (menus.length > 0) {
       organizeMenusByDay();
     }
-  }, [menus, getDayNameFromDate, formatDate]);
+  }, [isAllowed, menus, getDayNameFromDate, formatDate]);
 
+  // Modals
+  const handleModalOpen = (menu) => {
+    setModalData(menu);
+    setModalStatus(true);
+  };
+
+  const handleModalClose = () => {
+    setModalData(null);
+    setModalStatus(false);
+  };
+
+  // Week Control
   const decreaseWeek = () => {
     setWeek(week - 1);
   };
@@ -104,16 +122,6 @@ const useHome = (userId: string, departmentId: string) => {
 
   const resetWeek = () => {
     setWeek(1);
-  };
-
-  const handleModalOpen = (menu) => {
-    setModalData(menu);
-    setModalStatus(true);
-  };
-
-  const handleModalClose = () => {
-    setModalData(null);
-    setModalStatus(false);
   };
 
   const handleGuest = () => {
@@ -229,6 +237,7 @@ const useHome = (userId: string, departmentId: string) => {
     handleGuest,
     guestOpen,
     toggleAllMenusStatus,
+    isAllowed,
   };
 };
 

@@ -5,6 +5,7 @@ import CheckboxTwo from "../CheckboxTwo";
 import Menu from "./Menu";
 import Modal from "./Modal";
 import Guest from "./Guest";
+import ErrorModal from "../ErrorModal";
 
 type HomeComponentProps = {
   userId?: string;
@@ -27,7 +28,16 @@ const HomeComponent = ({ userId, departmentId }: HomeComponentProps) => {
     handleGuest,
     guestOpen,
     toggleAllMenusStatus,
+    isAllowed,
   } = useHome(userId, departmentId);
+
+  if (!isAllowed) {
+    return (
+      <section className="fill-body pattern flex items-center justify-center">
+        <ErrorModal variant={403} />
+      </section>
+    );
+  }
 
   return (
     <>
@@ -39,7 +49,6 @@ const HomeComponent = ({ userId, departmentId }: HomeComponentProps) => {
           resetWeek={resetWeek}
           handleGuest={handleGuest}
         />
-
         <section className="flex flex-1 justify-center px-4 py-8 md:px-12">
           <ul className="flex w-full max-w-screen-xl flex-col gap-10">
             <li className="-mb-10 flex items-center gap-4">

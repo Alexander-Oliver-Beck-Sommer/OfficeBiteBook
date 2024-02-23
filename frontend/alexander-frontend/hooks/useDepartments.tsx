@@ -4,6 +4,7 @@ import { DepartmentProps } from "@/types/DepartmentProps";
 
 const useDepartments = () => {
   const [departmentLoading, setDepartmentsLoading] = useState<boolean>(false);
+  const [isAllowed, setIsAllowed] = useState<boolean>(false);
 
   // Get a department by department_id (UUID)
   const getDepartment = async (departmentId: string) => {
@@ -125,6 +126,37 @@ const useDepartments = () => {
     }
   };
 
+  const checkIfApartOfDepartment = async (
+    departmentId: string,
+    userId: string,
+  ) => {
+    try {
+      setDepartmentsLoading(true);
+      const { data, error } = await supabase
+        .from("departments")
+        .select("*")
+        .eq("department_id", departmentId)
+        .contains("users_collection", `["${userId}"]`);
+
+      if (error) {
+        throw new Error("Error checking if user is apart of department");
+      }
+
+      // Check if the data returned has at least one department matching the criteria
+      setIsAllowed(data && data.length > 0);
+
+      return data; // You might want to return something indicating success/failure as well
+    } catch (error) {
+      console.log(
+        "Try and catch failed when trying to execute checkIfApartOfDepartment",
+        error,
+      );
+      setIsAllowed(false); // Ensure we set isAllowed to false in case of error
+    } finally {
+      setDepartmentsLoading(false);
+    }
+  };
+
   return {
     getDepartment,
     getUsersDepartments,
@@ -132,6 +164,8 @@ const useDepartments = () => {
     updateDepartment,
     deleteDepartment,
     departmentLoading,
+    checkIfApartOfDepartment,
+    isAllowed,
   };
 };
 

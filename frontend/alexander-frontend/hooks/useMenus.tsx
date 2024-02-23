@@ -4,7 +4,6 @@ import { MenuProps } from "@/types/MenuProps";
 
 const useMenus = () => {
   const [menusLoading, setMenusLoading] = useState<boolean>(false);
-  const [fetchedMenus, setFetchedMenus] = useState<MenuProps[]>([]);
 
   const getMenusFromDepartment = async (departmentId: string) => {
     try {
@@ -184,7 +183,6 @@ const useMenus = () => {
     updateMenu,
     getMenusFromDepartment,
     menusLoading,
-    fetchedMenus,
     getMenusFromDepartmentByWeek,
   };
 };

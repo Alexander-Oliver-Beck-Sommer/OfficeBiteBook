@@ -30,84 +30,93 @@ const Department: React.FC<DepartmentProps> = ({ userEmail, userId }) => {
     usersAmount,
     mode,
     saveDepartment,
+    allowed,
   } = useDepartment(userEmail, userId);
 
-  return (
-    <>
-      <section className="fill-body pattern flex justify-center p-5 pb-10 md:px-10">
-        <div className="flex w-full max-w-screen-xl flex-col gap-10">
-          <Header
-            amountOfDepartments={departments.length}
-            createToggle={createDepartment}
-          />
-          {departments.length > 0 ? (
-            <>
-              {["online", "paused", "offline"].map((status) => {
-                const filteredDepartments = departments.filter(
-                  (department) => department.status === status,
-                );
-                if (filteredDepartments.length > 0) {
-                  return (
-                    <section
-                      key={status}
-                      aria-label={status}
-                      className="flex flex-col gap-5"
-                    >
-                      <h4 className="capitalize text-grey">{`(${filteredDepartments.length}) ${status} departments`}</h4>
-                      <ul className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                        {filteredDepartments.map((department) => (
-                          <DepartmentCard
-                            key={department.department_id}
-                            department={department}
-                            settingsToggle={() => editDepartment(department)}
-                          />
-                        ))}
-                      </ul>
-                    </section>
+  if (allowed === false) {
+    return (
+      <div>
+        <h1>Not allowed</h1>
+      </div>
+    );
+  } else {
+    return (
+      <>
+        <section className="fill-body pattern flex justify-center p-5 pb-10 md:px-10">
+          <div className="flex w-full max-w-screen-xl flex-col gap-10">
+            <Header
+              amountOfDepartments={departments.length}
+              createToggle={createDepartment}
+            />
+            {departments.length > 0 ? (
+              <>
+                {["online", "paused", "offline"].map((status) => {
+                  const filteredDepartments = departments.filter(
+                    (department) => department.status === status,
                   );
-                }
-                return null;
-              })}
-            </>
-          ) : (
-            <div className="flex flex-1 items-center justify-center">
-              <div className=" flex animate-fade-up flex-col items-center gap-5 animate-delay-1000 animate-ease-in-out">
-                <h1 className="text-4xl">ಥ_ಥ</h1>
-                <div className="text-center">
-                  <h4>No Departments Found</h4>
-                  <p className="text-sm text-grey">
-                    Want to change that? Feel free to create a new department or
-                    ask to become apart of one 🎉
-                  </p>
+                  if (filteredDepartments.length > 0) {
+                    return (
+                      <section
+                        key={status}
+                        aria-label={status}
+                        className="flex flex-col gap-5"
+                      >
+                        <h4 className="capitalize text-grey">{`(${filteredDepartments.length}) ${status} departments`}</h4>
+                        <ul className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                          {filteredDepartments.map((department) => (
+                            <DepartmentCard
+                              key={department.department_id}
+                              department={department}
+                              settingsToggle={() => editDepartment(department)}
+                            />
+                          ))}
+                        </ul>
+                      </section>
+                    );
+                  }
+                  return null;
+                })}
+              </>
+            ) : (
+              <div className="flex flex-1 items-center justify-center">
+                <div className=" flex animate-fade-up flex-col items-center gap-5 animate-delay-1000 animate-ease-in-out">
+                  <h1 className="text-4xl">ಥ_ಥ</h1>
+                  <div className="text-center">
+                    <h4>No Departments Found</h4>
+                    <p className="text-sm text-grey">
+                      Want to change that? Feel free to create a new department
+                      or ask to become apart of one 🎉
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
+          </div>
+        </section>
+        <ContentModal
+          size="medium"
+          visibility={visibility}
+          toggle={closeModal}
+          title={mode === "create" ? "New Department" : name}
+          loading={loading}
+        >
+          {mode === "create" ? (
+            <CreateContent submitToggle={saveDepartment} />
+          ) : (
+            <EditModal
+              departmentId={departmentId}
+              name={name}
+              description={description}
+              status={status}
+              ownerName={owner}
+              usersAmount={usersAmount}
+              leaveToggle={() => {}}
+            />
           )}
-        </div>
-      </section>
-      <ContentModal
-        size="medium"
-        visibility={visibility}
-        toggle={closeModal}
-        title={mode === "create" ? "New Department" : name}
-        loading={loading}
-      >
-        {mode === "create" ? (
-          <CreateContent submitToggle={saveDepartment} />
-        ) : (
-          <EditModal
-            departmentId={departmentId}
-            name={name}
-            description={description}
-            status={status}
-            ownerName={owner}
-            usersAmount={usersAmount}
-            leaveToggle={() => {}}
-          />
-        )}
-      </ContentModal>
-    </>
-  );
+        </ContentModal>
+      </>
+    );
+  }
 };
 
 export default Department;
