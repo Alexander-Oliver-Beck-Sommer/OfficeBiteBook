@@ -1,8 +1,7 @@
 import LinkItem from "@/components/Header/LinkItem";
-import HomeIcon from "@/components/Icons/HomeIcon";
-import CalendarIcon from "@/components/Icons/CalendarIcon";
 import ProfileIcon from "@/components/Icons/ProfileIcon";
 import LogIcon from "@/components/icons/LogIcon";
+import OfficeIcon from "../Icons/OfficeIcon";
 
 type HamburgerMenuProps = {
   visible?: boolean;
@@ -26,13 +25,14 @@ const HamburgerMenu = ({
       className={`absolute bottom-0 left-0 top-header_height z-50 flex w-full items-stretch overflow-hidden bg-dark-200 transition-all duration-300 ease-in-out lg:hidden ${visibleStyles}`}
     >
       <ul className="w-full overflow-auto">
-        <LinkItem label="Home" href="/" icon={<HomeIcon />} toggle={toggle} />
-        <LinkItem
-          label="Calendar"
-          href="/calendar"
-          icon={<CalendarIcon variant="fullWeek" />}
-          toggle={toggle}
-        />
+        {user && (
+          <LinkItem
+            label="Departments"
+            href="/"
+            icon={<OfficeIcon />}
+            toggle={toggle}
+          />
+        )}
         {user && (
           <LinkItem
             label="Profile"
