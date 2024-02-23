@@ -3,10 +3,15 @@ import useDateCalculator from "./useDateCalculator";
 import useMenus from "./useMenus";
 import { supabase } from "@/components/Supabase/supabaseClient";
 
-const useHome = (userId: string) => {
+const useHome = (userId: string, departmentId: string) => {
   const { getDayNameFromDate, getCurrentWeekNumber, formatDate } =
     useDateCalculator();
-  const { getMenusFromGivenWeek, getDishesFromMenu } = useMenus();
+  const {
+    getMenusFromGivenWeek,
+    getDishesFromMenu,
+    getMenusFromDepartment,
+    getMenusFromDepartmentByWeek,
+  } = useMenus();
   const [checkedMenus, setCheckedMenus] = useState([]);
   const [menus, setMenus] = useState([]);
   const [organizedMenus, setOrganizedMenus] = useState({});
@@ -16,11 +21,18 @@ const useHome = (userId: string) => {
   const [modalData, setModalData] = useState(null);
   const [guestOpen, setGuestOpen] = useState(false);
 
+  // useEffect(() => {
+  //   getMenusFromDepartment(departmentId);
+  // }, []);
+
   useEffect(() => {
     const fetchMenus = async () => {
       const weekNumber = getCurrentWeekNumber(week);
       setWeekNumber(weekNumber);
-      let retrievedMenus = await getMenusFromGivenWeek(weekNumber);
+      let retrievedMenus = await getMenusFromDepartmentByWeek(
+        departmentId,
+        weekNumber,
+      );
 
       retrievedMenus = retrievedMenus.filter((menu) => !menu.published);
 

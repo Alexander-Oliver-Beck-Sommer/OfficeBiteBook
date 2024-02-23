@@ -104,7 +104,7 @@ const EditModal: React.FC<EditModalProps> = ({
         </li>
         <li>
           <Link
-            href={`/department/${departmentId}`}
+            href={`/departments/department/${departmentId}`}
             title={`View ${name}`}
             aria-label={`View ${name}`}
             className="flex items-center justify-center rounded border-2 border-dark-500 bg-dark-100 px-5 py-3 text-grey outline-0 transition-all duration-300 ease-in-out hover:border-primary hover:bg-primary hover:text-dark-100 focus-visible:border-primary focus-visible:bg-primary focus-visible:text-dark-100"

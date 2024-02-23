@@ -8,9 +8,10 @@ import Guest from "./Guest";
 
 type HomeComponentProps = {
   userId?: string;
+  departmentId?: string;
 };
 
-const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
+const HomeComponent = ({ userId, departmentId }: HomeComponentProps) => {
   const {
     menus,
     organizedMenus,
@@ -26,7 +27,7 @@ const HomeComponent = ({ userId = "" }: HomeComponentProps) => {
     handleGuest,
     guestOpen,
     toggleAllMenusStatus,
-  } = useHome(userId);
+  } = useHome(userId, departmentId);
 
   return (
     <>
