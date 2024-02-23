@@ -26,6 +26,7 @@ export default function Calendar({ userId, departmentId }: CalendarProps) {
   return (
     <>
       <NavigationBar
+        departmentId={departmentId}
         jumpBack={weekBackward}
         weekNumber={currentWeekNumber}
         jumpForward={weekForward}

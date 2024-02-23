@@ -14,6 +14,7 @@ type NavigationBarProps = {
   navigationBarWeekHighlighter?: number;
   currentDateReset?: () => void;
   typeToggle?: () => void;
+  departmentId?: string;
 };
 
 const NavigationBar = ({
@@ -23,6 +24,7 @@ const NavigationBar = ({
   currentDateHighlight = 0,
   currentDateReset = () => {},
   typeToggle,
+  departmentId,
 }: NavigationBarProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const adminDashboardToggle = () => {
@@ -65,7 +67,11 @@ const NavigationBar = ({
           </li>
         </ul>
       </section>
-      <AdminDashboard visibility={menuOpen} toggle={adminDashboardToggle} />
+      <AdminDashboard
+        visibility={menuOpen}
+        toggle={adminDashboardToggle}
+        departmentId={departmentId}
+      />
     </section>
   );
 };

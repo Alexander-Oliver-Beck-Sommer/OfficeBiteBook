@@ -15,6 +15,16 @@ const useUser = () => {
     } = await supabase.auth.getUser();
   };
 
+  const fetchAllUsers = async () => {
+    const { data: users, error } = await supabase.from("users").select("*");
+
+    if (error) {
+      console.log("Error fetching users", error);
+    }
+
+    return users;
+  };
+
   // Creates a user session and redirects to the home page if successful
   const handleLogin = async (form: any) => {
     form.preventDefault();
@@ -145,6 +155,7 @@ const useUser = () => {
     user,
     createUser,
     getUserFromId,
+    fetchAllUsers,
   };
 };
 
