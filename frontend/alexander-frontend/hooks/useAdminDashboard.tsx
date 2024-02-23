@@ -3,6 +3,16 @@ import { useEffect, useState } from "react";
 const useAdminDashboard = () => {
   const enabledItems = [
     {
+      icon: "celebrations",
+      title: "Celebrations",
+      label: "Inspect Celebrations",
+      description:
+        "Get an oversight of current, or upcoming, user anniversaries or birthdays",
+    },
+  ];
+
+  const disabledItems = [
+    {
       icon: "settings",
       label: "Inspect General Settings",
       title: "General Settings",
@@ -22,9 +32,6 @@ const useAdminDashboard = () => {
       description:
         "Manage and access your department’s archive, containing menus and dishes",
     },
-  ];
-
-  const disabledItems = [
     {
       icon: "statistics",
       title: "Statistics",
@@ -45,13 +52,6 @@ const useAdminDashboard = () => {
       label: "Inspect Feedback",
       description:
         "Read what users in your department has to say about your dishes & menus",
-    },
-    {
-      icon: "celebrations",
-      title: "Celebrations",
-      label: "Inspect Celebrations",
-      description:
-        "Get an oversight of current, or upcoming, user anniversaries or birthdays",
     },
     {
       icon: "notification",
