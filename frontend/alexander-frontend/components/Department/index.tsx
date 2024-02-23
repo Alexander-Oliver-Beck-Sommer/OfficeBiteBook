@@ -21,7 +21,7 @@ const Department: React.FC<DepartmentProps> = ({ userEmail, userId }) => {
     loading,
     closeModal,
     departmentId,
-    owner,
+    ownerName,
     name,
     createDepartment,
     editDepartment,
@@ -109,7 +109,7 @@ const Department: React.FC<DepartmentProps> = ({ userEmail, userId }) => {
               name={name}
               description={description}
               status={status}
-              ownerName={owner}
+              ownerName={ownerName}
               ownerId={ownerId}
               userId={userId}
               usersAmount={usersAmount}

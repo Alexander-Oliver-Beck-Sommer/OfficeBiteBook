@@ -42,11 +42,11 @@ const MenuCard: React.FC<MenuCardProps> = ({
       onClick={toggle}
     >
       <section
-        className={`grid h-full w-full grid-cols-1Xauto gap-2.5 rounded-br rounded-tr border-l-4 bg-dark-100 p-2.5 transition-all duration-300 ease-in-out group-hover/card-button:bg-dark-300 group-focus-visible/card-button:bg-dark-300
+        className={`grid h-full w-full grid-cols-1Xauto gap-5 rounded-br rounded-tr border-l-4 bg-dark-100 p-2.5 transition-all duration-300 ease-in-out group-hover/card-button:bg-dark-300 group-focus-visible/card-button:bg-dark-300
        ${disabled ? "border-red" : "border-primary"}
       `}
       >
-        <div className="flex flex-col items-start justify-between">
+        <div className="flex flex-col items-start justify-between overflow-hidden">
           <div className="flex items-center gap-1">
             <LockIcon
               variant={locked ? "locked" : "unlocked"}

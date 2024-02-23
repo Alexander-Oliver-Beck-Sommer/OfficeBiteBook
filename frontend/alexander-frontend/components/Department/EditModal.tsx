@@ -26,7 +26,7 @@ const EditModal: React.FC<EditModalProps> = ({
   description,
   status,
   usersAmount = 0,
-  owner,
+  ownerName,
   leaveToggle,
   ownerId,
   userId,
@@ -81,7 +81,7 @@ const EditModal: React.FC<EditModalProps> = ({
         </li>
         <li className="grid grid-cols-20X80 items-center gap-2.5">
           <h5 className="md:text-base">Owner:</h5>
-          <p className="truncate text-sm text-grey md:text-base">{owner}</p>
+          <p className="truncate text-sm text-grey md:text-base">{ownerName}</p>
         </li>
         <li className="grid grid-cols-20X80 items-center gap-2.5">
           <h5 className="md:text-base">Users:</h5>

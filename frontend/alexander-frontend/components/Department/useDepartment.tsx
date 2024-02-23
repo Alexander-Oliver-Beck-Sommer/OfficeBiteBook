@@ -14,7 +14,7 @@ const useDepartment = (userEmail: string, userId: string) => {
   // Data that is displayed in the department card & edit modal.
   const [name, setName] = useState<string>("");
   const [status, setStatus] = useState<string>("");
-  const [owner, setOwner] = useState<string>("");
+  const [ownerName, setOwnerName] = useState<string>("");
   const [ownerId, setOwnerId] = useState<string>("");
   const [usersAmount, setUsersAmount] = useState<number>(0);
 
@@ -69,7 +69,7 @@ const useDepartment = (userEmail: string, userId: string) => {
     setDescription(department.description);
     setStatus(department.status);
     const user = await getUserFromId(department.owner_id);
-    setOwner(user[0].user_name);
+    setOwnerName(user[0].user_name);
     setOwnerId(department.owner_id);
     setUsersAmount(department.users_count);
   };
@@ -84,7 +84,7 @@ const useDepartment = (userEmail: string, userId: string) => {
       setMode("");
       setLoading(false);
       setDepartmentId("");
-      setOwner("");
+      setOwnerName("");
       setName("");
       setDescription("");
       setStatus("");
@@ -98,7 +98,7 @@ const useDepartment = (userEmail: string, userId: string) => {
     loading,
     closeModal,
     departmentId,
-    owner,
+    ownerName,
     name,
     createDepartment,
     editDepartment,
