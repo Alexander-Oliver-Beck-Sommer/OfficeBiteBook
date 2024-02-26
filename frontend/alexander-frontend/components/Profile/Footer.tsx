@@ -1,4 +1,4 @@
-import TextButton from "../TextButton";
+import TextButton from "../Buttons/TextButton";
 
 type FooterProps = {
   lastUpdated?: string;
@@ -16,11 +16,9 @@ const Footer = ({ lastUpdated = "", saveProfile = () => {} }: FooterProps) => {
         <TextButton
           icon="save"
           text="Save"
-          label="Save Changes"
-          title="Save Changes"
-          color="primary"
+          label="Save profile changes"
           toggle={saveProfile}
-          type="button"
+          toolTip={true}
         />
       </div>
     </footer>

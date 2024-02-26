@@ -1,7 +1,7 @@
 import ContentModal from "@/components/ContentModal";
 import Details from "./Details";
 import Dish from "./Dish";
-import TextButton from "@/components/TextButton";
+import TextButton from "@/components/Buttons/TextButton";
 import useUtilities from "@/hooks/useUtilities";
 import DishProps from "@/types/DishProps";
 
@@ -113,16 +113,16 @@ const MenuEditor = ({
           <TextButton
             color="red"
             text="Cancel"
-            label="Cancel menu"
-            title="Cancel menu"
             icon="close"
+            label="Cancel all changes"
+            toolTip={true}
             toggle={closeToggle}
           />
           <TextButton
             text="Save"
-            label="Save menu"
-            title="Save menu"
             icon="save"
+            label="Save all changes"
+            toolTip={true}
             toggle={saveToggle}
           />
         </footer>

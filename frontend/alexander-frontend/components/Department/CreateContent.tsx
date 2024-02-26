@@ -1,6 +1,6 @@
 import React from "react";
 import InputField from "../InputField";
-import TextButton from "../TextButton";
+import TextButton from "../Buttons/TextButton";
 
 interface CreateContentProps {
   /** Function to submit the department. */
@@ -55,13 +55,13 @@ const CreateContent: React.FC<CreateContentProps> = ({
           </select>
         </li>
       </ul>
-      <section className="flex justify-end bg-dark-300 p-5 md:px-10">
+      <section className="flex justify-end bg-dark-300 p-4 md:px-12">
         <TextButton
           className="w-full md:w-fit"
           type="submit"
           label="Save and create department"
-          title="Save and create department"
-          text="Save & Create"
+          toolTip={true}
+          text="Create"
           icon="save"
         />
       </section>

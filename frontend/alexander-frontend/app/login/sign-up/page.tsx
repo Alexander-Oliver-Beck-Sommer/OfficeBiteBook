@@ -2,7 +2,7 @@
 import useUser from "@/hooks/useUser";
 import InputField from "@/components/InputField";
 import UnderlineButton from "@/components/Buttons/UnderlineButton";
-import TextButton from "@/components/TextButton";
+import TextButton from "@/components/Buttons/TextButton";
 import Link from "next/link";
 
 export default function SignUp() {

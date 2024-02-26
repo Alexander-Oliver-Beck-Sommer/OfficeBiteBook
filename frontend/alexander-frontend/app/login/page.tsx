@@ -2,7 +2,7 @@
 import Link from "next/link";
 import InputField from "@/components/InputField";
 import UnderlineButton from "@/components/Buttons/UnderlineButton";
-import TextButton from "@/components/TextButton";
+import TextButton from "@/components/Buttons/TextButton";
 import useUser from "@/hooks/useUser";
 
 export default function Login() {
@@ -78,12 +78,12 @@ export default function Login() {
         <div className="w-full max-w-screen-md animate-fade-up rounded border-2 border-dark-500 bg-dark-100 px-5 py-10 animate-ease-in-out md:p-10">
           <div>
             <h2>Log out</h2>
-            <p className="pt-2.5 text-sm text-grey">
+            <p className="pt-1 text-sm text-grey">
               Already logged in. Do you want to log out?
             </p>
           </div>
           <TextButton
-            className="my-6 w-full"
+            className="my-4 w-full"
             text="Log out"
             label="Log out"
             icon="arrow-right"
