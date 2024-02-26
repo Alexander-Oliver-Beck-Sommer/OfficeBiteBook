@@ -1,5 +1,5 @@
 import UnderlineButton from "../../Buttons/UnderlineButton";
-import ImageButton from "../../Buttons/ImageButton";
+import ImageButton from "@/components/ImageButton";
 import IconButton from "../../IconButton";
 
 type DishProps = {
@@ -32,9 +32,11 @@ const Dish = ({
     >
       <div className="grid grid-cols-auto1Xauto items-center gap-4 border-b-2 border-dark-500 pb-4 lg:grid-cols-autoX1 lg:items-end lg:border-0 lg:bg-dark-100 lg:p-4">
         <ImageButton
-          label="Inspect image"
+          toggle={thumbnailToggle}
+          label={`Inspect thumbnail for ${title}`}
           url={thumbnailUrl}
           size="responsive"
+          toolTip={true}
         />
         <div className="flex flex-col justify-center overflow-hidden">
           <h3 className="text-grey">#{count}</h3>
@@ -61,7 +63,6 @@ const Dish = ({
       >
         <div className="overflow-hidden ">
           <ul className="flex flex-col gap-8 pt-4 lg:p-4 lg:py-4">
-            {/* We basically don't want to render any of the list items if there isn't any data to show */}
             {title && (
               <li>
                 <p className="mb-1 text-sm font-medium">Title</p>

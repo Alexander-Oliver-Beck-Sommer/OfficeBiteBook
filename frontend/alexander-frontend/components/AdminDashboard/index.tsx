@@ -7,9 +7,9 @@ import DefaultMode from "./modes/DefaultMode";
 
 interface AdminDashboardProps {
   /** Visibility of the admin dashboard. TRUE = OPEN | FALSE = CLOSED */
-  visibility?: boolean;
+  visibility: boolean;
   /** Function to close/open the admin dashboard */
-  toggle?: () => void;
+  toggle: () => void;
   /** Department ID - essential in retrieving the fully correct data in terms of the administration of the department. */
   departmentId: string;
 }
@@ -17,7 +17,7 @@ interface AdminDashboardProps {
 const AdminDashboard: React.FC<AdminDashboardProps> = ({
   visibility = false,
   toggle = () => {},
-  departmentId,
+  departmentId = "",
 }) => {
   const {
     innerModal,

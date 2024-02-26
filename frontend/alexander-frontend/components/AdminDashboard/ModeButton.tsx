@@ -23,17 +23,17 @@ type Icon =
 
 interface ModeButtonProps {
   /** Define the icon to display. */
-  icon?: Icon | string;
+  icon: Icon | string;
   /** Define the title of the grid item. */
-  title?: string;
+  title: string;
   /** Define the description of the grid item. */
-  description?: string;
+  description: string;
   /** Attach a function for the component to trigger. */
-  toggle?: () => void;
+  toggle: () => void;
   /** Defines a string value that labels the current element. */
-  label?: string;
+  label: string;
   /** Define if the button should be disabled. */
-  disabled?: boolean;
+  disabled: boolean;
 }
 
 const icons = (icon: Icon | string): JSX.Element | null => {
@@ -63,10 +63,10 @@ const icons = (icon: Icon | string): JSX.Element | null => {
 
 const ModeButton: React.FC<ModeButtonProps> = ({
   icon = "",
-  title,
+  title = "",
   description,
   toggle = () => {},
-  label,
+  label = "",
   disabled = false,
 }) => {
   const iconValue = icons(icon);

@@ -1,4 +1,4 @@
-import ImageButton from "@/components/Buttons/ImageButton";
+import ImageButton from "../ImageButton";
 
 type HeaderProps = {
   fileRef?: React.MutableRefObject<HTMLInputElement>;
@@ -28,7 +28,9 @@ const Header = ({
         <ImageButton
           toggle={avatarToggle}
           url={avatarURL}
-          label={originalUserName}
+          label="Change avatar"
+          size="responsive"
+          showHover={true}
         />
         <div className="flex flex-col justify-end overflow-hidden">
           <h4 className="text-sm text-grey md:text-base">Welcome back,</h4>
