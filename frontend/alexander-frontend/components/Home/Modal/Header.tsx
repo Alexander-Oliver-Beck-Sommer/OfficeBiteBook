@@ -1,4 +1,4 @@
-import IconButton from "@/components/IconButton";
+import IconButton from "@/components/Buttons/IconButton";
 
 type HeaderProps = {
   title?: string;
@@ -11,7 +11,7 @@ const Header = ({ title = "", toggle = () => {} }: HeaderProps) => {
       <h3 className="truncate">{title}</h3>
       <IconButton
         toggle={toggle}
-        title="Close menu"
+        toolTip={true}
         label="Close menu"
         icon="close"
       />

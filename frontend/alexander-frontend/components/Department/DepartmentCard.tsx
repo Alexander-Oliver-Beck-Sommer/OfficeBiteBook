@@ -1,6 +1,6 @@
 import React from "react";
 import { DepartmentProps } from "@/types/DepartmentProps";
-import IconButton from "../IconButton";
+import IconButton from "../Buttons/IconButton";
 import Link from "next/link";
 
 interface DepartmentCardProps {
@@ -78,7 +78,7 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
             color="primary"
             variant="icon"
             label={`Adjust personal settings for ${department?.name}`}
-            title={`Adjust personal settings for ${department?.name}`}
+            toolTip={true}
           />
         </li>
       </ul>

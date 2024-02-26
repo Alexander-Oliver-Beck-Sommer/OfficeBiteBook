@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import useUtilities from "@/hooks/useUtilities";
-import IconButton from "../IconButton";
+import IconButton from "../Buttons/IconButton";
 
 // ContentModal:
 // - A modal component that can be used to display content by inserting children.
@@ -108,7 +108,7 @@ const ContentModal: React.FC<ContentModalProps> = ({
                     icon="add"
                     toggle={addDishToggle}
                     label="Add dish"
-                    title="Add dish"
+                    toolTip={true}
                   />
                 </li>
               )}
@@ -118,7 +118,7 @@ const ContentModal: React.FC<ContentModalProps> = ({
                     icon="archive"
                     toggle={archiveToggle}
                     label="Archive menu"
-                    title="Archive menu"
+                    toolTip={true}
                   />
                 </li>
               )}
@@ -129,7 +129,7 @@ const ContentModal: React.FC<ContentModalProps> = ({
                     icon="erase"
                     toggle={eraseToggle}
                     label="Erase menu"
-                    title="Erase menu"
+                    toolTip={true}
                   />
                 </li>
               )}
@@ -140,7 +140,7 @@ const ContentModal: React.FC<ContentModalProps> = ({
                     icon="delete"
                     toggle={deleteToggle}
                     label="Delete menu"
-                    title="Delete menu"
+                    toolTip={true}
                   />
                 </li>
               )}
@@ -150,7 +150,7 @@ const ContentModal: React.FC<ContentModalProps> = ({
                   icon="close"
                   toggle={toggle}
                   label="Close modal"
-                  title="Close modal"
+                  toolTip={true}
                 />
               </li>
             </ul>

@@ -1,15 +1,15 @@
 import React from "react";
-import ArrowIcon from "../Icons/ArrowIcon";
-import ResetIcon from "../Icons/ResetIcon";
-import UserAddIcon from "../Icons/UserAddIcon";
-import CloseIcon from "../Icons/CloseIcon";
-import DeleteIcon from "../Icons/DeleteIcon";
-import EraseIcon from "../Icons/EraseIcon";
-import ArchiveIcon from "../Icons/ArchiveIcon";
-import AddIcon from "../Icons/AddIcon";
-import FilterIcon from "../Icons/FilterIcon";
-import SortAlphabetIcon from "../Icons/SortAlphabetIcon";
-import SettingsIcon from "../Icons/SettingsIcon";
+import ArrowIcon from "@/components/Icons/ArrowIcon";
+import ResetIcon from "@/components/Icons/ResetIcon";
+import UserAddIcon from "@/components/Icons/UserAddIcon";
+import CloseIcon from "@/components/Icons/CloseIcon";
+import DeleteIcon from "@/components/Icons/DeleteIcon";
+import EraseIcon from "@/components/Icons/EraseIcon";
+import ArchiveIcon from "@/components/Icons/ArchiveIcon";
+import AddIcon from "@/components/Icons/AddIcon";
+import FilterIcon from "@/components/Icons/FilterIcon";
+import SortAlphabetIcon from "@/components/Icons/SortAlphabetIcon";
+import SettingsIcon from "@/components/Icons/SettingsIcon";
 
 type Size = "normal" | "small" | "responsive";
 type Color = "primary" | "red" | "orange";
@@ -33,28 +33,28 @@ type Variant = "filled" | "icon";
 
 interface IconButtonProps {
   /** Attach a function for the component to trigger. */
-  toggle?: () => void;
+  toggle: () => void;
   /** Defines a string value that labels the current element. */
-  label?: string;
-  /**  Defines a string value that specifies the title of the current element, which typically appears as a tooltip. */
-  title?: string;
+  label: string;
   /** Supported sizes: small, normal, responsive. */
-  size?: Size | string;
+  size: Size;
   /** Supported: primary, red, orange. */
-  color?: Color;
+  color: Color;
   /** Defines which icon to display. */
-  icon?: Icon;
+  icon: Icon;
   /** Normal: icon with border and background. Icon: icon with no border or background. */
-  variant?: Variant;
+  variant: Variant;
   /** Attach optional styling if needed. */
-  className?: string;
+  className: string;
   /** Define the id of the element, the button controls. */
-  controls?: string;
+  controls: string;
   /** Define if the button should be disabled. */
-  disabled?: boolean;
+  disabled: boolean;
+  /** Define if the button should have a tooltip - value will be the label. */
+  toolTip: boolean;
 }
 
-const sizes = (size: Size = "normal"): { button: string; icon: string } => {
+const sizes = (size: Size): { button: string; icon: string } => {
   switch (size) {
     case "normal":
       return { button: "h-10 w-10", icon: "h-5 w-5" };
@@ -77,7 +77,7 @@ const colors = (color: Color): string => {
     case "orange":
       return `hover:fill-dark-100 focus-visible:fill-dark-100 focus-visible:border-${color} focus-visible:bg-${color} hover:border-${color} hover:bg-${color}`;
     default:
-      return "";
+      return "hover:fill-dark-100 focus-visible:fill-dark-100 focus-visible:border-primary focus-visible:bg-primary hover:border-primary hover:bg-primary";
   }
 };
 
@@ -136,7 +136,6 @@ const variants = (variant: Variant): string => {
 const IconButton: React.FC<IconButtonProps> = ({
   toggle = () => {},
   label = "",
-  title = "",
   size = "normal",
   color = "primary",
   icon = "arrow-up",
@@ -144,21 +143,25 @@ const IconButton: React.FC<IconButtonProps> = ({
   className = "",
   controls = "",
   disabled = false,
+  toolTip = false,
 }) => {
   const sizeValue = sizes(size);
   const colorValue = variant !== "icon" ? colors(color) : "";
   const iconValue = icons(icon, size);
   const variantValue = variants(variant);
-  const disabledValue = disabled ? "fill-dark-500" : "fill-grey";
 
   return (
     <button
       {...(controls ? { "aria-controls": controls } : {})}
-      onClick={disabled ? undefined : toggle}
+      onClick={toggle}
       {...(label ? { "aria-label": label } : {})}
-      {...(title ? { title: title } : {})}
+      {...(toolTip ? { title: label } : {})}
       {...(disabled ? { disabled: true } : {})}
-      className={`flex items-center justify-center rounded border-2 outline-0 transition-all duration-300 ease-in-out ${colorValue} ${sizeValue.button} ${variantValue} ${disabledValue} ${className}`}
+      className={`flex items-center justify-center rounded border-2 outline-0 transition-300 ${colorValue} ${
+        sizeValue.button
+      } ${variantValue} ${
+        disabled ? "fill-dark-500" : "fill-grey"
+      } ${className}`}
     >
       {iconValue}
     </button>

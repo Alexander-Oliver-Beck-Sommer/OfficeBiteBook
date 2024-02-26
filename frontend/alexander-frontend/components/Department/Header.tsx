@@ -1,5 +1,5 @@
 import React from "react";
-import IconButton from "../IconButton";
+import IconButton from "../Buttons/IconButton";
 
 interface DepartmentProps {
   /** Count of how many departments the user is apart of. */
@@ -29,16 +29,9 @@ const Header: React.FC<DepartmentProps> = ({
             toggle={createToggle}
             icon="add"
             size="responsive"
-            title="Create Department"
             label="Create Department"
+            toolTip={true}
           />
-          {/* <IconButton
-            title="Filter departments"
-            icon="filter"
-            label="Filter departments"
-            size="responsive"
-            toggle={filterToggle}
-          /> */}
         </div>
       </div>
     </header>

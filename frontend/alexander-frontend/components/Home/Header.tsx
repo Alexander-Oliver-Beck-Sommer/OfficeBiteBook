@@ -1,4 +1,4 @@
-import IconButton from "../IconButton";
+import IconButton from "../Buttons/IconButton";
 
 type HeaderProps = {
   weekNumber?: number;
@@ -28,7 +28,7 @@ const Header = ({
               toggle={decreaseWeek}
               icon="arrow-left"
               label="Rewind one week"
-              title="Rewind one week"
+              toolTip={true}
             />
           </li>
           <li>
@@ -37,7 +37,7 @@ const Header = ({
               toggle={increaseWeek}
               icon="arrow-right"
               label="Fast forward one week"
-              title="Fast forward one week"
+              toolTip={true}
             />
           </li>
           <li>
@@ -46,7 +46,7 @@ const Header = ({
               toggle={resetWeek}
               icon="reset"
               label="Reset week"
-              title="Reset week"
+              toolTip={true}
             />
           </li>
           <li>
@@ -54,7 +54,7 @@ const Header = ({
               size="small"
               label="Add guests"
               icon="user-add"
-              title="Add guests"
+              toolTip={true}
               toggle={handleGuest}
             />
           </li>

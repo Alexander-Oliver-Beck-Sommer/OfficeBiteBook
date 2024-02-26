@@ -1,4 +1,4 @@
-import IconButton from "@/components/IconButton";
+import IconButton from "@/components/Buttons/IconButton";
 import useUtilities from "@/hooks/useUtilities";
 import { useState } from "react";
 import useDateCalculator from "@/hooks/useDateCalculator";

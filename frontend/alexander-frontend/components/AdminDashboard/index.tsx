@@ -1,6 +1,6 @@
 import React from "react";
 import ModeButton from "./ModeButton";
-import IconButton from "../IconButton";
+import IconButton from "../Buttons/IconButton";
 import useAdminDashboard from "./useAdminDashboard";
 import CelebrationsMode from "./modes/CelebrationsMode";
 import DefaultMode from "./modes/DefaultMode";
@@ -81,7 +81,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({
               icon="close"
               controls="admin-dashboard"
               label="Close Admin Dashboard"
-              title="Close Admin Dashboard"
+              toolTip={true}
               toggle={toggle}
             />
           </header>

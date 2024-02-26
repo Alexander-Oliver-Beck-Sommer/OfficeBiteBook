@@ -1,5 +1,5 @@
 import React, { ReactNode, useMemo } from "react";
-import IconButton from "../IconButton";
+import IconButton from "../Buttons/IconButton";
 
 type Variant = "guest" | "add-guest" | "dish" | "default";
 
@@ -106,7 +106,7 @@ const Accordion: React.FC<AccordionProps> = ({
               size={variantValue.icon_sizes}
               variant="icon"
               label="Delete"
-              title="Delete"
+              toolTip={true}
               toggle={deleteToggle}
               disabled={deleteDisabled}
             />
@@ -117,7 +117,7 @@ const Accordion: React.FC<AccordionProps> = ({
             size={variantValue.icon_sizes}
             variant="icon"
             label={accordionState ? "Expanded" : "Closed"}
-            title={accordionState ? "Expanded" : "Closed"}
+            toolTip={true}
             toggle={() => setAccordionState?.(!accordionState)}
             className={accordionState ? "-rotate-180 fill-white" : ""}
           />

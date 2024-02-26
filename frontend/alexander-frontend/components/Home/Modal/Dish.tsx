@@ -1,6 +1,6 @@
 import UnderlineButton from "../../Buttons/UnderlineButton";
 import ImageButton from "@/components/Buttons/ImageButton";
-import IconButton from "../../IconButton";
+import IconButton from "../../Buttons/IconButton";
 
 type DishProps = {
   count?: number;
@@ -50,7 +50,7 @@ const Dish = ({
           icon="arrow-down"
           label="Click to expand and collapse the dish"
           variant="icon"
-          title="Expand and collapse the dish"
+          toolTip={true}
           name="Expand/Collapse"
         />
       </div>

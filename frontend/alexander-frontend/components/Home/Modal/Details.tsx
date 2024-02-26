@@ -1,4 +1,4 @@
-import IconButton from "../../IconButton";
+import IconButton from "../../Buttons/IconButton";
 
 type DetailsProps = {
   location?: string;
@@ -26,9 +26,9 @@ const Details = ({
             className={isDetailsOpen ? "-rotate-180 fill-white" : ""}
             toggle={toggle}
             icon="arrow-down"
-            label="Click to expand and collapse the dish"
+            label={isDetailsOpen ? "Collapse" : "Expand"}
             variant="icon"
-            title="Expand and collapse the dish"
+            toolTip={true}
             name="Expand/Collapse"
           />
         </div>
