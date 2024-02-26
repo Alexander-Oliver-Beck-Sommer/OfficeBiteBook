@@ -1,4 +1,4 @@
-import ContentModal from "@/components/ContentModal";
+import ContentModal from "@/components/Modals/ContentModal";
 import Details from "./Details";
 import Dish from "./Dish";
 import TextButton from "@/components/Buttons/TextButton";

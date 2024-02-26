@@ -1,6 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import ErrorModal from "@/components/ErrorModal";
+import ErrorModal from "@/components/Modals/ErrorModal";
 import HomeComponent from "@/components/Home";
 
 export default async function Department({

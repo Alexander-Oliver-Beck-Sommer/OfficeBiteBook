@@ -1,4 +1,4 @@
-import ErrorModal from "@/components/ErrorModal";
+import ErrorModal from "@/components/Modals/ErrorModal";
 
 export default function Custom404() {
   return (

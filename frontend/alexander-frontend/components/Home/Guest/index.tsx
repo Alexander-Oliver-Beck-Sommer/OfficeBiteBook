@@ -3,7 +3,7 @@ import useGuests from "@/hooks/useGuests";
 import { useState, useEffect } from "react";
 import Accordion from "@/components/Accordion";
 import useDateCalculator from "@/hooks/useDateCalculator";
-import ContentModal from "@/components/ContentModal";
+import ContentModal from "@/components/Modals/ContentModal";
 
 type GuestProps = {
   isVisible?: boolean;

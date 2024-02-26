@@ -1,6 +1,6 @@
 import React from "react";
-import ArrowIcon from "../../Icons/ArrowIcon";
-import QuestionIcon from "../../Icons/QuestionIcon";
+import ArrowIcon from "@/components/Icons/ArrowIcon";
+import QuestionIcon from "@/components/Icons/QuestionIcon";
 
 type Icons = "arrow-up" | "arrow-right" | "arrow-down" | "arrow-left";
 type Direction = "left" | "right";

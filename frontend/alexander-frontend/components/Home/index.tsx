@@ -5,7 +5,7 @@ import CheckboxTwo from "../CheckboxTwo";
 import Menu from "./Menu";
 import Modal from "./Modal";
 import Guest from "./Guest";
-import ErrorModal from "../ErrorModal";
+import ErrorModal from "../Modals/ErrorModal";
 
 type HomeComponentProps = {
   userId?: string;

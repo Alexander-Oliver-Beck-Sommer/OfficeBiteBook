@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import Accordion from "@/components/Accordion";
-import ContentModal from "@/components/ContentModal";
+import ContentModal from "@/components/Modals/ContentModal";
 import CheckboxThree from "@/components/CheckboxThree";
-import ErrorModal from "@/components/ErrorModal";
+import ErrorModal from "@/components/Modals/ErrorModal";
 
 const page = () => {
   // const [modalVisibility, setModalVisibility] = useState(false);

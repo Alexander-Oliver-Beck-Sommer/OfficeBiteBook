@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import useUtilities from "@/hooks/useUtilities";
-import IconButton from "../Buttons/IconButton";
+import IconButton from "../../Buttons/IconButton";
 
 // ContentModal:
 // - A modal component that can be used to display content by inserting children.

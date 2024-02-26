@@ -1,6 +1,6 @@
 import React from "react";
-import ImageIcon from "../../Icons/ImageIcon";
-import EditIcon from "../../Icons/EditIcon";
+import ImageIcon from "@/components/Icons/ImageIcon";
+import EditIcon from "@/components/Icons/EditIcon";
 
 type Sizes = "normal" | "responsive";
 

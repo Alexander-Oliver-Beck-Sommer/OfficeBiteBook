@@ -6,7 +6,7 @@ import ImageButton from "@/components/Buttons/ImageButton";
 import Dish from "./Dish";
 import Details from "./Details";
 import Header from "./Header";
-import ContentModal from "@/components/ContentModal";
+import ContentModal from "@/components/Modals/ContentModal";
 
 type ModalProps = {
   visibility: boolean;

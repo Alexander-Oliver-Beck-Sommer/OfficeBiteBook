@@ -1,7 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import ProfileComponent from "@/components/Profile";
-import ErrorModal from "@/components/ErrorModal";
+import ErrorModal from "@/components/Modals/ErrorModal";
 
 export default async function Profile() {
   const cookieStore = cookies();

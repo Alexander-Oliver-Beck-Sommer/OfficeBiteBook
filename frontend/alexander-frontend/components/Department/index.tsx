@@ -3,7 +3,7 @@ import React from "react";
 import useDepartment from "./useDepartment";
 import Header from "./Header";
 import DepartmentCard from "./DepartmentCard";
-import ContentModal from "../ContentModal";
+import ContentModal from "../Modals/ContentModal";
 import CreateContent from "./CreateContent";
 import EditModal from "./EditModal";
 
