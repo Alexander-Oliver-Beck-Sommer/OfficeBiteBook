@@ -90,7 +90,7 @@ const TextButton: React.FC<TextButtonProps> = ({
       aria-label={label}
       {...(toolTip ? { title: label } : {})}
       {...(disabled ? { disabled: true } : {})}
-      className={`flex items-center justify-center gap-2 rounded border-2 border-dark-500 bg-dark-100 px-4 py-2 outline-0 transition-300 hover:fill-dark-100 hover:text-dark-100 focus-visible:fill-dark-100 focus-visible:text-dark-100 ${colorValue} ${
+      className={`flex items-center justify-center gap-1.5 rounded border-2 border-dark-500 bg-dark-100 px-4 py-2 outline-0 transition-300 hover:fill-dark-100 hover:text-dark-100 focus-visible:fill-dark-100 focus-visible:text-dark-100 ${colorValue} ${
         disabled ? "fill-dark-500 text-dark-500" : "fill-grey text-grey"
       } ${className}`}
     >
