@@ -1,18 +1,25 @@
 import { useEffect, useState } from "react";
-import useUser from "./useUser";
+import useUtilities from "@/hooks/useUtilities";
+import useUser from "@/hooks/useUser";
+import { UserProps } from "@/types/UserProps";
 
 const useAdminDashboard = (departmentId: string, visibility: boolean) => {
-  const [innerModal, setInnerModal] = useState<boolean>(false);
+  const [innerModal, setInnerModal] = useState<boolean>(false); // the "inner modal" is the slide-menu that opens when a user clicks on a specific item in the admin dashboard
   const [title, setTitle] = useState<string>("");
-  const [users, setUsers] = useState<any[]>([]);
-  const [mode, setMode] = useState<string>("");
-  // Hooks
+  const [users, setUsers] = useState<UserProps[]>([]);
+  const [mode, setMode] = useState<string>(""); // The mode is used to display different content within the inner modal - this is primarily done due to different markup and content
   const { fetchAllUsers } = useUser();
+  const { disableBodyScroll } = useUtilities();
 
+  // Disable body scroll when the admin dashboard is open
+  disableBodyScroll(visibility);
+
+  // Async function that is called upon opening the admin dashboard
   const loadUsers = async () => {
     setUsers(await fetchAllUsers());
   };
 
+  // Load users and empty states whenever the admin dashboard is closed (the entire freaking component)
   useEffect(() => {
     if (visibility === false) {
       loadUsers();
@@ -22,17 +29,14 @@ const useAdminDashboard = (departmentId: string, visibility: boolean) => {
     }
   }, [visibility]);
 
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
-
+  // Function to open the inner modal and populate the title and mode
   const openInnerModal = (title: string, mode: string) => {
     setInnerModal(true);
     setTitle(title);
     setMode(mode);
-    console.log(title, mode);
   };
 
+  // Do the oppopsite of the above function
   const closeInnerModal = () => {
     loadUsers();
     setInnerModal(false);
@@ -40,6 +44,7 @@ const useAdminDashboard = (departmentId: string, visibility: boolean) => {
     setMode("");
   };
 
+  // Enabled items are items that are shown in the admin dashboard under "Ready and Available"
   const enabledItems = [
     {
       mode: "celebrations",
@@ -54,28 +59,7 @@ const useAdminDashboard = (departmentId: string, visibility: boolean) => {
     },
   ];
 
-  // Utility function to check if the birthday is within the next month
-  const isBirthdayWithinNextMonth = (birthday) => {
-    const today = new Date();
-    const nextMonth = new Date(
-      today.getFullYear(),
-      today.getMonth() + 1,
-      today.getDate(),
-    );
-
-    // Convert the birthday string to a date object and adjust the year
-    const thisYearBirthday = new Date(birthday);
-    thisYearBirthday.setFullYear(today.getFullYear());
-
-    // Check if this year's birthday has passed and adjust the year accordingly
-    if (thisYearBirthday < today) {
-      thisYearBirthday.setFullYear(today.getFullYear() + 1);
-    }
-
-    // Check if the birthday is before next month's date and after today
-    return thisYearBirthday < nextMonth && thisYearBirthday >= today;
-  };
-
+  // Disabled items are items that are shown in the admin dashboard under "Under Development"
   const disabledItems = [
     {
       mode: "settings",
@@ -150,7 +134,6 @@ const useAdminDashboard = (departmentId: string, visibility: boolean) => {
     title,
     users,
     mode,
-    isBirthdayWithinNextMonth,
   };
 };
 

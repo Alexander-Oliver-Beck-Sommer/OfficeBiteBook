@@ -127,6 +127,10 @@
     min-height: calc(100svh - theme("spacing.header_height"));
   }
 
+  .transition-300 {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
   .scrollbar-gutter {
     scrollbar-gutter: stable;
   }

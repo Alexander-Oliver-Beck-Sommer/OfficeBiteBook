@@ -24,6 +24,7 @@ interface AccordionProps {
   count: number;
   /** Used to identify the accordion, aswell for aria-controls */
   id: string;
+  /** The content to display in the accordion’s content panel. */
   children: ReactNode;
   /** Choose which variant the accordion should be shown in. */
   variant: Variant;
@@ -33,25 +34,22 @@ interface AccordionProps {
   setAccordionState: (state: boolean) => void;
 }
 
-const variants = (variant: string): VariantConfig => {
+const variants = (variant: Variant): VariantConfig => {
   switch (variant) {
     case "guest":
       return {
         container: "rounded border-2 border-dark-500 bg-dark-200",
         icon_sizes: "small",
-        control_bar:
-          "grid-cols-auto1Xauto py-1 pl-3 pr-1 grid items-center gap-2",
+        control_bar: "grid-cols-auto1Xauto py-2 px-4 grid items-center gap-2",
         content_panel: "bg-dark-300",
-        text: "",
         show_count: true,
         show_delete: true,
       };
     case "add-guest": {
       return {
-        container: "",
         icon_sizes: "small",
         control_bar:
-          "bg-dark-300 p-5 items-center flex justify-between md:px-10",
+          "bg-dark-300 p-4 items-center flex justify-between md:px-12",
         text: "font-medium",
         content_panel: "bg-dark-200",
         show_count: false,
@@ -62,11 +60,8 @@ const variants = (variant: string): VariantConfig => {
       return {
         container:
           "rounded border-2 border-dark-500 bg-dark-200 animate-fade-up",
-        icon_sizes: "",
-        control_bar:
-          "grid-cols-auto1Xauto py-1 px-5 py-2.5 grid items-center gap-2",
+        control_bar: "grid-cols-auto1Xauto px-4 py-2 grid items-center gap-2",
         content_panel: "bg-dark-300",
-        text: "",
         show_count: true,
         show_delete: true,
       };
@@ -101,13 +96,13 @@ const Accordion: React.FC<AccordionProps> = ({
   const variantValue = useMemo(() => variants(variant), [variant]);
 
   return (
-    <div className={variantValue.container}>
-      <div className={variantValue.control_bar}>
+    <section className={variantValue.container}>
+      <section className={variantValue.control_bar}>
         {variantValue.show_count && count !== undefined && (
           <h4 className="text-white">#{count}</h4>
         )}
         <p className={`truncate text-grey ${variantValue.text}`}>{text}</p>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-2">
           {variantValue.show_delete && (
             <IconButton
               icon="delete"
@@ -130,15 +125,15 @@ const Accordion: React.FC<AccordionProps> = ({
             className={accordionState ? "-rotate-180 fill-white" : ""}
           />
         </div>
-      </div>
-      <div
+      </section>
+      <section
         id={id}
-        className={`grid transition-all duration-300 ease-in-out ${accordionClass} ${variantValue.content_panel}`}
+        className={`transition-300 grid ${accordionClass} ${variantValue.content_panel}`}
         aria-hidden={!accordionState}
       >
         <div className="overflow-hidden">{children}</div>
-      </div>
-    </div>
+      </section>
+    </section>
   );
 };
 

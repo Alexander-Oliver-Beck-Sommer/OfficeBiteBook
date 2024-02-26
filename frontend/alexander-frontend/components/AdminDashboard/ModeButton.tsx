@@ -8,6 +8,7 @@ import FeedbackIcon from "../Icons/FeedbackIcon";
 import CelebrationsIcon from "../Icons/CelebrationsIcon";
 import NotificationIcon from "../Icons/NotificationIcon";
 import RobotIcon from "../Icons/RobotIcon";
+import QuestionIcon from "../Icons/QuestionIcon";
 
 type Icon =
   | "archive"
@@ -20,7 +21,7 @@ type Icon =
   | "notification"
   | "robot";
 
-interface GridItemProps {
+interface ModeButtonProps {
   /** Define the icon to display. */
   icon?: Icon | string;
   /** Define the title of the grid item. */
@@ -56,11 +57,11 @@ const icons = (icon: Icon | string): JSX.Element | null => {
     case "robot":
       return <RobotIcon />;
     default:
-      return null;
+      return <QuestionIcon />;
   }
 };
 
-const GridItem: React.FC<GridItemProps> = ({
+const ModeButton: React.FC<ModeButtonProps> = ({
   icon = "",
   title,
   description,
@@ -75,36 +76,36 @@ const GridItem: React.FC<GridItemProps> = ({
       <button
         {...(disabled && { disabled: true })}
         onClick={toggle}
-        className={`group/grid-item grid grid-cols-autoX1 gap-5 outline-0 ${
-          disabled ? "cursor-not-allowed" : "cursor-pointer"
+        className={`group/mode-button grid grid-cols-autoX1 gap-4 outline-0 ${
+          disabled ? "cursor-default" : "cursor-pointer"
         }`}
         aria-label={disabled ? "Disabled" : label}
         title={disabled ? "Disabled" : label}
       >
         <div
-          className={`flex h-12 w-12 items-center justify-center rounded border-2 bg-dark-100 transition-all duration-300 ease-in-out  ${
+          className={`transition-300 flex h-12 w-12 items-center justify-center rounded border-2 bg-dark-100  ${
             disabled
               ? "border-dark-300 fill-dark-500"
-              : "border-dark-500 fill-grey group-hover/grid-item:border-primary group-hover/grid-item:bg-primary group-hover/grid-item:fill-dark-100 group-focus-visible/grid-item:border-primary group-focus-visible/grid-item:bg-primary group-focus-visible/grid-item:fill-dark-100"
+              : "border-dark-500 fill-grey group-hover/mode-button:border-primary group-hover/mode-button:bg-primary group-hover/mode-button:fill-dark-100 group-focus-visible/mode-button:border-primary group-focus-visible/mode-button:bg-primary group-focus-visible/mode-button:fill-dark-100"
           }`}
         >
           {iconValue}
         </div>
         <div className="text-left">
           <h4
-            className={`transition-all duration-300 ease-in-out ${
+            className={`transition-300 ${
               disabled
                 ? "text-dark-500"
-                : "text-white group-hover/grid-item:text-primary group-focus-visible/grid-item:text-primary"
+                : "text-white group-hover/mode-button:text-primary group-focus-visible/mode-button:text-primary"
             }`}
           >
             {title}
           </h4>
           <p
-            className={`text-sm transition-all duration-300 ease-in-out ${
+            className={`transition-300 text-sm ${
               disabled
                 ? "text-dark-500"
-                : "text-grey group-hover/grid-item:text-white group-focus-visible/grid-item:text-white"
+                : "text-grey group-hover/mode-button:text-white group-focus-visible/mode-button:text-white"
             }`}
           >
             {description}
@@ -115,4 +116,4 @@ const GridItem: React.FC<GridItemProps> = ({
   );
 };
 
-export default GridItem;
+export default ModeButton;
