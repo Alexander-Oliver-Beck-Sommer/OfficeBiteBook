@@ -68,8 +68,8 @@ const MenuEditor = ({
       showEraseButton={true}
       eraseToggle={eraseDishesFromMenu}
     >
-      <div className="grid flex-1 grid-rows-1xauto">
-        <div className="grid grid-cols-30X70">
+      <div className="grid flex-1 grid-rows-1xauto overflow-hidden">
+        <div className="grid grid-cols-30X70 overflow-y-auto ">
           <Details
             title={title}
             setTitle={setTitle}
@@ -83,7 +83,7 @@ const MenuEditor = ({
             setEndTime={setEndTime}
           />
           <div className="relative overflow-hidden">
-            <ul className="absolute inset-0 flex flex-col gap-5 overflow-y-scroll px-10 py-5">
+            <ul className="absolute inset-0 flex flex-col gap-5 overflow-y-auto px-10 py-5">
               {dishes.map((dish, index) => {
                 return (
                   <Dish
@@ -109,7 +109,7 @@ const MenuEditor = ({
             </ul>
           </div>
         </div>
-        <footer className="flex items-center justify-end gap-5 bg-dark-300 p-5 md:px-10">
+        <footer className="sticky bottom-0 flex items-center justify-end gap-5 bg-dark-300 p-5 md:px-10">
           <TextButton
             color="red"
             text="Cancel"
