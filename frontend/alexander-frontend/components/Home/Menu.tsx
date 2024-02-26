@@ -46,10 +46,13 @@ const Menu = ({
         <div className="flex justify-end">
           <UnderlineButton
             toggle={modalToggle}
-            icon="arrow-right"
-            label="More"
-            direction="right"
+            text="Details"
+            label="Read more about the menu"
+            toolTip={true}
             className="text-sm"
+            icon="arrow-right"
+            showIcon={true}
+            direction="right"
           />
         </div>
       </div>

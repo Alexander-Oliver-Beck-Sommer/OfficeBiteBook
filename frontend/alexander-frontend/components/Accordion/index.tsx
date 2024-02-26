@@ -90,9 +90,6 @@ const Accordion: React.FC<AccordionProps> = ({
   accordionState = false,
   setAccordionState = () => {},
 }) => {
-  const accordionClass = accordionState
-    ? "grid-rows-[1fr] visible opacity-100"
-    : "grid-rows-[0fr] invisible opacity-0";
   const variantValue = useMemo(() => variants(variant), [variant]);
 
   return (
@@ -128,7 +125,11 @@ const Accordion: React.FC<AccordionProps> = ({
       </section>
       <section
         id={id}
-        className={`transition-300 grid ${accordionClass} ${variantValue.content_panel}`}
+        className={`transition-300 grid ${
+          accordionState
+            ? "visible grid-rows-[1fr] opacity-100"
+            : "invisible grid-rows-[0fr] opacity-0"
+        } ${variantValue.content_panel}`}
         aria-hidden={!accordionState}
       >
         <div className="overflow-hidden">{children}</div>

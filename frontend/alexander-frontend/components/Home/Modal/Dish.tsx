@@ -1,5 +1,5 @@
 import UnderlineButton from "../../Buttons/UnderlineButton";
-import ImageButton from "@/components/ImageButton";
+import ImageButton from "@/components/Buttons/ImageButton";
 import IconButton from "../../IconButton";
 
 type DishProps = {

@@ -1,4 +1,4 @@
-import ImageButton from "../ImageButton";
+import ImageButton from "../Buttons/ImageButton";
 
 type HeaderProps = {
   fileRef?: React.MutableRefObject<HTMLInputElement>;

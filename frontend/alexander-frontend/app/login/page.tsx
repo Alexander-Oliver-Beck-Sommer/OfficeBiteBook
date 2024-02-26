@@ -43,9 +43,9 @@ export default function Login() {
                 </li>
                 <li>
                   <UnderlineButton
-                    className="text-sm"
                     label="Forgot password?"
-                    direction="right"
+                    text="Forgot password?"
+                    className="text-sm"
                   />
                 </li>
                 <li className="mt-5">
