@@ -157,6 +157,54 @@ const useDepartments = () => {
     }
   };
 
+  const getUserCollectionFromDepartment = async (departmentId) => {
+    setDepartmentsLoading(true);
+    try {
+      // First, fetch the users_collection from the specified department
+      const { data: departmentData, error: departmentError } = await supabase
+        .from("departments")
+        .select("users_collection")
+        .eq("department_id", departmentId)
+        .single(); // Assuming each department_id is unique and returns only one row
+
+      if (departmentError) {
+        throw new Error(
+          "Error fetching users from department: " + departmentError.message,
+        );
+      }
+
+      if (
+        !departmentData ||
+        !departmentData.users_collection ||
+        departmentData.users_collection.length === 0
+      ) {
+        // Handle the case where the department has no users_collection or it's empty
+        console.log("No users found in this department.");
+        return [];
+      }
+
+      // Extract user_ids from the users_collection
+      const userIDs = departmentData.users_collection;
+
+      // Then, fetch user details from the "users" table based on those ids
+      const { data: usersData, error: usersError } = await supabase
+        .from("users")
+        .select("*") // Adjust the select statement as needed to fetch the desired user information
+        .in("user_id", userIDs);
+
+      if (usersError) {
+        throw new Error("Error fetching user details: " + usersError.message);
+      }
+
+      return usersData; // This will be an array of user details
+    } catch (error) {
+      console.error(error.message);
+      throw error; // Rethrowing the error after logging it
+    } finally {
+      setDepartmentsLoading(false);
+    }
+  };
+
   return {
     getDepartment,
     getUsersDepartments,
@@ -166,6 +214,7 @@ const useDepartments = () => {
     departmentLoading,
     checkIfApartOfDepartment,
     isAllowed,
+    getUserCollectionFromDepartment,
   };
 };
 

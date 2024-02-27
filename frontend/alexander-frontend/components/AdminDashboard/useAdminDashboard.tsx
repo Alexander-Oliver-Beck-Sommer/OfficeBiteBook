@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useUtilities from "@/hooks/useUtilities";
 import useUser from "@/hooks/useUser";
 import { UserProps } from "@/types/UserProps";
+import useDepartments from "@/hooks/useDepartments";
 
 const useAdminDashboard = (departmentId: string, visibility: boolean) => {
   const [innerModal, setInnerModal] = useState<boolean>(false); // the "inner modal" is the slide-menu that opens when a user clicks on a specific item in the admin dashboard
@@ -10,13 +11,28 @@ const useAdminDashboard = (departmentId: string, visibility: boolean) => {
   const [mode, setMode] = useState<string>(""); // The mode is used to display different content within the inner modal - this is primarily done due to different markup and content
   const { fetchAllUsers } = useUser();
   const { disableBodyScroll } = useUtilities();
+  const { getUserCollectionFromDepartment } = useDepartments();
 
   // Disable body scroll when the admin dashboard is open
   disableBodyScroll(visibility);
 
   // Async function that is called upon opening the admin dashboard
   const loadUsers = async () => {
-    setUsers(await fetchAllUsers());
+    if (departmentId) {
+      // Check if departmentId is provided
+      try {
+        const userCollection =
+          await getUserCollectionFromDepartment(departmentId);
+        setUsers(userCollection); // Assuming userCollection is an array of user details
+      } catch (error) {
+        console.error("Error loading users:", error);
+        // Optionally, handle the error, e.g., setting an error state or showing an error message
+      }
+    } else {
+      // Optionally, handle the case where departmentId is not provided or is invalid
+      console.warn("No departmentId provided");
+      setUsers([]); // Reset users or handle appropriately
+    }
   };
 
   // Load users and empty states whenever the admin dashboard is closed (the entire freaking component)
