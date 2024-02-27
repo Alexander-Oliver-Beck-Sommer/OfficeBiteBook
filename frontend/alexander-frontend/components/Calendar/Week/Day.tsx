@@ -55,32 +55,26 @@ const Day: React.FC<DayProps> = ({
           <p className="text-sm text-grey">{day}</p>
         </div>
         <div className="flex items-center gap-3">
-          {showCelebrations && (
+          {celebrations.length > 0 && (
             <button
-              aria-label="Someone  is celebrating today! 🎉"
+              aria-label="Someone is celebrating today! 🎉"
               onClick={celebrationsToggle}
-              className="group/celebrations relative h-6 w-6"
+              className="group relative h-6 w-6"
             >
               <CelebrationsIcon className="fill-primary" />
-              <div className="transition-300 invisible absolute -top-full right-0 z-50 opacity-0 shadow-lg shadow-dark-100 group-hover/celebrations:visible group-hover/celebrations:-translate-y-3/4 group-hover/celebrations:opacity-100">
+              <div className="invisible absolute -top-full right-0 z-50 opacity-0 shadow-lg shadow-dark-100 transition duration-300 group-hover:visible group-hover:-translate-y-3/4 group-hover:opacity-100">
                 <ul className="max-h-20 w-80 overflow-y-auto rounded border-2 border-dark-500 bg-dark-100">
-                  {celebrations.length > 0 ? (
-                    celebrations.map((celebration, index) => (
-                      <li
-                        key={celebration.user_id}
-                        className="grid h-10 grid-cols-1Xauto items-center gap-2 px-4 text-left even:bg-dark-300"
-                      >
-                        <p className="truncate text-sm text-grey">
-                          {celebration.user_name}
-                        </p>
-                        <h5 className="">{index + 1}</h5>
-                      </li>
-                    ))
-                  ) : (
-                    <li className="px-4 py-3">
-                      <h5>No celebrations found...</h5>
+                  {celebrations.map((celebration, index) => (
+                    <li
+                      key={celebration.user_id}
+                      className="grid h-10 grid-cols-1Xauto items-center gap-2 px-4 text-left even:bg-dark-300"
+                    >
+                      <p className="truncate text-sm text-grey">
+                        {celebration.user_name}
+                      </p>
+                      <h5 className="">{index + 1}</h5>
                     </li>
-                  )}
+                  ))}
                 </ul>
               </div>
             </button>

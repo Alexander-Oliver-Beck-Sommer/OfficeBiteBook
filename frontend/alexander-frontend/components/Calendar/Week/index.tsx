@@ -87,6 +87,7 @@ const Week = ({
                 locked={day.locked}
                 publishToggle={() => togglePublished(day.date, day.published)}
                 published={day.published}
+                celebrations={day.users}
               />
               <div className="relative flex flex-col">
                 {hours.map((hour) => (

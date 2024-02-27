@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import weekData from "@/data/weekData";
 import useDateCalculator from "./useDateCalculator";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { UserProps } from "@/types/UserProps";
+import useDepartments from "./useDepartments";
 
 type WeekDay = {
   name: string;
   date: string;
   locked: boolean;
+  users: UserProps[];
 };
 
 type Week = {
@@ -20,7 +23,7 @@ type HourCell = {
   halfHour: string;
 };
 
-const useTimeMachine = (userId: string) => {
+const useTimeMachine = (userId: string, departmentId: string) => {
   const [week, setWeek] = useState<Week>({
     week_number: 0,
     week_location: "",
@@ -32,6 +35,7 @@ const useTimeMachine = (userId: string) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const { getCurrentWeekNumber } = useDateCalculator();
   const supabase = createClientComponentClient();
+  const { getUserCollectionFromDepartment } = useDepartments();
 
   const [weekHighlighter, setWeekHighlighter] = useState(
     getCurrentWeekNumber(),
@@ -91,15 +95,31 @@ const useTimeMachine = (userId: string) => {
         };
       });
 
+      // Fetch users from the department and attach to days
+      const users = await getUserCollectionFromDepartment(departmentId);
+      const usersByBirthday = users.reduce((acc, user) => {
+        const birthday = user.user_birthday.split("-").slice(1).join("-"); // Assuming YYYY-MM-DD format
+        (acc[birthday] = acc[birthday] || []).push(user);
+        return acc;
+      }, {});
+
+      const updatedWeekDays = formattedWeekDays.map((day) => {
+        const dayMonth = day.date.slice(5); // Extract MM-DD format
+        return {
+          ...day,
+          users: usersByBirthday[dayMonth] || [],
+        };
+      });
+
       setWeek({
         week_number: currentWeekNumber,
         week_location: language,
-        week_days: formattedWeekDays,
+        week_days: updatedWeekDays,
       });
     };
 
     fetchData();
-  }, [userId, currentWeekNumber, type, supabase]);
+  }, [userId, currentWeekNumber, type, supabase, departmentId]);
 
   const lockDay = async (dayDate: string, lockedValue: boolean) => {
     const day = week.week_days.find((day) => day.date === dayDate);

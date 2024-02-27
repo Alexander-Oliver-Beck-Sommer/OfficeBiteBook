@@ -24,7 +24,7 @@ export default function Calendar({
     currentWeekNumber,
     lockDay,
     togglePublished,
-  } = useTimeMachine(userId);
+  } = useTimeMachine(userId, departmentId);
 
   return (
     <>
