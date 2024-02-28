@@ -5,21 +5,21 @@ import Link from "next/link";
 import NavigationMenu from "./NavigationMenu";
 import HamburgerMenu from "@/components/Header/HamburgerMenu";
 import useUtilities from "@/hooks/useUtilities";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import useSupabaseUsers from "@/hooks/useSupabaseUsers";
 
 const Header = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const { disableBodyScroll } = useUtilities();
-  const supabase = createClientComponentClient();
   const [isLoggedIn, setIsLoggedIn] = useState<false | null>(false);
+  const { fetchUserFromSession } = useSupabaseUsers();
 
   const fetchUser = async () => {
-    const { data, error } = await supabase.auth.getUser();
-    if (error) {
-      setIsLoggedIn(false);
-      return;
-    } else if (data) {
+    const user = await fetchUserFromSession();
+
+    if (user) {
       setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
     }
   };
 

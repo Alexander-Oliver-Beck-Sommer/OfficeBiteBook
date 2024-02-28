@@ -197,7 +197,7 @@ const useSupabaseUsers = () => {
       const {
         data: { user },
         error: userError,
-      };
+      } = await supabase.auth.getUser();
 
       if (userError) {
         console.error(
