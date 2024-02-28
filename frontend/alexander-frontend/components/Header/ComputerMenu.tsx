@@ -35,7 +35,6 @@ const ComputerMenu: React.FC<ComputerMenuProps> = ({
                 path={link.path}
                 showIcon={true}
                 direction="right"
-                toolTip={true}
                 label={link.label}
               />
             </li>
@@ -50,7 +49,6 @@ const ComputerMenu: React.FC<ComputerMenuProps> = ({
             path="/login"
             showIcon={true}
             direction="right"
-            toolTip={true}
             label={user ? "Log out" : "Log in"}
           />
         </li>

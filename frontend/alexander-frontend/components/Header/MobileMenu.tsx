@@ -49,7 +49,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                 path={link.path}
                 showIcon={true}
                 direction="right"
-                toolTip={true}
                 label={link.label}
                 variant="hamburger-link"
               />
@@ -64,7 +63,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             path="/login"
             showIcon={true}
             direction="right"
-            toolTip={true}
             label={user ? "Log out" : "Log in"}
             variant="hamburger-link"
           />

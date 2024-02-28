@@ -12,13 +12,13 @@ const useHeader = () => {
   const links = [
     {
       text: "Departments", // Text to display
-      label: "Navigate to departments", // value for aria-label and title
+      label: "Departments", // value for aria-label and title
       path: "/", // Path to navigate to
       icon: "office", // Icon name - must be provided in the underlined link component
     },
     {
       text: "Profile",
-      label: "Navigate to profile",
+      label: "Profile",
       path: "/profile",
       icon: "profile",
     },
