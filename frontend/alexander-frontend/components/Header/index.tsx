@@ -1,57 +1,12 @@
 "use client";
 import { Slant } from "hamburger-react";
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import ComputerMenu from "./ComputerMenu";
 import MobileMenu from "./MobileMenu";
-import useUtilities from "@/hooks/useUtilities";
-import useSupabaseUsers from "@/hooks/useSupabaseUsers";
+import useHeader from "./useHeader";
 
 const Header = () => {
-  const [visibility, setVisibility] = useState<boolean>(false);
-  const [user, setUser] = useState<boolean>(false);
-  const { disableBodyScroll } = useUtilities();
-  const { fetchUserFromSession } = useSupabaseUsers();
-
-  // Awaits fetchUserFromSession and determines if user is logged in
-  const fetchUser = async () => {
-    const user = await fetchUserFromSession();
-
-    if (user) {
-      setUser(true);
-    } else {
-      setUser(false);
-    }
-  };
-
-  // Check if user is logged in on page load
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
-  // Disable body scroll when menu is visible
-  disableBodyScroll(visibility);
-
-  // Toggle menu visibility
-  const handleBurgerMenu = () => {
-    setVisibility(!visibility);
-  };
-
-  // Array of links that will be displayed in both menus 📚
-  const links = [
-    {
-      text: "Departments", // Text to display
-      label: "Navigate to departments", // value for aria-label and title
-      path: "/", // Path to navigate to
-      icon: "office", // Icon name - must be provided in the underlined link component
-    },
-    {
-      text: "Profile",
-      label: "Navigate to profile",
-      path: "/profile",
-      icon: "profile",
-    },
-  ];
+  const { visibility, handleBurgerMenu, user, links } = useHeader();
 
   return (
     <header className="flex h-header_height items-center justify-center bg-dark-100 px-4 md:px-12">
