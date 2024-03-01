@@ -1,12 +1,12 @@
 export interface DishProps {
-  dish_id?: string;
-  user_id?: string;
-  menu_id?: string[];
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  recipe?: string;
-  thumbnail_url?: string;
-  thumbnail_file?: File;
-  created_at?: string;
+  dish_id: string; // UUID - Primary Key
+  user_id: string; // UUID
+  menu_id: string[]; // jsonb that contains UUIDs of menu objects
+  title: string; // text
+  subtitle: string; // text
+  description: string; // text
+  recipe: string; // text
+  thumbnail_url: string; // text
+  thumbnail_file: File; // this is not an actual field in the table.
+  created_at: string; // text
 }

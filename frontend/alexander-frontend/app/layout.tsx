@@ -1,7 +1,6 @@
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import localfont from "next/font/local";
-import siteSettings from "@/data/siteSettings";
 import { ToastContainer, toast } from "react-toastify";
 import Header from "@/components/Header";
 import NextTopLoader from "nextjs-toploader";
@@ -108,7 +107,7 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: `${siteSettings.site_name}`,
+  title: "OfficeBiteBook",
   description: "Create and share delicious meals with your office!",
 };
 

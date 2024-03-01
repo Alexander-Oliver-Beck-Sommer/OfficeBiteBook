@@ -61,7 +61,7 @@ const Day: React.FC<DayProps> = ({
               onClick={celebrationsToggle}
               className="group relative h-6 w-6"
             >
-              <CelebrationsIcon className="fill-primary" />
+              🎂
               <div className="invisible absolute -top-full right-0 z-50 opacity-0 shadow-lg shadow-dark-100 transition duration-300 group-hover:visible group-hover:-translate-y-3/4 group-hover:opacity-100">
                 <ul className="max-h-20 w-80 overflow-y-auto rounded border-2 border-dark-500 bg-dark-100">
                   {celebrations.map((celebration, index) => (
